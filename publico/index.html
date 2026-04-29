@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Bitácora del Huerto</title>
+    <style>
+        body { font-family: sans-serif; padding: 40px; background-color: #f0f8f5; text-align: center; }
+        .caja-mensaje { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; border-top: 5px solid #118d57; }
+        .fecha { color: #888; font-size: 14px; margin-bottom: 10px; }
+        .texto { font-size: 18px; color: #333; }
+    </style>
+</head>
+<body>
+    <h2>Actualización del Huerto Escolar</h2>
+    <div class="caja-mensaje" id="resultado">
+        <p>Cargando mensaje...</p>
+    </div>
+
+    <script>
+        async function obtenerMensaje() {
+            try {
+                const respuesta = await fetch('/api/mensaje');
+                const datos = await respuesta.json();
+                const caja = document.getElementById('resultado');
+                
+                if (datos && datos.mensaje) {
+                    caja.innerHTML = `
+                        <div class="fecha">Fecha: ${datos.fecha}</div>
+                        <div class="texto">"${datos.mensaje}"</div>
+                    `;
+                } else {
+                    caja.innerHTML = `<p>No se encontraron datos.</p>`;
+                }
+            } catch (error) {
+                document.getElementById('resultado').innerHTML = `<p>Error al cargar la API.</p>`;
+            }
+        }
+        obtenerMensaje();
+    </script>
+</body>
+</html>

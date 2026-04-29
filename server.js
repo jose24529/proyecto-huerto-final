@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const uri = process.env.MONGO_URI;
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'publico')));
 
 app.get('/api/mensaje', async (req, res) => {
     const client = new MongoClient(uri);
