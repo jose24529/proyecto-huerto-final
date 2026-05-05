@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Huerto</title>
+</head>
+<body>
+    <h2>Registrar actividad en el huerto</h2>
+    <input type="text" id="tipoPlanta" placeholder="Tipo de Planta (ej. Lavanda)"><br>
+    <input type="number" id="altura" placeholder="Altura (cm)"><br>
+    <input type="number" id="anchura" placeholder="Anchura (cm)"><br>
+    <input type="text" id="abono" placeholder="Tipo de Abono"><br>
+    <input type="text" id="riego" placeholder="Sistema de Riego"><br>
+    <textarea id="obs" placeholder="Observaciones generales"></textarea><br>
+    <button onclick="guardarBitacora()">Guardar en Bitácora</button>
+
+    <script>
+        // Verificamos si tiene permiso de estar aquí
+        if(!localStorage.getItem('token')) window.location.href = '/';
+
+        async function guardarBitacora() {
+            const data = {
+                tipoPlanta: document.getElementById('tipoPlanta').value,
+                altura: document.getElementById('altura').value,
+                anchura: document.getElementById('anchura').value,
+                tipoAbono: document.getElementById('abono').value,
+                sistemaRiego: document.getElementById('riego').value,
+                observaciones: document.getElementById('obs').value
+            };
+            await fetch('/api/bitacora', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            alert('¡Cambio registrado en el huerto!');
+        }
+    </script>
+</body>
+</html>

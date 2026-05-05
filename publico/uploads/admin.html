@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administrador</title>
+</head>
+<body>
+    <h2>Panel de Control - Administrador</h2>
+    
+    <h3>Subir Imagen al Huerto</h3>
+    <input type="file" id="imagenInput" accept="image/*">
+    <button onclick="subirImagen()">Subir Imagen</button>
+
+    <script>
+        if(!localStorage.getItem('token')) window.location.href = '/';
+
+        async function subirImagen() {
+            const input = document.getElementById('imagenInput');
+            const formData = new FormData();
+            formData.append('imagen', input.files[0]);
+
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await res.json();
+            alert('Imagen subida con éxito en: ' + data.imageUrl);
+        }
+    </script>
+</body>
+</html>
