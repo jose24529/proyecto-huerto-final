@@ -12,6 +12,10 @@
     <input type="text" id="abono" placeholder="Tipo de Abono"><br>
     <input type="text" id="riego" placeholder="Sistema de Riego"><br>
     <textarea id="obs" placeholder="Observaciones generales"></textarea><br>
+    
+    <label for="imagenHuerto">Foto del huerto:</label>
+    <input type="file" id="imagenHuerto" accept="image/*"><br><br>
+    
     <button onclick="guardarBitacora()">Guardar en Bitácora</button>
 
     <script>
@@ -19,20 +23,41 @@
         if(!localStorage.getItem('token')) window.location.href = '/';
 
         async function guardarBitacora() {
-            const data = {
-                tipoPlanta: document.getElementById('tipoPlanta').value,
-                altura: document.getElementById('altura').value,
-                anchura: document.getElementById('anchura').value,
-                tipoAbono: document.getElementById('abono').value,
-                sistemaRiego: document.getElementById('riego').value,
-                observaciones: document.getElementById('obs').value
-            };
-            await fetch('/api/bitacora', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-            alert('¡Cambio registrado en el huerto!');
+            // 1. Creamos el empaque para enviar texto y archivos juntos
+            const formData = new FormData();
+    
+            // 2. Recolectamos los textos
+            formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
+            formData.append('altura', document.getElementById('altura').value);
+            formData.append('anchura', document.getElementById('anchura').value);
+            formData.append('abono', document.getElementById('abono').value);
+            formData.append('riego', document.getElementById('riego').value);
+            formData.append('observaciones', document.getElementById('obs').value); 
+
+            // 3. Recolectamos la imagen
+            const archivoImagen = document.getElementById('imagenHuerto').files[0];
+            if (archivoImagen) {
+                formData.append('imagen', archivoImagen);
+            }
+
+            // 4. Lo enviamos al servidor
+            try {
+                const respuesta = await fetch('/api/bitacora', {
+                    method: 'POST',
+                    body: formData 
+                });
+
+                if(respuesta.ok) {
+                    alert('¡Cambio y foto registrados en el huerto!');
+                    // Limpiar los campos después de guardar
+                    document.querySelectorAll('input[type="text"], input[type="number"], textarea, input[type="file"]').forEach(input => input.value = '');
+                } else {
+                    alert('Hubo un error al intentar guardar.');
+                }
+            } catch(error) {
+                console.error("Error al enviar:", error);
+                alert('Error de conexión con el servidor.');
+            }
         }
     </script>
 </body>
