@@ -2,50 +2,81 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mi Huerto - Bitácora</title>
+    <title>Bitácora del Huerto</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        #seccionAdmin { display: none; background: #e8f5e9; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #c8e6c9; }
+        .campo { margin-bottom: 10px; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+        .entrada { border-bottom: 2px solid #eee; padding: 20px 0; }
+        .entrada img { max-width: 100%; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .logout { float: right; color: red; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <h2>Registrar actividad en el huerto</h2>
-    <input type="text" id="tipoPlanta" placeholder="Tipo de Planta"><br>
-    <input type="number" id="altura" placeholder="Altura (cm)"><br>
-    <input type="number" id="anchura" placeholder="Anchura (cm)"><br>
-    <input type="text" id="abono" placeholder="Tipo de Abono"><br>
-    <input type="text" id="riego" placeholder="Sistema de Riego"><br>
-    <textarea id="obs" placeholder="Observaciones"></textarea><br>
-    
-    <label>Foto del huerto:</label>
-    <input type="file" id="imagenHuerto" accept="image/*"><br><br>
-    
-    <button onclick="guardarBitacora()">Guardar en Bitácora</button>
+    <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
+    <h1>🌱 Historial del Huerto</h1>
+
+    <div id="seccionAdmin">
+        <h2>Nueva Entrada (Panel Admin)</h2>
+        <div class="campo"><input type="text" id="tipoPlanta" placeholder="Nombre de la planta"></div>
+        <div class="campo"><input type="number" id="altura" placeholder="Altura (cm)"></div>
+        <div class="campo"><input type="text" id="abono" placeholder="Tipo de abono usado"></div>
+        <div class="campo"><textarea id="obs" placeholder="Observaciones generales..."></textarea></div>
+        <div class="campo"> Foto: <input type="file" id="imagenHuerto"></div>
+        <button onclick="guardar()" style="background: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Publicar Cambio</button>
+    </div>
+
+    <div id="contenedorBitacora">Cargando registros...</div>
 
     <script>
-        if(!localStorage.getItem('token')) window.location.href = '/';
+        const token = localStorage.getItem('token');
+        const rol = localStorage.getItem('rol');
 
-        async function guardarBitacora() {
+        if(!token) window.location.href = '/';
+
+        // Si es admin, mostramos el formulario
+        if(rol === 'admin') {
+            document.getElementById('seccionAdmin').style.display = 'block';
+        }
+
+        async function cargarDatos() {
+            const res = await fetch('/api/bitacora');
+            const registros = await res.json();
+            const contenedor = document.getElementById('contenedorBitacora');
+            contenedor.innerHTML = '';
+
+            registros.forEach(reg => {
+                contenedor.innerHTML += `
+                    <div class="entrada">
+                        <small>${new Date(reg.fecha).toLocaleString()}</small>
+                        <h3>🌿 ${reg.tipoPlanta}</h3>
+                        <p><strong>Crecimiento:</strong> ${reg.altura} cm | <strong>Abono:</strong> ${reg.abono || 'N/A'}</p>
+                        <p><strong>Notas:</strong> ${reg.observaciones}</p>
+                        ${reg.imagenUrl ? `<img src="${reg.imagenUrl}">` : ''}
+                    </div>
+                `;
+            });
+        }
+
+        async function guardar() {
             const formData = new FormData();
             formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
             formData.append('altura', document.getElementById('altura').value);
-            formData.append('anchura', document.getElementById('anchura').value);
             formData.append('abono', document.getElementById('abono').value);
-            formData.append('riego', document.getElementById('riego').value);
-            formData.append('observaciones', document.getElementById('obs').value); 
+            formData.append('observaciones', document.getElementById('obs').value);
+            const foto = document.getElementById('imagenHuerto').files[0];
+            if(foto) formData.append('imagen', foto);
 
-            const archivo = document.getElementById('imagenHuerto').files[0];
-            if (archivo) formData.append('imagen', archivo);
-
-            try {
-                const res = await fetch('/api/bitacora', {
-                    method: 'POST',
-                    body: formData 
-                });
-                if(res.ok) {
-                    alert('¡Actividad guardada!');
-                    location.reload();
-                }
-            } catch(error) {
-                alert('Error al conectar con el servidor.');
+            const res = await fetch('/api/bitacora', { method: 'POST', body: formData });
+            if(res.ok) {
+                alert("¡Guardado!");
+                document.querySelectorAll('input, textarea').forEach(i => i.value = '');
+                cargarDatos();
             }
         }
+
+        cargarDatos();
     </script>
 </body>
 </html>
