@@ -4,16 +4,27 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs'); // <--- CAMBIO 1: Importamos FS para manejar carpetas
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'publico')));
 
+// --- CONFIGURACIÓN DE CARPETA (Crítico para Render) ---
+const uploadDir = path.join(__dirname, 'publico/uploads/');
+if (!fs.existsSync(uploadDir)){
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
+
 // --- MULTER PARA FOTOS ---
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, 'publico/uploads/'),
-    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
+    destination: (req, file, cb) => {
+        cb(null, uploadDir); // Usa la ruta segura que definimos arriba
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    }
 });
 const upload = multer({ storage: storage });
 
@@ -24,22 +35,32 @@ mongoose.connect(process.env.MONGO_URI)
 
 // --- MODELOS ---
 const User = mongoose.model('User', new mongoose.Schema({
-    nombre: String, correo: { type: String, unique: true }, password: String, rol: { type: String, default: 'usuario' }
+    nombre: String, 
+    correo: { type: String, unique: true }, 
+    password: String, 
+    rol: { type: String, default: 'usuario' }
 }));
 
 const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
-    tipoPlanta: String, altura: Number, abono: String, observaciones: String, imagenUrl: String, fecha: { type: Date, default: Date.now }
+    tipoPlanta: String, 
+    altura: Number, 
+    abono: String, 
+    observaciones: String, 
+    imagenUrl: String, 
+    fecha: { type: Date, default: Date.now }
 }));
 
 // --- RUTAS API ---
 
 // 1. Registro
 app.post('/api/registro', async (req, res) => {
-    const salt = await bcrypt.genSalt(10);
-    const passHash = await bcrypt.hash(req.body.password, salt);
-    const nuevo = new User({...req.body, password: passHash});
-    await nuevo.save();
-    res.json({ mensaje: "Usuario creado" });
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const passHash = await bcrypt.hash(req.body.password, salt);
+        const nuevo = new User({...req.body, password: passHash});
+        await nuevo.save();
+        res.json({ mensaje: "Usuario creado" });
+    } catch (e) { res.status(500).json({error: e.message}); }
 });
 
 // 2. Login
@@ -59,11 +80,24 @@ app.get('/api/bitacora', async (req, res) => {
     res.json(lista);
 });
 
-// 4. Guardar Bitácora (Admin)
+// 4. Guardar Bitácora (Admin) - CORREGIDO PARA RECIBIR IMAGEN
 app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
-    const datos = {...req.body, imagenUrl: req.file ? '/uploads/' + req.file.filename : ''};
-    await Bitacora.create(datos);
-    res.json({ mensaje: "Ok" });
+    try {
+        const nuevaEntrada = {
+            tipoPlanta: req.body.tipoPlanta,
+            altura: req.body.altura,
+            abono: req.body.abono,
+            observaciones: req.body.observaciones,
+            // Guardamos la ruta que el navegador puede leer
+            imagenUrl: req.file ? '/uploads/' + req.file.filename : ''
+        };
+        
+        await Bitacora.create(nuevaEntrada);
+        res.json({ mensaje: "Guardado con éxito" });
+    } catch (error) {
+        console.error("Error al guardar:", error);
+        res.status(500).json({ error: "Error en el servidor" });
+    }
 });
 
 const PORT = process.env.PORT || 3000;

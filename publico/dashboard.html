@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <title>Bitácora del Huerto</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        #seccionAdmin { display: none; background: #e8f5e9; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #c8e6c9; }
-        .campo { margin-bottom: 10px; }
-        input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
-        .entrada { border-bottom: 2px solid #eee; padding: 20px 0; }
-        .entrada img { max-width: 100%; border-radius: 8px; margin-top: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .logout { float: right; color: red; cursor: pointer; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+        #seccionAdmin { display: none; background: #e8f5e9; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #c8e6c9; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .campo { margin-bottom: 12px; }
+        label { font-weight: bold; display: block; margin-bottom: 5px; color: #2e7d32; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .entrada { background: white; border: 1px solid #eee; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .entrada img { max-width: 100%; border-radius: 8px; margin-top: 15px; display: block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .logout { float: right; color: #d32f2f; cursor: pointer; font-weight: bold; text-decoration: underline; }
+        h1 { color: #1b5e20; }
+        button { background: #2e7d32; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; }
+        button:hover { background: #1b5e20; }
     </style>
 </head>
 <body>
@@ -19,12 +23,27 @@
 
     <div id="seccionAdmin">
         <h2>Nueva Entrada (Panel Admin)</h2>
-        <div class="campo"><input type="text" id="tipoPlanta" placeholder="Nombre de la planta"></div>
-        <div class="campo"><input type="number" id="altura" placeholder="Altura (cm)"></div>
-        <div class="campo"><input type="text" id="abono" placeholder="Tipo de abono usado"></div>
-        <div class="campo"><textarea id="obs" placeholder="Observaciones generales..."></textarea></div>
-        <div class="campo"> Foto: <input type="file" id="imagenHuerto"></div>
-        <button onclick="guardar()" style="background: #2e7d32; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Publicar Cambio</button>
+        <div class="campo">
+            <label>Planta:</label>
+            <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
+        </div>
+        <div class="campo">
+            <label>Altura (cm):</label>
+            <input type="number" id="altura" placeholder="Ej. 15">
+        </div>
+        <div class="campo">
+            <label>Abono:</label>
+            <input type="text" id="abono" placeholder="Ej. Compost orgánico">
+        </div>
+        <div class="campo">
+            <label>Observaciones:</label>
+            <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
+        </div>
+        <div class="campo">
+            <label>Foto del progreso:</label>
+            <input type="file" id="imagenHuerto" accept="image/*">
+        </div>
+        <button onclick="guardarBitacora()">Publicar en Bitácora</button>
     </div>
 
     <div id="contenedorBitacora">Cargando registros...</div>
@@ -33,49 +52,75 @@
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
+        // Protección de ruta
         if(!token) window.location.href = '/';
 
-        // Si es admin, mostramos el formulario
+        // Mostrar sección de subida solo si el rol guardado es 'admin'
         if(rol === 'admin') {
             document.getElementById('seccionAdmin').style.display = 'block';
         }
 
         async function cargarDatos() {
-            const res = await fetch('/api/bitacora');
-            const registros = await res.json();
-            const contenedor = document.getElementById('contenedorBitacora');
-            contenedor.innerHTML = '';
+            try {
+                const res = await fetch('/api/bitacora');
+                const registros = await res.json();
+                const contenedor = document.getElementById('contenedorBitacora');
+                
+                if (registros.length === 0) {
+                    contenedor.innerHTML = '<p>No hay registros aún. ¡El admin debe subir el primero!</p>';
+                    return;
+                }
 
-            registros.forEach(reg => {
-                contenedor.innerHTML += `
-                    <div class="entrada">
-                        <small>${new Date(reg.fecha).toLocaleString()}</small>
-                        <h3>🌿 ${reg.tipoPlanta}</h3>
-                        <p><strong>Crecimiento:</strong> ${reg.altura} cm | <strong>Abono:</strong> ${reg.abono || 'N/A'}</p>
-                        <p><strong>Notas:</strong> ${reg.observaciones}</p>
-                        ${reg.imagenUrl ? `<img src="${reg.imagenUrl}">` : ''}
-                    </div>
-                `;
-            });
+                contenedor.innerHTML = '';
+                registros.forEach(reg => {
+                    contenedor.innerHTML += `
+                        <div class="entrada">
+                            <small style="color: #666;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
+                            <h3>🌿 ${reg.tipoPlanta}</h3>
+                            <p><strong>Crecimiento:</strong> ${reg.altura} cm | <strong>Abono:</strong> ${reg.abono || 'No especificado'}</p>
+                            <p><strong>Notas:</strong> ${reg.observaciones}</p>
+                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #999;"><i>Sin imagen adjunta</i></p>'}
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error al cargar datos:", error);
+            }
         }
 
-        async function guardar() {
+        async function guardarBitacora() {
             const formData = new FormData();
             formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
             formData.append('altura', document.getElementById('altura').value);
             formData.append('abono', document.getElementById('abono').value);
-            formData.append('observaciones', document.getElementById('obs').value);
-            const foto = document.getElementById('imagenHuerto').files[0];
-            if(foto) formData.append('imagen', foto);
+            formData.append('observaciones', document.getElementById('obs').value); 
 
-            const res = await fetch('/api/bitacora', { method: 'POST', body: formData });
-            if(res.ok) {
-                alert("¡Guardado!");
-                document.querySelectorAll('input, textarea').forEach(i => i.value = '');
-                cargarDatos();
+            const archivo = document.getElementById('imagenHuerto').files[0];
+            if (archivo) {
+                formData.append('imagen', archivo); 
+            }
+
+            try {
+                const res = await fetch('/api/bitacora', {
+                    method: 'POST',
+                    body: formData 
+                    // No enviamos headers de Content-Type, FormData lo hace solo
+                });
+
+                if(res.ok) {
+                    alert('¡Excelente! Registro y foto guardados correctamente.');
+                    location.reload(); // Recarga para ver el nuevo post
+                } else {
+                    const errorData = await res.json();
+                    alert('Error: ' + (errorData.error || 'No se pudo subir'));
+                }
+            } catch (error) {
+                console.error("Error en la petición:", error);
+                alert('Error de conexión con el servidor.');
             }
         }
 
+        // Ejecutar al cargar la página
         cargarDatos();
     </script>
 </body>
