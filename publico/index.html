@@ -10,6 +10,8 @@
     <input type="password" id="loginPass" placeholder="Contraseña">
     <button onclick="login()">Entrar</button>
 
+    <hr>
+
     <h2>Registrarse</h2>
     <input type="text" id="regNombre" placeholder="Nombre">
     <input type="email" id="regCorreo" placeholder="Correo">
@@ -28,7 +30,8 @@
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             });
-            alert("Registrado! Ya puedes iniciar sesión.");
+            if(res.ok) alert("¡Registrado! Ya puedes iniciar sesión.");
+            else alert("Error al registrar.");
         }
 
         async function login() {
@@ -44,14 +47,15 @@
             const info = await res.json();
             
             if(info.token) {
-                localStorage.setItem('token', info.token); // Guardamos la sesión
-                if(info.rol === 'admin') {
-                    window.location.href = '/admin.html';
-                } else {
-                    window.location.href = '/dashboard.html';
-                }
+                // GUARDAMOS TOKEN Y ROL
+                localStorage.setItem('token', info.token);
+                localStorage.setItem('rol', info.rol); 
+                
+                // Redirección por rol
+                if(info.rol === 'admin') window.location.href = '/admin.html';
+                else window.location.href = '/dashboard.html';
             } else {
-                alert("Error en los datos");
+                alert("Correo o contraseña incorrectos");
             }
         }
     </script>

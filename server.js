@@ -10,29 +10,19 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'publico')));
 
-// ==============================================
-// 1. CONFIGURACIÓN DE IMÁGENES (Multer)
-// ==============================================
+// --- 1. CONFIGURACIÓN DE MULTER ---
 const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'publico/uploads/') 
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + path.extname(file.originalname))
-    }
+    destination: (req, file, cb) => cb(null, 'publico/uploads/'),
+    filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
 });
 const upload = multer({ storage: storage });
 
-// ==============================================
-// 2. CONEXIÓN A MONGODB
-// ==============================================
+// --- 2. CONEXIÓN A MONGODB ---
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Conectado a MongoDB'))
-    .catch(err => console.error('Error al conectar:', err));
+    .catch(err => console.error('Error:', err));
 
-// ==============================================
-// 3. MODELOS DE BASE DE DATOS
-// ==============================================
+// --- 3. MODELOS ---
 const User = mongoose.model('User', new mongoose.Schema({
     nombre: String,
     correo: { type: String, unique: true },
@@ -47,60 +37,45 @@ const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
     abono: String,
     riego: String,
     observaciones: String,
-    autor: String,
-    imagenUrl: String, // ¡Agregamos esto para que la base de datos acepte la foto!
+    imagenUrl: String,
     fecha: { type: Date, default: Date.now }
 }));
 
-const ConfigSite = mongoose.model('Config', new mongoose.Schema({
-    mostrarGaleria: { type: Boolean, default: true },
-    mostrarObservaciones: { type: Boolean, default: true }
-}));
+// --- 4. RUTAS (API) ---
 
-// ==============================================
-// 4. RUTAS DE LA API (Endpoints)
-// ==============================================
-
-// Guardar la bitácora con foto
-app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
-    try {
-        const nuevaActividad = {
-            tipoPlanta: req.body.tipoPlanta,
-            altura: req.body.altura,
-            anchura: req.body.anchura,
-            abono: req.body.abono,
-            riego: req.body.riego,
-            observaciones: req.body.observaciones,
-            imagenUrl: req.file ? '/uploads/' + req.file.filename : ''
-        };
-
-        await Bitacora.create(nuevaActividad); 
-
-        res.status(200).json({ mensaje: "¡Guardado con éxito!" });
-    } catch (error) {
-        console.error("Error al guardar la bitácora:", error);
-        res.status(500).json({ error: "Error en el servidor" });
-    }
+// Registro de usuarios
+app.post('/api/registro', async (req, res) => {
+    const salt = await bcrypt.genSalt(10);
+    const passHash = await bcrypt.hash(req.body.password, salt);
+    const nuevo = new User({...req.body, password: passHash});
+    await nuevo.save();
+    res.json({ mensaje: "Usuario creado" });
 });
 
-// Login y Autenticación
+// Login
 app.post('/api/login', async (req, res) => {
     const user = await User.findOne({ correo: req.body.correo });
-    if (!user) return res.status(400).json({ error: 'Usuario no encontrado' });
+    if (!user) return res.status(400).json({ error: 'No existe' });
+    const esValido = await bcrypt.compare(req.body.password, user.password);
+    if (!esValido) return res.status(400).json({ error: 'Pass incorrecto' });
 
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) return res.status(400).json({ error: 'Contraseña incorrecta' });
-
-    const token = jwt.sign({ id: user._id, rol: user.rol, nombre: user.nombre }, 'secreto_super_seguro');
-    res.json({ token, rol: user.rol });
+    const token = jwt.sign({ id: user._id, rol: user.rol }, 'secreto_super_seguro');
+    res.json({ token, rol: user.rol }); // Enviamos el rol al cliente
 });
 
-// Administrador: Subir solo imagen (Galería)
+// Guardar bitácora
+app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
+    try {
+        const datos = {...req.body, imagenUrl: req.file ? '/uploads/'+req.file.filename : ''};
+        await Bitacora.create(datos);
+        res.json({ mensaje: "Guardado" });
+    } catch (e) { res.status(500).send(e); }
+});
+
+// Subida directa (Admin)
 app.post('/api/upload', upload.single('imagen'), (req, res) => {
-    if (!req.file) return res.status(400).json({ error: 'No se subió imagen' });
     res.json({ imageUrl: `/uploads/${req.file.filename}` });
 });
 
-// --- INICIO DEL SERVIDOR ---
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Puerto ${PORT}`));

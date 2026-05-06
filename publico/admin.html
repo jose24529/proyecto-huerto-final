@@ -7,49 +7,33 @@
 <body>
     <h2>Panel de Control - Administrador</h2>
     
-    <h3>Subir Imagen al Huerto</h3>
+    <h3>Subir Imagen a la Galería</h3>
     <input type="file" id="imagenInput" accept="image/*">
     <button onclick="subirImagen()">Subir Imagen</button>
 
     <script>
-        // 1. Verificamos que tenga token Y que su rol sea admin
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
+        // Seguridad: Si no es admin, lo echamos
         if(!token || rol !== 'admin') {
-            alert('Acceso denegado. Área exclusiva para administradores.');
+            alert('Área exclusiva para administradores.');
             window.location.href = '/';
         }
 
         async function subirImagen() {
             const input = document.getElementById('imagenInput');
-            
-            // Verificamos que sí hayan seleccionado un archivo
-            if (input.files.length === 0) {
-                alert("Selecciona una imagen primero.");
-                return;
-            }
+            if(input.files.length === 0) return alert("Elige una foto.");
 
             const formData = new FormData();
             formData.append('imagen', input.files[0]);
 
-            try {
-                const res = await fetch('/api/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-                const data = await res.json();
-                
-                if(res.ok) {
-                    alert('Imagen subida con éxito en: ' + data.imageUrl);
-                    input.value = ''; // Limpiamos el selector
-                } else {
-                    alert('Error al subir la imagen');
-                }
-            } catch (error) {
-                console.error(error);
-                alert('Error de conexión con el servidor.');
-            }
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await res.json();
+            alert('Imagen subida en: ' + data.imageUrl);
         }
     </script>
 </body>
