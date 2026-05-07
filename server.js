@@ -4,28 +4,17 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
-const fs = require('fs'); // <--- CAMBIO 1: Importamos FS para manejar carpetas
 require('dotenv').config();
 
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'publico')));
 
-// --- CONFIGURACIÓN DE CARPETA (Crítico para Render) ---
-const uploadDir = path.join(__dirname, 'publico/uploads/');
-if (!fs.existsSync(uploadDir)){
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// --- MULTER PARA FOTOS ---
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, uploadDir); // Usa la ruta segura que definimos arriba
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
-    }
-});
+// ==============================================
+// NUEVA CONFIGURACIÓN DE IMÁGENES (Memoria RAM)
+// En lugar de guardarlas en una carpeta, las atrapamos en memoria
+// ==============================================
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // --- CONEXIÓN MONGODB ---
@@ -46,7 +35,7 @@ const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
     altura: Number, 
     abono: String, 
     observaciones: String, 
-    imagenUrl: String, 
+    imagenUrl: String, // Aquí ahora se guardará la imagen convertida a texto
     fecha: { type: Date, default: Date.now }
 }));
 
@@ -80,16 +69,22 @@ app.get('/api/bitacora', async (req, res) => {
     res.json(lista);
 });
 
-// 4. Guardar Bitácora (Admin) - CORREGIDO PARA RECIBIR IMAGEN
+// 4. Guardar Bitácora (Admin) - ¡MAGIA BASE64 AQUÍ!
 app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     try {
+        let imagenBase64 = '';
+        
+        // Si subieron una imagen, la convertimos a formato de texto (Base64)
+        if (req.file) {
+            imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+        }
+
         const nuevaEntrada = {
             tipoPlanta: req.body.tipoPlanta,
             altura: req.body.altura,
             abono: req.body.abono,
             observaciones: req.body.observaciones,
-            // Guardamos la ruta que el navegador puede leer
-            imagenUrl: req.file ? '/uploads/' + req.file.filename : ''
+            imagenUrl: imagenBase64 // La imagen ahora se guarda directo en MongoDB
         };
         
         await Bitacora.create(nuevaEntrada);
@@ -98,6 +93,13 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
         console.error("Error al guardar:", error);
         res.status(500).json({ error: "Error en el servidor" });
     }
+});
+
+// 5. Ruta para admin (Subida individual a galería)
+app.post('/api/upload', upload.single('imagen'), (req, res) => {
+    if (!req.file) return res.status(400).json({ error: 'No se subió imagen' });
+    const imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+    res.json({ imageUrl: imagenBase64 });
 });
 
 const PORT = process.env.PORT || 3000;
