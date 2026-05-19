@@ -12,50 +12,48 @@
         .entrada { background: white; border: 1px solid #eee; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         .entrada img { max-width: 100%; border-radius: 8px; margin-top: 15px; display: block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
         .logout { float: right; color: #d87a65; cursor: pointer; font-weight: bold; text-decoration: underline; }
-        h1 { color: #5b4190; font-style: italic; margin-top: 50px; }
+        h1 { color: #5b4190; font-style: italic; margin-top: 50px; font-family: 'Times New Roman', Times, serif;}
         button { background: #3d783f; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; }
         button:hover { background: #428c47; }
     </style>
 </head>
 <body>
     <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
-    <h1>Historial del Huerto!!</h1>
+    <h1>Bitacora del Huerto :3</h1>
 
     <div id="seccionAdmin">
         <h2>Nueva Entrada (Panel Admin)</h2>
         <div class="campo">
-            <label>Planta:</label>
-            <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
+            <label>Dueño de la lavandita:</label>
+            <input type="text" id="tipoPlanta" placeholder="Integrante del equipo..">
         </div>
         <div class="campo">
-            <label>Altura (cm):</label>
+            <label>Altura (en cm):</label>
             <input type="number" id="altura" placeholder="Ej. 15">
         </div>
         <div class="campo">
             <label>Abono:</label>
-            <input type="text" id="abono" placeholder="Ej. Compost orgánico">
+            <input type="text" id="abono" placeholder="Tipo de abono utilizado.">
         </div>
         <div class="campo">
             <label>Observaciones:</label>
-            <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
+            <textarea id="obs" rows="3" placeholder="Detallitos de la planta al registrar.."></textarea>
         </div>
         <div class="campo">
-            <label>Foto del progreso:</label>
+            <label>Foto a guardar:</label>
             <input type="file" id="imagenHuerto" accept="image/*">
         </div>
         <button onclick="guardarBitacora()">Publicar en Bitácora</button>
     </div>
 
-    <div id="contenedorBitacora">Cargando registros...</div>
+    <div id="contenedorBitacora">Cargando registros... Por favor espere..</div>
 
     <script>
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
-        // Protección de ruta
         if(!token) window.location.href = '/';
-
-        // Mostrar sección de subida solo si el rol guardado es 'admin'
+dmin'
         if(rol === 'admin') {
             document.getElementById('seccionAdmin').style.display = 'block';
         }
@@ -104,15 +102,14 @@
                 const res = await fetch('/api/bitacora', {
                     method: 'POST',
                     body: formData 
-                    // No enviamos headers de Content-Type, FormData lo hace solo
                 });
 
                 if(res.ok) {
                     alert('¡Excelente! Registro y foto guardados correctamente.');
-                    location.reload(); // Recarga para ver el nuevo post
+                    location.reload();
                 } else {
                     const errorData = await res.json();
-                    alert('Error: ' + (errorData.error || 'No se pudo subir'));
+                    alert('Error: ' + (errorData.error || 'No se pudo subir :c'));
                 }
             } catch (error) {
                 console.error("Error en la petición:", error);
@@ -120,7 +117,6 @@
             }
         }
 
-        // Ejecutar al cargar la página
         cargarDatos();
     </script>
 </body>
