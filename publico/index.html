@@ -21,10 +21,11 @@
             background: #ffffff;
             border: 1px solid #dbdbdb; 
             padding: 40px 30px; 
-            border-radius: 1px; /* Bordes más rectos estilo minimalista o ponle 12px si prefieres curvas */
+            border-radius: 1px; 
             width: 350px; 
             box-sizing: border-box;
             text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         /* Título con estilo de logo de app */
@@ -76,13 +77,54 @@
             font-size: 0.9rem;
             font-weight: bold;
             margin-top: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             transition: background 0.2s;
         }
 
         button:hover { 
             background: #1b5e20; 
         }
+
+        /* --- BLOQUE LLAMATIVO DE CHANGE.ORG --- */
+        .campaign-alert {
+            background-color: #fff5f5; /* Fondo rojizo suave de alerta */
+            border: 2px dashed #ff4d4d; /* Borde discontinuo llamativo */
+            border-radius: 6px;
+            padding: 14px;
+            margin-bottom: 20px;
+            font-size: 0.88rem;
+            color: #333333;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(255, 77, 77, 0.15);
+        }
+
+        .campaign-alert h4 {
+            margin: 0 0 6px 0;
+            color: #e53935; /* Rojo Change.org */
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .campaign-btn {
+            display: block;
+            text-align: center;
+            background: #e53935;
+            color: white !important;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+
+        .campaign-btn:hover {
+            background: #b71c1c;
+        }
+        /* ------------------------------------------- */
 
         /* El contenedor de abajo para alternar pantallas */
         .switch-form {
@@ -118,6 +160,12 @@
         <div class="brand-title">🌱 Huertito</div>
         <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
+        <div class="campaign-alert">
+            <h4>🚨 ¡ACCIÓN URGENTE REQUERIDA!</h4>
+            El planeta nos necesita hoy más que nunca. Únete a miles de personas firmando las peticiones activas por la conservación ambiental. ¡Tu firma salva bosques y especies!
+            <a href="https://www.change.org/topic/conservaci%C3%B3n-fr-fr" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
+        </div>
+
         <div id="formRegistro" autocomplete="off">
             <input type="text" id="regNombre" placeholder="Nombre completo" autocomplete="off">
             <input type="email" id="regCorreo" placeholder="Correo electrónico" autocomplete="off">
@@ -147,7 +195,7 @@
             document.getElementById('formLogin').classList.remove('hidden');
             document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
             
-            // Truco extra: Limpiamos los campos al cambiar de pantalla para asegurar limpieza absoluta
+            // Limpiamos los campos al cambiar de pantalla por seguridad
             document.getElementById('regNombre').value = '';
             document.getElementById('regCorreo').value = '';
             document.getElementById('regPass').value = '';
@@ -162,7 +210,7 @@
             document.getElementById('loginPass').value = '';
         }
 
-        // --- Función de registro con redirección automática ---
+        // --- Función de registro con redirección automática inteligente ---
         async function registrar() {
             const correoInput = document.getElementById('regCorreo').value;
             const passInput = document.getElementById('regPass').value;
@@ -173,6 +221,7 @@
                 password: passInput
             };
 
+            // 1. Creamos la cuenta en el servidor
             const res = await fetch('/api/registro', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -182,6 +231,7 @@
             if(res.ok) {
                 alert("¡Registrado con éxito! Entrando al huerto...");
                 
+                // 2. Login automático de fondo
                 const loginRes = await fetch('/api/login', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -190,6 +240,7 @@
                 
                 const info = await loginRes.json();
                 
+                // 3. Redirección directa al historial si el login es correcto
                 if(info.token) {
                     localStorage.setItem('token', info.token);
                     localStorage.setItem('rol', info.rol); 
@@ -202,7 +253,7 @@
             }
         }
 
-        // --- Función normal de inicio de sesión ---
+        // --- Función de inicio de sesión manual ---
         async function login() {
             const data = {
                 correo: document.getElementById('loginCorreo').value,
