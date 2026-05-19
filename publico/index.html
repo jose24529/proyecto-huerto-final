@@ -154,26 +154,51 @@
             document.getElementById('textoSlogan').innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
         }
 
-        // --- Tus funciones originales de Backend (Se mantienen intactas para que no rompas nada) ---
+        // --- Función de registro con redirección automática ---
         async function registrar() {
+            const correoInput = document.getElementById('regCorreo').value;
+            const passInput = document.getElementById('regPass').value;
+
             const data = {
                 nombre: document.getElementById('regNombre').value,
-                correo: document.getElementById('regCorreo').value,
-                password: document.getElementById('regPass').value
+                correo: correoInput,
+                password: passInput
             };
+
+            // 1. Enviamos la petición para crear el usuario en la base de datos
             const res = await fetch('/api/registro', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             });
+
             if(res.ok) {
-                alert("¡Registrado con éxito!");
-                mostrarLogin(); // Lo manda directo a iniciar sesión tras registrarse
+                alert("¡Registrado con éxito! Entrando al huerto...");
+                
+                // 2. Ejecutamos un inicio de sesión automático usando los mismos datos ingresados
+                const loginRes = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ correo: correoInput, password: passInput })
+                });
+                
+                const info = await loginRes.json();
+                
+                // 3. Si el login responde correctamente, guardamos el token y enviamos al dashboard
+                if(info.token) {
+                    localStorage.setItem('token', info.token);
+                    localStorage.setItem('rol', info.rol); 
+                    window.location.href = '/dashboard.html';
+                } else {
+                    // Como plan de respaldo, si falla el login automático lo manda a la pantalla manual
+                    mostrarLogin();
+                }
             } else {
                 alert("Error al registrar.");
             }
         }
 
+        // --- Función normal de inicio de sesión ---
         async function login() {
             const data = {
                 correo: document.getElementById('loginCorreo').value,
