@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora del Huerto</title>
+    <title>Bitácora del Huerto!!</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #f4effa;         /* Fondo lavanda muy suave */
-            --primary-lavender: #7e57c2; /* Lavanda principal */
-            --dark-lavender: #5e35b1;    /* Hover y acentos */
-            --surface-color: #ffffff;    /* Color de las tarjetas */
-            --text-main: #2d1f3f;        /* Texto principal */
-            --text-secondary: #7c7385;   /* Texto secundario/fechas */
-            --border-color: #eae1f5;     /* Bordes sutiles */
+            --bg-color: #f4effa;
+            --primary-lavender: #7e57c2;
+            --dark-lavender: #5e35b1;
+            --surface-color: #ffffff;
+            --text-main: #2d1f3f;
+            --text-secondary: #7c7385;
+            --border-color: #eae1f5;
         }
 
         * {
@@ -32,13 +32,11 @@
             padding-top: 40px;
         }
 
-        /* Contenedor principal para centrar el contenido */
         .wrapper {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        /* Encabezado */
         .header {
             display: flex;
             justify-content: space-between;
@@ -77,7 +75,6 @@
             color: white;
         }
 
-        /* Panel de Administración */
         #seccionAdmin {
             display: none;
             background: var(--surface-color);
@@ -166,7 +163,6 @@
             box-shadow: 0 5px 15px rgba(126, 87, 194, 0.3);
         }
 
-        /* Tarjetas de Bitácora */
         .entrada {
             background: var(--surface-color);
             border: 1px solid var(--border-color);
@@ -263,29 +259,29 @@
         <div class="header">
             <h1><i class="fas fa-seedling"></i> Bitácora del Huerto</h1>
             <div class="logout" onclick="localStorage.clear(); location.href='/'">
-                <i class="fas fa-sign-out-alt"></i> Salir
+                <i class="fas fa-sign-out-alt"></i> Salir!
             </div>
         </div>
 
         <div id="seccionAdmin">
-            <h2><i class="fas fa-pen-fancy"></i> Nueva Entrada de Lavanda</h2>
+            <h2><i class="fas fa-pen-fancy"></i> Nueva Entrada de la Bitacora</h2>
             
             <div class="form-grid">
                 <div class="campo">
-                    <label><i class="fas fa-user-tag"></i> Dueño/Integrante:</label>
-                    <input type="text" id="tipoPlanta" placeholder="Nombre de quien registra...">
+                    <label><i class="fas fa-user-tag"></i> Dueño de la lavandita:</label>
+                    <input type="text" id="tipoPlanta" placeholder="Integrante que registra..">
                 </div>
                 <div class="campo">
                     <label><i class="fas fa-ruler-vertical"></i> Altura (en cm):</label>
                     <input type="number" id="altura" placeholder="Ej. 15">
                 </div>
                 <div class="campo full-width">
-                    <label><i class="fas fa-vial"></i> Abono/Fertilizante:</label>
-                    <input type="text" id="abono" placeholder="Tipo de abono o cuidados utilizados...">
+                    <label><i class="fas fa-vial"></i> Abono o fertilizante:</label>
+                    <input type="text" id="abono" placeholder="Tipo de abono o cuidados utilizados..">
                 </div>
                 <div class="campo full-width">
                     <label><i class="fas fa-clipboard-list"></i> Observaciones:</label>
-                    <textarea id="obs" rows="3" placeholder="Anota aquí los detallitos, color, estado de las hojas, etc..."></textarea>
+                    <textarea id="obs" rows="3" placeholder="Anota aquí los detallitos, color, estado de las hojas.."></textarea>
                 </div>
                 <div class="campo full-width">
                     <label><i class="fas fa-camera"></i> Foto a guardar:</label>
@@ -299,12 +295,11 @@
         </div>
 
         <div id="contenedorBitacora">
-            <p style="text-align: center; color: var(--text-secondary);"><i class="fas fa-spinner fa-spin"></i> Cargando registros del huerto...</p>
+            <p style="text-align: center; color: var(--text-secondary);"><i class="fas fa-spinner fa-spin"></i> Cargando registros del huerto..</p>
         </div>
     </div>
 
     <script>
-        // Verificación de seguridad
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
@@ -321,13 +316,12 @@
                 const contenedor = document.getElementById('contenedorBitacora');
                 
                 if (registros.length === 0) {
-                    contenedor.innerHTML = '<div style="text-align:center; padding: 40px; background: white; border-radius: 16px;"><i class="fas fa-leaf" style="font-size: 3em; color: var(--light-lavender); margin-bottom: 15px;"></i><p>No hay registros aún. ¡Sube el primero!</p></div>';
+                    contenedor.innerHTML = '<div style="text-align:center; padding: 40px; background: white; border-radius: 16px;"><i class="fas fa-leaf" style="font-size: 3em; color: var(--light-lavender); margin-bottom: 15px;"></i><p>No hay registros aún.. </p></div>';
                     return;
                 }
 
                 contenedor.innerHTML = '';
                 registros.forEach(reg => {
-                    // Plantilla HTML actualizada para cada entrada
                     contenedor.innerHTML += `
                         <div class="entrada">
                             <div class="entrada-header">
@@ -369,7 +363,6 @@
                 formData.append('imagen', archivo); 
             }
 
-            // Pequeña validación antes de enviar
             if(!document.getElementById('tipoPlanta').value || !document.getElementById('altura').value) {
                 alert("Por favor llena al menos el dueño y la altura.");
                 return;
@@ -394,7 +387,6 @@
             }
         }
 
-        // Cargar los datos al iniciar
         cargarDatos();
     </script>
 </body>
