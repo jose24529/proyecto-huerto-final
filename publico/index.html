@@ -2,37 +2,324 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Acceso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Profesional - Lavanda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding-top: 50px; }
-        .box { border: 1px solid #ccc; padding: 20px; border-radius: 8px; width: 300px; margin-bottom: 20px; }
-        input { width: 90%; margin-bottom: 10px; padding: 8px; }
-        button { width: 100%; padding: 10px; cursor: pointer; background: #82aa8c; color: white; border: none; border-radius: 4px; }
+        :root {
+            /* Definimos la paleta de colores Lavanda Profresional */
+            --bg-gradient: linear-gradient(135deg, #e3e0f9 0%, #d1c4e9 50%, #b39ddb 100%);
+            --primary-lavender: #7e57c2; /* Lavanda principal */
+            --dark-lavender: #5e35b1;    /* Para hovers y texto oscuro */
+            --light-lavender: #d1c4e9;   /* Fondo de inputs */
+            --text-main: #2d1f3f;        /* Texto casi negro con tono violeta */
+            --text-secondary: #616161;   /* Texto gris secundario */
+            --glass-bg: rgba(255, 255, 255, 0.6); /* Cristal blanco sutil */
+            --glass-border: rgba(255, 255, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: var(--bg-gradient);
+            background-size: 200% 200%;
+            animation: gradientMove 10s ease infinite; /* Animación de fondo suave */
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Elementos decorativos animados en el fondo */
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            filter: blur(50px);
+            z-index: 0;
+            animation: float 15s infinite ease-in-out;
+        }
+        body::before { top: -100px; left: -100px; }
+        body::after { bottom: -100px; right: -100px; animation-delay: 7s; }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .container {
+            position: relative;
+            width: 400px;
+            height: 520px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            backdrop-filter: blur(12px); /* Efecto cristal sutil */
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            z-index: 1;
+            transition: height 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Rebote elegante al cambiar tamaño */
+        }
+
+        /* Cambiamos la altura al cambiar a registro (necesita más espacio) */
+        .container.active {
+            height: 600px;
+        }
+
+        .form-box {
+            position: absolute;
+            width: 100%;
+            padding: 40px 50px;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Animación de deslizamiento con rebote */
+        }
+
+        /* Estados iniciales */
+        .login-box {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .register-box {
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Estados activos (cuando está en modo registro) */
+        .container.active .login-box {
+            transform: translateX(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .container.active .register-box {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: var(--text-main);
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-lavender);
+            font-size: 1.1em;
+            transition: 0.3s;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 15px 14px 45px; /* Espacio para el icono */
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.05);
+            outline: none;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1em;
+            transition: 0.3s ease;
+        }
+
+        .input-group input::placeholder {
+            color: #b0bec5;
+        }
+
+        /* Micro-interacción al enfocar el input */
+        .input-group input:focus {
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.15);
+            border-color: var(--primary-lavender);
+        }
+
+        .input-group input:focus + i {
+            color: var(--dark-lavender);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-lavender);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.3);
+            margin-top: 10px;
+        }
+
+        /* Efecto de brillo al pasar el ratón */
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        button:hover {
+            background: var(--dark-lavender);
+            box-shadow: 0 8px 20px rgba(94, 53, 177, 0.4);
+            transform: translateY(-2px);
+        }
+
+        button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+
+        .switch-text a {
+            color: var(--primary-lavender);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .switch-text a:hover {
+            color: var(--dark-lavender);
+        }
+
+        /* Línea decorativa bajo el enlace al hacer hover */
+        .switch-text a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--dark-lavender);
+            transition: width 0.3s;
+        }
+
+        .switch-text a:hover::after {
+            width: 100%;
+        }
+        
+        /* Pequeño detalle al final */
+        .footer-logo {
+            text-align: center;
+            color: var(--dark-lavender);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
     </style>
 </head>
 <body>
-    <div class="box">
-        <h2>Iniciar Sesión</h2>
-        <input type="email" id="loginCorreo" placeholder="Correo">
-        <input type="password" id="loginPass" placeholder="Contraseña">
-        <button onclick="login()">Entrar</button>
-    </div>
 
-    <div class="box">
-        <h2>Registrarse</h2>
-        <input type="text" id="regNombre" placeholder="Nombre">
-        <input type="email" id="regCorreo" placeholder="Correo">
-        <input type="password" id="regPass" placeholder="Contraseña">
-        <button onclick="registrar()" style="background: #6b95e4;">Registrar</button>
+    <div class="container" id="mainContainer">
+        
+        <div class="form-box login-box">
+            <div class="footer-logo"><i class="fas fa-feather-alt"></i></div>
+            <h2>Bienvenido</h2>
+            <div class="input-group">
+                <input type="email" id="loginCorreo" placeholder="Correo electrónico" required>
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="input-group">
+                <input type="password" id="loginPass" placeholder="Contraseña" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <button onclick="login()"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+            <p class="switch-text">¿Nuevo aquí? <a onclick="toggleForm()">Crea una cuenta</a></p>
+        </div>
+
+        <div class="form-box register-box">
+            <h2>Registrarse</h2>
+            <div class="input-group">
+                <input type="text" id="regNombre" placeholder="Nombre completo" required>
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="input-group">
+                <input type="email" id="regCorreo" placeholder="Correo electrónico" required>
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="input-group">
+                <input type="password" id="regPass" placeholder="Contraseña segura" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <button onclick="registrar()"><i class="fas fa-user-plus"></i> Registrarse</button>
+            <p class="switch-text">¿Ya tienes cuenta? <a onclick="toggleForm()">Inicia sesión</a></p>
+        </div>
+
     </div>
 
     <script>
+        // Función para animar el cambio entre Login y Registro
+        function toggleForm() {
+            const container = document.getElementById('mainContainer');
+            container.classList.toggle('active');
+        }
+
+        // Tus funciones originales (Lógica intacta)
         async function registrar() {
             const data = {
                 nombre: document.getElementById('regNombre').value,
                 correo: document.getElementById('regCorreo').value,
                 password: document.getElementById('regPass').value
             };
+            // Validación básica visual
+            if(!data.nombre || !data.correo || !data.password) {
+                alert("Por favor rellena todos los campos.");
+                return;
+            }
+            
             const res = await fetch('/api/registro', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -47,6 +334,11 @@
                 correo: document.getElementById('loginCorreo').value,
                 password: document.getElementById('loginPass').value
             };
+            if(!data.correo || !data.password) {
+                alert("Por favor rellena los datos.");
+                return;
+            }
+
             const res = await fetch('/api/login', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
