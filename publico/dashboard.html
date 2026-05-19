@@ -4,49 +4,242 @@
     <meta charset="UTF-8">
     <title>Bitácora del Huerto</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
-        #seccionAdmin { display: none; background: #e8f5e9; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #c8e6c9; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .campo { margin-bottom: 12px; }
-        label { font-weight: bold; display: block; margin-bottom: 5px; color: #2e7d32; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
-        .entrada { background: white; border: 1px solid #eee; padding: 20px; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .entrada img { max-width: 100%; border-radius: 8px; margin-top: 15px; display: block; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .logout { float: right; color: #d32f2f; cursor: pointer; font-weight: bold; text-decoration: underline; }
-        h1 { color: #1b5e20; }
-        button { background: #2e7d32; color: white; border: none; padding: 12px 25px; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%; }
-        button:hover { background: #1b5e20; }
+        /* Fondo moderno y limpio estilo red social igual al index */
+        body { 
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            background-color: #fafafa; /* Fondo gris claro clásico */
+            box-sizing: border-box;
+        }
+
+        /* Contenedor principal para centrar el contenido */
+        .main-container {
+            width: 100%;
+            max-width: 500px; /* Ancho ideal para feed móvil/escritorio estilo red social */
+        }
+
+        /* Encabezado del feed */
+        .header-feed {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #dbdbdb;
+        }
+
+        h1 { 
+            color: #2e7d32; /* Verde huerto */
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .logout { 
+            color: #d32f2f; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .logout:hover {
+            text-decoration: underline;
+        }
+
+        /* Tarjetas de estilo red social (tanto para insertar como para las publicaciones) */
+        .card-box { 
+            background: #ffffff;
+            border: 1px solid #dbdbdb; 
+            padding: 25px; 
+            border-radius: 3px; /* Bordes minimalistas del index */
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+        }
+
+        .card-box h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #262626;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .campo { 
+            margin-bottom: 14px; 
+            text-align: left;
+        }
+
+        label { 
+            font-weight: 600; 
+            display: block; 
+            margin-bottom: 6px; 
+            color: #262626; 
+            font-size: 0.85rem;
+        }
+
+        /* Inputs idénticos a los del index */
+        input[type="text"], input[type="number"], textarea { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 0.85rem;
+            background-color: #fafafa;
+            outline: none;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #a1a1a1;
+        }
+
+        /* Input de tipo archivo personalizado */
+        input[type="file"] {
+            font-size: 0.85rem;
+            color: #8e8e8e;
+        }
+
+        /* Botón estilo red social */
+        button { 
+            width: 100%; 
+            padding: 10px; 
+            cursor: pointer; 
+            background: #2e7d32; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        button:hover { 
+            background: #1b5e20; 
+        }
+
+        /* --- ESTILO DE PUBLICACIONES DEL FEED --- */
+        .entrada { 
+            background: #ffffff; 
+            border: 1px solid #dbdbdb; 
+            padding: 0; /* Sin padding interno para que la imagen toque los bordes laterales estilo feed */
+            margin-bottom: 24px; 
+            border-radius: 3px; 
+            text-align: left;
+            overflow: hidden;
+        }
+
+        .entrada-header {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .entrada-header h3 {
+            margin: 0;
+            font-size: 1.05rem;
+            color: #262626;
+            font-weight: 600;
+        }
+
+        .entrada-header .fecha {
+            color: #8e8e8e;
+            font-size: 0.75rem;
+            margin-top: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Imagen del post a pantalla completa en la tarjeta */
+        .entrada img { 
+            width: 100%; 
+            display: block; 
+            border-top: 1px solid #efefef;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .entrada-body {
+            padding: 14px;
+            font-size: 0.9rem;
+            color: #262626;
+            line-height: 1.5;
+        }
+
+        .entrada-body p {
+            margin: 0 0 8px 0;
+        }
+
+        .entrada-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tag-info {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .no-data {
+            text-align: center;
+            color: #8e8e8e;
+            font-size: 0.9rem;
+            padding: 40px 0;
+        }
+
+        /* Panel admin inicialmente oculto */
+        #seccionAdmin { 
+            display: none; 
+        }
     </style>
 </head>
 <body>
-    <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
-    <h1>🌱 Historial del Huerto</h1>
 
-    <div id="seccionAdmin">
-        <h2>Nueva Entrada (Panel Admin)</h2>
-        <div class="campo">
-            <label>Planta:</label>
-            <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
+    <div class="main-container">
+        <div class="header-feed">
+            <h1>🌱 Huertito</h1>
+            <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
         </div>
-        <div class="campo">
-            <label>Altura (cm):</label>
-            <input type="number" id="altura" placeholder="Ej. 15">
+
+        <div id="seccionAdmin" class="card-box">
+            <h2>Nueva Entrada</h2>
+            <div class="campo">
+                <label>Planta:</label>
+                <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
+            </div>
+            <div class="campo">
+                <label>Altura (cm):</label>
+                <input type="number" id="altura" placeholder="Ej. 15">
+            </div>
+            <div class="campo">
+                <label>Abono:</label>
+                <input type="text" id="abono" placeholder="Ej. Compost orgánico">
+            </div>
+            <div class="campo">
+                <label>Observaciones:</label>
+                <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
+            </div>
+            <div class="campo">
+                <label>Foto del progreso:</label>
+                <input type="file" id="imagenHuerto" accept="image/*">
+            </div>
+            <button onclick="guardarBitacora()">Publicar en Bitácora</button>
         </div>
-        <div class="campo">
-            <label>Abono:</label>
-            <input type="text" id="abono" placeholder="Ej. Compost orgánico">
+
+        <div id="contenedorBitacora">
+            <div class="no-data">Cargando publicaciones...</div>
         </div>
-        <div class="campo">
-            <label>Observaciones:</label>
-            <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
-        </div>
-        <div class="campo">
-            <label>Foto del progreso:</label>
-            <input type="file" id="imagenHuerto" accept="image/*">
-        </div>
-        <button onclick="guardarBitacora()">Publicar en Bitácora</button>
     </div>
-
-    <div id="contenedorBitacora">Cargando registros...</div>
 
     <script>
         const token = localStorage.getItem('token');
@@ -67,7 +260,7 @@
                 const contenedor = document.getElementById('contenedorBitacora');
                 
                 if (registros.length === 0) {
-                    contenedor.innerHTML = '<p>No hay registros aún. ¡El admin debe subir el primero!</p>';
+                    contenedor.innerHTML = '<div class="no-data">No hay publicaciones aún. El administrador compartirá el primer progreso pronto.</div>';
                     return;
                 }
 
@@ -75,16 +268,23 @@
                 registros.forEach(reg => {
                     contenedor.innerHTML += `
                         <div class="entrada">
-                            <small style="color: #666;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
-                            <h3>🌿 ${reg.tipoPlanta}</h3>
-                            <p><strong>Crecimiento:</strong> ${reg.altura} cm | <strong>Abono:</strong> ${reg.abono || 'No especificado'}</p>
-                            <p><strong>Notas:</strong> ${reg.observaciones}</p>
-                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #999;"><i>Sin imagen adjunta</i></p>'}
+                            <div class="entrada-header">
+                                <h3>🌿 ${reg.tipoPlanta}</h3>
+                                <div class="fecha">📅 ${new Date(reg.fecha).toLocaleString()}</div>
+                            </div>
+                            
+                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del progreso">` : ''}
+                            
+                            <div class="entrada-body">
+                                <p><strong>Métricas:</strong> <span class="tag-info">📏 ${reg.altura} cm</span> ${reg.abono ? `| <span class="tag-info">🪱 ${reg.abono}</span>` : ''}</p>
+                                <p>${reg.observaciones}</p>
+                            </div>
                         </div>
                     `;
                 });
             } catch (error) {
                 console.error("Error al cargar datos:", error);
+                document.getElementById('contenedorBitacora').innerHTML = '<div class="no-data">Error al sincronizar el feed del huerto.</div>';
             }
         }
 
@@ -104,15 +304,14 @@
                 const res = await fetch('/api/bitacora', {
                     method: 'POST',
                     body: formData 
-                    // No enviamos headers de Content-Type, FormData lo hace solo
                 });
 
                 if(res.ok) {
-                    alert('¡Excelente! Registro y foto guardados correctamente.');
-                    location.reload(); // Recarga para ver el nuevo post
+                    alert('¡Excelente! Publicación compartida en el feed del huerto.');
+                    location.reload(); 
                 } else {
                     const errorData = await res.json();
-                    alert('Error: ' + (errorData.error || 'No se pudo subir'));
+                    alert('Error: ' + (errorData.error || 'No se pudo publicar'));
                 }
             } catch (error) {
                 console.error("Error en la petición:", error);
