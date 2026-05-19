@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Bitácora del Huerto</title>
     <style>
-        /* Fondo moderno y limpio estilo red social igual al index */
+        /* Base de diseño estilo red social moderna */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             display: flex; 
@@ -13,68 +13,66 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            background-color: #fafafa; /* Fondo gris claro clásico */
+            background-color: #fafafa; /* Fondo gris claro idéntico al index */
             box-sizing: border-box;
         }
 
-        /* Contenedor principal para centrar el contenido */
         .main-container {
             width: 100%;
-            max-width: 500px; /* Ancho ideal para feed móvil/escritorio estilo red social */
+            max-width: 480px; /* Ancho perfecto tipo feed móvil */
         }
 
-        /* Encabezado del feed */
+        /* Barra superior */
         .header-feed {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
             border-bottom: 1px solid #dbdbdb;
         }
 
         h1 { 
-            color: #2e7d32; /* Verde huerto */
-            font-size: 1.8rem;
+            color: #2e7d32; 
+            font-size: 1.6rem;
             margin: 0;
-            font-weight: bold;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .logout { 
-            color: #d32f2f; 
+            color: #8e8e8e; 
             cursor: pointer; 
-            font-weight: bold; 
+            font-weight: 600; 
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            transition: color 0.2s;
         }
         .logout:hover {
-            text-decoration: underline;
+            color: #d32f2f;
         }
 
-        /* Tarjetas de estilo red social (tanto para insertar como para las publicaciones) */
+        /* Tarjeta de Nueva Entrada (Panel Admin) */
         .card-box { 
             background: #ffffff;
             border: 1px solid #dbdbdb; 
-            padding: 25px; 
-            border-radius: 3px; /* Bordes minimalistas del index */
-            margin-bottom: 20px;
+            padding: 24px; 
+            border-radius: 3px;
+            margin-bottom: 25px;
             box-sizing: border-box;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
         }
 
         .card-box h2 {
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             color: #262626;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            text-align: center;
         }
 
         .campo { 
             margin-bottom: 14px; 
-            text-align: left;
         }
 
         label { 
@@ -82,15 +80,14 @@
             display: block; 
             margin-bottom: 6px; 
             color: #262626; 
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        /* Inputs idénticos a los del index */
         input[type="text"], input[type="number"], textarea { 
             width: 100%; 
-            padding: 10px; 
+            padding: 9px; 
             border: 1px solid #dbdbdb;
-            border-radius: 4px;
+            border-radius: 3px;
             box-sizing: border-box;
             font-size: 0.85rem;
             background-color: #fafafa;
@@ -102,13 +99,12 @@
             border-color: #a1a1a1;
         }
 
-        /* Input de tipo archivo personalizado */
         input[type="file"] {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #8e8e8e;
+            margin-top: 4px;
         }
 
-        /* Botón estilo red social */
         button { 
             width: 100%; 
             padding: 10px; 
@@ -117,9 +113,9 @@
             color: white; 
             border: none; 
             border-radius: 4px; 
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 8px;
             transition: background 0.2s;
         }
 
@@ -127,77 +123,97 @@
             background: #1b5e20; 
         }
 
-        /* --- ESTILO DE PUBLICACIONES DEL FEED --- */
+        /* ===========================================
+           ✨ NUEVO ESTILO PULIDO PARA LAS PUBLICACIONES
+           =========================================== */
         .entrada { 
             background: #ffffff; 
             border: 1px solid #dbdbdb; 
-            padding: 0; /* Sin padding interno para que la imagen toque los bordes laterales estilo feed */
-            margin-bottom: 24px; 
+            margin-bottom: 28px; 
             border-radius: 3px; 
             text-align: left;
-            overflow: hidden;
-        }
-
-        .entrada-header {
-            padding: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
             display: flex;
             flex-direction: column;
         }
 
-        .entrada-header h3 {
+        /* Cabecera del Post */
+        .entrada-header {
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .autor-info h3 {
             margin: 0;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             color: #262626;
             font-weight: 600;
         }
 
         .entrada-header .fecha {
             color: #8e8e8e;
-            font-size: 0.75rem;
-            margin-top: 3px;
-            text-transform: uppercase;
+            font-size: 0.72rem;
         }
 
-        /* Imagen del post a pantalla completa en la tarjeta */
+        /* Contenedor de Imagen */
         .entrada img { 
             width: 100%; 
+            max-height: 450px;
+            object-fit: cover;
             display: block; 
             border-top: 1px solid #efefef;
             border-bottom: 1px solid #efefef;
         }
 
+        /* Bloque de Contenido Inferior */
         .entrada-body {
             padding: 14px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: #262626;
-            line-height: 1.5;
+            line-height: 1.45;
         }
 
-        .entrada-body p {
-            margin: 0 0 8px 0;
+        /* Tags/Métricas Estilo Red Social */
+        .meta-tags {
+            margin-bottom: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .entrada-body p:last-child {
-            margin-bottom: 0;
+        .tag {
+            background-color: #f0f2f5;
+            color: #4b4b4b;
+            padding: 4px 8px;
+            border-radius: 12px; /* Estilo píldora interactiva */
+            font-weight: 500;
+            font-size: 0.78rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid #e4e6eb;
         }
 
-        .tag-info {
+        .tag-altura {
             background-color: #e8f5e9;
             color: #2e7d32;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.8rem;
+            border-color: #c8e6c9;
+        }
+
+        .observaciones-texto {
+            margin: 4px 0 0 0;
+            color: #333333;
         }
 
         .no-data {
             text-align: center;
             color: #8e8e8e;
-            font-size: 0.9rem;
-            padding: 40px 0;
+            font-size: 0.88rem;
+            padding: 50px 0;
         }
 
-        /* Panel admin inicialmente oculto */
         #seccionAdmin { 
             display: none; 
         }
@@ -248,7 +264,6 @@
         // Protección de ruta
         if(!token) window.location.href = '/';
 
-        // Mostrar sección de subida solo si el rol guardado es 'admin'
         if(rol === 'admin') {
             document.getElementById('seccionAdmin').style.display = 'block';
         }
@@ -260,31 +275,43 @@
                 const contenedor = document.getElementById('contenedorBitacora');
                 
                 if (registros.length === 0) {
-                    contenedor.innerHTML = '<div class="no-data">No hay publicaciones aún. El administrador compartirá el primer progreso pronto.</div>';
+                    contenedor.innerHTML = '<div class="no-data">No hay publicaciones en el feed todavía.</div>';
                     return;
                 }
 
                 contenedor.innerHTML = '';
                 registros.forEach(reg => {
+                    // Formatear la fecha de manera simplificada
+                    const fechaFormateada = new Date(reg.fecha).toLocaleDateString('es-MX', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric'
+                    });
+
                     contenedor.innerHTML += `
                         <div class="entrada">
                             <div class="entrada-header">
-                                <h3>🌿 ${reg.tipoPlanta}</h3>
-                                <div class="fecha">📅 ${new Date(reg.fecha).toLocaleString()}</div>
+                                <div class="autor-info">
+                                    <h3>🌿 ${reg.tipoPlanta}</h3>
+                                </div>
+                                <div class="fecha">${fechaFormateada}</div>
                             </div>
                             
                             ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del progreso">` : ''}
                             
                             <div class="entrada-body">
-                                <p><strong>Métricas:</strong> <span class="tag-info">📏 ${reg.altura} cm</span> ${reg.abono ? `| <span class="tag-info">🪱 ${reg.abono}</span>` : ''}</p>
-                                <p>${reg.observaciones}</p>
+                                <div class="meta-tags">
+                                    <span class="tag tag-altura">📏 ${reg.altura} cm</span>
+                                    ${reg.abono ? `<span class="tag">🪱 ${reg.abono}</span>` : ''}
+                                </div>
+                                <p class="observaciones-texto">${reg.observaciones}</p>
                             </div>
                         </div>
                     `;
                 });
             } catch (error) {
                 console.error("Error al cargar datos:", error);
-                document.getElementById('contenedorBitacora').innerHTML = '<div class="no-data">Error al sincronizar el feed del huerto.</div>';
+                document.getElementById('contenedorBitacora').innerHTML = '<div class="no-data">Error al cargar el feed.</div>';
             }
         }
 
@@ -307,7 +334,7 @@
                 });
 
                 if(res.ok) {
-                    alert('¡Excelente! Publicación compartida en el feed del huerto.');
+                    alert('¡Excelente! Entrada publicada con éxito.');
                     location.reload(); 
                 } else {
                     const errorData = await res.json();
@@ -315,11 +342,10 @@
                 }
             } catch (error) {
                 console.error("Error en la petición:", error);
-                alert('Error de conexión con el servidor.');
+                alert('Error de conexión.');
             }
         }
 
-        // Ejecutar al cargar la página
         cargarDatos();
     </script>
 </body>
