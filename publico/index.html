@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora del Huerto</title>
+    <title>Acceso</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #f4effa;         /* Fondo lavanda muy suave */
-            --primary-lavender: #7e57c2; /* Lavanda principal */
-            --dark-lavender: #5e35b1;    /* Hover y acentos */
-            --surface-color: #ffffff;    /* Color de las tarjetas */
-            --text-main: #2d1f3f;        /* Texto principal */
-            --text-secondary: #7c7385;   /* Texto secundario/fechas */
-            --border-color: #eae1f5;     /* Bordes sutiles */
+            --bg-gradient: linear-gradient(135deg, #e3e0f9 0%, #d1c4e9 50%, #b39ddb 100%);
+            --primary-lavender: #7e57c2;
+            --dark-lavender: #5e35b1;
+            --light-lavender: #d1c4e9;
+            --text-main: #2d1f3f;
+            --text-secondary: #616161;
+            --glass-bg: rgba(255, 255, 255, 0.6); 
+            --glass-border: rgba(255, 255, 255, 0.3);
         }
 
         * {
@@ -26,376 +27,321 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            padding: 20px;
-            padding-top: 40px;
-        }
-
-        /* Contenedor principal para centrar el contenido */
-        .wrapper {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* Encabezado */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            background: var(--surface-color);
-            padding: 20px 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(126, 87, 194, 0.08);
-        }
-
-        .header h1 {
-            color: var(--dark-lavender);
-            font-size: 1.8em;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logout {
-            color: #d84343;
-            cursor: pointer;
-            font-weight: 500;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 15px;
-            border-radius: 8px;
-            background: rgba(216, 67, 67, 0.1);
-        }
-
-        .logout:hover {
-            background: #d84343;
-            color: white;
-        }
-
-        /* Panel de Administración */
-        #seccionAdmin {
-            display: none;
-            background: var(--surface-color);
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 25px rgba(126, 87, 194, 0.1);
-        }
-
-        #seccionAdmin h2 {
-            font-size: 1.4em;
-            margin-bottom: 25px;
-            color: var(--dark-lavender);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .campo {
-            margin-bottom: 15px;
-        }
-
-        .campo.full-width {
-            grid-column: 1 / -1;
-        }
-
-        label {
-            font-weight: 500;
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-main);
-            font-size: 0.9em;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            box-sizing: border-box;
-            background: #faf8fc;
-            color: var(--text-main);
-            transition: 0.3s;
-            font-size: 0.95em;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-lavender);
-            background: white;
-            box-shadow: 0 0 0 3px rgba(126, 87, 194, 0.1);
-        }
-
-        input[type="file"] {
-            padding: 9px;
-            background: white;
-        }
-
-        button.btn-guardar {
-            background: var(--primary-lavender);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 600;
-            width: 100%;
-            margin-top: 10px;
-            transition: all 0.3s ease;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            min-height: 100vh;
+            background: var(--bg-gradient);
+            background-size: 200% 200%;
+            animation: gradientMove 10s ease infinite;
+            overflow: hidden;
+            position: relative;
         }
 
-        button.btn-guardar:hover {
-            background: var(--dark-lavender);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.3);
+        body::before, body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            filter: blur(50px);
+            z-index: 0;
+            animation: float 15s infinite ease-in-out;
+        }
+        body::before { top: -100px; left: -100px; }
+        body::after { bottom: -100px; right: -100px; animation-delay: 7s; }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* Tarjetas de Bitácora */
-        .entrada {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            transition: transform 0.3s;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
         }
 
-        .entrada:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(126, 87, 194, 0.1);
+        .container {
+            position: relative;
+            width: 400px;
+            height: 520px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            z-index: 1;
+            transition: height 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
         }
 
-        .entrada-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
+        .container.active {
+            height: 600px;
         }
 
-        .entrada-header small {
-            color: var(--text-secondary);
-            font-size: 0.85em;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .entrada h3 {
-            color: var(--dark-lavender);
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .info-tags {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            background: #f4effa;
-            color: var(--primary-lavender);
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .notas-box {
-            background: #faf8fc;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-lavender);
-            margin-bottom: 15px;
-            font-size: 0.95em;
-            line-height: 1.5;
-        }
-
-        .entrada img {
+        .form-box {
+            position: absolute;
             width: 100%;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 12px;
-            margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 40px 50px;
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
         }
 
-        .sin-imagen {
-            color: var(--text-secondary);
-            font-style: italic;
-            font-size: 0.9em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .login-box {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .register-box {
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .container.active .login-box {
+            transform: translateX(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .container.active .register-box {
+            transform: translateX(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            color: var(--text-main);
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-lavender);
+            font-size: 1.1em;
+            transition: 0.3s;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 15px 14px 45px; 
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0,0,0,0.05);
+            outline: none;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1em;
+            transition: 0.3s ease;
+        }
+
+        .input-group input::placeholder {
+            color: #b0bec5;
+        }
+
+        .input-group input:focus {
+            background: #fff;
+            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.15);
+            border-color: var(--primary-lavender);
+        }
+
+        .input-group input:focus + i {
+            color: var(--dark-lavender);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-lavender);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(126, 87, 194, 0.3);
             margin-top: 10px;
         }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        button:hover {
+            background: var(--dark-lavender);
+            box-shadow: 0 8px 20px rgba(94, 53, 177, 0.4);
+            transform: translateY(-2px);
+        }
+
+        button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .switch-text {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+
+        .switch-text a {
+            color: var(--primary-lavender);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .switch-text a:hover {
+            color: var(--dark-lavender);
+        }
+
+        .switch-text a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--dark-lavender);
+            transition: width 0.3s;
+        }
+
+        .switch-text a:hover::after {
+            width: 100%;
+        }
+        
+        .footer-logo {
+            text-align: center;
+            color: var(--dark-lavender);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <div class="header">
-            <h1><i class="fas fa-seedling"></i> Bitácora del Huerto</h1>
-            <div class="logout" onclick="localStorage.clear(); location.href='/'">
-                <i class="fas fa-sign-out-alt"></i> Salir
+    <div class="container" id="mainContainer">
+        
+        <div class="form-box login-box">
+            <div class="footer-logo"><i class="fas fa-feather-alt"></i></div>
+            <h2>Bienvenido</h2>
+            <div class="input-group">
+                <input type="email" id="loginCorreo" placeholder="Correo electrónico" required>
+                <i class="fas fa-envelope"></i>
             </div>
+            <div class="input-group">
+                <input type="password" id="loginPass" placeholder="Contraseña" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <button onclick="login()"><i class="fas fa-sign-in-alt"></i> Entrar</button>
+            <p class="switch-text">¿Nuevo usuario? <a onclick="toggleForm()">Crea una cuenta</a></p>
         </div>
 
-        <div id="seccionAdmin">
-            <h2><i class="fas fa-pen-fancy"></i> Nueva Entrada de Lavanda</h2>
-            
-            <div class="form-grid">
-                <div class="campo">
-                    <label><i class="fas fa-user-tag"></i> Dueño/Integrante:</label>
-                    <input type="text" id="tipoPlanta" placeholder="Nombre de quien registra...">
-                </div>
-                <div class="campo">
-                    <label><i class="fas fa-ruler-vertical"></i> Altura (en cm):</label>
-                    <input type="number" id="altura" placeholder="Ej. 15">
-                </div>
-                <div class="campo full-width">
-                    <label><i class="fas fa-vial"></i> Abono/Fertilizante:</label>
-                    <input type="text" id="abono" placeholder="Tipo de abono o cuidados utilizados...">
-                </div>
-                <div class="campo full-width">
-                    <label><i class="fas fa-clipboard-list"></i> Observaciones:</label>
-                    <textarea id="obs" rows="3" placeholder="Anota aquí los detallitos, color, estado de las hojas, etc..."></textarea>
-                </div>
-                <div class="campo full-width">
-                    <label><i class="fas fa-camera"></i> Foto a guardar:</label>
-                    <input type="file" id="imagenHuerto" accept="image/*">
-                </div>
+        <div class="form-box register-box">
+            <h2>Registrarse</h2>
+            <div class="input-group">
+                <input type="text" id="regNombre" placeholder="Nombre completo" required>
+                <i class="fas fa-user"></i>
             </div>
-            
-            <button class="btn-guardar" onclick="guardarBitacora()">
-                <i class="fas fa-cloud-upload-alt"></i> Publicar en Bitácora
-            </button>
+            <div class="input-group">
+                <input type="email" id="regCorreo" placeholder="Correo electrónico" required>
+                <i class="fas fa-envelope"></i>
+            </div>
+            <div class="input-group">
+                <input type="password" id="regPass" placeholder="Contraseña segura" required>
+                <i class="fas fa-lock"></i>
+            </div>
+            <button onclick="registrar()"><i class="fas fa-user-plus"></i> Registrarse</button>
+            <p class="switch-text">¿Ya tienes una cuenta? <a onclick="toggleForm()">Inicia sesión</a></p>
         </div>
 
-        <div id="contenedorBitacora">
-            <p style="text-align: center; color: var(--text-secondary);"><i class="fas fa-spinner fa-spin"></i> Cargando registros del huerto...</p>
-        </div>
     </div>
 
     <script>
-        // Verificación de seguridad
-        const token = localStorage.getItem('token');
-        const rol = localStorage.getItem('rol');
-
-        if(!token) window.location.href = '/';
-
-        if(rol === 'admin') {
-            document.getElementById('seccionAdmin').style.display = 'block';
+        function toggleForm() {
+            const container = document.getElementById('mainContainer');
+            container.classList.toggle('active');
         }
 
-        async function cargarDatos() {
-            try {
-                const res = await fetch('/api/bitacora');
-                const registros = await res.json();
-                const contenedor = document.getElementById('contenedorBitacora');
-                
-                if (registros.length === 0) {
-                    contenedor.innerHTML = '<div style="text-align:center; padding: 40px; background: white; border-radius: 16px;"><i class="fas fa-leaf" style="font-size: 3em; color: var(--light-lavender); margin-bottom: 15px;"></i><p>No hay registros aún. ¡Sube el primero!</p></div>';
-                    return;
-                }
-
-                contenedor.innerHTML = '';
-                registros.forEach(reg => {
-                    // Plantilla HTML actualizada para cada entrada
-                    contenedor.innerHTML += `
-                        <div class="entrada">
-                            <div class="entrada-header">
-                                <h3><i class="fas fa-spa"></i> ${reg.tipoPlanta}</h3>
-                                <small><i class="far fa-calendar-alt"></i> ${new Date(reg.fecha).toLocaleString()}</small>
-                            </div>
-                            
-                            <div class="info-tags">
-                                <span class="tag"><i class="fas fa-ruler-vertical"></i> ${reg.altura} cm</span>
-                                <span class="tag"><i class="fas fa-vial"></i> ${reg.abono || 'Sin abono registrado'}</span>
-                            </div>
-
-                            <div class="notas-box">
-                                <strong>Observaciones:</strong><br>
-                                ${reg.observaciones || 'No hay notas adicionales.'}
-                            </div>
-                            
-                            ${reg.imagenUrl 
-                                ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` 
-                                : '<div class="sin-imagen"><i class="fas fa-image-slash"></i> Sin imagen adjunta</div>'}
-                        </div>
-                    `;
-                });
-            } catch (error) {
-                console.error("Error al cargar datos:", error);
-                document.getElementById('contenedorBitacora').innerHTML = '<p style="color: red; text-align:center;">Error al cargar la bitácora.</p>';
+        async function registrar() {
+            const data = {
+                nombre: document.getElementById('regNombre').value,
+                correo: document.getElementById('regCorreo').value,
+                password: document.getElementById('regPass').value
+            };
+            if(!data.nombre || !data.correo || !data.password) {
+                alert("Por favor rellena todos los campos");
+                return;
             }
+            
+            const res = await fetch('/api/registro', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            if(res.ok) alert("¡Registrado con éxito!");
+            else alert("Error al registrar...");
         }
 
-        async function guardarBitacora() {
-            const formData = new FormData();
-            formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
-            formData.append('altura', document.getElementById('altura').value);
-            formData.append('abono', document.getElementById('abono').value);
-            formData.append('observaciones', document.getElementById('obs').value); 
-
-            const archivo = document.getElementById('imagenHuerto').files[0];
-            if (archivo) {
-                formData.append('imagen', archivo); 
-            }
-
-            // Pequeña validación antes de enviar
-            if(!document.getElementById('tipoPlanta').value || !document.getElementById('altura').value) {
-                alert("Por favor llena al menos el dueño y la altura.");
+        async function login() {
+            const data = {
+                correo: document.getElementById('loginCorreo').value,
+                password: document.getElementById('loginPass').value
+            };
+            if(!data.correo || !data.password) {
+                alert("Por favor rellena los datos.");
                 return;
             }
 
-            try {
-                const res = await fetch('/api/bitacora', {
-                    method: 'POST',
-                    body: formData 
-                });
-
-                if(res.ok) {
-                    alert('¡Excelente! Registro y foto guardados correctamente.');
-                    location.reload();
-                } else {
-                    const errorData = await res.json();
-                    alert('Error: ' + (errorData.error || 'No se pudo subir :c'));
-                }
-            } catch (error) {
-                console.error("Error en la petición:", error);
-                alert('Error de conexión con el servidor.');
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            const info = await res.json();
+            
+            if(info.token) {
+                localStorage.setItem('token', info.token);
+                localStorage.setItem('rol', info.rol); 
+                window.location.href = '/dashboard.html';
+            } else {
+                alert("Datos incorrectos...");
             }
         }
-
-        // Cargar los datos al iniciar
-        cargarDatos();
     </script>
 </body>
 </html>
