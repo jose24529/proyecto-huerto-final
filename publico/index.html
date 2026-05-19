@@ -21,7 +21,7 @@
             background: #ffffff;
             border: 1px solid #dbdbdb; 
             padding: 40px 30px; 
-            border-radius: 1px; 
+            border-radius: 4px; 
             width: 350px; 
             box-sizing: border-box;
             text-align: center;
@@ -68,7 +68,7 @@
         /* Botón principal de acción */
         button { 
             width: 100%; 
-            padding: 8px; 
+            padding: 10px; 
             cursor: pointer; 
             background: #2e7d32; /* Verde huerto */
             color: white; 
@@ -102,9 +102,6 @@
             margin: 0 0 6px 0;
             color: #e53935; /* Rojo Change.org */
             font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
         .campaign-btn {
@@ -124,7 +121,6 @@
         .campaign-btn:hover {
             background: #b71c1c;
         }
-        /* ------------------------------------------- */
 
         /* El contenedor de abajo para alternar pantallas */
         .switch-form {
@@ -150,7 +146,7 @@
 
         /* Clase utilitaria para ocultar el formulario que no se usa */
         .hidden {
-            display: none;
+            display: none !important;
         }
     </style>
 </head>
@@ -189,13 +185,11 @@
     </div>
 
     <script>
-        // Funciones para alternar entre Registrarse e Iniciar Sesión de forma dinámica
         function mostrarLogin() {
             document.getElementById('formRegistro').classList.add('hidden');
             document.getElementById('formLogin').classList.remove('hidden');
             document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
             
-            // Limpiamos los campos al cambiar de pantalla por seguridad
             document.getElementById('regNombre').value = '';
             document.getElementById('regCorreo').value = '';
             document.getElementById('regPass').value = '';
@@ -210,7 +204,7 @@
             document.getElementById('loginPass').value = '';
         }
 
-        // --- Función de registro con redirección automática inteligente ---
+        // Registro con inicio de sesión automático e inmediato
         async function registrar() {
             const correoInput = document.getElementById('regCorreo').value;
             const passInput = document.getElementById('regPass').value;
@@ -221,7 +215,6 @@
                 password: passInput
             };
 
-            // 1. Creamos la cuenta en el servidor
             const res = await fetch('/api/registro', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -231,7 +224,6 @@
             if(res.ok) {
                 alert("¡Registrado con éxito! Entrando al huerto...");
                 
-                // 2. Login automático de fondo
                 const loginRes = await fetch('/api/login', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -240,7 +232,6 @@
                 
                 const info = await loginRes.json();
                 
-                // 3. Redirección directa al historial si el login es correcto
                 if(info.token) {
                     localStorage.setItem('token', info.token);
                     localStorage.setItem('rol', info.rol); 
@@ -253,7 +244,6 @@
             }
         }
 
-        // --- Función de inicio de sesión manual ---
         async function login() {
             const data = {
                 correo: document.getElementById('loginCorreo').value,
