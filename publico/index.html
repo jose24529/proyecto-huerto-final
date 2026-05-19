@@ -4,29 +4,157 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; padding-top: 50px; }
-        .box { border: 1px solid #ccc; padding: 20px; border-radius: 8px; width: 300px; margin-bottom: 20px; }
-        input { width: 90%; margin-bottom: 10px; padding: 8px; }
-        button { width: 100%; padding: 10px; cursor: pointer; background: #28a745; color: white; border: none; border-radius: 4px; }
+        /* Fondo moderno y limpio estilo red social */
+        body { 
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #fafafa; /* El clásico fondo gris claro de Instagram */
+        }
+
+        /* Tarjeta principal única */
+        .box { 
+            background: #ffffff;
+            border: 1px solid #dbdbdb; 
+            padding: 40px 30px; 
+            border-radius: 1px; /* Bordes más rectos estilo minimalista o ponle 12px si prefieres curvas */
+            width: 350px; 
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* Título con estilo de logo de app */
+        .brand-title {
+            color: #2e7d32;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* Subtítulo o eslogan */
+        .brand-subtitle {
+            color: #8e8e8e;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+
+        /* Inputs idénticos a los de una red social */
+        input { 
+            width: 100%; 
+            margin-bottom: 8px; 
+            padding: 10px; 
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 0.85rem;
+            background-color: #fafafa;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            border-color: #a1a1a1;
+        }
+
+        /* Botón principal de acción */
+        button { 
+            width: 100%; 
+            padding: 8px; 
+            cursor: pointer; 
+            background: #2e7d32; /* Verde huerto */
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            transition: background 0.2s;
+        }
+
+        button:hover { 
+            background: #1b5e20; 
+        }
+
+        /* El contenedor de abajo para alternar pantallas */
+        .switch-form {
+            border-top: 1px solid #dbdbdb;
+            padding-top: 20px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #262626;
+        }
+
+        /* El enlace interactivo */
+        .switch-link {
+            color: #2e7d32;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .switch-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Clase utilitaria para ocultar el formulario que no se usa */
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h2>Iniciar Sesión</h2>
-        <input type="email" id="loginCorreo" placeholder="Correo">
-        <input type="password" id="loginPass" placeholder="Contraseña">
-        <button onclick="login()">Entrar</button>
-    </div>
 
     <div class="box">
-        <h2>Registrarse</h2>
-        <input type="text" id="regNombre" placeholder="Nombre">
-        <input type="email" id="regCorreo" placeholder="Correo">
-        <input type="password" id="regPass" placeholder="Contraseña">
-        <button onclick="registrar()" style="background: #007bff;">Registrar</button>
+        <div class="brand-title">🌱 Huertito</div>
+        <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
+
+        <div id="formRegistro">
+            <input type="text" id="regNombre" placeholder="Nombre completo">
+            <input type="email" id="regCorreo" placeholder="Correo electrónico">
+            <input type="password" id="regPass" placeholder="Contraseña">
+            <button onclick="registrar()">Registrarte</button>
+            
+            <div class="switch-form">
+                ¿Tienes una cuenta? <span class="switch-link" onclick="mostrarLogin()">Iniciar sesión</span>
+            </div>
+        </div>
+
+        <div id="formLogin" class="hidden">
+            <input type="email" id="loginCorreo" placeholder="Correo electrónico">
+            <input type="password" id="loginPass" placeholder="Contraseña">
+            <button onclick="login()">Entrar</button>
+            
+            <div class="switch-form">
+                ¿No tienes una cuenta? <span class="switch-link" onclick="mostrarRegistro()">Regístrate</span>
+            </div>
+        </div>
     </div>
 
     <script>
+        // Funciones para alternar entre Registrarse e Iniciar Sesión de forma dinámica
+        function mostrarLogin() {
+            document.getElementById('formRegistro').classList.add('hidden');
+            document.getElementById('formLogin').classList.remove('hidden');
+            document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
+        }
+
+        function mostrarRegistro() {
+            document.getElementById('formLogin').classList.add('hidden');
+            document.getElementById('formRegistro').classList.remove('hidden');
+            document.getElementById('textoSlogan').innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
+        }
+
+        // --- Tus funciones originales de Backend (Se mantienen intactas para que no rompas nada) ---
         async function registrar() {
             const data = {
                 nombre: document.getElementById('regNombre').value,
@@ -38,8 +166,12 @@
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             });
-            if(res.ok) alert("¡Registrado con éxito!");
-            else alert("Error al registrar.");
+            if(res.ok) {
+                alert("¡Registrado con éxito!");
+                mostrarLogin(); // Lo manda directo a iniciar sesión tras registrarse
+            } else {
+                alert("Error al registrar.");
+            }
         }
 
         async function login() {
