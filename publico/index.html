@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso Profesional - Lavanda</title>
+    <title>Acceso</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            /* Definimos la paleta de colores Lavanda Profresional */
             --bg-gradient: linear-gradient(135deg, #e3e0f9 0%, #d1c4e9 50%, #b39ddb 100%);
-            --primary-lavender: #7e57c2; /* Lavanda principal */
-            --dark-lavender: #5e35b1;    /* Para hovers y texto oscuro */
-            --light-lavender: #d1c4e9;   /* Fondo de inputs */
-            --text-main: #2d1f3f;        /* Texto casi negro con tono violeta */
-            --text-secondary: #616161;   /* Texto gris secundario */
-            --glass-bg: rgba(255, 255, 255, 0.6); /* Cristal blanco sutil */
+            --primary-lavender: #7e57c2;
+            --dark-lavender: #5e35b1;
+            --light-lavender: #d1c4e9;
+            --text-main: #2d1f3f;
+            --text-secondary: #616161;
+            --glass-bg: rgba(255, 255, 255, 0.6); 
             --glass-border: rgba(255, 255, 255, 0.3);
         }
 
@@ -34,12 +33,11 @@
             min-height: 100vh;
             background: var(--bg-gradient);
             background-size: 200% 200%;
-            animation: gradientMove 10s ease infinite; /* Animación de fondo suave */
+            animation: gradientMove 10s ease infinite;
             overflow: hidden;
             position: relative;
         }
 
-        /* Elementos decorativos animados en el fondo */
         body::before, body::after {
             content: '';
             position: absolute;
@@ -72,15 +70,14 @@
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 24px;
-            backdrop-filter: blur(12px); /* Efecto cristal sutil */
+            backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             z-index: 1;
-            transition: height 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Rebote elegante al cambiar tamaño */
+            transition: height 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
         }
 
-        /* Cambiamos la altura al cambiar a registro (necesita más espacio) */
         .container.active {
             height: 600px;
         }
@@ -89,10 +86,9 @@
             position: absolute;
             width: 100%;
             padding: 40px 50px;
-            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Animación de deslizamiento con rebote */
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
         }
 
-        /* Estados iniciales */
         .login-box {
             transform: translateX(0);
             opacity: 1;
@@ -105,7 +101,6 @@
             pointer-events: none;
         }
 
-        /* Estados activos (cuando está en modo registro) */
         .container.active .login-box {
             transform: translateX(-100%);
             opacity: 0;
@@ -144,7 +139,7 @@
 
         .input-group input {
             width: 100%;
-            padding: 14px 15px 14px 45px; /* Espacio para el icono */
+            padding: 14px 15px 14px 45px; 
             background: rgba(255, 255, 255, 0.8);
             border: 1px solid rgba(0,0,0,0.05);
             outline: none;
@@ -158,7 +153,6 @@
             color: #b0bec5;
         }
 
-        /* Micro-interacción al enfocar el input */
         .input-group input:focus {
             background: #fff;
             box-shadow: 0 5px 15px rgba(126, 87, 194, 0.15);
@@ -186,7 +180,6 @@
             margin-top: 10px;
         }
 
-        /* Efecto de brillo al pasar el ratón */
         button::after {
             content: '';
             position: absolute;
@@ -234,7 +227,6 @@
             color: var(--dark-lavender);
         }
 
-        /* Línea decorativa bajo el enlace al hacer hover */
         .switch-text a::after {
             content: '';
             position: absolute;
@@ -250,7 +242,6 @@
             width: 100%;
         }
         
-        /* Pequeño detalle al final */
         .footer-logo {
             text-align: center;
             color: var(--dark-lavender);
@@ -277,7 +268,7 @@
                 <i class="fas fa-lock"></i>
             </div>
             <button onclick="login()"><i class="fas fa-sign-in-alt"></i> Entrar</button>
-            <p class="switch-text">¿Nuevo aquí? <a onclick="toggleForm()">Crea una cuenta</a></p>
+            <p class="switch-text">¿Nuevo usuario? <a onclick="toggleForm()">Crea una cuenta</a></p>
         </div>
 
         <div class="form-box register-box">
@@ -295,28 +286,25 @@
                 <i class="fas fa-lock"></i>
             </div>
             <button onclick="registrar()"><i class="fas fa-user-plus"></i> Registrarse</button>
-            <p class="switch-text">¿Ya tienes cuenta? <a onclick="toggleForm()">Inicia sesión</a></p>
+            <p class="switch-text">¿Ya tienes una cuenta? <a onclick="toggleForm()">Inicia sesión</a></p>
         </div>
 
     </div>
 
     <script>
-        // Función para animar el cambio entre Login y Registro
         function toggleForm() {
             const container = document.getElementById('mainContainer');
             container.classList.toggle('active');
         }
 
-        // Tus funciones originales (Lógica intacta)
         async function registrar() {
             const data = {
                 nombre: document.getElementById('regNombre').value,
                 correo: document.getElementById('regCorreo').value,
                 password: document.getElementById('regPass').value
             };
-            // Validación básica visual
             if(!data.nombre || !data.correo || !data.password) {
-                alert("Por favor rellena todos los campos.");
+                alert("Por favor rellena todos los campos");
                 return;
             }
             
