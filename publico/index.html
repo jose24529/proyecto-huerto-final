@@ -21,7 +21,7 @@
             background: #ffffff;
             border: 1px solid #dbdbdb; 
             padding: 40px 30px; 
-            border-radius: 1px; 
+            border-radius: 1px; /* Bordes más rectos estilo minimalista o ponle 12px si prefieres curvas */
             width: 350px; 
             box-sizing: border-box;
             text-align: center;
@@ -68,7 +68,7 @@
         /* Botón principal de acción */
         button { 
             width: 100%; 
-            padding: 10px; 
+            padding: 8px; 
             cursor: pointer; 
             background: #2e7d32; /* Verde huerto */
             color: white; 
@@ -77,7 +77,7 @@
             font-size: 0.9rem;
             font-weight: bold;
             margin-top: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             transition: background 0.2s;
         }
 
@@ -188,11 +188,13 @@
     </div>
 
     <script>
+        // Funciones para alternar entre Registrarse e Iniciar Sesión de forma dinámica
         function mostrarLogin() {
             document.getElementById('formRegistro').classList.add('hidden');
             document.getElementById('formLogin').classList.remove('hidden');
             document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
             
+            // Limpieza de campos para evitar que queden datos flotando
             document.getElementById('regNombre').value = '';
             document.getElementById('regCorreo').value = '';
             document.getElementById('regPass').value = '';
@@ -207,6 +209,7 @@
             document.getElementById('loginPass').value = '';
         }
 
+        // --- Registro con inicio de sesión automático para saltar al historial ---
         async function registrar() {
             const correoInput = document.getElementById('regCorreo').value;
             const passInput = document.getElementById('regPass').value;
@@ -216,22 +219,21 @@
                 correo: correoInput,
                 password: passInput
             };
-
             const res = await fetch('/api/registro', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             });
-
+            
             if(res.ok) {
                 alert("¡Registrado con éxito! Entrando al huerto...");
                 
+                // Hace login automático en segundo plano tras registrarse
                 const loginRes = await fetch('/api/login', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({ correo: correoInput, password: passInput })
                 });
-                
                 const info = await loginRes.json();
                 
                 if(info.token) {
@@ -246,6 +248,7 @@
             }
         }
 
+        // --- Inicio de sesión ---
         async function login() {
             const data = {
                 correo: document.getElementById('loginCorreo').value,
