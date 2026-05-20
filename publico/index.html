@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Estructura general fluida */
+        /* Estructura dividida fluida */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
@@ -21,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* MITAD IZQUIERDA: Tu ilustración limpia y expandida al 100% */
+        /* PANEL IZQUIERDA: Tu ilustración ocupando el 100% */
         .panel-image {
             flex: 1.2; 
             position: relative;
@@ -36,7 +36,7 @@
             display: block;
         }
 
-        /* MITAD DERECHA: Fondo blanco limpio */
+        /* PANEL DERECHA */
         .panel-form {
             flex: 0.9; 
             background-color: #ffffff; 
@@ -47,7 +47,7 @@
             box-sizing: border-box;
         }
 
-        /* Tarjeta en verde huerto ultra suave (combina con la tortuga) */
+        /* Tarjeta contenedora */
         .form-card {
             background-color: #f5f8f4; 
             border: 1px solid #e2ebd9;
@@ -59,7 +59,6 @@
             text-align: center;
         }
 
-        /* Título del Huerto */
         .brand-title {
             color: #3b522c; 
             font-size: 2.3rem;
@@ -68,7 +67,6 @@
             font-weight: bold;
         }
 
-        /* Subtítulo */
         .brand-subtitle {
             color: #657a57; 
             font-size: 0.92rem;
@@ -77,61 +75,77 @@
             line-height: 1.4;
         }
 
-        /* ✨ CUADRO DE MAHAHUAL CON TONO LAVANDA/ROSA VIEJO Y ESPACIO PARA AJOLOTE ✨ */
+        /* ✨ CUADRO DE MAHAHUAL: ROSA VIVO CON AJOLOTES EN ESQUINAS OPUESTAS ✨ */
         .campaign-alert {
-            background: #f3e8ee; /* Rosa lavanda pálido que combina con las flores del dibujo */
-            border: 1.5px dashed #cbbcc6; /* Borde discontinuo suave */
+            background-color: #fce4ec; /* Rosa encendido para resaltar tus dibujos */
+            border: 2px dashed #e91e63; /* Borde discontinuo fucsia llamativo */
             border-radius: 14px;
-            padding: 16px 55px 16px 14px; /* Espacio a la derecha para que el ajolote no tape las letras */
+            /* Padding estratégico para proteger el texto de los ajolotes */
+            padding: 16px 45px 16px 45px; 
             margin-bottom: 24px;
             font-size: 0.85rem;
-            color: #4a3843; 
+            color: #3e2723; 
             text-align: left;
             line-height: 1.4;
-            position: relative; /* Para poder fijar el ajolote en la esquina */
+            position: relative; /* Clave para posicionar de forma absoluta */
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
         }
 
         .campaign-alert h4 {
             margin: 0 0 6px 0;
-            color: #8c587c; /* Título morado lavanda */
+            color: #c2185b; /* Título fucsia oscuro */
             font-size: 0.9rem;
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 5px;
             font-weight: bold;
         }
 
-        /* 📸 TU IMAGEN DE AJOLOTE EN LA ESQUINA DERECHA MARCADA */
-        .campaign-axolotl {
+        /* 🦎 AJOLOTE 1: ESQUINA SUPERIOR IZQUIERDA */
+        .axolotl-top-left {
             position: absolute;
-            top: 10px;
-            right: 12px;
+            top: 6px;
+            left: 6px;
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            pointer-events: none;
+            transform: scaleX(-1); /* Volteado para que mire al texto */
+        }
+
+        /* 🦎 AJOLOTE 2: ESQUINA INFERIOR DERECHA (Rellena el hueco blanco) */
+        .axolotl-bottom-right {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
             width: 38px;
             height: 38px;
             object-fit: contain;
             pointer-events: none;
         }
 
-        /* Botón de firmas adaptado a la gama lavanda */
+        /* Botón de firmas adaptado a la gama fucsia */
         .campaign-btn {
             display: block;
             text-align: center;
-            background: #8c587c; 
+            background: #880e4f; 
             color: white !important;
             text-decoration: none;
             font-weight: bold;
-            padding: 10px;
+            padding: 11px;
             border-radius: 8px;
-            margin-top: 10px;
+            margin-top: 12px;
             font-size: 0.82rem;
             transition: background 0.2s;
+            box-shadow: 0 3px 8px rgba(136, 14, 79, 0.2);
         }
 
         .campaign-btn:hover {
-            background: #734565;
+            background: #ad1457;
         }
 
-        /* Inputs estéticos estándar */
+        /* Inputs y Botones del Formulario */
         input { 
             width: 100%; 
             margin-bottom: 12px; 
@@ -151,7 +165,6 @@
             box-shadow: 0 0 6px rgba(78, 107, 59, 0.2);
         }
 
-        /* Botón principal Verde Caparazón */
         button { 
             width: 100%; 
             padding: 13px; 
@@ -172,7 +185,6 @@
             background: #3b522c; 
         }
 
-        /* Enlace inferior */
         .switch-form {
             border-top: 1px solid #e1ebd6;
             padding-top: 15px;
@@ -196,7 +208,6 @@
             display: none !important;
         }
 
-        /* Responsivo Celular */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
@@ -213,7 +224,7 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=15" alt="Proyecto PAEC">
+            <img src="/sorpresa.png?v=17" alt="Proyecto PAEC">
         </div>
         
         <div class="panel-form">
@@ -222,11 +233,12 @@
                 <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
                 <div class="campaign-alert">
-                    <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
+                    <img src="/ajolote.png" alt="Ajolote Superior Izquierda" class="axolotl-top-left">
                     
-                    <img src="/ajolote.png" alt="Ajolote" class="campaign-axolotl">
+                    <img src="/ajolote.png" alt="Ajolote Inferior Derecha" class="axolotl-bottom-right">
 
-                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral.
+                    <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
+                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo. ¡Tu firma es urgente!
                     <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
                 </div>
 
