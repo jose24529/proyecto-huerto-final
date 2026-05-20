@@ -21,39 +21,40 @@
             min-height: 100vh;
         }
 
-        /* MITAD IZQUIERDA: Ajustada para mostrar sorpresa.png completa sin recortes */
+        /* MITAD IZQUIERDA: Contenedor de la imagen */
         .panel-image {
             flex: 1.2; 
-            background-image: url('/sorpresa.png?v=3');
-            background-size: contain; /* Ajusta la imagen completa dentro del espacio */
-            background-position: center center;
-            background-repeat: no-repeat;
             position: relative;
             display: flex;
-            align-items: flex-end;
+            flex-direction: column;
+            justify-content: space-between; /* Deja el texto abajo */
             padding: 40px;
             box-sizing: border-box;
-            /* Un degradado sutil de fondo que combina con el cielo y los tonos de la ilustración */
-            background: linear-gradient(135deg, #fcedf2 0%, #e8f5e9 100%); 
+            background: linear-gradient(135deg, #fcedf2 0%, #e8f5e9 100%); /* Degradado de fondo armónico */
+            overflow: hidden;
         }
 
-        /* Quitamos el filtro oscuro previo para que los colores originales brillen al 100% */
-        .panel-image::before {
-            content: '';
+        /* Forzamos a la imagen a ocupar todo el alto disponible de manera perfecta sin colapsar */
+        .panel-image img {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: transparent;
-            pointer-events: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Muestra la imagen completa sin recortar nada */
+            z-index: 1;
         }
 
-        /* Texto flotante en la parte inferior izquierda con sombra verde para legibilidad */
+        /* Texto flotante en la parte inferior izquierda */
         .image-overlay-text {
             position: relative;
+            margin-top: auto; /* Empuja el texto al fondo */
             z-index: 2;
             color: #3b522e; /* Verde oscuro orgánico */
             font-size: 1.6rem;
             font-weight: bold;
-            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+            text-shadow: 0 2px 5px rgba(255, 255, 255, 0.9);
         }
 
         /* MITAD DERECHA: El contenedor del formulario */
@@ -67,6 +68,7 @@
             padding: 40px;
             box-sizing: border-box;
             border-left: 1px solid rgba(182, 196, 177, 0.3);
+            z-index: 3;
         }
 
         .form-container {
@@ -203,7 +205,7 @@
             display: none !important;
         }
 
-        /* Modo responsivo */
+        /* Modo responsivo: Oculta el panel izquierdo en celulares */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
@@ -221,6 +223,7 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
+            <img src="/sorpresa.png?v=4" alt="Proyecto PAEC">
             <div class="image-overlay-text">Descubre y cultiva junto a Huertito.</div>
         </div>
         
