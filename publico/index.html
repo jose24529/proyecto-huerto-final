@@ -11,8 +11,8 @@
             padding: 0;
             display: flex;
             min-height: 100vh;
-            background-color: #f6fdf5; /* Fondo general adaptado al pasto del huerto */
-            color: #2e3b27;
+            background-color: #dfedd6; /* Verde pastito para el fondo general */
+            color: #232d1e;
         }
 
         .instagram-layout {
@@ -30,11 +30,11 @@
             justify-content: space-between;
             padding: 40px;
             box-sizing: border-box;
-            background: linear-gradient(135deg, #fffcf3 0%, #edf7ec 100%); /* Degradado cálido que imita el cielo y el campo */
+            background: linear-gradient(135deg, #fff9e6 0%, #eaf5e6 100%);
             overflow: hidden;
         }
 
-        /* Ajuste de la imagen para que luzca perfecta y completa */
+        /* Ajuste de la imagen */
         .panel-image img {
             position: absolute;
             top: 50%;
@@ -46,28 +46,28 @@
             z-index: 1;
         }
 
-        /* Texto flotante inferior con mejor contraste orgánico */
+        /* Texto flotante inferior */
         .image-overlay-text {
             position: relative;
             margin-top: auto;
             z-index: 2;
-            color: #3b522e; /* Verde bosque extraído de los árboles del fondo */
+            color: #2d3f22; 
             font-size: 1.6rem;
             font-weight: bold;
-            text-shadow: 0 2px 6px rgba(255, 254, 245, 0.9);
+            text-shadow: 0 2px 6px rgba(255, 255, 255, 0.9);
         }
 
-        /* MITAD DERECHA: Formulario rediseñado con colores de la ilustración */
+        /* MITAD DERECHA: ¡NUEVOS COLORES INTENSOS E INTEGRADOS! */
         .panel-form {
             flex: 0.9; 
-            background-color: #faf7f0; /* Tono crema/pergamino suave extraído del centro de la ilustración */
+            background-color: #eedfcc; /* Color tierra/arena tostado extraído directamente de la ilustración */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 40px;
             box-sizing: border-box;
-            border-left: 1px solid rgba(182, 196, 177, 0.4);
+            border-left: 2px solid #d4c0a8;
             z-index: 3;
         }
 
@@ -77,121 +77,124 @@
             text-align: center;
         }
 
-        /* Título con el verde de las hojas */
+        /* Título con verde bosque profundo */
         .brand-title {
-            color: #435e34;
-            font-size: 2.4rem;
+            color: #2d3f22;
+            font-size: 2.6rem;
             margin-top: 0;
             margin-bottom: 8px;
             font-weight: bold;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
         }
 
         /* Subtítulo o eslogan */
         .brand-subtitle {
-            color: #657a57; 
-            font-size: 0.95rem;
+            color: #4f6343; 
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 30px;
             line-height: 1.4;
         }
 
-        /* Bloque de Change.org integrado con las flores moradas/lavandas */
+        /* Bloque de Change.org: Intensificado al color lavanda visible */
         .campaign-alert {
-            background-color: #f2ebf5; /* Lila muy sutil */
-            border: 1px dashed #9275a8; 
+            background-color: #e2cfea; /* Morado/lila más vivo y visible */
+            border: 2px dashed #7b5993; 
             border-radius: 12px;
-            padding: 14px;
+            padding: 15px;
             margin-bottom: 25px;
-            font-size: 0.85rem;
-            color: #3f314a; 
+            font-size: 0.88rem;
+            color: #2b1f35; 
             text-align: left;
             line-height: 1.4;
+            box-shadow: 0 4px 10px rgba(123, 89, 147, 0.15);
         }
 
         .campaign-alert h4 {
             margin: 0 0 6px 0;
-            color: #6d428c; 
-            font-size: 0.92rem;
+            color: #55346c; 
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
             gap: 5px;
+            font-weight: bold;
         }
 
-        /* Botón de la campaña con el lila de las flores */
+        /* Botón morado de la petición */
         .campaign-btn {
             display: block;
             text-align: center;
-            background: #7e5797;
+            background: #6a3d8a;
             color: white !important;
             text-decoration: none;
             font-weight: bold;
-            padding: 10px;
+            padding: 11px;
             border-radius: 8px;
-            margin-top: 10px;
+            margin-top: 12px;
             font-size: 0.85rem;
             transition: background 0.2s;
-            box-shadow: 0 3px 8px rgba(126, 87, 151, 0.2);
+            box-shadow: 0 3px 8px rgba(106, 61, 138, 0.3);
         }
 
         .campaign-btn:hover {
-            background: #663e7d;
+            background: #4f2969;
         }
 
-        /* Inputs de texto con color tierra/arena muy suave */
+        /* Inputs con bordes verde oliva seco definidos */
         input { 
             width: 100%; 
-            margin-bottom: 12px; 
+            margin-bottom: 14px; 
             padding: 14px 12px; 
-            border: 1px solid #c9d4c5;
+            border: 2px solid #8fa482; /* Verde oliva de las hojas */
             border-radius: 8px;
             box-sizing: border-box;
-            font-size: 0.88rem;
-            background-color: #fdfcf9; /* Fondo crudo limpio */
-            color: #2e3b27;
+            font-size: 0.9rem;
+            background-color: #fffdfa; 
+            color: #232d1e;
             outline: none;
             transition: all 0.2s;
         }
 
-        /* Al enfocar un campo, el borde toma el color de la lavanda */
+        /* Al enfocar, el input se ilumina en morado lavanda */
         input:focus {
-            border-color: #a38cb8; 
+            border-color: #8a63a5; 
             background-color: #ffffff;
-            box-shadow: 0 0 6px rgba(163, 140, 184, 0.25);
+            box-shadow: 0 0 8px rgba(138, 99, 165, 0.35);
         }
 
-        /* Botón principal adaptado al verde musgo oscuro del caparazón */
+        /* Botón principal: Verde musgo oscuro */
         button { 
             width: 100%; 
-            padding: 13px; 
+            padding: 14px; 
             cursor: pointer; 
-            background: #4e6b3b; /* Verde oliva oscuro extraído del dibujo */
+            background: #3b522c; /* Color del caparazón de la tortuga */
             color: white; 
             border: none; 
             border-radius: 8px; 
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: bold;
             margin-top: 10px;
             margin-bottom: 25px;
             transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 12px rgba(78, 107, 59, 0.25);
+            box-shadow: 0 4px 12px rgba(59, 82, 44, 0.35);
         }
 
         button:hover { 
-            background: #3b522c; 
+            background: #27371d; 
             transform: translateY(-1px);
         }
 
         /* Enlace inferior de intercambio */
         .switch-form {
-            border-top: 1px solid #e3ebd6;
+            border-top: 2px solid #d4c0a8;
             padding-top: 20px;
             margin-top: 10px;
-            font-size: 0.88rem;
-            color: #718265;
+            font-size: 0.9rem;
+            color: #554433;
         }
 
         .switch-link {
-            color: #4e6b3b;
+            color: #3b522c;
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
@@ -200,14 +203,14 @@
 
         .switch-link:hover {
             text-decoration: underline;
-            color: #3b522c;
+            color: #27371d;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* Diseño responsivo para celulares */
+        /* Responsivo celular */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
@@ -216,7 +219,7 @@
                 flex: 1;
                 border-left: none;
                 padding: 24px;
-                background-color: #faf7f0;
+                background-color: #eedfcc;
             }
         }
     </style>
@@ -226,7 +229,7 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=5" alt="Proyecto PAEC">
+            <img src="/sorpresa.png?v=6" alt="Proyecto PAEC">
             <div class="image-overlay-text">Descubre y cultiva junto a Huertito.</div>
         </div>
         
