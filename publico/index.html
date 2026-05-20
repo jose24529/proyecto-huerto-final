@@ -4,28 +4,27 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Estilos base inspirados en la pantalla de login de Instagram */
+        /* Estructura dividida inspirada en Instagram */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
             padding: 0;
             display: flex;
             min-height: 100vh;
-            background-color: #f6f5f8; /* Un gris-lavanda súper sutil para el fondo */
+            background-color: #ffffff;
             color: #2e3b27;
         }
 
-        /* Contenedor principal de pantalla dividida */
         .instagram-layout {
             display: flex;
             width: 100%;
             min-height: 100vh;
         }
 
-        /* SECCIÓN IZQUIERDA: La imagen fija de la tortuguita */
+        /* PANEL IZQUIERDO: Imagen de la tortuguita ocupando la mitad izquierda */
         .panel-image {
-            flex: 1.2; /* Toma un poco más de espacio para lucir la ilustración */
-            background-image: url('/Gemini_Generated_Image_tgaq7wtgaq7wtgaq.png?v=40');
+            flex: 1.1; 
+            background-image: url('/Gemini_Generated_Image_tgaq7wtgaq7wtgaq.png?v=30');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -36,29 +35,27 @@
             box-sizing: border-box;
         }
 
-        /* Degradado suave sobre la imagen izquierda para que se lea un texto opcional */
+        /* Sombra inferior suave sobre el dibujo para que resalte el texto blanco */
         .panel-image::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top, rgba(59, 82, 46, 0.4) 0%, rgba(0,0,0,0) 60%);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0,0,0,0) 50%);
             pointer-events: none;
         }
 
-        /* Texto decorativo flotante sobre la imagen izquierda */
         .image-overlay-text {
             position: relative;
             z-index: 2;
             color: #ffffff;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-            font-family: 'Segoe UI', sans-serif;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        /* SECCIÓN DERECHA: El panel de control y accesos */
+        /* PANEL DERECHO: El formulario centrado */
         .panel-form {
-            flex: 0.9; /* Tamaño perfecto para que el formulario no se vea gigante */
+            flex: 0.9; 
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -66,28 +63,26 @@
             justify-content: center;
             padding: 40px;
             box-sizing: border-box;
-            border-left: 1px solid rgba(182, 196, 177, 0.4);
-            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.03);
         }
 
-        /* Contenedor interno del formulario */
         .form-container {
             width: 100%;
             max-width: 350px;
             text-align: center;
         }
 
-        /* Título de la marca con el verde bosque */
         .brand-title {
             color: #3b522e;
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             margin-top: 0;
             margin-bottom: 8px;
             font-weight: bold;
-            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        /* Subtítulo o eslogan */
         .brand-subtitle {
             color: #556644; 
             font-size: 0.95rem;
@@ -96,9 +91,9 @@
             line-height: 1.4;
         }
 
-        /* Alerta social: Rediseñada con la paleta lila/lavanda de las flores */
+        /* Cuadro de Change.org integrado en tonos morados de la lavanda */
         .campaign-alert {
-            background-color: #f4edf7; 
+            background-color: #f5f0f8; 
             border: 1px dashed #8e6ba6; 
             border-radius: 12px;
             padding: 14px;
@@ -113,12 +108,8 @@
             margin: 0 0 6px 0;
             color: #6a3d8a; 
             font-size: 0.92rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
         }
 
-        /* Botón de firma (Lila oscuro combinado con el fondo) */
         .campaign-btn {
             display: block;
             text-align: center;
@@ -131,14 +122,13 @@
             margin-top: 10px;
             font-size: 0.85rem;
             transition: background 0.2s;
-            box-shadow: 0 3px 8px rgba(118, 79, 145, 0.15);
         }
 
         .campaign-btn:hover {
             background: #5c3a73;
         }
 
-        /* Campos de texto estilizados */
+        /* Inputs estilizados */
         input { 
             width: 100%; 
             margin-bottom: 12px; 
@@ -153,14 +143,13 @@
             transition: all 0.2s;
         }
 
-        /* Enfoque del input cambia al lila de las lavandas */
         input:focus {
             border-color: #9c82b3; 
             background-color: #ffffff;
             box-shadow: 0 0 5px rgba(156, 130, 179, 0.2);
         }
 
-        /* Botón principal verde musgo */
+        /* Botón verde musgo para Registrarte/Entrar */
         button { 
             width: 100%; 
             padding: 13px; 
@@ -173,14 +162,14 @@
             font-weight: bold;
             margin-top: 10px;
             margin-bottom: 25px;
-            transition: background 0.2s, transform 0.1s;
+            transition: background 0.2s;
         }
 
         button:hover { 
             background: #445c31; 
         }
 
-        /* Bloque inferior para alternar de vista */
+        /* Cambio entre Login y Registro */
         .switch-form {
             border-top: 1px solid #efefef;
             padding-top: 20px;
@@ -199,21 +188,19 @@
 
         .switch-link:hover {
             text-decoration: underline;
-            color: #445c31;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* Responsivo: Si la pantalla es pequeña (celular), se convierte en una sola columna estándar */
+        /* Vista móvil: Esconde el panel izquierdo para que quepa en celulares */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
             }
             .panel-form {
                 flex: 1;
-                border-left: none;
                 padding: 20px;
             }
         }
