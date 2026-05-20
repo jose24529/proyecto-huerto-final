@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Estructura general unificada */
+        /* Estructura general de pantalla dividida al 100% */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
             padding: 0;
             display: flex;
             min-height: 100vh;
-            background-color: #ffffff; /* Mismo blanco de la imagen para fusionarlo todo */
+            background-color: #ffffff;
             color: #2e3b27;
         }
 
@@ -21,67 +21,49 @@
             min-height: 100vh;
         }
 
-        /* MITAD IZQUIERDA: La imagen se fusiona con el fondo blanco */
+        /* MITAD IZQUIERDA: Ocupa todo el espacio de forma limpia */
         .panel-image {
             flex: 1.2; 
             position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 40px;
-            box-sizing: border-box;
-            background-color: #ffffff; /* Fusión perfecta */
+            background-color: #ffffff;
             overflow: hidden;
         }
 
+        /* cover expande la imagen cubriendo TODO el panel izquierdo sin dejar franjas blancas */
         .panel-image img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 95%;
-            height: 95%;
-            object-fit: contain;
-            z-index: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
         }
 
-        /* Texto inferior izquierdo */
-        .image-overlay-text {
-            position: relative;
-            margin-top: auto;
-            z-index: 2;
-            color: #4e6b3b; 
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        /* MITAD DERECHA: Centrada y limpia sin espacios raros */
+        /* MITAD DERECHA: Centrada y balanceada */
         .panel-form {
-            flex: 1; 
-            background-color: #ffffff; /* Fondo blanco continuo */
+            flex: 0.9; 
+            background-color: #ffffff; 
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px;
             box-sizing: border-box;
-            z-index: 3;
+            border-left: 1px solid rgba(182, 196, 177, 0.3);
         }
 
-        /* TARJETA DEL FORMULARIO: Recorta el espacio blanco y organiza el contenido */
+        /* Tarjeta compacta para que no quede espacio muerto */
         .form-card {
-            background-color: #f4f7f2; /* Verde oliva ultra suave para contrastar lindo */
-            border: 1px solid #e1ebd6;
+            background-color: #f5f8f4; /* Verde hoja ultra suave */
+            border: 1px solid #e2ebd9;
             border-radius: 20px;
             padding: 40px 30px;
             width: 100%;
-            max-width: 380px;
-            box-shadow: 0 10px 25px rgba(78, 107, 59, 0.08);
+            max-width: 360px;
+            box-shadow: 0 10px 25px rgba(78, 107, 59, 0.05);
             text-align: center;
         }
 
-        /* Título de la marca */
+        /* Título del Huerto */
         .brand-title {
-            color: #3b522c;
+            color: #3b522c; /* Verde caparazón */
             font-size: 2.3rem;
             margin-top: 0;
             margin-bottom: 6px;
@@ -97,10 +79,10 @@
             line-height: 1.4;
         }
 
-        /* Bloque de Change.org: Paleta Lavanda de la ilustración */
+        /* Alerta de Change.org integrada al morado lavanda de tu dibujo */
         .campaign-alert {
-            background-color: #eaddf2; /* Lila lavanda claro */
-            border: 1px solid #a389ba; 
+            background-color: #ebdff2; 
+            border: 1px solid #a38bbb; 
             border-radius: 12px;
             padding: 14px;
             margin-bottom: 24px;
@@ -120,7 +102,7 @@
             font-weight: bold;
         }
 
-        /* Botón morado de firmas */
+        /* Botón de firmas morado */
         .campaign-btn {
             display: block;
             text-align: center;
@@ -139,7 +121,7 @@
             background: #5a3275;
         }
 
-        /* Inputs limpios con bordes suaves */
+        /* Inputs estéticos */
         input { 
             width: 100%; 
             margin-bottom: 12px; 
@@ -159,7 +141,7 @@
             box-shadow: 0 0 6px rgba(118, 71, 153, 0.2);
         }
 
-        /* Botón Verde Caparazón */
+        /* Botón principal Verde Orgánico */
         button { 
             width: 100%; 
             padding: 13px; 
@@ -180,7 +162,7 @@
             background: #3b522c; 
         }
 
-        /* Enlace inferior */
+        /* Enlace inferior para alternar formulario */
         .switch-form {
             border-top: 1px solid #e1ebd6;
             padding-top: 15px;
@@ -213,9 +195,6 @@
                 flex: 1;
                 padding: 20px;
             }
-            .form-card {
-                padding: 30px 20px;
-            }
         }
     </style>
 </head>
@@ -224,8 +203,7 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=7" alt="Proyecto PAEC">
-            <div class="image-overlay-text">Descubre y cultiva junto a Huertito.</div>
+            <img src="/sorpresa.png?v=8" alt="Proyecto PAEC">
         </div>
         
         <div class="panel-form">
