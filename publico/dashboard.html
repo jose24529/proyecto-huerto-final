@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora del Huerto!!</title>
+    <title>・┆✦ʚ Bitácora!! ɞ✦ ┆・</title>
+    <link rel="icon" type="image" href="cora.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
@@ -257,45 +258,45 @@
 
     <div class="wrapper">
         <div class="header">
-            <h1><i class="fas fa-seedling"></i> Bitácora del Huerto</h1>
+            <h1><i class="fas fa-seedling"></i> ⤷ ゛Bitácora del Jardín ˎˊ˗</h1>
             <div class="logout" onclick="localStorage.clear(); location.href='/'">
-                <i class="fas fa-sign-out-alt"></i> Salir!
+                <i class="fas fa-sign-out-alt"></i> Salir!۶۟ৎ
             </div>
         </div>
 
         <div id="seccionAdmin">
-            <h2><i class="fas fa-pen-fancy"></i> Nueva Entrada de la Bitacora</h2>
+            <h2><i class="fas fa-pen-fancy"></i> 𑣲⋆Nueva Entrada de la Bitacora</h2>
             
             <div class="form-grid">
                 <div class="campo">
-                    <label><i class="fas fa-user-tag"></i> Dueño de la lavandita:</label>
+                    <label><i class="fas fa-user-tag"></i> ⊹.˖Dueño de la lavandita:</label>
                     <input type="text" id="tipoPlanta" placeholder="Integrante que registra..">
                 </div>
                 <div class="campo">
-                    <label><i class="fas fa-ruler-vertical"></i> Altura (en cm):</label>
+                    <label><i class="fas fa-ruler-vertical"></i> 𓏲 ๋࣭  ࣪˖Altura (en cm):</label>
                     <input type="number" id="altura" placeholder="Ej. 15">
                 </div>
                 <div class="campo full-width">
-                    <label><i class="fas fa-vial"></i> Abono o fertilizante:</label>
+                    <label><i class="fas fa-vial"></i>ꫂ᭪݁ Abono o fertilizante:</label>
                     <input type="text" id="abono" placeholder="Tipo de abono o cuidados utilizados..">
                 </div>
                 <div class="campo full-width">
-                    <label><i class="fas fa-clipboard-list"></i> Observaciones:</label>
+                    <label><i class="fas fa-clipboard-list"></i> ❄︎ Observaciones:</label>
                     <textarea id="obs" rows="3" placeholder="Anota aquí los detallitos, color, estado de las hojas.."></textarea>
                 </div>
                 <div class="campo full-width">
-                    <label><i class="fas fa-camera"></i> Foto a guardar:</label>
+                    <label><i class="fas fa-camera"></i>[¯◉°] Foto a guardar:</label>
                     <input type="file" id="imagenHuerto" accept="image/*">
                 </div>
             </div>
             
             <button class="btn-guardar" onclick="guardarBitacora()">
-                <i class="fas fa-cloud-upload-alt"></i> Publicar en Bitácora
+                <i class="fas fa-cloud-upload-alt"></i>ꨄ︎ Publicar en Bitácora
             </button>
         </div>
 
         <div id="contenedorBitacora">
-            <p style="text-align: center; color: var(--text-secondary);"><i class="fas fa-spinner fa-spin"></i> Cargando registros del huerto..</p>
+            <p style="text-align: center; color: var(--text-secondary);"><i class="fas fa-spinner fa-spin"></i>⋆✴︎˚｡⋆ Cargando registros del huerto..</p>
         </div>
     </div>
 
@@ -316,7 +317,7 @@
                 const contenedor = document.getElementById('contenedorBitacora');
                 
                 if (registros.length === 0) {
-                    contenedor.innerHTML = '<div style="text-align:center; padding: 40px; background: white; border-radius: 16px;"><i class="fas fa-leaf" style="font-size: 3em; color: var(--light-lavender); margin-bottom: 15px;"></i><p>No hay registros aún.. </p></div>';
+                    contenedor.innerHTML = '<div style="text-align:center; padding: 40px; background: white; border-radius: 16px;"><i class="fas fa-leaf" style="font-size: 3em; color: var(--light-lavender); margin-bottom: 15px;"></i><p>No hay registros aún.. ୭ ˚. ᵎᵎ</p></div>';
                     return;
                 }
 
@@ -331,23 +332,23 @@
                             
                             <div class="info-tags">
                                 <span class="tag"><i class="fas fa-ruler-vertical"></i> ${reg.altura} cm</span>
-                                <span class="tag"><i class="fas fa-vial"></i> ${reg.abono || 'Sin abono registrado'}</span>
+                                <span class="tag"><i class="fas fa-vial"></i> ${reg.abono || 'Sin abono registrado ── .✦'}</span>
                             </div>
 
                             <div class="notas-box">
                                 <strong>Observaciones:</strong><br>
-                                ${reg.observaciones || 'No hay notas adicionales.'}
+                                ${reg.observaciones || 'No hay notas adicionales -`♡´-'}
                             </div>
                             
                             ${reg.imagenUrl 
                                 ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` 
-                                : '<div class="sin-imagen"><i class="fas fa-image-slash"></i> Sin imagen adjunta</div>'}
+                                : '<div class="sin-imagen"><i class="fas fa-image-slash"></i> Sin imagen adjunta :‹</div>'}
                         </div>
                     `;
                 });
             } catch (error) {
                 console.error("Error al cargar datos:", error);
-                document.getElementById('contenedorBitacora').innerHTML = '<p style="color: red; text-align:center;">Error al cargar la bitácora.</p>';
+                document.getElementById('contenedorBitacora').innerHTML = '<p style="color: red; text-align:center;">Error al cargar la bitácora 𝄢</p>';
             }
         }
 
@@ -364,7 +365,7 @@
             }
 
             if(!document.getElementById('tipoPlanta').value || !document.getElementById('altura').value) {
-                alert("Por favor llena al menos el dueño y la altura.");
+                alert("Por favor llena al menos el dueño y la altura ՞߹ - ߹՞");
                 return;
             }
 
@@ -375,7 +376,7 @@
                 });
 
                 if(res.ok) {
-                    alert('¡Excelente! Registro y foto guardados correctamente.');
+                    alert('¡Excelente! Registro y foto guardados correctamente 𑄝');
                     location.reload();
                 } else {
                     const errorData = await res.json();
@@ -383,7 +384,7 @@
                 }
             } catch (error) {
                 console.error("Error en la petición:", error);
-                alert('Error de conexión con el servidor.');
+                alert('──── ୨୧ Error de conexión con el servidor ୨୧ ────');
             }
         }
 
