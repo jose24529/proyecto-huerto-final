@@ -21,11 +21,11 @@
             min-height: 100vh;
         }
 
-        /* MITAD IZQUIERDA: Configurada perfectamente para /sorpresa.png */
+        /* MITAD IZQUIERDA: Ajustada para mostrar sorpresa.png completa sin recortes */
         .panel-image {
             flex: 1.2; 
-            background-image: url('/sorpresa.png?v=2');
-            background-size: cover;
+            background-image: url('/sorpresa.png?v=3');
+            background-size: contain; /* Ajusta la imagen completa dentro del espacio */
             background-position: center center;
             background-repeat: no-repeat;
             position: relative;
@@ -33,25 +33,27 @@
             align-items: flex-end;
             padding: 40px;
             box-sizing: border-box;
-            background-color: #5b6f4c; /* Fondo verde de respaldo mientras carga */
+            /* Un degradado sutil de fondo que combina con el cielo y los tonos de la ilustración */
+            background: linear-gradient(135deg, #fcedf2 0%, #e8f5e9 100%); 
         }
 
-        /* Capa de sombra suave inferior sobre la imagen para resaltar el texto blanco */
+        /* Quitamos el filtro oscuro previo para que los colores originales brillen al 100% */
         .panel-image::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top, rgba(46, 66, 33, 0.45) 0%, rgba(0,0,0,0) 50%);
+            background: transparent;
             pointer-events: none;
         }
 
+        /* Texto flotante en la parte inferior izquierda con sombra verde para legibilidad */
         .image-overlay-text {
             position: relative;
             z-index: 2;
-            color: #ffffff;
+            color: #3b522e; /* Verde oscuro orgánico */
             font-size: 1.6rem;
             font-weight: bold;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
         }
 
         /* MITAD DERECHA: El contenedor del formulario */
@@ -133,7 +135,7 @@
             background: #5c3a73;
         }
 
-        /* Inputs de texto limpios con enfoque lila suave */
+        /* Inputs de texto limpios */
         input { 
             width: 100%; 
             margin-bottom: 12px; 
@@ -154,7 +156,7 @@
             box-shadow: 0 0 5px rgba(156, 130, 179, 0.2);
         }
 
-        /* Botón principal verde musgo orgánico */
+        /* Botón principal verde musgo */
         button { 
             width: 100%; 
             padding: 13px; 
@@ -175,7 +177,7 @@
             background: #445c31; 
         }
 
-        /* Enlace inferior para alternar entre formularios */
+        /* Enlace inferior */
         .switch-form {
             border-top: 1px solid #efefef;
             padding-top: 20px;
@@ -201,7 +203,7 @@
             display: none !important;
         }
 
-        /* Modo responsivo: Oculta la imagen izquierda en celulares */
+        /* Modo responsivo */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
@@ -263,17 +265,12 @@
             document.getElementById('formRegistro').classList.add('hidden');
             document.getElementById('formLogin').classList.remove('hidden');
             document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
-            document.getElementById('regNombre').value = '';
-            document.getElementById('regCorreo').value = '';
-            document.getElementById('regPass').value = '';
         }
 
         function mostrarRegistro() {
             document.getElementById('formLogin').classList.add('hidden');
             document.getElementById('formRegistro').classList.remove('hidden');
             document.getElementById('textoSlogan').innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
-            document.getElementById('loginCorreo').value = '';
-            document.getElementById('loginPass').value = '';
         }
 
         async function registrar() {
