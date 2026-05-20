@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Estructura general de pantalla dividida al 100% */
+        /* Estructura general fluida */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
@@ -21,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* MITAD IZQUIERDA: Tu ilustración cubriendo el 100% sin textos encima */
+        /* MITAD IZQUIERDA: Tu ilustración limpia y expandida al 100% */
         .panel-image {
             flex: 1.2; 
             position: relative;
@@ -36,7 +36,7 @@
             display: block;
         }
 
-        /* MITAD DERECHA: Fondo limpio y estructurado */
+        /* MITAD DERECHA: Fondo blanco limpio */
         .panel-form {
             flex: 0.9; 
             background-color: #ffffff; 
@@ -45,22 +45,21 @@
             justify-content: center;
             padding: 40px;
             box-sizing: border-box;
-            border-left: 1px solid rgba(182, 196, 177, 0.3);
         }
 
-        /* Tarjeta compacta verde huerto pálido */
+        /* Tarjeta en verde huerto ultra suave (combina con la tortuga) */
         .form-card {
             background-color: #f5f8f4; 
             border: 1px solid #e2ebd9;
-            border-radius: 20px;
-            padding: 40px 30px;
+            border-radius: 24px;
+            padding: 35px 30px;
             width: 100%;
             max-width: 360px;
             box-shadow: 0 10px 25px rgba(78, 107, 59, 0.05);
             text-align: center;
         }
 
-        /* Títulos */
+        /* Título del Huerto */
         .brand-title {
             color: #3b522c; 
             font-size: 2.3rem;
@@ -69,6 +68,7 @@
             font-weight: bold;
         }
 
+        /* Subtítulo */
         .brand-subtitle {
             color: #657a57; 
             font-size: 0.92rem;
@@ -77,24 +77,23 @@
             line-height: 1.4;
         }
 
-        /* ✨ CUADRO DE MAHAHUAL: Integrado con los colores de tu ilustración y soporte para el ajolote flotante ✨ */
+        /* ✨ CUADRO DE MAHAHUAL CON TONO LAVANDA/ROSA VIEJO Y ESPACIO PARA AJOLOTE ✨ */
         .campaign-alert {
-            background: linear-gradient(135deg, #fbe9ee 0%, #f7d6e0 100%); /* Rosa orgánico pálido */
-            border: 1.5px dashed #dca3b5; /* Línea discontinua que no compite con el dibujo */
+            background: #f3e8ee; /* Rosa lavanda pálido que combina con las flores del dibujo */
+            border: 1.5px dashed #cbbcc6; /* Borde discontinuo suave */
             border-radius: 14px;
-            padding: 16px 50px 16px 14px; /* Espaciado extra a la derecha para que no tape el texto */
+            padding: 16px 55px 16px 14px; /* Espacio a la derecha para que el ajolote no tape las letras */
             margin-bottom: 24px;
             font-size: 0.85rem;
-            color: #4a2d36; 
+            color: #4a3843; 
             text-align: left;
             line-height: 1.4;
-            box-shadow: 0 4px 12px rgba(220, 163, 181, 0.15);
-            position: relative; /* Clave para posicionar tu ajolote de forma absoluta */
+            position: relative; /* Para poder fijar el ajolote en la esquina */
         }
 
         .campaign-alert h4 {
             margin: 0 0 6px 0;
-            color: #ab4e68; /* Título en armonía con las flores moradas/rosas */
+            color: #8c587c; /* Título morado lavanda */
             font-size: 0.9rem;
             display: flex;
             align-items: center;
@@ -102,38 +101,37 @@
             font-weight: bold;
         }
 
-        /* El contenedor de tu ajolote justo en la zona marcada */
+        /* 📸 TU IMAGEN DE AJOLOTE EN LA ESQUINA DERECHA MARCADA */
         .campaign-axolotl {
             position: absolute;
-            top: 6px;
-            right: 8px;
-            width: 42px;
-            height: 42px;
+            top: 10px;
+            right: 12px;
+            width: 38px;
+            height: 38px;
             object-fit: contain;
-            pointer-events: none; /* No estorba si intentan dar clic cerca */
+            pointer-events: none;
         }
 
-        /* Botón de firmas adaptado estéticamente */
+        /* Botón de firmas adaptado a la gama lavanda */
         .campaign-btn {
             display: block;
             text-align: center;
-            background: #b54f6d; 
+            background: #8c587c; 
             color: white !important;
             text-decoration: none;
             font-weight: bold;
             padding: 10px;
             border-radius: 8px;
-            margin-top: 12px;
+            margin-top: 10px;
             font-size: 0.82rem;
             transition: background 0.2s;
-            box-shadow: 0 3px 8px rgba(181, 79, 109, 0.2);
         }
 
         .campaign-btn:hover {
-            background: #963f57;
+            background: #734565;
         }
 
-        /* Inputs estándar */
+        /* Inputs estéticos estándar */
         input { 
             width: 100%; 
             margin-bottom: 12px; 
@@ -174,7 +172,7 @@
             background: #3b522c; 
         }
 
-        /* Interruptor inferior */
+        /* Enlace inferior */
         .switch-form {
             border-top: 1px solid #e1ebd6;
             padding-top: 15px;
@@ -198,7 +196,7 @@
             display: none !important;
         }
 
-        /* Responsivo Móvil */
+        /* Responsivo Celular */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
@@ -215,7 +213,7 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=13" alt="Proyecto PAEC">
+            <img src="/sorpresa.png?v=15" alt="Proyecto PAEC">
         </div>
         
         <div class="panel-form">
@@ -228,7 +226,7 @@
                     
                     <img src="/ajolote.png" alt="Ajolote" class="campaign-axolotl">
 
-                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo. ¡Tu firma es urgente!
+                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral.
                     <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
                 </div>
 
