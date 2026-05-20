@@ -2,294 +2,301 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Huerto - Acceso</title>
+    <title>Bitácora del Huerto</title>
     <style>
-        /* Fondo con la ilustración del huerto cubriendo toda la pantalla */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            background-image: url('Gemini_Generated_Image_tgaq7wtgaq7wtgaq.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-
-        /* Tarjeta principal estilizada y combinada con el fondo artesanal */
-        .box { 
-            /* Fondo blanco con transparencia y desenfoque tipo vidrio (Glassmorphism) */
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            
-            /* Bordes más suaves y orgánicos que combinan con la ilustración */
-            border: 1px solid rgba(139, 195, 74, 0.3); 
-            border-radius: 16px; 
-            
-            padding: 40px 30px; 
-            width: 360px; 
-            box-sizing: border-box;
-            text-align: center;
-            
-            /* Sombra suave y natural */
-            box-shadow: 0 10px 30px rgba(46, 79, 32, 0.15);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Título con un verde más orgánico (Verde Olivo de la ilustración) */
-        .brand-title {
-            color: #437036;
-            font-size: 2.3rem;
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-weight: bold;
-            font-family: 'Segoe UI', sans-serif;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-        }
-
-        /* Subtítulo o eslogan */
-        .brand-subtitle {
-            color: #556b2f; /* Tono verde tierra oscuro */
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            line-height: 1.3;
-        }
-
-        /* Inputs con un tono crema/tierra muy suave inspirado en la imagen */
-        input { 
-            width: 100%; 
-            margin-bottom: 10px; 
-            padding: 12px; 
-            border: 1px solid #c2bfae;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 0.88rem;
-            background-color: #fcfbfa; /* Color huesito/crema sutil */
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 30px 20px; 
+            background-color: #f7f9f6; /* Fondo verde/grisáceo muy sutil y limpio */
             color: #333333;
+        }
+        
+        /* Enlace de Cerrar Sesión estilizado de forma más elegante */
+        .logout { 
+            float: right; 
+            color: #d32f2f; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .logout:hover { 
+            background: #ffebee;
+            text-decoration: underline; 
+        }
+        
+        h1 { 
+            color: #2e7d32; 
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Sección del Panel de Administración */
+        #seccionAdmin { 
+            display: none; 
+            background: #ffffff; 
+            padding: 30px; 
+            border-radius: 12px; 
+            margin-bottom: 35px; 
+            border: 1px solid #e0e6ed; 
+            box-shadow: 0 4px 15px rgba(46, 79, 32, 0.05); 
+        }
+
+        #seccionAdmin h2 {
+            margin-top: 0;
+            color: #1b5e20;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e8f5e9;
+            padding-bottom: 8px;
+        }
+
+        .campo { 
+            margin-bottom: 16px; 
+        }
+        
+        label { 
+            font-weight: 600; 
+            display: block; 
+            margin-bottom: 6px; 
+            color: #388e3c; 
+            font-size: 0.9rem;
+        }
+        
+        input, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #c2bfae; 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 0.95rem;
+            background-color: #fcfbfa;
             outline: none;
             transition: all 0.2s;
         }
 
-        input:focus {
-            border-color: #6b8e23; /* Cambia a verde oliva al hacer click */
+        input:focus, textarea:focus {
+            border-color: #558b2f;
             background-color: #ffffff;
-            box-shadow: 0 0 5px rgba(107, 142, 35, 0.2);
+            box-shadow: 0 0 5px rgba(85, 139, 47, 0.15);
         }
 
-        /* Botón principal adaptado a la paleta de colores de la planta */
+        /* Estilo para el input de tipo archivo (file) */
+        input[type="file"] {
+            background: #f1f3f0;
+            border: 1px dashed #b0bec5;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        /* Botón de publicación orgánico */
         button { 
-            width: 100%; 
-            padding: 11px; 
-            cursor: pointer; 
-            background: #558b2f; /* Verde oliva cálido */
+            background: #558b2f; 
             color: white; 
             border: none; 
+            padding: 14px; 
             border-radius: 8px; 
-            font-size: 0.95rem;
-            font-weight: bold;
-            margin-top: 12px;
-            margin-bottom: 20px;
+            cursor: pointer; 
+            font-size: 1rem; 
+            font-weight: bold; 
+            width: 100%; 
             transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 10px rgba(85, 139, 47, 0.3);
+            box-shadow: 0 4px 10px rgba(85, 139, 47, 0.2);
+            margin-top: 10px;
         }
-
         button:hover { 
             background: #33691e; 
             transform: translateY(-1px);
         }
-        
         button:active {
             transform: translateY(0);
         }
 
-        /* --- BLOQUE DE ALERTA DE CHANGE.ORG ADAPTADO --- */
-        .campaign-alert {
-            background-color: rgba(255, 235, 235, 0.9); 
-            border: 1.5px dashed #e53935; 
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            color: #3e2723; /* Marrón oscuro para mejor lectura */
-            text-align: left;
-            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.1);
-            line-height: 1.4;
+        /* Contenedor de las entradas de la bitácora */
+        #contenedorBitacora {
+            margin-top: 20px;
         }
 
-        .campaign-alert h4 {
-            margin: 0 0 6px 0;
-            color: #d32f2f; 
-            font-size: 0.92rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        /* Cada tarjeta de entrada (Post) */
+        .entrada { 
+            background: white; 
+            border: 1px solid #e0e6ed; 
+            padding: 25px; 
+            margin-bottom: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+            transition: transform 0.2s;
+        }
+        .entrada:hover {
+            transform: translateY(-2px);
         }
 
-        .campaign-btn {
-            display: block;
-            text-align: center;
-            background: #d32f2f;
-            color: white !important;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 8px;
-            border-radius: 6px;
-            margin-top: 10px;
-            font-size: 0.85rem;
-            transition: background 0.2s;
+        .entrada h3 {
+            margin: 10px 0;
+            color: #2e7d32;
+            font-size: 1.4rem;
         }
 
-        .campaign-btn:hover {
-            background: #b71c1c;
+        .entrada p {
+            margin: 8px 0;
+            line-height: 1.5;
+            color: #424242;
         }
 
-        /* Bloque inferior para alternar formularios */
-        .switch-form {
-            border-top: 1px solid rgba(194, 191, 174, 0.4);
-            padding-top: 18px;
-            margin-top: 10px;
-            font-size: 0.88rem;
-            color: #4e4e4e;
-        }
-
-        /* Enlace interactivo */
-        .switch-link {
+        /* Etiquetas internas para métricas */
+        .badge {
+            background-color: #f1f8e9;
             color: #558b2f;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            margin-left: 5px;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            display: inline-block;
         }
 
-        .switch-link:hover {
-            text-decoration: underline;
-            color: #33691e;
+        .entrada img { 
+            max-width: 100%; 
+            border-radius: 10px; 
+            margin-top: 18px; 
+            display: block; 
+            box-shadow: 0 6px 16px rgba(0,0,0,0.08); 
         }
 
-        /* Clase utilitaria para ocultar el formulario que no se usa */
-        .hidden {
-            display: none !important;
+        .no-registros {
+            text-align: center;
+            color: #757575;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px dashed #b0bec5;
         }
     </style>
 </head>
 <body>
+    <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
+    <h1>🌱 Historial del Huerto</h1>
 
-    <div class="box">
-        <div class="brand-title">🌱 Huertito</div>
-        <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
-
-        <div class="campaign-alert">
-            <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
-            Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo y los ecosistemas locales. ¡Tu firma es urgente!
-            <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
+    <div id="seccionAdmin">
+        <h2>Nueva Entrada (Panel Admin)</h2>
+        <div class="campo">
+            <label>Planta:</label>
+            <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
         </div>
-
-        <div id="formRegistro" autocomplete="off">
-            <input type="text" id="regNombre" placeholder="Nombre completo" autocomplete="off">
-            <input type="email" id="regCorreo" placeholder="Correo electrónico" autocomplete="off">
-            <input type="password" id="regPass" placeholder="Contraseña" autocomplete="new-password">
-            <button onclick="registrar()">Registrarte</button>
-            
-            <div class="switch-form">
-                ¿Tienes una cuenta? <span class="switch-link" onclick="mostrarLogin()">Iniciar sesión</span>
-            </div>
+        <div class="campo">
+            <label>Altura (cm):</label>
+            <input type="number" id="altura" placeholder="Ej. 15">
         </div>
-
-        <div id="formLogin" class="hidden" autocomplete="off">
-            <input type="email" id="loginCorreo" placeholder="Correo electrónico" autocomplete="username">
-            <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password">
-            <button onclick="login()">Entrar</button>
-            
-            <div class="switch-form">
-                ¿No tienes una cuenta? <span class="switch-link" onclick="mostrarRegistro()">Regístrate</span>
-            </div>
+        <div class="campo">
+            <label>Abono:</label>
+            <input type="text" id="abono" placeholder="Ej. Compost orgánico">
         </div>
+        <div class="campo">
+            <label>Observaciones:</label>
+            <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
+        </div>
+        <div class="campo">
+            <label>Foto del progreso:</label>
+            <input type="file" id="imagenHuerto" accept="image/*">
+        </div>
+        <button onclick="guardarBitacora()">Publicar en Bitácora</button>
     </div>
 
+    <div id="contenedorBitacora">Cargando registros...</div>
+
     <script>
-        function mostrarLogin() {
-            document.getElementById('formRegistro').classList.add('hidden');
-            document.getElementById('formLogin').classList.remove('hidden');
-            document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
-            
-            document.getElementById('regNombre').value = '';
-            document.getElementById('regCorreo').value = '';
-            document.getElementById('regPass').value = '';
+        const token = localStorage.getItem('token');
+        const rol = localStorage.getItem('rol');
+
+        // Protección de ruta obligatoria
+        if(!token) window.location.href = '/';
+
+        // Mostrar sección de subida solo si el rol guardado es exactamente 'admin'
+        if(rol === 'admin') {
+            document.getElementById('seccionAdmin').style.display = 'block';
         }
 
-        function mostrarRegistro() {
-            document.getElementById('formLogin').classList.add('hidden');
-            document.getElementById('formRegistro').classList.remove('hidden');
-            document.getElementById('textoSlogan').innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
-            
-            document.getElementById('loginCorreo').value = '';
-            document.getElementById('loginPass').value = '';
-        }
-
-        async function registrar() {
-            const correoInput = document.getElementById('regCorreo').value;
-            const passInput = document.getElementById('regPass').value;
-
-            const data = {
-                nombre: document.getElementById('regNombre').value,
-                correo: correoInput,
-                password: passInput
-            };
-            const res = await fetch('/api/registro', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-            
-            if(res.ok) {
-                alert("¡Registrado con éxito! Entrando al huerto...");
+        // Cargar las entradas guardadas desde la base de datos
+        async function cargarDatos() {
+            try {
+                const res = await fetch('/api/bitacora');
+                const registros = await res.json();
+                const contenedor = document.getElementById('contenedorBitacora');
                 
-                const loginRes = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ correo: correoInput, password: passInput })
-                });
-                const info = await loginRes.json();
-                
-                if(info.token) {
-                    localStorage.setItem('token', info.token);
-                    localStorage.setItem('rol', info.rol); 
-                    window.location.href = '/dashboard.html';
-                } else {
-                    mostrarLogin();
+                if (registros.length === 0) {
+                    contenedor.innerHTML = `
+                        <div class="no-registros">
+                            <p style="font-size: 1.1rem; margin: 0;">No hay registros aún.</p>
+                            <p style="color: #9e9e9e; font-size: 0.9rem; margin-top: 5px;">¡El administrador debe subir la primera planta!</p>
+                        </div>
+                    `;
+                    return;
                 }
-            } else {
-                alert("Error al registrar.");
+
+                contenedor.innerHTML = '';
+                registros.forEach(reg => {
+                    contenedor.innerHTML += `
+                        <div class="entrada">
+                            <small style="color: #757575; font-weight: 500;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
+                            <h3>🌿 ${reg.tipoPlanta}</h3>
+                            <p>
+                                <strong>Crecimiento:</strong> <span class="badge">📐 ${reg.altura} cm</span> 
+                                | <strong>Abono:</strong> <span class="badge">🧬 ${reg.abono || 'No especificado'}</span>
+                            </p>
+                            <p style="margin-top: 12px;"><strong>Notas:</strong> ${reg.observaciones}</p>
+                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #999; font-style: italic; margin-top: 15px;">Sin imagen adjunta</p>'}
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                console.error("Error al cargar datos:", error);
+                document.getElementById('contenedorBitacora').innerText = 'Error al conectar con el historial.';
             }
         }
 
-        async function login() {
-            const data = {
-                correo: document.getElementById('loginCorreo').value,
-                password: document.getElementById('loginPass').value
-            };
-            const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-            const info = await res.json();
-            
-            if(info.token) {
-                localStorage.setItem('token', info.token);
-                localStorage.setItem('rol', info.rol); 
-                window.location.href = '/dashboard.html';
-            } else {
-                alert("Datos incorrectos");
+        // Guardar un nuevo registro de planta en la bitácora
+        async function guardarBitacora() {
+            const formData = new FormData();
+            formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
+            formData.append('altura', document.getElementById('altura').value);
+            formData.append('abono', document.getElementById('abono').value);
+            formData.append('observaciones', document.getElementById('obs').value); 
+
+            const archivo = document.getElementById('imagenHuerto').files[0];
+            if (archivo) {
+                formData.append('imagen', archivo); 
+            }
+
+            try {
+                const res = await fetch('/api/bitacora', {
+                    method: 'POST',
+                    body: formData 
+                    // No enviamos headers de Content-Type manualmente, FormData lo gestiona
+                });
+
+                if(res.ok) {
+                    alert('¡Excelente! Registro y foto guardados correctamente.');
+                    location.reload(); // Recarga la página para visualizar el nuevo post
+                } else {
+                    const errorData = await res.json();
+                    alert('Error: ' + (errorData.error || 'No se pudo subir'));
+                }
+            } catch (error) {
+                console.error("Error en la petición:", error);
+                alert('Error de conexión con el servidor.');
             }
         }
+
+        // Ejecutar carga automática al abrir la pantalla
+        cargarDatos();
     </script>
 </body>
 </html>

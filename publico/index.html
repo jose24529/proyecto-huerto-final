@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Fondo moderno y limpio estilo red social */
+        /* Fondo con la ilustración del huerto cubriendo toda la pantalla */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             display: flex; 
@@ -13,95 +13,115 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #fafafa; /* El clásico fondo gris claro de Instagram */
+            /* Apuntamos al nombre real de tu carpeta: publico */
+            background-image: url('/publico/Gemini_Generated_Image_tgaq7wtgaq7wtgaqwtgaq.png?v=2');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #fafafa;
         }
 
-        /* Tarjeta principal única */
-        .box { 
-            background: #ffffff;
-            border: 1px solid #dbdbdb; 
+        /* Tarjeta principal única con efecto vidrio difuminado */
+        .box-card-wrap { 
+            background: rgba(255, 255, 255, 0.88) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            
+            border: 1px solid rgba(139, 195, 74, 0.35) !important; 
+            border-radius: 16px !important; 
+            
             padding: 40px 30px; 
-            border-radius: 1px; /* Bordes más rectos estilo minimalista o ponle 12px si prefieres curvas */
-            width: 350px; 
+            width: 360px; 
             box-sizing: border-box;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            
+            box-shadow: 0 10px 30px rgba(46, 79, 32, 0.18) !important;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Título con estilo de logo de app */
+        /* Título con un verde más orgánico */
         .brand-title {
-            color: #2e7d32;
-            font-size: 2.2rem;
+            color: #437036;
+            font-size: 2.3rem;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: bold;
             font-family: 'Segoe UI', sans-serif;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
         }
 
         /* Subtítulo o eslogan */
         .brand-subtitle {
-            color: #8e8e8e;
-            font-size: 1rem;
+            color: #556b2f; 
+            font-size: 0.95rem;
             font-weight: 600;
             margin-bottom: 25px;
-            line-height: 1.2;
+            line-height: 1.3;
         }
 
-        /* Inputs idénticos a los de una red social */
+        /* Inputs con un tono crema/tierra muy suave inspirado en la imagen */
         input { 
             width: 100%; 
-            margin-bottom: 8px; 
-            padding: 10px; 
-            border: 1px solid #dbdbdb;
-            border-radius: 4px;
+            margin-bottom: 10px; 
+            padding: 12px; 
+            border: 1px solid #c2bfae;
+            border-radius: 8px;
             box-sizing: border-box;
-            font-size: 0.85rem;
-            background-color: #fafafa;
+            font-size: 0.88rem;
+            background-color: #fcfbfa; 
+            color: #333333;
             outline: none;
-            transition: border-color 0.2s;
+            transition: all 0.2s;
         }
 
         input:focus {
-            border-color: #a1a1a1;
+            border-color: #6b8e23; 
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(107, 142, 35, 0.2);
         }
 
-        /* Botón principal de acción */
+        /* Botón principal adaptado a la paleta de colores de la planta */
         button { 
             width: 100%; 
-            padding: 8px; 
+            padding: 11px; 
             cursor: pointer; 
-            background: #2e7d32; /* Verde huerto */
+            background: #558b2f; 
             color: white; 
             border: none; 
-            border-radius: 4px; 
-            font-size: 0.9rem;
+            border-radius: 8px; 
+            font-size: 0.95rem;
             font-weight: bold;
-            margin-top: 15px;
+            margin-top: 12px;
             margin-bottom: 20px;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(85, 139, 47, 0.3);
         }
 
         button:hover { 
-            background: #1b5e20; 
+            background: #33691e; 
+            transform: translateY(-1px);
         }
 
-        /* --- BLOQUE LLAMATIVO DE CHANGE.ORG --- */
+        /* --- BLOQUE DE ALERTA DE CHANGE.ORG ADAPTADO --- */
         .campaign-alert {
-            background-color: #fff5f5; /* Fondo rojizo suave de alerta */
-            border: 2px dashed #ff4d4d; /* Borde discontinuo llamativo */
-            border-radius: 6px;
+            background-color: rgba(255, 235, 235, 0.9); 
+            border: 1.5px dashed #e53935; 
+            border-radius: 10px;
             padding: 14px;
             margin-bottom: 20px;
-            font-size: 0.88rem;
-            color: #333333;
+            font-size: 0.85rem;
+            color: #3e2723; 
             text-align: left;
-            box-shadow: 0 2px 8px rgba(255, 77, 77, 0.15);
+            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.1);
+            line-height: 1.4;
         }
 
         .campaign-alert h4 {
             margin: 0 0 6px 0;
-            color: #e53935; /* Rojo Change.org */
-            font-size: 0.95rem;
+            color: #d32f2f; 
+            font-size: 0.92rem;
             display: flex;
             align-items: center;
             gap: 5px;
@@ -110,12 +130,12 @@
         .campaign-btn {
             display: block;
             text-align: center;
-            background: #e53935;
+            background: #d32f2f;
             color: white !important;
             text-decoration: none;
             font-weight: bold;
             padding: 8px;
-            border-radius: 4px;
+            border-radius: 6px;
             margin-top: 10px;
             font-size: 0.85rem;
             transition: background 0.2s;
@@ -125,18 +145,17 @@
             background: #b71c1c;
         }
 
-        /* El contenedor de abajo para alternar pantallas */
+        /* Bloque inferior para alternar formularios */
         .switch-form {
-            border-top: 1px solid #dbdbdb;
-            padding-top: 20px;
+            border-top: 1px solid rgba(194, 191, 174, 0.4);
+            padding-top: 18px;
             margin-top: 10px;
-            font-size: 0.9rem;
-            color: #262626;
+            font-size: 0.88rem;
+            color: #4e4e4e;
         }
 
-        /* El enlace interactivo */
         .switch-link {
-            color: #2e7d32;
+            color: #558b2f;
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
@@ -145,9 +164,9 @@
 
         .switch-link:hover {
             text-decoration: underline;
+            color: #33691e;
         }
 
-        /* Clase utilitaria para ocultar el formulario que no se usa */
         .hidden {
             display: none !important;
         }
@@ -155,7 +174,7 @@
 </head>
 <body>
 
-    <div class="box">
+    <div class="box-card-wrap">
         <div class="brand-title">🌱 Huertito</div>
         <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
@@ -188,13 +207,10 @@
     </div>
 
     <script>
-        // Funciones para alternar entre Registrarse e Iniciar Sesión de forma dinámica
         function mostrarLogin() {
             document.getElementById('formRegistro').classList.add('hidden');
             document.getElementById('formLogin').classList.remove('hidden');
             document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
-            
-            // Limpieza de campos para evitar que queden datos flotando
             document.getElementById('regNombre').value = '';
             document.getElementById('regCorreo').value = '';
             document.getElementById('regPass').value = '';
@@ -204,16 +220,13 @@
             document.getElementById('formLogin').classList.add('hidden');
             document.getElementById('formRegistro').classList.remove('hidden');
             document.getElementById('textoSlogan').innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
-            
             document.getElementById('loginCorreo').value = '';
             document.getElementById('loginPass').value = '';
         }
 
-        // --- Registro con inicio de sesión automático para saltar al historial ---
         async function registrar() {
             const correoInput = document.getElementById('regCorreo').value;
             const passInput = document.getElementById('regPass').value;
-
             const data = {
                 nombre: document.getElementById('regNombre').value,
                 correo: correoInput,
@@ -227,8 +240,6 @@
             
             if(res.ok) {
                 alert("¡Registrado con éxito! Entrando al huerto...");
-                
-                // Hace login automático en segundo plano tras registrarse
                 const loginRes = await fetch('/api/login', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -248,7 +259,6 @@
             }
         }
 
-        // --- Inicio de sesión ---
         async function login() {
             const data = {
                 correo: document.getElementById('loginCorreo').value,
