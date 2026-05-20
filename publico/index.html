@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Estructura dividida fluida */
+        /* Estructura general de pantalla dividida al 100% */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
@@ -21,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* PANEL IZQUIERDA: Tu ilustración ocupando el 100% */
+        /* MITAD IZQUIERDA: Tu ilustración original abarcando todo el espacio */
         .panel-image {
             flex: 1.2; 
             position: relative;
@@ -36,7 +36,7 @@
             display: block;
         }
 
-        /* PANEL DERECHA */
+        /* MITAD DERECHA: Zona de acceso */
         .panel-form {
             flex: 0.9; 
             background-color: #ffffff; 
@@ -45,20 +45,22 @@
             justify-content: center;
             padding: 40px;
             box-sizing: border-box;
+            border-left: 1px solid rgba(182, 196, 177, 0.3);
         }
 
-        /* Tarjeta contenedora */
+        /* Tarjeta con fondo verde oliva ultra suave que combina con la tortuga */
         .form-card {
-            background-color: #f5f8f4; 
-            border: 1px solid #e2ebd9;
+            background-color: #f3f6f2; 
+            border: 1px solid #dbe3da;
             border-radius: 24px;
             padding: 35px 30px;
             width: 100%;
             max-width: 360px;
-            box-shadow: 0 10px 25px rgba(78, 107, 59, 0.05);
+            box-shadow: 0 10px 30px rgba(78, 107, 59, 0.04);
             text-align: center;
         }
 
+        /* Títulos estilizados en base a la tortuga */
         .brand-title {
             color: #3b522c; 
             font-size: 2.3rem;
@@ -68,32 +70,32 @@
         }
 
         .brand-subtitle {
-            color: #657a57; 
+            color: #5c7050; 
             font-size: 0.92rem;
             font-weight: 600;
             margin-bottom: 24px;
             line-height: 1.4;
         }
 
-        /* ✨ CUADRO DE MAHAHUAL: ROSA VIVO CON AJOLOTES EN ESQUINAS OPUESTAS ✨ */
+        /* 🌸 CUADRO MAHAHUAL CON PALETA ROSA-UVA Y ESPACIO PROPORCIONADO PARA 2 AJOLOTES SUPERIORES 🌸 */
         .campaign-alert {
-            background-color: #fce4ec; /* Rosa encendido para resaltar tus dibujos */
-            border: 2px dashed #e91e63; /* Borde discontinuo fucsia llamativo */
+            background-color: #fceaf0; /* Rosa suave equilibrado */
+            border: 2px dashed #e91e63; /* Tu borde discontinuo rosa original */
             border-radius: 14px;
-            /* Padding estratégico para proteger el texto de los ajolotes */
-            padding: 16px 45px 16px 45px; 
+            /* Padding generoso en los lados y arriba para dar aire al texto y que respiren los ajolotes */
+            padding: 24px 55px 18px 55px; 
             margin-bottom: 24px;
             font-size: 0.85rem;
-            color: #3e2723; 
+            color: #4a2a3a; 
             text-align: left;
             line-height: 1.4;
-            position: relative; /* Clave para posicionar de forma absoluta */
-            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.15);
+            position: relative; /* Indispensable para las posiciones absolutas */
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.08);
         }
 
         .campaign-alert h4 {
-            margin: 0 0 6px 0;
-            color: #c2185b; /* Título fucsia oscuro */
+            margin: 0 0 8px 0;
+            color: #bc1a5c; 
             font-size: 0.9rem;
             display: flex;
             align-items: center;
@@ -102,34 +104,34 @@
             font-weight: bold;
         }
 
-        /* 🦎 AJOLOTE 1: ESQUINA SUPERIOR IZQUIERDA */
+        /* 🦎 AJOLOTE 1: ARRIBA IZQUIERDA (Bien proporcionado y despegado del texto) */
         .axolotl-top-left {
             position: absolute;
-            top: 6px;
-            left: 6px;
-            width: 36px;
-            height: 36px;
+            top: 10px;
+            left: 12px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
             pointer-events: none;
-            transform: scaleX(-1); /* Volteado para que mire al texto */
+            transform: scaleX(-1); /* Espejado para apuntar hacia el centro */
         }
 
-        /* 🦎 AJOLOTE 2: ESQUINA INFERIOR DERECHA (Rellena el hueco blanco) */
-        .axolotl-bottom-right {
+        /* 🦎 AJOLOTE 2: ARRIBA DERECHA (Perfectamente alineado con el izquierdo) */
+        .axolotl-top-right {
             position: absolute;
-            bottom: 6px;
-            right: 6px;
-            width: 38px;
-            height: 38px;
+            top: 10px;
+            right: 12px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
             pointer-events: none;
         }
 
-        /* Botón de firmas adaptado a la gama fucsia */
+        /* Botón de firmas color uva/lavanda silvestre */
         .campaign-btn {
             display: block;
             text-align: center;
-            background: #880e4f; 
+            background: #894f72; 
             color: white !important;
             text-decoration: none;
             font-weight: bold;
@@ -138,19 +140,19 @@
             margin-top: 12px;
             font-size: 0.82rem;
             transition: background 0.2s;
-            box-shadow: 0 3px 8px rgba(136, 14, 79, 0.2);
+            box-shadow: 0 3px 8px rgba(137, 79, 114, 0.2);
         }
 
         .campaign-btn:hover {
-            background: #ad1457;
+            background: #703f5d;
         }
 
-        /* Inputs y Botones del Formulario */
+        /* Inputs integrados con el fondo crema/verde */
         input { 
             width: 100%; 
             margin-bottom: 12px; 
             padding: 13px 12px; 
-            border: 1px solid #c5d1bc;
+            border: 1px solid #c0cca9;
             border-radius: 8px;
             box-sizing: border-box;
             font-size: 0.88rem;
@@ -161,15 +163,16 @@
         }
 
         input:focus {
-            border-color: #4e6b3b; 
-            box-shadow: 0 0 6px rgba(78, 107, 59, 0.2);
+            border-color: #4d693f; 
+            box-shadow: 0 0 6px rgba(77, 105, 63, 0.2);
         }
 
+        /* Botón principal en color Verde Caparazón Profundo */
         button { 
             width: 100%; 
             padding: 13px; 
             cursor: pointer; 
-            background: #4e6b3b; 
+            background: #4d693f; 
             color: white; 
             border: none; 
             border-radius: 8px; 
@@ -178,22 +181,23 @@
             margin-top: 8px;
             margin-bottom: 20px;
             transition: background 0.2s;
-            box-shadow: 0 4px 12px rgba(78, 107, 59, 0.2);
+            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.25);
         }
 
         button:hover { 
-            background: #3b522c; 
+            background: #3a502f; 
         }
 
+        /* Interruptor inferior de vista */
         .switch-form {
-            border-top: 1px solid #e1ebd6;
+            border-top: 1px solid #d2ded0;
             padding-top: 15px;
             font-size: 0.85rem;
-            color: #657a57;
+            color: #5c7050;
         }
 
         .switch-link {
-            color: #4e6b3b;
+            color: #4d693f;
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
@@ -208,6 +212,7 @@
             display: none !important;
         }
 
+        /* Soporte responsivo para móviles */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
@@ -224,7 +229,7 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=17" alt="Proyecto PAEC">
+            <img src="/sorpresa.png?v=22" alt="Proyecto PAEC">
         </div>
         
         <div class="panel-form">
@@ -233,9 +238,9 @@
                 <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
                 <div class="campaign-alert">
-                    <img src="/ajolote.png" alt="Ajolote Superior Izquierda" class="axolotl-top-left">
+                    <img src="/ajolote.png" alt="Ajolote Izquierdo" class="axolotl-top-left">
                     
-                    <img src="/ajolote.png" alt="Ajolote Inferior Derecha" class="axolotl-bottom-right">
+                    <img src="/ajolote.png" alt="Ajolote Derecho" class="axolotl-top-right">
 
                     <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
                     Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo. ¡Tu firma es urgente!
