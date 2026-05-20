@@ -2,315 +2,294 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Bitácora del Huerto</title>
+    <title>Huerto - Acceso</title>
     <style>
-        /* Base de diseño estilo red social moderna idéntico al index */
+        /* Fondo con la ilustración del huerto cubriendo toda la pantalla */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
+            justify-content: center;
             min-height: 100vh;
             margin: 0;
-            padding: 20px;
-            background-color: #fafafa; /* Fondo gris claro */
+            background-image: url('Gemini_Generated_Image_tgaq7wtgaq7wtgaq.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* Tarjeta principal estilizada y combinada con el fondo artesanal */
+        .box { 
+            /* Fondo blanco con transparencia y desenfoque tipo vidrio (Glassmorphism) */
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            
+            /* Bordes más suaves y orgánicos que combinan con la ilustración */
+            border: 1px solid rgba(139, 195, 74, 0.3); 
+            border-radius: 16px; 
+            
+            padding: 40px 30px; 
+            width: 360px; 
             box-sizing: border-box;
+            text-align: center;
+            
+            /* Sombra suave y natural */
+            box-shadow: 0 10px 30px rgba(46, 79, 32, 0.15);
+            position: relative;
+            z-index: 1;
         }
 
-        .main-container {
-            width: 100%;
-            max-width: 480px; /* Ancho perfecto tipo feed móvil */
-        }
-
-        /* Barra superior */
-        .header-feed {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: 25px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #dbdbdb;
-        }
-
-        h1 { 
-            color: #2e7d32; 
-            font-size: 1.6rem;
-            margin: 0;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .logout { 
-            color: #8e8e8e; 
-            cursor: pointer; 
-            font-weight: 600; 
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.2s;
-        }
-        .logout:hover {
-            color: #d32f2f;
-        }
-
-        /* Tarjeta de Nueva Entrada (Panel Admin) */
-        .card-box { 
-            background: #ffffff;
-            border: 1px solid #dbdbdb; 
-            padding: 24px; 
-            border-radius: 3px;
-            margin-bottom: 25px;
-            box-sizing: border-box;
-        }
-
-        .card-box h2 {
+        /* Título con un verde más orgánico (Verde Olivo de la ilustración) */
+        .brand-title {
+            color: #437036;
+            font-size: 2.3rem;
             margin-top: 0;
-            margin-bottom: 18px;
-            color: #262626;
-            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-family: 'Segoe UI', sans-serif;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        /* Subtítulo o eslogan */
+        .brand-subtitle {
+            color: #556b2f; /* Tono verde tierra oscuro */
+            font-size: 0.95rem;
             font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.3;
         }
 
-        .campo { 
-            margin-bottom: 14px; 
-        }
-
-        label { 
-            font-weight: 600; 
-            display: block; 
-            margin-bottom: 6px; 
-            color: #262626; 
-            font-size: 0.8rem;
-        }
-
-        input[type="text"], input[type="number"], textarea { 
+        /* Inputs con un tono crema/tierra muy suave inspirado en la imagen */
+        input { 
             width: 100%; 
-            padding: 9px; 
-            border: 1px solid #dbdbdb;
-            border-radius: 3px;
+            margin-bottom: 10px; 
+            padding: 12px; 
+            border: 1px solid #c2bfae;
+            border-radius: 8px;
             box-sizing: border-box;
-            font-size: 0.85rem;
-            background-color: #fafafa;
+            font-size: 0.88rem;
+            background-color: #fcfbfa; /* Color huesito/crema sutil */
+            color: #333333;
             outline: none;
-            font-family: inherit;
+            transition: all 0.2s;
         }
 
-        input:focus, textarea:focus {
-            border-color: #a1a1a1;
+        input:focus {
+            border-color: #6b8e23; /* Cambia a verde oliva al hacer click */
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(107, 142, 35, 0.2);
         }
 
-        input[type="file"] {
-            font-size: 0.8rem;
-            color: #8e8e8e;
-            margin-top: 4px;
-        }
-
+        /* Botón principal adaptado a la paleta de colores de la planta */
         button { 
             width: 100%; 
-            padding: 10px; 
+            padding: 11px; 
             cursor: pointer; 
-            background: #2e7d32; 
+            background: #558b2f; /* Verde oliva cálido */
             color: white; 
             border: none; 
-            border-radius: 4px; 
-            font-size: 0.88rem;
+            border-radius: 8px; 
+            font-size: 0.95rem;
             font-weight: bold;
-            margin-top: 8px;
-            transition: background 0.2s;
+            margin-top: 12px;
+            margin-bottom: 20px;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 4px 10px rgba(85, 139, 47, 0.3);
         }
 
         button:hover { 
-            background: #1b5e20; 
+            background: #33691e; 
+            transform: translateY(-1px);
+        }
+        
+        button:active {
+            transform: translateY(0);
         }
 
-        /* --- NUEVO CONTENEDOR DE PUBLICACIONES EN EL FEED --- */
-        .post-feed-card { 
-            background: #ffffff !important; 
-            border: 1px solid #dbdbdb !important; 
-            margin-bottom: 25px !important; 
-            border-radius: 3px !important; 
-            text-align: left !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important;
-            display: flex !important;
-            flex-direction: column !important;
+        /* --- BLOQUE DE ALERTA DE CHANGE.ORG ADAPTADO --- */
+        .campaign-alert {
+            background-color: rgba(255, 235, 235, 0.9); 
+            border: 1.5px dashed #e53935; 
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: #3e2723; /* Marrón oscuro para mejor lectura */
+            text-align: left;
+            box-shadow: 0 4px 10px rgba(229, 57, 53, 0.1);
+            line-height: 1.4;
         }
 
-        /* Cabecera del Post */
-        .post-feed-header {
-            padding: 14px !important;
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: flex-start !important;
+        .campaign-alert h4 {
+            margin: 0 0 6px 0;
+            color: #d32f2f; 
+            font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .post-feed-header h3 {
-            margin: 0 !important;
-            font-size: 1rem !important;
-            color: #262626 !important;
-            font-weight: 600 !important;
-        }
-
-        .post-feed-header .post-feed-fecha {
-            color: #8e8e8e !important;
-            font-size: 0.75rem !important;
-        }
-
-        /* Contenedor de Imagen */
-        .post-feed-card img { 
-            width: 100% !important; 
-            max-height: 450px !important;
-            object-fit: cover !important;
-            display: block !important; 
-            border-top: 1px solid #efefef !important;
-            border-bottom: 1px solid #efefef !important;
-        }
-
-        /* Bloque de Texto Inferior */
-        .post-feed-body {
-            padding: 14px !important;
-            font-size: 0.88rem !important;
-            color: #262626 !important;
-            line-height: 1.5 !important;
-        }
-
-        .post-feed-body p {
-            margin: 0 0 6px 0 !important;
-        }
-
-        .post-feed-body p:last-child {
-            margin-bottom: 0 !important;
-        }
-
-        .no-data {
+        .campaign-btn {
+            display: block;
             text-align: center;
-            color: #8e8e8e;
-            font-size: 0.88rem;
-            padding: 50px 0;
+            background: #d32f2f;
+            color: white !important;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            transition: background 0.2s;
         }
 
-        #seccionAdmin { 
-            display: none; 
+        .campaign-btn:hover {
+            background: #b71c1c;
+        }
+
+        /* Bloque inferior para alternar formularios */
+        .switch-form {
+            border-top: 1px solid rgba(194, 191, 174, 0.4);
+            padding-top: 18px;
+            margin-top: 10px;
+            font-size: 0.88rem;
+            color: #4e4e4e;
+        }
+
+        /* Enlace interactivo */
+        .switch-link {
+            color: #558b2f;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .switch-link:hover {
+            text-decoration: underline;
+            color: #33691e;
+        }
+
+        /* Clase utilitaria para ocultar el formulario que no se usa */
+        .hidden {
+            display: none !important;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <div class="header-feed">
-            <h1>🌱 Huertito</h1>
-            <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
+    <div class="box">
+        <div class="brand-title">🌱 Huertito</div>
+        <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
+
+        <div class="campaign-alert">
+            <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
+            Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo y los ecosistemas locales. ¡Tu firma es urgente!
+            <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
         </div>
 
-        <div id="seccionAdmin" class="card-box">
-            <h2>Nueva Entrada</h2>
-            <div class="campo">
-                <label>Planta:</label>
-                <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
+        <div id="formRegistro" autocomplete="off">
+            <input type="text" id="regNombre" placeholder="Nombre completo" autocomplete="off">
+            <input type="email" id="regCorreo" placeholder="Correo electrónico" autocomplete="off">
+            <input type="password" id="regPass" placeholder="Contraseña" autocomplete="new-password">
+            <button onclick="registrar()">Registrarte</button>
+            
+            <div class="switch-form">
+                ¿Tienes una cuenta? <span class="switch-link" onclick="mostrarLogin()">Iniciar sesión</span>
             </div>
-            <div class="campo">
-                <label>Altura (cm):</label>
-                <input type="number" id="altura" placeholder="Ej. 15">
-            </div>
-            <div class="campo">
-                <label>Abono:</label>
-                <input type="text" id="abono" placeholder="Ej. Compost orgánico">
-            </div>
-            <div class="campo">
-                <label>Observaciones:</label>
-                <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
-            </div>
-            <div class="campo">
-                <label>Foto del progreso:</label>
-                <input type="file" id="imagenHuerto" accept="image/*">
-            </div>
-            <button onclick="guardarBitacora()">Publicar en Bitácora</button>
         </div>
 
-        <div id="contenedorBitacora">
-            <div class="no-data">Cargando registros...</div>
+        <div id="formLogin" class="hidden" autocomplete="off">
+            <input type="email" id="loginCorreo" placeholder="Correo electrónico" autocomplete="username">
+            <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password">
+            <button onclick="login()">Entrar</button>
+            
+            <div class="switch-form">
+                ¿No tienes una cuenta? <span class="switch-link" onclick="mostrarRegistro()">Regístrate</span>
+            </div>
         </div>
     </div>
 
     <script>
-        const token = localStorage.getItem('token');
-        const rol = localStorage.getItem('rol');
-
-        // Protección de ruta
-        if(!token) window.location.href = '/';
-
-        if(rol === 'admin') {
-            document.getElementById('seccionAdmin').style.display = 'block';
+        function mostrarLogin() {
+            document.getElementById('formRegistro').classList.add('hidden');
+            document.getElementById('formLogin').classList.remove('hidden');
+            document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
+            
+            document.getElementById('regNombre').value = '';
+            document.getElementById('regCorreo').value = '';
+            document.getElementById('regPass').value = '';
         }
 
-        async function cargarDatos() {
-            try {
-                const res = await fetch('/api/bitacora');
-                const registros = await res.json();
-                const contenedor = document.getElementById('contenedorBitacora');
+        function mostrarRegistro() {
+            document.getElementById('formLogin').classList.add('hidden');
+            document.getElementById('formRegistro').classList.remove('hidden');
+            document.getElementById('textoSlogan').innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
+            
+            document.getElementById('loginCorreo').value = '';
+            document.getElementById('loginPass').value = '';
+        }
+
+        async function registrar() {
+            const correoInput = document.getElementById('regCorreo').value;
+            const passInput = document.getElementById('regPass').value;
+
+            const data = {
+                nombre: document.getElementById('regNombre').value,
+                correo: correoInput,
+                password: passInput
+            };
+            const res = await fetch('/api/registro', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            
+            if(res.ok) {
+                alert("¡Registrado con éxito! Entrando al huerto...");
                 
-                if (registros.length === 0) {
-                    contenedor.innerHTML = '<div class="no-data">No hay registros aún. ¡El admin debe subir el primero!</div>';
-                    return;
-                }
-
-                contenedor.innerHTML = '';
-                registros.forEach(reg => {
-                    contenedor.innerHTML += `
-                        <div class="post-feed-card">
-                            <div class="post-feed-header">
-                                <div>
-                                    <h3>🌿 ${reg.tipoPlanta}</h3>
-                                </div>
-                                <div class="post-feed-fecha">📅 ${new Date(reg.fecha).toLocaleString()}</div>
-                            </div>
-                            
-                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : ''}
-                            
-                            <div class="post-feed-body">
-                                <p><strong>Crecimiento:</strong> ${reg.altura} cm | <strong>Abono:</strong> ${reg.abono || 'No especificado'}</p>
-                                <p><strong>Notas:</strong> ${reg.observaciones}</p>
-                            </div>
-                        </div>
-                    `;
-                });
-            } catch (error) {
-                console.error("Error al cargar datos:", error);
-                document.getElementById('contenedorBitacora').innerHTML = '<div class="no-data">Error al cargar datos.</div>';
-            }
-        }
-
-        async function guardarBitacora() {
-            const formData = new FormData();
-            formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
-            formData.append('altura', document.getElementById('altura').value);
-            formData.append('abono', document.getElementById('abono').value);
-            formData.append('observaciones', document.getElementById('obs').value); 
-
-            const archivo = document.getElementById('imagenHuerto').files[0];
-            if (archivo) {
-                formData.append('imagen', archivo); 
-            }
-
-            try {
-                const res = await fetch('/api/bitacora', {
+                const loginRes = await fetch('/api/login', {
                     method: 'POST',
-                    body: formData 
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ correo: correoInput, password: passInput })
                 });
-
-                if(res.ok) {
-                    alert('¡Excelente! Registro y foto guardados correctamente.');
-                    location.reload(); 
+                const info = await loginRes.json();
+                
+                if(info.token) {
+                    localStorage.setItem('token', info.token);
+                    localStorage.setItem('rol', info.rol); 
+                    window.location.href = '/dashboard.html';
                 } else {
-                    const errorData = await res.json();
-                    alert('Error: ' + (errorData.error || 'No se pudo subir'));
+                    mostrarLogin();
                 }
-            } catch (error) {
-                console.error("Error en la petición:", error);
-                alert('Error de conexión con el servidor.');
+            } else {
+                alert("Error al registrar.");
             }
         }
 
-        cargarDatos();
+        async function login() {
+            const data = {
+                correo: document.getElementById('loginCorreo').value,
+                password: document.getElementById('loginPass').value
+            };
+            const res = await fetch('/api/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            const info = await res.json();
+            
+            if(info.token) {
+                localStorage.setItem('token', info.token);
+                localStorage.setItem('rol', info.rol); 
+                window.location.href = '/dashboard.html';
+            } else {
+                alert("Datos incorrectos");
+            }
+        }
     </script>
 </body>
 </html>
