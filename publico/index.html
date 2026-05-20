@@ -4,54 +4,87 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Fondo con la ilustración del huerto cubriendo toda la pantalla */
+        /* Estilos base inspirados en la pantalla de login de Instagram */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            min-height: 100vh;
             margin: 0;
-            /* Ruta directa de la imagen con truco de versión para limpiar la caché */
-            background-image: url('/Gemini_Generated_Image_tgaq7wtgaq7wtgaq.png?v=30');
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            background-color: #f6f5f8; /* Un gris-lavanda súper sutil para el fondo */
+            color: #2e3b27;
+        }
+
+        /* Contenedor principal de pantalla dividida */
+        .instagram-layout {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* SECCIÓN IZQUIERDA: La imagen fija de la tortuguita */
+        .panel-image {
+            flex: 1.2; /* Toma un poco más de espacio para lucir la ilustración */
+            background-image: url('/Gemini_Generated_Image_tgaq7wtgaq7wtgaq.png?v=40');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-color: #f3f7f2;
-        }
-
-        /* Tarjeta con efecto vidrio difuminado transparente para que se aprecie la ilustración de fondo */
-        .box-card-wrap { 
-            background: rgba(255, 255, 255, 0.82) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            
-            /* Borde verde oliva suave inspirado en el caparazón */
-            border: 1px solid rgba(110, 137, 91, 0.3) !important; 
-            border-radius: 20px !important; 
-            
-            padding: 40px 30px; 
-            width: 360px; 
-            box-sizing: border-box;
-            text-align: center;
-            
-            /* Sombra suave y profunda */
-            box-shadow: 0 12px 35px rgba(53, 79, 41, 0.15) !important;
             position: relative;
-            z-index: 1;
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+            box-sizing: border-box;
         }
 
-        /* Título con el verde oscuro de los árboles del fondo */
+        /* Degradado suave sobre la imagen izquierda para que se lea un texto opcional */
+        .panel-image::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(59, 82, 46, 0.4) 0%, rgba(0,0,0,0) 60%);
+            pointer-events: none;
+        }
+
+        /* Texto decorativo flotante sobre la imagen izquierda */
+        .image-overlay-text {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* SECCIÓN DERECHA: El panel de control y accesos */
+        .panel-form {
+            flex: 0.9; /* Tamaño perfecto para que el formulario no se vea gigante */
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            box-sizing: border-box;
+            border-left: 1px solid rgba(182, 196, 177, 0.4);
+            box-shadow: -5px 0 25px rgba(0, 0, 0, 0.03);
+        }
+
+        /* Contenedor interno del formulario */
+        .form-container {
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        /* Título de la marca con el verde bosque */
         .brand-title {
             color: #3b522e;
-            font-size: 2.3rem;
+            font-size: 2.5rem;
             margin-top: 0;
             margin-bottom: 8px;
             font-weight: bold;
             font-family: 'Segoe UI', sans-serif;
-            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
         }
 
         /* Subtítulo o eslogan */
@@ -59,65 +92,20 @@
             color: #556644; 
             font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 25px;
-            line-height: 1.3;
+            margin-bottom: 30px;
+            line-height: 1.4;
         }
 
-        /* Campos de texto con bordes color tierra/lavanda suave */
-        input { 
-            width: 100%; 
-            margin-bottom: 12px; 
-            padding: 12px; 
-            border: 1px solid #b6c4b1;
-            border-radius: 10px;
-            box-sizing: border-box;
-            font-size: 0.9rem;
-            background-color: rgba(253, 253, 251, 0.9); 
-            color: #2e3b27;
-            outline: none;
-            transition: all 0.2s;
-        }
-
-        /* Al hacer clic en un input cambia al color lavanda de las flores */
-        input:focus {
-            border-color: #9c82b3; 
-            background-color: #ffffff;
-            box-shadow: 0 0 6px rgba(156, 130, 179, 0.25);
-        }
-
-        /* Botón principal adaptado al verde musgo de la ilustración */
-        button { 
-            width: 100%; 
-            padding: 12px; 
-            cursor: pointer; 
-            background: #5a7843; 
-            color: white; 
-            border: none; 
-            border-radius: 10px; 
-            font-size: 0.95rem;
-            font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 12px rgba(90, 120, 67, 0.3);
-        }
-
-        button:hover { 
-            background: #445c31; 
-            transform: translateY(-1px);
-        }
-
-        /* Bloque de Change.org integrado con la paleta lila/morada para no desentonar */
+        /* Alerta social: Rediseñada con la paleta lila/lavanda de las flores */
         .campaign-alert {
-            background-color: rgba(243, 237, 247, 0.95); 
-            border: 1.5px dashed #8e6ba6; 
+            background-color: #f4edf7; 
+            border: 1px dashed #8e6ba6; 
             border-radius: 12px;
             padding: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             font-size: 0.85rem;
             color: #3a2d45; 
             text-align: left;
-            box-shadow: 0 4px 12px rgba(142, 107, 166, 0.1);
             line-height: 1.4;
         }
 
@@ -130,7 +118,7 @@
             gap: 5px;
         }
 
-        /* Botón de la campaña adaptado al lila oscuro de las flores de lavanda */
+        /* Botón de firma (Lila oscuro combinado con el fondo) */
         .campaign-btn {
             display: block;
             text-align: center;
@@ -138,25 +126,67 @@
             color: white !important;
             text-decoration: none;
             font-weight: bold;
-            padding: 9px;
+            padding: 10px;
             border-radius: 8px;
             margin-top: 10px;
             font-size: 0.85rem;
             transition: background 0.2s;
-            box-shadow: 0 3px 8px rgba(118, 79, 145, 0.2);
+            box-shadow: 0 3px 8px rgba(118, 79, 145, 0.15);
         }
 
         .campaign-btn:hover {
             background: #5c3a73;
         }
 
-        /* Bloque inferior para alternar formularios */
+        /* Campos de texto estilizados */
+        input { 
+            width: 100%; 
+            margin-bottom: 12px; 
+            padding: 14px 12px; 
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 0.88rem;
+            background-color: #fafafa; 
+            color: #2e3b27;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        /* Enfoque del input cambia al lila de las lavandas */
+        input:focus {
+            border-color: #9c82b3; 
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(156, 130, 179, 0.2);
+        }
+
+        /* Botón principal verde musgo */
+        button { 
+            width: 100%; 
+            padding: 13px; 
+            cursor: pointer; 
+            background: #5a7843; 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 0.95rem;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button:hover { 
+            background: #445c31; 
+        }
+
+        /* Bloque inferior para alternar de vista */
         .switch-form {
-            border-top: 1px solid rgba(182, 196, 177, 0.4);
-            padding-top: 18px;
+            border-top: 1px solid #efefef;
+            padding-top: 20px;
             margin-top: 10px;
             font-size: 0.88rem;
-            color: #55614e;
+            color: #666666;
         }
 
         .switch-link {
@@ -175,40 +205,62 @@
         .hidden {
             display: none !important;
         }
+
+        /* Responsivo: Si la pantalla es pequeña (celular), se convierte en una sola columna estándar */
+        @media (max-width: 768px) {
+            .panel-image {
+                display: none;
+            }
+            .panel-form {
+                flex: 1;
+                border-left: none;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="box-card-wrap">
-        <div class="brand-title">🌱 Huertito</div>
-        <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
-
-        <div class="campaign-alert">
-            <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
-            Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo y los ecosistemas locales. ¡Tu firma es urgente!
-            <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
+    <div class="instagram-layout">
+        
+        <div class="panel-image">
+            <div class="image-overlay-text">Descubre y cultiva junto a Huertito.</div>
         </div>
+        
+        <div class="panel-form">
+            <div class="form-container">
+                <div class="brand-title">🌱 Huertito</div>
+                <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
-        <div id="formRegistro" autocomplete="off">
-            <input type="text" id="regNombre" placeholder="Nombre completo" autocomplete="off">
-            <input type="email" id="regCorreo" placeholder="Correo electrónico" autocomplete="off">
-            <input type="password" id="regPass" placeholder="Contraseña" autocomplete="new-password">
-            <button onclick="registrar()">Registrarte</button>
-            
-            <div class="switch-form">
-                ¿Tienes una cuenta? <span class="switch-link" onclick="mostrarLogin()">Iniciar sesión</span>
+                <div class="campaign-alert">
+                    <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
+                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo. ¡Tu firma es urgente!
+                    <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
+                </div>
+
+                <div id="formRegistro" autocomplete="off">
+                    <input type="text" id="regNombre" placeholder="Nombre completo" autocomplete="off">
+                    <input type="email" id="regCorreo" placeholder="Correo electrónico" autocomplete="off">
+                    <input type="password" id="regPass" placeholder="Contraseña" autocomplete="new-password">
+                    <button onclick="registrar()">Registrarte</button>
+                    
+                    <div class="switch-form">
+                        ¿Tienes una cuenta? <span class="switch-link" onclick="mostrarLogin()">Iniciar sesión</span>
+                    </div>
+                </div>
+
+                <div id="formLogin" class="hidden" autocomplete="off">
+                    <input type="email" id="loginCorreo" placeholder="Correo electrónico" autocomplete="username">
+                    <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password">
+                    <button onclick="login()">Entrar</button>
+                    
+                    <div class="switch-form">
+                        ¿No tienes una cuenta? <span class="switch-link" onclick="mostrarRegistro()">Regístrate</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="formLogin" class="hidden" autocomplete="off">
-            <input type="email" id="loginCorreo" placeholder="Correo electrónico" autocomplete="username">
-            <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password">
-            <button onclick="login()">Entrar</button>
-            
-            <div class="switch-form">
-                ¿No tienes una cuenta? <span class="switch-link" onclick="mostrarRegistro()">Regístrate</span>
-            </div>
-        </div>
     </div>
 
     <script>
