@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Estructura general de pantalla dividida al 100% */
+        /* Estructura general fluida */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
@@ -21,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* MITAD IZQUIERDA: Ocupa todo el espacio de forma limpia */
+        /* MITAD IZQUIERDA: Tu ilustración limpia y expandida al 100% */
         .panel-image {
             flex: 1.2; 
             position: relative;
@@ -29,7 +29,6 @@
             overflow: hidden;
         }
 
-        /* cover expande la imagen cubriendo TODO el panel izquierdo sin dejar franjas blancas */
         .panel-image img {
             width: 100%;
             height: 100%;
@@ -37,7 +36,7 @@
             display: block;
         }
 
-        /* MITAD DERECHA: Centrada y balanceada */
+        /* MITAD DERECHA: Regresa al fondo limpio original */
         .panel-form {
             flex: 0.9; 
             background-color: #ffffff; 
@@ -49,12 +48,12 @@
             border-left: 1px solid rgba(182, 196, 177, 0.3);
         }
 
-        /* Tarjeta compacta para que no quede espacio muerto */
+        /* Tarjeta en verde huerto ultra suave (combina con la tortuga) */
         .form-card {
-            background-color: #f5f8f4; /* Verde hoja ultra suave */
+            background-color: #f5f8f4; 
             border: 1px solid #e2ebd9;
-            border-radius: 20px;
-            padding: 40px 30px;
+            border-radius: 24px;
+            padding: 35px 30px;
             width: 100%;
             max-width: 360px;
             box-shadow: 0 10px 25px rgba(78, 107, 59, 0.05);
@@ -63,7 +62,7 @@
 
         /* Título del Huerto */
         .brand-title {
-            color: #3b522c; /* Verde caparazón */
+            color: #3b522c; 
             font-size: 2.3rem;
             margin-top: 0;
             margin-bottom: 6px;
@@ -79,22 +78,23 @@
             line-height: 1.4;
         }
 
-        /* Alerta de Change.org integrada al morado lavanda de tu dibujo */
+        /* ✨ EXCLUSIVO: CUADRO DE MAHAHUAL CON ESTILO AJOLOTE ROSA ✨ */
         .campaign-alert {
-            background-color: #ebdff2; 
-            border: 1px solid #a38bbb; 
-            border-radius: 12px;
+            background: linear-gradient(135deg, #fbe4eb 0%, #f9cfdd 100%); /* Rosa tierno ajolote */
+            border: 1.5px solid #e583a3; /* Borde rosa definido */
+            border-radius: 14px;
             padding: 14px;
             margin-bottom: 24px;
             font-size: 0.85rem;
-            color: #382547; 
+            color: #4a1f2c; /* Texto legible en contraste oscuro */
             text-align: left;
             line-height: 1.4;
+            box-shadow: 0 4px 10px rgba(229, 131, 163, 0.12);
         }
 
         .campaign-alert h4 {
             margin: 0 0 6px 0;
-            color: #5c337a; 
+            color: #b5365d; /* Título en rosa fuerte */
             font-size: 0.9rem;
             display: flex;
             align-items: center;
@@ -102,11 +102,11 @@
             font-weight: bold;
         }
 
-        /* Botón de firmas morado */
+        /* Botón de firmas adaptado a la gama del ajolote */
         .campaign-btn {
             display: block;
             text-align: center;
-            background: #764799;
+            background: #cd4b74; 
             color: white !important;
             text-decoration: none;
             font-weight: bold;
@@ -115,13 +115,14 @@
             margin-top: 10px;
             font-size: 0.82rem;
             transition: background 0.2s;
+            box-shadow: 0 3px 8px rgba(205, 75, 116, 0.2);
         }
 
         .campaign-btn:hover {
-            background: #5a3275;
+            background: #b0355a;
         }
 
-        /* Inputs estéticos */
+        /* Inputs estéticos estándar */
         input { 
             width: 100%; 
             margin-bottom: 12px; 
@@ -137,11 +138,11 @@
         }
 
         input:focus {
-            border-color: #764799; 
-            box-shadow: 0 0 6px rgba(118, 71, 153, 0.2);
+            border-color: #4e6b3b; 
+            box-shadow: 0 0 6px rgba(78, 107, 59, 0.2);
         }
 
-        /* Botón principal Verde Orgánico */
+        /* Botón principal Verde Caparazón */
         button { 
             width: 100%; 
             padding: 13px; 
@@ -162,7 +163,7 @@
             background: #3b522c; 
         }
 
-        /* Enlace inferior para alternar formulario */
+        /* Enlace inferior */
         .switch-form {
             border-top: 1px solid #e1ebd6;
             padding-top: 15px;
@@ -203,7 +204,7 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=8" alt="Proyecto PAEC">
+            <img src="/sorpresa.png?v=11" alt="Proyecto PAEC">
         </div>
         
         <div class="panel-form">
@@ -213,7 +214,7 @@
 
                 <div class="campaign-alert">
                     <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
-                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el arrecife de coral.
+                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo. ¡Tu firma es urgente!
                     <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
                 </div>
 
