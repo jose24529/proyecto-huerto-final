@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Estructura general de pantalla dividida estilo Instagram */
+        /* Estructura general unificada */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
             padding: 0;
             display: flex;
             min-height: 100vh;
-            background-color: #dfedd6; /* Verde pastito para el fondo general */
-            color: #232d1e;
+            background-color: #ffffff; /* Mismo blanco de la imagen para fusionarlo todo */
+            color: #2e3b27;
         }
 
         .instagram-layout {
@@ -21,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* MITAD IZQUIERDA: Contenedor de la ilustración */
+        /* MITAD IZQUIERDA: La imagen se fusiona con el fondo blanco */
         .panel-image {
             flex: 1.2; 
             position: relative;
@@ -30,196 +30,191 @@
             justify-content: space-between;
             padding: 40px;
             box-sizing: border-box;
-            background: linear-gradient(135deg, #fff9e6 0%, #eaf5e6 100%);
+            background-color: #ffffff; /* Fusión perfecta */
             overflow: hidden;
         }
 
-        /* Ajuste de la imagen */
         .panel-image img {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
+            width: 95%;
+            height: 95%;
             object-fit: contain;
             z-index: 1;
         }
 
-        /* Texto flotante inferior */
+        /* Texto inferior izquierdo */
         .image-overlay-text {
             position: relative;
             margin-top: auto;
             z-index: 2;
-            color: #2d3f22; 
-            font-size: 1.6rem;
+            color: #4e6b3b; 
+            font-size: 1.5rem;
             font-weight: bold;
-            text-shadow: 0 2px 6px rgba(255, 255, 255, 0.9);
         }
 
-        /* MITAD DERECHA: ¡NUEVOS COLORES INTENSOS E INTEGRADOS! */
+        /* MITAD DERECHA: Centrada y limpia sin espacios raros */
         .panel-form {
-            flex: 0.9; 
-            background-color: #eedfcc; /* Color tierra/arena tostado extraído directamente de la ilustración */
+            flex: 1; 
+            background-color: #ffffff; /* Fondo blanco continuo */
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 40px;
             box-sizing: border-box;
-            border-left: 2px solid #d4c0a8;
             z-index: 3;
         }
 
-        .form-container {
+        /* TARJETA DEL FORMULARIO: Recorta el espacio blanco y organiza el contenido */
+        .form-card {
+            background-color: #f4f7f2; /* Verde oliva ultra suave para contrastar lindo */
+            border: 1px solid #e1ebd6;
+            border-radius: 20px;
+            padding: 40px 30px;
             width: 100%;
-            max-width: 350px;
+            max-width: 380px;
+            box-shadow: 0 10px 25px rgba(78, 107, 59, 0.08);
             text-align: center;
         }
 
-        /* Título con verde bosque profundo */
+        /* Título de la marca */
         .brand-title {
-            color: #2d3f22;
-            font-size: 2.6rem;
+            color: #3b522c;
+            font-size: 2.3rem;
             margin-top: 0;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: bold;
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.5);
         }
 
-        /* Subtítulo o eslogan */
+        /* Subtítulo */
         .brand-subtitle {
-            color: #4f6343; 
-            font-size: 1rem;
+            color: #657a57; 
+            font-size: 0.92rem;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
             line-height: 1.4;
         }
 
-        /* Bloque de Change.org: Intensificado al color lavanda visible */
+        /* Bloque de Change.org: Paleta Lavanda de la ilustración */
         .campaign-alert {
-            background-color: #e2cfea; /* Morado/lila más vivo y visible */
-            border: 2px dashed #7b5993; 
+            background-color: #eaddf2; /* Lila lavanda claro */
+            border: 1px solid #a389ba; 
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 25px;
-            font-size: 0.88rem;
-            color: #2b1f35; 
+            padding: 14px;
+            margin-bottom: 24px;
+            font-size: 0.85rem;
+            color: #382547; 
             text-align: left;
             line-height: 1.4;
-            box-shadow: 0 4px 10px rgba(123, 89, 147, 0.15);
         }
 
         .campaign-alert h4 {
             margin: 0 0 6px 0;
-            color: #55346c; 
-            font-size: 0.95rem;
+            color: #5c337a; 
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 5px;
             font-weight: bold;
         }
 
-        /* Botón morado de la petición */
+        /* Botón morado de firmas */
         .campaign-btn {
             display: block;
             text-align: center;
-            background: #6a3d8a;
+            background: #764799;
             color: white !important;
             text-decoration: none;
             font-weight: bold;
-            padding: 11px;
+            padding: 10px;
             border-radius: 8px;
-            margin-top: 12px;
-            font-size: 0.85rem;
+            margin-top: 10px;
+            font-size: 0.82rem;
             transition: background 0.2s;
-            box-shadow: 0 3px 8px rgba(106, 61, 138, 0.3);
         }
 
         .campaign-btn:hover {
-            background: #4f2969;
+            background: #5a3275;
         }
 
-        /* Inputs con bordes verde oliva seco definidos */
+        /* Inputs limpios con bordes suaves */
         input { 
             width: 100%; 
-            margin-bottom: 14px; 
-            padding: 14px 12px; 
-            border: 2px solid #8fa482; /* Verde oliva de las hojas */
+            margin-bottom: 12px; 
+            padding: 13px 12px; 
+            border: 1px solid #c5d1bc;
             border-radius: 8px;
             box-sizing: border-box;
-            font-size: 0.9rem;
-            background-color: #fffdfa; 
-            color: #232d1e;
+            font-size: 0.88rem;
+            background-color: #ffffff; 
+            color: #2e3b27;
             outline: none;
             transition: all 0.2s;
         }
 
-        /* Al enfocar, el input se ilumina en morado lavanda */
         input:focus {
-            border-color: #8a63a5; 
-            background-color: #ffffff;
-            box-shadow: 0 0 8px rgba(138, 99, 165, 0.35);
+            border-color: #764799; 
+            box-shadow: 0 0 6px rgba(118, 71, 153, 0.2);
         }
 
-        /* Botón principal: Verde musgo oscuro */
+        /* Botón Verde Caparazón */
         button { 
             width: 100%; 
-            padding: 14px; 
+            padding: 13px; 
             cursor: pointer; 
-            background: #3b522c; /* Color del caparazón de la tortuga */
+            background: #4e6b3b; 
             color: white; 
             border: none; 
             border-radius: 8px; 
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
-            margin-top: 10px;
-            margin-bottom: 25px;
-            transition: background 0.2s, transform 0.1s;
-            box-shadow: 0 4px 12px rgba(59, 82, 44, 0.35);
+            margin-top: 8px;
+            margin-bottom: 20px;
+            transition: background 0.2s;
+            box-shadow: 0 4px 12px rgba(78, 107, 59, 0.2);
         }
 
         button:hover { 
-            background: #27371d; 
-            transform: translateY(-1px);
+            background: #3b522c; 
         }
 
-        /* Enlace inferior de intercambio */
+        /* Enlace inferior */
         .switch-form {
-            border-top: 2px solid #d4c0a8;
-            padding-top: 20px;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #554433;
+            border-top: 1px solid #e1ebd6;
+            padding-top: 15px;
+            font-size: 0.85rem;
+            color: #657a57;
         }
 
         .switch-link {
-            color: #3b522c;
+            color: #4e6b3b;
             font-weight: bold;
             cursor: pointer;
             text-decoration: none;
-            margin-left: 5px;
+            margin-left: 3px;
         }
 
         .switch-link:hover {
             text-decoration: underline;
-            color: #27371d;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* Responsivo celular */
+        /* Responsivo Celular */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
             }
             .panel-form {
                 flex: 1;
-                border-left: none;
-                padding: 24px;
-                background-color: #eedfcc;
+                padding: 20px;
+            }
+            .form-card {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -229,18 +224,18 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=6" alt="Proyecto PAEC">
+            <img src="/sorpresa.png?v=7" alt="Proyecto PAEC">
             <div class="image-overlay-text">Descubre y cultiva junto a Huertito.</div>
         </div>
         
         <div class="panel-form">
-            <div class="form-container">
+            <div class="form-card">
                 <div class="brand-title">🌱 Huertito</div>
                 <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
                 <div class="campaign-alert">
                     <h4>🚨 ¡SALVEMOS MAHAHUAL!</h4>
-                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo. ¡Tu firma es urgente!
+                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el arrecife de coral.
                     <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">✍️ FIRMAR PETICIÓN AHORA</a>
                 </div>
 
