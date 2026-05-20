@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Huerto - Acceso</title>
     <style>
-        /* Estructura dividida inspirada en Instagram */
+        /* Estructura general de pantalla dividida estilo Instagram */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
@@ -21,26 +21,27 @@
             min-height: 100vh;
         }
 
-        /* PANEL IZQUIERDO: Imagen de la tortuguita ocupando la mitad izquierda */
+        /* MITAD IZQUIERDA: Configurada perfectamente para /sorpresa.png */
         .panel-image {
-            flex: 1.1; 
-            background-image: url('/Gemini_Generated_Image_tgaq7wtgaq7wtgaq.png?v=30');
+            flex: 1.2; 
+            background-image: url('/sorpresa.png?v=2');
             background-size: cover;
-            background-position: center;
+            background-position: center center;
             background-repeat: no-repeat;
             position: relative;
             display: flex;
             align-items: flex-end;
             padding: 40px;
             box-sizing: border-box;
+            background-color: #5b6f4c; /* Fondo verde de respaldo mientras carga */
         }
 
-        /* Sombra inferior suave sobre el dibujo para que resalte el texto blanco */
+        /* Capa de sombra suave inferior sobre la imagen para resaltar el texto blanco */
         .panel-image::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, rgba(0,0,0,0) 50%);
+            background: linear-gradient(to top, rgba(46, 66, 33, 0.45) 0%, rgba(0,0,0,0) 50%);
             pointer-events: none;
         }
 
@@ -50,10 +51,10 @@
             color: #ffffff;
             font-size: 1.6rem;
             font-weight: bold;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
         }
 
-        /* PANEL DERECHO: El formulario centrado */
+        /* MITAD DERECHA: El contenedor del formulario */
         .panel-form {
             flex: 0.9; 
             background-color: #ffffff;
@@ -63,6 +64,7 @@
             justify-content: center;
             padding: 40px;
             box-sizing: border-box;
+            border-left: 1px solid rgba(182, 196, 177, 0.3);
         }
 
         .form-container {
@@ -71,18 +73,16 @@
             text-align: center;
         }
 
+        /* Título con el verde bosque */
         .brand-title {
             color: #3b522e;
             font-size: 2.4rem;
             margin-top: 0;
             margin-bottom: 8px;
             font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
+        /* Subtítulo */
         .brand-subtitle {
             color: #556644; 
             font-size: 0.95rem;
@@ -91,7 +91,7 @@
             line-height: 1.4;
         }
 
-        /* Cuadro de Change.org integrado en tonos morados de la lavanda */
+        /* Bloque de Change.org integrado con la paleta de flores lilas/moradas */
         .campaign-alert {
             background-color: #f5f0f8; 
             border: 1px dashed #8e6ba6; 
@@ -108,8 +108,12 @@
             margin: 0 0 6px 0;
             color: #6a3d8a; 
             font-size: 0.92rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
+        /* Botón de la campaña con el lila de las lavandas */
         .campaign-btn {
             display: block;
             text-align: center;
@@ -122,13 +126,14 @@
             margin-top: 10px;
             font-size: 0.85rem;
             transition: background 0.2s;
+            box-shadow: 0 3px 8px rgba(118, 79, 145, 0.15);
         }
 
         .campaign-btn:hover {
             background: #5c3a73;
         }
 
-        /* Inputs estilizados */
+        /* Inputs de texto limpios con enfoque lila suave */
         input { 
             width: 100%; 
             margin-bottom: 12px; 
@@ -149,7 +154,7 @@
             box-shadow: 0 0 5px rgba(156, 130, 179, 0.2);
         }
 
-        /* Botón verde musgo para Registrarte/Entrar */
+        /* Botón principal verde musgo orgánico */
         button { 
             width: 100%; 
             padding: 13px; 
@@ -163,13 +168,14 @@
             margin-top: 10px;
             margin-bottom: 25px;
             transition: background 0.2s;
+            box-shadow: 0 4px 10px rgba(90, 120, 67, 0.2);
         }
 
         button:hover { 
             background: #445c31; 
         }
 
-        /* Cambio entre Login y Registro */
+        /* Enlace inferior para alternar entre formularios */
         .switch-form {
             border-top: 1px solid #efefef;
             padding-top: 20px;
@@ -188,20 +194,22 @@
 
         .switch-link:hover {
             text-decoration: underline;
+            color: #445c31;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* Vista móvil: Esconde el panel izquierdo para que quepa en celulares */
+        /* Modo responsivo: Oculta la imagen izquierda en celulares */
         @media (max-width: 768px) {
             .panel-image {
                 display: none;
             }
             .panel-form {
                 flex: 1;
-                padding: 20px;
+                border-left: none;
+                padding: 24px;
             }
         }
     </style>
