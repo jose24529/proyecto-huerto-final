@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Bitácora del Huerto</title>
     <style>
-        /* Base de diseño estilo red social moderna */
+        /* Base de diseño estilo red social moderna idéntico al index */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             display: flex; 
@@ -13,7 +13,7 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            background-color: #fafafa; /* Fondo gris claro idéntico al index */
+            background-color: #fafafa; /* Fondo gris claro */
             box-sizing: border-box;
         }
 
@@ -123,88 +123,62 @@
             background: #1b5e20; 
         }
 
-        /* ===========================================
-           ✨ NUEVO ESTILO PULIDO PARA LAS PUBLICACIONES
-           =========================================== */
-        .entrada { 
-            background: #ffffff; 
-            border: 1px solid #dbdbdb; 
-            margin-bottom: 28px; 
-            border-radius: 3px; 
-            text-align: left;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-            display: flex;
-            flex-direction: column;
+        /* --- NUEVO CONTENEDOR DE PUBLICACIONES EN EL FEED --- */
+        .post-feed-card { 
+            background: #ffffff !important; 
+            border: 1px solid #dbdbdb !important; 
+            margin-bottom: 25px !important; 
+            border-radius: 3px !important; 
+            text-align: left !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02) !important;
+            display: flex !important;
+            flex-direction: column !important;
         }
 
         /* Cabecera del Post */
-        .entrada-header {
-            padding: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
+        .post-feed-header {
+            padding: 14px !important;
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
         }
 
-        .autor-info h3 {
-            margin: 0;
-            font-size: 0.95rem;
-            color: #262626;
-            font-weight: 600;
+        .post-feed-header h3 {
+            margin: 0 !important;
+            font-size: 1rem !important;
+            color: #262626 !important;
+            font-weight: 600 !important;
         }
 
-        .entrada-header .fecha {
-            color: #8e8e8e;
-            font-size: 0.72rem;
+        .post-feed-header .post-feed-fecha {
+            color: #8e8e8e !important;
+            font-size: 0.75rem !important;
         }
 
         /* Contenedor de Imagen */
-        .entrada img { 
-            width: 100%; 
-            max-height: 450px;
-            object-fit: cover;
-            display: block; 
-            border-top: 1px solid #efefef;
-            border-bottom: 1px solid #efefef;
+        .post-feed-card img { 
+            width: 100% !important; 
+            max-height: 450px !important;
+            object-fit: cover !important;
+            display: block !important; 
+            border-top: 1px solid #efefef !important;
+            border-bottom: 1px solid #efefef !important;
         }
 
-        /* Bloque de Contenido Inferior */
-        .entrada-body {
-            padding: 14px;
-            font-size: 0.88rem;
-            color: #262626;
-            line-height: 1.45;
+        /* Bloque de Texto Inferior */
+        .post-feed-body {
+            padding: 14px !important;
+            font-size: 0.88rem !important;
+            color: #262626 !important;
+            line-height: 1.5 !important;
         }
 
-        /* Tags/Métricas Estilo Red Social */
-        .meta-tags {
-            margin-bottom: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
+        .post-feed-body p {
+            margin: 0 0 6px 0 !important;
         }
 
-        .tag {
-            background-color: #f0f2f5;
-            color: #4b4b4b;
-            padding: 4px 8px;
-            border-radius: 12px; /* Estilo píldora interactiva */
-            font-weight: 500;
-            font-size: 0.78rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            border: 1px solid #e4e6eb;
-        }
-
-        .tag-altura {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-            border-color: #c8e6c9;
-        }
-
-        .observaciones-texto {
-            margin: 4px 0 0 0;
-            color: #333333;
+        .post-feed-body p:last-child {
+            margin-bottom: 0 !important;
         }
 
         .no-data {
@@ -253,7 +227,7 @@
         </div>
 
         <div id="contenedorBitacora">
-            <div class="no-data">Cargando publicaciones...</div>
+            <div class="no-data">Cargando registros...</div>
         </div>
     </div>
 
@@ -275,43 +249,33 @@
                 const contenedor = document.getElementById('contenedorBitacora');
                 
                 if (registros.length === 0) {
-                    contenedor.innerHTML = '<div class="no-data">No hay publicaciones en el feed todavía.</div>';
+                    contenedor.innerHTML = '<div class="no-data">No hay registros aún. ¡El admin debe subir el primero!</div>';
                     return;
                 }
 
                 contenedor.innerHTML = '';
                 registros.forEach(reg => {
-                    // Formatear la fecha de manera simplificada
-                    const fechaFormateada = new Date(reg.fecha).toLocaleDateString('es-MX', {
-                        day: 'numeric',
-                        month: 'short',
-                        year: 'numeric'
-                    });
-
                     contenedor.innerHTML += `
-                        <div class="entrada">
-                            <div class="entrada-header">
-                                <div class="autor-info">
+                        <div class="post-feed-card">
+                            <div class="post-feed-header">
+                                <div>
                                     <h3>🌿 ${reg.tipoPlanta}</h3>
                                 </div>
-                                <div class="fecha">${fechaFormateada}</div>
+                                <div class="post-feed-fecha">📅 ${new Date(reg.fecha).toLocaleString()}</div>
                             </div>
                             
-                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del progreso">` : ''}
+                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : ''}
                             
-                            <div class="entrada-body">
-                                <div class="meta-tags">
-                                    <span class="tag tag-altura">📏 ${reg.altura} cm</span>
-                                    ${reg.abono ? `<span class="tag">🪱 ${reg.abono}</span>` : ''}
-                                </div>
-                                <p class="observaciones-texto">${reg.observaciones}</p>
+                            <div class="post-feed-body">
+                                <p><strong>Crecimiento:</strong> ${reg.altura} cm | <strong>Abono:</strong> ${reg.abono || 'No especificado'}</p>
+                                <p><strong>Notas:</strong> ${reg.observaciones}</p>
                             </div>
                         </div>
                     `;
                 });
             } catch (error) {
                 console.error("Error al cargar datos:", error);
-                document.getElementById('contenedorBitacora').innerHTML = '<div class="no-data">Error al cargar el feed.</div>';
+                document.getElementById('contenedorBitacora').innerHTML = '<div class="no-data">Error al cargar datos.</div>';
             }
         }
 
@@ -334,15 +298,15 @@
                 });
 
                 if(res.ok) {
-                    alert('¡Excelente! Entrada publicada con éxito.');
+                    alert('¡Excelente! Registro y foto guardados correctamente.');
                     location.reload(); 
                 } else {
                     const errorData = await res.json();
-                    alert('Error: ' + (errorData.error || 'No se pudo publicar'));
+                    alert('Error: ' + (errorData.error || 'No se pudo subir'));
                 }
             } catch (error) {
                 console.error("Error en la petición:", error);
-                alert('Error de conexión.');
+                alert('Error de conexión con el servidor.');
             }
         }
 
