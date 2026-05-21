@@ -53,7 +53,7 @@
             background-color: #f3f6f2; 
             border: 1px solid #dbe3da;
             border-radius: 24px;
-            padding: 35px 30px;
+            padding: 40px 30px;
             width: 100%;
             max-width: 360px;
             box-shadow: 0 10px 30px rgba(78, 107, 59, 0.04);
@@ -73,84 +73,14 @@
             color: #5c7050; 
             font-size: 0.92rem;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             line-height: 1.4;
-        }
-
-        /* 🌸 CUADRO MAHAHUAL CON PALETA ROSA-UVA Y ESPACIO PROPORCIONADO PARA 2 AJOLOTES SUPERIORES 🌸 */
-        .campaign-alert {
-            background-color: #fceaf0; /* Rosa suave equilibrado */
-            border: 2px dashed #e91e63; /* Tu borde discontinuo rosa original */
-            border-radius: 14px;
-            /* Padding generoso en los lados y arriba para dar aire al texto y que respiren los ajolotes */
-            padding: 24px 55px 18px 55px; 
-            margin-bottom: 24px;
-            font-size: 0.85rem;
-            color: #4a2a3a; 
-            text-align: left;
-            line-height: 1.4;
-            position: relative; /* Indispensable para las posiciones absolutas */
-            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.08);
-        }
-
-        .campaign-alert h4 {
-            margin: 0 0 8px 0;
-            color: #bc1a5c; 
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            font-weight: bold;
-        }
-
-        /* 🦎 AJOLOTE 1: ARRIBA IZQUIERDA (Bien proporcionado y despegado del texto) */
-        .axolotl-top-left {
-            position: absolute;
-            top: 10px;
-            left: 12px;
-            width: 34px;
-            height: 34px;
-            object-fit: contain;
-            pointer-events: none;
-            transform: scaleX(-1); /* Espejado para apuntar hacia el centro */
-        }
-
-        /* 🦎 AJOLOTE 2: ARRIBA DERECHA (Perfectamente alineado con el izquierdo) */
-        .axolotl-top-right {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            width: 34px;
-            height: 34px;
-            object-fit: contain;
-            pointer-events: none;
-        }
-
-        /* Botón de firmas color uva/lavanda silvestre */
-        .campaign-btn {
-            display: block;
-            text-align: center;
-            background: #894f72; 
-            color: white !important;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 11px;
-            border-radius: 8px;
-            margin-top: 12px;
-            font-size: 0.82rem;
-            transition: background 0.2s;
-            box-shadow: 0 3px 8px rgba(137, 79, 114, 0.2);
-        }
-
-        .campaign-btn:hover {
-            background: #703f5d;
         }
 
         /* Inputs integrados con el fondo crema/verde */
         input { 
             width: 100%; 
-            margin-bottom: 12px; 
+            margin-bottom: 14px; 
             padding: 13px 12px; 
             border: 1px solid #c0cca9;
             border-radius: 8px;
@@ -229,23 +159,13 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=22" alt="Proyecto PAEC">
+            <img src="/sorpresa.png?v=23" alt="Proyecto PAEC">
         </div>
         
         <div class="panel-form">
             <div class="form-card">
                 <div class="brand-title">🌱 Huertito</div>
                 <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
-
-                <div class="campaign-alert">
-                    <img src="/ajolote.png" alt="Ajolote Izquierdo" class="axolotl-top-left">
-                    
-                    <img src="/ajolote.png" alt="Ajolote Derecho" class="axolotl-top-right">
-
-                    <h4>¡SALVEMOS MAHAHUAL!</h4>
-                    Detengamos el proyecto destructivo de Royal Caribbean que pone en riesgo el segundo arrecife de coral más grande del mundo. ¡Tu firma es urgente!
-                    <a href="https://www.change.org/p/salvemos-mahahual-detengamos-el-proyecto-destructivo-de-royal-caribbean" target="_blank" class="campaign-btn">FIRMAR PETICIÓN AHORA 👈🏻</a>
-                </div>
 
                 <div id="formRegistro" autocomplete="off">
                     <input type="text" id="regNombre" placeholder="Nombre completo" autocomplete="off">
