@@ -10,19 +10,13 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'publico')));
 
-// ==============================================
-// NUEVA CONFIGURACIÓN DE IMÁGENES (Memoria RAM)
-// En lugar de guardarlas en una carpeta, las atrapamos en memoria
-// ==============================================
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
-// --- CONEXIÓN MONGODB ---
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('✅ Base de datos lista'))
     .catch(err => console.error('❌ Error DB:', err));
 
-// --- MODELOS ---
 const User = mongoose.model('User', new mongoose.Schema({
     nombre: String, 
     correo: { type: String, unique: true }, 
@@ -35,13 +29,10 @@ const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
     altura: Number, 
     abono: String, 
     observaciones: String, 
-    imagenUrl: String, // Aquí ahora se guardará la imagen convertida a texto
+    imagenUrl: String, 
     fecha: { type: Date, default: Date.now }
 }));
 
-// --- RUTAS API ---
-
-// 1. Registro
 app.post('/api/registro', async (req, res) => {
     try {
         const salt = await bcrypt.genSalt(10);
@@ -52,7 +43,6 @@ app.post('/api/registro', async (req, res) => {
     } catch (e) { res.status(500).json({error: e.message}); }
 });
 
-// 2. Login
 app.post('/api/login', async (req, res) => {
     const user = await User.findOne({ correo: req.body.correo });
     if (!user) return res.status(400).json({ error: 'No existe' });
@@ -63,18 +53,15 @@ app.post('/api/login', async (req, res) => {
     res.json({ token, rol: user.rol });
 });
 
-// 3. Ver Bitácora (Público/Maestros)
 app.get('/api/bitacora', async (req, res) => {
     const lista = await Bitacora.find().sort({ fecha: -1 });
     res.json(lista);
 });
 
-// 4. Guardar Bitácora (Admin) - ¡MAGIA BASE64 AQUÍ!
 app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     try {
         let imagenBase64 = '';
         
-        // Si subieron una imagen, la convertimos a formato de texto (Base64)
         if (req.file) {
             imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
         }
@@ -84,7 +71,7 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
             altura: req.body.altura,
             abono: req.body.abono,
             observaciones: req.body.observaciones,
-            imagenUrl: imagenBase64 // La imagen ahora se guarda directo en MongoDB
+            imagenUrl: imagenBase64 
         };
         
         await Bitacora.create(nuevaEntrada);
@@ -95,7 +82,6 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     }
 });
 
-// 5. Ruta para admin (Subida individual a galería)
 app.post('/api/upload', upload.single('imagen'), (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'No se subió imagen' });
     const imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
