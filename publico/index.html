@@ -53,7 +53,7 @@
             background-color: #f3f6f2; 
             border: 1px solid #dbe3da;
             border-radius: 24px;
-            padding: 40px 30px;
+            padding: 45px 35px;
             width: 100%;
             max-width: 360px;
             box-shadow: 0 10px 30px rgba(78, 107, 59, 0.04);
@@ -73,7 +73,7 @@
             color: #5c7050; 
             font-size: 0.92rem;
             font-weight: 600;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
             line-height: 1.4;
         }
 
@@ -81,7 +81,7 @@
         input { 
             width: 100%; 
             margin-bottom: 14px; 
-            padding: 13px 12px; 
+            padding: 14px 12px; 
             border: 1px solid #c0cca9;
             border-radius: 8px;
             box-sizing: border-box;
@@ -100,7 +100,7 @@
         /* Botón principal en color Verde Caparazón Profundo */
         button { 
             width: 100%; 
-            padding: 13px; 
+            padding: 14px; 
             cursor: pointer; 
             background: #4d693f; 
             color: white; 
@@ -121,7 +121,7 @@
         /* Interruptor inferior de vista */
         .switch-form {
             border-top: 1px solid #d2ded0;
-            padding-top: 15px;
+            padding-top: 18px;
             font-size: 0.85rem;
             color: #5c7050;
         }
@@ -159,7 +159,7 @@
     <div class="instagram-layout">
         
         <div class="panel-image">
-            <img src="/sorpresa.png?v=23" alt="Proyecto PAEC">
+            <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
         </div>
         
         <div class="panel-form">
@@ -255,7 +255,7 @@
             if(info.token) {
                 localStorage.setItem('token', info.token);
                 localStorage.setItem('rol', info.rol); 
-                window.location.href = '/dashboard.html';
+                    window.location.href = '/dashboard.html';
             } else {
                 alert("Datos incorrectos");
             }
