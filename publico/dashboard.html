@@ -4,124 +4,124 @@
     <meta charset="UTF-8">
     <title>Bitácora del Huerto</title>
     <style>
-        /* Fondo general integrado con la paleta de tus ilustraciones */
+        /* Fondo general suave integrado a las ilustraciones */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f4f7f2; /* Crema/verde ultra suave */
+            background-color: #f4f7f2; 
             color: #2e3b27;
             min-height: 100vh;
         }
         
-        /* Contenedor flexible para distribuir los elementos en toda la pantalla */
+        /* Contenedor principal flexible para centrar el contenido */
         .dashboard-layout {
             display: flex;
             justify-content: center;
             align-items: flex-start;
             position: relative;
             width: 100%;
-            padding: 30px 20px;
+            padding: 25px 20px;
             box-sizing: border-box;
         }
 
-        /* Bloque central MÁS PEQUEÑO y compacto como pediste */
+        /* Bloque central compacto y más pequeño */
         .main-content {
             flex: 1;
-            max-width: 620px; /* Reducido para que luzca más estilizado y deje aire a los lados */
+            max-width: 580px; /* Reducido para que sea más estético y estilizado */
             z-index: 2; 
         }
         
-        /* 🦎 IMÁGENES FLOTANTES EN LOS LATERALES (ZONAS BLANCAS) 🦎 */
+        /* 🦎 AJOLOTES LATERALES EN LOS ESPACIOS BLANCOS 🦎 */
         .axolotl-side {
             position: fixed;
             top: 18%;
-            width: 240px;
+            width: 230px;
             height: auto;
             pointer-events: none;
             user-select: none;
         }
 
-        /* Ajolote izquierdo (ajolote2.jpg) */
         .axolotl-left {
-            left: 40px;
+            left: 35px;
         }
 
-        /* Ajolote derecho (ajolote1.jpg) */
         .axolotl-right {
-            right: 40px;
+            right: 35px;
         }
         
-        /* Botón de Cerrar Sesión modificado en tono Lila Lavanda */
+        /* BOTÓN MODIFICADO: Cerrar Sesión estilizado en Lavanda */
         .logout { 
             float: right; 
             color: #785880; 
             cursor: pointer; 
             font-weight: bold; 
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             padding: 6px 14px;
-            border-radius: 20px; /* Más redondeado y moderno */
+            border-radius: 20px; /* Bordes redondeados más orgánicos */
             border: 1px solid rgba(120, 88, 128, 0.3);
             background: #ffffff;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
         .logout:hover { 
             background: #f1ebf2;
             border-color: #785880;
+            transform: translateY(-1px);
         }
         
         h1 { 
-            color: #557a46; /* Verde ajolote */
-            font-size: 2rem;
+            color: #557a46; 
+            font-size: 1.8rem; /* Un poco más pequeño y elegante */
             margin-top: 0;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* Tarjeta del Panel de Administración Ajustada */
+        /* Tarjeta del Panel Admin más compacta */
         #seccionAdmin { 
             display: none; 
             background: #ffffff; 
-            padding: 24px; /* Un poco más compacto */
-            border-radius: 16px; 
-            margin-bottom: 30px; 
+            padding: 22px; /* Espaciado reducido como pediste */
+            border-radius: 14px; 
+            margin-bottom: 25px; 
             border: 1px solid #dbe3da; 
-            box-shadow: 0 8px 24px rgba(85, 122, 70, 0.04); 
+            box-shadow: 0 6px 20px rgba(85, 122, 70, 0.04); 
         }
 
         #seccionAdmin h2 {
             margin-top: 0;
             color: #405d33;
-            font-size: 1.25rem;
-            margin-bottom: 18px;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
             border-bottom: 2px solid #eef3ed;
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
+        /* Reducción de espacios entre los campos */
         .campo { 
-            margin-bottom: 14px; 
+            margin-bottom: 12px; 
         }
         
         label { 
             font-weight: 600; 
             display: block; 
-            margin-bottom: 5px; 
+            margin-bottom: 4px; 
             color: #557a46; 
-            font-size: 0.88rem;
+            font-size: 0.85rem;
         }
         
-        /* Inputs estilizados y más limpios */
+        /* Inputs modificados: más pequeños y con textos limpios */
         input, textarea { 
             width: 100%; 
-            padding: 10px 12px; /* Más compacto */
+            padding: 8px 10px; /* Reducción de padding para hacerlo más pequeño */
             border: 1px solid #c0cca9; 
-            border-radius: 8px; 
+            border-radius: 6px; 
             box-sizing: border-box; 
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             background-color: #fafbfa;
             color: #2e3b27;
             outline: none;
@@ -131,36 +131,37 @@
         input:focus, textarea:focus {
             border-color: #557a46;
             background-color: #ffffff;
-            box-shadow: 0 0 6px rgba(85, 122, 70, 0.15);
+            box-shadow: 0 0 5px rgba(85, 122, 70, 0.15);
         }
 
-        /* Input de archivo modificado */
+        /* Input de archivo modificado y adaptado */
         input[type="file"] {
             background: #fafbfa;
             border: 1px dashed #b1c295;
-            padding: 10px;
+            padding: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
         }
 
-        /* BOTÓN PRINCIPAL MODIFICADO (Publicar en Bitácora) */
+        /* BOTÓN MODIFICADO: Publicar en Bitácora con mejor diseño */
         button { 
-            background: #557a46; /* El verde característico */
+            background: #557a46; 
             color: white; 
             border: none; 
-            padding: 12px; 
-            border-radius: 8px; 
+            padding: 11px; /* Más compacto verticalmente */
+            border-radius: 6px; 
             cursor: pointer; 
-            font-size: 0.95rem; 
+            font-size: 0.9rem; 
             font-weight: bold; 
             width: 100%; 
             transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(85, 122, 70, 0.15);
-            margin-top: 8px;
+            box-shadow: 0 3px 10px rgba(85, 122, 70, 0.15);
+            margin-top: 5px;
         }
         button:hover { 
-            background: #405d33; /* Oscurece sutilmente al pasar el cursor */
-            box-shadow: 0 6px 16px rgba(85, 122, 70, 0.25);
+            background: #405d33; 
+            box-shadow: 0 5px 14px rgba(85, 122, 70, 0.25);
             transform: translateY(-1px);
         }
         button:active {
@@ -168,32 +169,31 @@
         }
 
         #contenedorBitacora {
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
-        /* Tarjetas de Posts de plantas */
+        /* Publicaciones individuales compactas */
         .entrada { 
             background: white; 
             border: 1px solid #dbe3da; 
-            padding: 22px; 
-            margin-bottom: 20px; 
-            border-radius: 16px; 
-            box-shadow: 0 4px 14px rgba(0,0,0,0.02); 
+            padding: 20px; 
+            margin-bottom: 18px; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01); 
         }
 
         .entrada h3 {
-            margin: 10px 0;
+            margin: 8px 0;
             color: #405d33;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
         }
 
-        /* Pequeños Badges combinando con las flores de Lavanda */
         .badge {
             background-color: #f1ebf2; 
             color: #785880; 
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.82rem;
             font-weight: 600;
             display: inline-block;
             border: 1px solid rgba(120, 88, 128, 0.1);
@@ -201,23 +201,22 @@
 
         .entrada img { 
             max-width: 100%; 
-            border-radius: 12px; 
-            margin-top: 15px; 
+            border-radius: 10px; 
+            margin-top: 12px; 
             display: block; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
         }
 
         .no-registros {
             text-align: center;
             color: #5c7050;
             background: white;
-            padding: 40px;
-            border-radius: 16px;
+            padding: 35px;
+            border-radius: 14px;
             border: 1px dashed #785880;
         }
 
-        /* Ocultar decorativos en pantallas móviles para no encimar elementos */
-        @media (max-width: 1150px) {
+        /* Ocultar elementos decorativos en pantallas pequeñas */
+        @media (max-width: 1100px) {
             .axolotl-side {
                 display: none !important;
             }
@@ -226,8 +225,8 @@
 </head>
 <body>
 
-    <img src="/ajolote2.png" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
-    <img src="/ajolote1.png" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
+    <img src="/ajolote2.jpg" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
+    <img src="/ajolote1.jpg" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
 
     <div class="dashboard-layout">
         <div class="main-content">
@@ -282,8 +281,8 @@
                 if (registros.length === 0) {
                     contenedor.innerHTML = `
                         <div class="no-registros">
-                            <p style="font-size: 1.05rem; margin: 0; font-weight: bold; color: #405d33;">No hay registros aún.</p>
-                            <p style="color: #785880; font-size: 0.9rem; margin-top: 5px; font-weight: 500;">¡El administrador debe subir la primera planta!</p>
+                            <p style="font-size: 1rem; margin: 0; font-weight: bold; color: #405d33;">No hay registros aún.</p>
+                            <p style="color: #785880; font-size: 0.85rem; margin-top: 4px; font-weight: 500;">¡El administrador debe subir la primera planta!</p>
                         </div>
                     `;
                     return;
@@ -299,8 +298,8 @@
                                 <strong>Crecimiento:</strong> <span class="badge">📐 ${reg.altura} cm</span> 
                                 | <strong>Abono:</strong> <span class="badge">🧬 ${reg.abono || 'No especificado'}</span>
                             </p>
-                            <p style="margin-top: 12px;"><strong>Notas:</strong> ${reg.observaciones}</p>
-                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #8fa087; font-style: italic; margin-top: 15px;">Sin imagen adjunta</p>'}
+                            <p style="margin-top: 10px;"><strong>Notas:</strong> ${reg.observaciones}</p>
+                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #8fa087; font-style: italic; margin-top: 12px;">Sin imagen adjunta</p>'}
                         </div>
                     `;
                 });
