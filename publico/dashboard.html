@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <title>Bitácora del Huerto</title>
     <style>
-        /* Estructura general con el color crema/verde muy suave de fondo */
+        /* Fondo general integrado con la paleta de tus ilustraciones */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f4f7f2; /* Integrado con las ilustraciones */
+            background-color: #f4f7f2; /* Crema/verde ultra suave */
             color: #2e3b27;
             min-height: 100vh;
         }
         
-        /* Contenedor flexible que expande la pantalla al 100% para dar espacio a los lados */
+        /* Contenedor flexible para distribuir los elementos en toda la pantalla */
         .dashboard-layout {
             display: flex;
             justify-content: center;
@@ -25,46 +25,47 @@
             box-sizing: border-box;
         }
 
-        /* Bloque central del formulario y entradas */
+        /* Bloque central MÁS PEQUEÑO y compacto como pediste */
         .main-content {
             flex: 1;
-            max-width: 760px; /* Tamaño ideal para que no se vea gigante y queden los huecos laterales */
+            max-width: 620px; /* Reducido para que luzca más estilizado y deje aire a los lados */
             z-index: 2; 
         }
         
-        /* 🦎 AJOLOTES FLOTANTES EN LOS ESPACIOS EN BLANCO 🦎 */
+        /* 🦎 IMÁGENES FLOTANTES EN LOS LATERALES (ZONAS BLANCAS) 🦎 */
         .axolotl-side {
             position: fixed;
-            top: 15%;
-            width: 250px;
+            top: 18%;
+            width: 240px;
             height: auto;
-            pointer-events: none; /* Permite hacer clic "a través" de ellos si fuera necesario */
+            pointer-events: none;
             user-select: none;
         }
 
         /* Ajolote izquierdo (ajolote2.jpg) */
         .axolotl-left {
-            left: 30px;
+            left: 40px;
         }
 
         /* Ajolote derecho (ajolote1.jpg) */
         .axolotl-right {
-            right: 30px;
+            right: 40px;
         }
         
-        /* Enlace de Cerrar Sesión estilizado con el color morado lavanda */
+        /* Botón de Cerrar Sesión modificado en tono Lila Lavanda */
         .logout { 
             float: right; 
             color: #785880; 
             cursor: pointer; 
             font-weight: bold; 
             text-decoration: none;
-            font-size: 0.95rem;
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(120, 88, 128, 0.2);
+            font-size: 0.9rem;
+            padding: 6px 14px;
+            border-radius: 20px; /* Más redondeado y moderno */
+            border: 1px solid rgba(120, 88, 128, 0.3);
             background: #ffffff;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
         }
         .logout:hover { 
             background: #f1ebf2;
@@ -72,8 +73,8 @@
         }
         
         h1 { 
-            color: #557a46; /* Verde musgo de los ajolotes */
-            font-size: 2.2rem;
+            color: #557a46; /* Verde ajolote */
+            font-size: 2rem;
             margin-top: 0;
             margin-bottom: 25px;
             display: flex;
@@ -81,45 +82,46 @@
             gap: 10px;
         }
 
-        /* Sección del Panel de Administración */
+        /* Tarjeta del Panel de Administración Ajustada */
         #seccionAdmin { 
             display: none; 
             background: #ffffff; 
-            padding: 30px; 
+            padding: 24px; /* Un poco más compacto */
             border-radius: 16px; 
-            margin-bottom: 35px; 
+            margin-bottom: 30px; 
             border: 1px solid #dbe3da; 
-            box-shadow: 0 8px 24px rgba(85, 122, 70, 0.05); 
+            box-shadow: 0 8px 24px rgba(85, 122, 70, 0.04); 
         }
 
         #seccionAdmin h2 {
             margin-top: 0;
             color: #405d33;
-            font-size: 1.35rem;
-            margin-bottom: 20px;
+            font-size: 1.25rem;
+            margin-bottom: 18px;
             border-bottom: 2px solid #eef3ed;
             padding-bottom: 8px;
         }
 
         .campo { 
-            margin-bottom: 16px; 
+            margin-bottom: 14px; 
         }
         
         label { 
             font-weight: 600; 
             display: block; 
-            margin-bottom: 6px; 
+            margin-bottom: 5px; 
             color: #557a46; 
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
         
+        /* Inputs estilizados y más limpios */
         input, textarea { 
             width: 100%; 
-            padding: 12px; 
+            padding: 10px 12px; /* Más compacto */
             border: 1px solid #c0cca9; 
             border-radius: 8px; 
             box-sizing: border-box; 
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             background-color: #fafbfa;
             color: #2e3b27;
             outline: none;
@@ -129,33 +131,36 @@
         input:focus, textarea:focus {
             border-color: #557a46;
             background-color: #ffffff;
-            box-shadow: 0 0 6px rgba(85, 122, 70, 0.2);
+            box-shadow: 0 0 6px rgba(85, 122, 70, 0.15);
         }
 
+        /* Input de archivo modificado */
         input[type="file"] {
             background: #fafbfa;
             border: 1px dashed #b1c295;
             padding: 10px;
             cursor: pointer;
+            font-size: 0.88rem;
         }
 
-        /* Botón con el verde musgo principal */
+        /* BOTÓN PRINCIPAL MODIFICADO (Publicar en Bitácora) */
         button { 
-            background: #557a46; 
+            background: #557a46; /* El verde característico */
             color: white; 
             border: none; 
-            padding: 14px; 
+            padding: 12px; 
             border-radius: 8px; 
             cursor: pointer; 
-            font-size: 1rem; 
+            font-size: 0.95rem; 
             font-weight: bold; 
             width: 100%; 
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(85, 122, 70, 0.2);
-            margin-top: 10px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(85, 122, 70, 0.15);
+            margin-top: 8px;
         }
         button:hover { 
-            background: #405d33; 
+            background: #405d33; /* Oscurece sutilmente al pasar el cursor */
+            box-shadow: 0 6px 16px rgba(85, 122, 70, 0.25);
             transform: translateY(-1px);
         }
         button:active {
@@ -166,63 +171,53 @@
             margin-top: 20px;
         }
 
-        /* Tarjetas de publicaciones individuales */
+        /* Tarjetas de Posts de plantas */
         .entrada { 
             background: white; 
             border: 1px solid #dbe3da; 
-            padding: 25px; 
-            margin-bottom: 25px; 
+            padding: 22px; 
+            margin-bottom: 20px; 
             border-radius: 16px; 
-            box-shadow: 0 6px 18px rgba(0,0,0,0.02); 
-            transition: transform 0.2s;
-        }
-        .entrada:hover {
-            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.02); 
         }
 
         .entrada h3 {
             margin: 10px 0;
             color: #405d33;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
         }
 
-        .entrada p {
-            margin: 8px 0;
-            line-height: 1.5;
-            color: #3a4733;
-        }
-
-        /* Pequeñas etiquetas moradas lavanda */
+        /* Pequeños Badges combinando con las flores de Lavanda */
         .badge {
             background-color: #f1ebf2; 
             color: #785880; 
-            padding: 5px 10px;
+            padding: 4px 10px;
             border-radius: 6px;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             font-weight: 600;
             display: inline-block;
-            border: 1px solid rgba(120, 88, 128, 0.15);
+            border: 1px solid rgba(120, 88, 128, 0.1);
         }
 
         .entrada img { 
             max-width: 100%; 
             border-radius: 12px; 
-            margin-top: 18px; 
+            margin-top: 15px; 
             display: block; 
-            box-shadow: 0 6px 18px rgba(0,0,0,0.06); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05); 
         }
 
         .no-registros {
             text-align: center;
             color: #5c7050;
             background: white;
-            padding: 45px;
+            padding: 40px;
             border-radius: 16px;
             border: 1px dashed #785880;
         }
 
-        /* Si abren la página en una tablet o celular, quitamos los ajolotes para que no tapen el contenido */
-        @media (max-width: 1200px) {
+        /* Ocultar decorativos en pantallas móviles para no encimar elementos */
+        @media (max-width: 1150px) {
             .axolotl-side {
                 display: none !important;
             }
@@ -231,8 +226,8 @@
 </head>
 <body>
 
-    <img src="/ajolote2.png" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
-    <img src="/ajolote1.png" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
+    <img src="/ajolote2.jpg" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
+    <img src="/ajolote1.jpg" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
 
     <div class="dashboard-layout">
         <div class="main-content">
@@ -272,15 +267,12 @@
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
-        // Protección de ruta obligatoria
         if(!token) window.location.href = '/';
 
-        // Mostrar sección de subida solo si el rol guardado es exactamente 'admin'
         if(rol === 'admin') {
             document.getElementById('seccionAdmin').style.display = 'block';
         }
 
-        // Cargar las entradas guardadas desde la base de datos
         async function cargarDatos() {
             try {
                 const res = await fetch('/api/bitacora');
@@ -290,8 +282,8 @@
                 if (registros.length === 0) {
                     contenedor.innerHTML = `
                         <div class="no-registros">
-                            <p style="font-size: 1.1rem; margin: 0; font-weight: bold; color: #405d33;">No hay registros aún.</p>
-                            <p style="color: #785880; font-size: 0.92rem; margin-top: 6px; font-weight: 500;">¡El administrador debe subir la primera planta!</p>
+                            <p style="font-size: 1.05rem; margin: 0; font-weight: bold; color: #405d33;">No hay registros aún.</p>
+                            <p style="color: #785880; font-size: 0.9rem; margin-top: 5px; font-weight: 500;">¡El administrador debe subir la primera planta!</p>
                         </div>
                     `;
                     return;
@@ -318,7 +310,6 @@
             }
         }
 
-        // Guardar un nuevo registro de planta en la bitácora
         async function guardarBitacora() {
             const formData = new FormData();
             formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
@@ -350,7 +341,6 @@
             }
         }
 
-        // Ejecutar carga automática al abrir la pantalla
         cargarDatos();
     </script>
 </body>
