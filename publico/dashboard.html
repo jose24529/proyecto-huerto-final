@@ -4,57 +4,55 @@
     <meta charset="UTF-8">
     <title>Bitácora del Huerto</title>
     <style>
-        /* Fondo crema/verde muy suave sacado de tus ajolotes */
+        /* Estructura general con el color crema/verde muy suave de fondo */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f4f7f2; 
+            background-color: #f4f7f2; /* Integrado con las ilustraciones */
             color: #2e3b27;
             min-height: 100vh;
         }
-
-        /* Estructura para centrar el formulario */
-        .dashboard-container {
+        
+        /* Contenedor flexible que expande la pantalla al 100% para dar espacio a los lados */
+        .dashboard-layout {
             display: flex;
             justify-content: center;
             align-items: flex-start;
             position: relative;
             width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
             padding: 30px 20px;
             box-sizing: border-box;
         }
 
-        /* Cuadro central */
+        /* Bloque central del formulario y entradas */
         .main-content {
             flex: 1;
-            max-width: 720px;
+            max-width: 760px; /* Tamaño ideal para que no se vea gigante y queden los huecos laterales */
             z-index: 2; 
         }
         
-        /* 🦎 ESTILOS PARA LOS AJOLOTES FLOTANTES EN LOS LATERALES 🦎 */
+        /* 🦎 AJOLOTES FLOTANTES EN LOS ESPACIOS EN BLANCO 🦎 */
         .axolotl-side {
             position: fixed;
             top: 15%;
-            width: 260px;
+            width: 250px;
             height: auto;
-            pointer-events: none;
+            pointer-events: none; /* Permite hacer clic "a través" de ellos si fuera necesario */
             user-select: none;
         }
 
         /* Ajolote izquierdo (ajolote2.jpg) */
         .axolotl-left {
-            left: 40px;
+            left: 30px;
         }
 
         /* Ajolote derecho (ajolote1.jpg) */
         .axolotl-right {
-            right: 40px;
+            right: 30px;
         }
         
-        /* Cerrar Sesión en color morado lavanda */
+        /* Enlace de Cerrar Sesión estilizado con el color morado lavanda */
         .logout { 
             float: right; 
             color: #785880; 
@@ -74,16 +72,16 @@
         }
         
         h1 { 
-            color: #557a46; /* Verde musgo */
+            color: #557a46; /* Verde musgo de los ajolotes */
             font-size: 2.2rem;
             margin-top: 0;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* Tarjeta del Panel Admin */
+        /* Sección del Panel de Administración */
         #seccionAdmin { 
             display: none; 
             background: #ffffff; 
@@ -98,13 +96,13 @@
             margin-top: 0;
             color: #405d33;
             font-size: 1.35rem;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #eef3ed;
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
         .campo { 
-            margin-bottom: 18px; 
+            margin-bottom: 16px; 
         }
         
         label { 
@@ -117,7 +115,7 @@
         
         input, textarea { 
             width: 100%; 
-            padding: 12px 14px; 
+            padding: 12px; 
             border: 1px solid #c0cca9; 
             border-radius: 8px; 
             box-sizing: border-box; 
@@ -137,11 +135,11 @@
         input[type="file"] {
             background: #fafbfa;
             border: 1px dashed #b1c295;
-            padding: 12px;
+            padding: 10px;
             cursor: pointer;
         }
 
-        /* Botón verde musgo */
+        /* Botón con el verde musgo principal */
         button { 
             background: #557a46; 
             color: white; 
@@ -160,6 +158,9 @@
             background: #405d33; 
             transform: translateY(-1px);
         }
+        button:active {
+            transform: translateY(0);
+        }
 
         #contenedorBitacora {
             margin-top: 20px;
@@ -173,11 +174,22 @@
             margin-bottom: 25px; 
             border-radius: 16px; 
             box-shadow: 0 6px 18px rgba(0,0,0,0.02); 
+            transition: transform 0.2s;
+        }
+        .entrada:hover {
+            transform: translateY(-2px);
         }
 
         .entrada h3 {
-            margin: 12px 0;
+            margin: 10px 0;
             color: #405d33;
+            font-size: 1.4rem;
+        }
+
+        .entrada p {
+            margin: 8px 0;
+            line-height: 1.5;
+            color: #3a4733;
         }
 
         /* Pequeñas etiquetas moradas lavanda */
@@ -209,7 +221,7 @@
             border: 1px dashed #785880;
         }
 
-        /* Si la pantalla es chica (como un celular), escondemos los ajolotes para que no estorben */
+        /* Si abren la página en una tablet o celular, quitamos los ajolotes para que no tapen el contenido */
         @media (max-width: 1200px) {
             .axolotl-side {
                 display: none !important;
@@ -219,10 +231,10 @@
 </head>
 <body>
 
-    <img src="/ajolote2.png" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
-    <img src="/ajolote1.png" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
+    <img src="/ajolote2.jpg" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
+    <img src="/ajolote1.jpg" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
 
-    <div class="dashboard-container">
+    <div class="dashboard-layout">
         <div class="main-content">
             <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
             <h1>🌱 Historial del Huerto</h1>
@@ -260,12 +272,15 @@
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
+        // Protección de ruta obligatoria
         if(!token) window.location.href = '/';
 
+        // Mostrar sección de subida solo si el rol guardado es exactamente 'admin'
         if(rol === 'admin') {
             document.getElementById('seccionAdmin').style.display = 'block';
         }
 
+        // Cargar las entradas guardadas desde la base de datos
         async function cargarDatos() {
             try {
                 const res = await fetch('/api/bitacora');
@@ -303,6 +318,7 @@
             }
         }
 
+        // Guardar un nuevo registro de planta en la bitácora
         async function guardarBitacora() {
             const formData = new FormData();
             formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
@@ -334,6 +350,7 @@
             }
         }
 
+        // Ejecutar carga automática al abrir la pantalla
         cargarDatos();
     </script>
 </body>
