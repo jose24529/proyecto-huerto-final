@@ -28,7 +28,7 @@
         /* Bloque central compacto y más pequeño */
         .main-content {
             flex: 1;
-            max-width: 580px; /* Reducido para que sea más estético y estilizado */
+            max-width: 580px; 
             z-index: 2; 
         }
         
@@ -50,7 +50,7 @@
             right: 35px;
         }
         
-        /* BOTÓN MODIFICADO: Cerrar Sesión estilizado en Lavanda */
+        /* Cerrar Sesión estilizado en Lavanda */
         .logout { 
             float: right; 
             color: #785880; 
@@ -59,7 +59,7 @@
             text-decoration: none;
             font-size: 0.85rem;
             padding: 6px 14px;
-            border-radius: 20px; /* Bordes redondeados más orgánicos */
+            border-radius: 20px; 
             border: 1px solid rgba(120, 88, 128, 0.3);
             background: #ffffff;
             transition: all 0.2s ease;
@@ -73,7 +73,7 @@
         
         h1 { 
             color: #557a46; 
-            font-size: 1.8rem; /* Un poco más pequeño y elegante */
+            font-size: 1.8rem; 
             margin-top: 0;
             margin-bottom: 20px;
             display: flex;
@@ -85,7 +85,7 @@
         #seccionAdmin { 
             display: none; 
             background: #ffffff; 
-            padding: 22px; /* Espaciado reducido como pediste */
+            padding: 22px; 
             border-radius: 14px; 
             margin-bottom: 25px; 
             border: 1px solid #dbe3da; 
@@ -101,12 +101,11 @@
             padding-bottom: 6px;
         }
 
-        /* Reducción de espacios entre los campos */
         .campo { 
             margin-bottom: 12px; 
         }
         
-        label { 
+        .label-campo { 
             font-weight: 600; 
             display: block; 
             margin-bottom: 4px; 
@@ -114,10 +113,10 @@
             font-size: 0.85rem;
         }
         
-        /* Inputs modificados: más pequeños y con textos limpios */
-        input, textarea { 
+        /* Inputs modificados: pequeños y limpios */
+        input[type="text"], input[type="number"], textarea { 
             width: 100%; 
-            padding: 8px 10px; /* Reducción de padding para hacerlo más pequeño */
+            padding: 8px 10px; 
             border: 1px solid #c0cca9; 
             border-radius: 6px; 
             box-sizing: border-box; 
@@ -134,22 +133,61 @@
             box-shadow: 0 0 5px rgba(85, 122, 70, 0.15);
         }
 
-        /* Input de archivo modificado y adaptado */
-        input[type="file"] {
-            background: #fafbfa;
-            border: 1px dashed #b1c295;
-            padding: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.85rem;
+        /* ✨ TRUCO PARA EL BOTÓN DE SELECCIONAR ARCHIVO PERSONALIZADO ✨ */
+        .input-file-oculto {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
         }
 
-        /* BOTÓN MODIFICADO: Publicar en Bitácora con mejor diseño */
-        button { 
+        .contenedor-file {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fafbfa;
+            border: 1px dashed #b1c295;
+            padding: 6px 10px;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        /* Este es el nuevo diseño que reemplaza al botón gris nativo */
+        .btn-file-custom {
+            background-color: #785880; /* Tono lila lavanda elegante */
+            color: white;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.2s ease;
+            user-select: none;
+            box-shadow: 0 2px 5px rgba(120, 88, 128, 0.2);
+        }
+
+        .btn-file-custom:hover {
+            background-color: #63456a;
+            transform: translateY(-1px);
+        }
+
+        .nombre-archivo {
+            font-size: 0.82rem;
+            color: #6d7c65;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* BOTÓN PRINCIPAL: Publicar en Bitácora */
+        .btn-publicar { 
             background: #557a46; 
             color: white; 
             border: none; 
-            padding: 11px; /* Más compacto verticalmente */
+            padding: 11px; 
             border-radius: 6px; 
             cursor: pointer; 
             font-size: 0.9rem; 
@@ -159,13 +197,10 @@
             box-shadow: 0 3px 10px rgba(85, 122, 70, 0.15);
             margin-top: 5px;
         }
-        button:hover { 
+        .btn-publicar:hover { 
             background: #405d33; 
             box-shadow: 0 5px 14px rgba(85, 122, 70, 0.25);
             transform: translateY(-1px);
-        }
-        button:active {
-            transform: translateY(0);
         }
 
         #contenedorBitacora {
@@ -215,7 +250,6 @@
             border: 1px dashed #785880;
         }
 
-        /* Ocultar elementos decorativos en pantallas pequeñas */
         @media (max-width: 1100px) {
             .axolotl-side {
                 display: none !important;
@@ -225,8 +259,8 @@
 </head>
 <body>
 
-    <img src="/ajolote2.png" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
-    <img src="/ajolote1.png" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
+    <img src="/ajolote2.jpg" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
+    <img src="/ajolote1.jpg" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
 
     <div class="dashboard-layout">
         <div class="main-content">
@@ -236,26 +270,32 @@
             <div id="seccionAdmin">
                 <h2>Nueva Entrada (Panel Admin)</h2>
                 <div class="campo">
-                    <label>Planta:</label>
+                    <label class="label-campo">Planta:</label>
                     <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
                 </div>
                 <div class="campo">
-                    <label>Altura (cm):</label>
+                    <label class="label-campo">Altura (cm):</label>
                     <input type="number" id="altura" placeholder="Ej. 15">
                 </div>
                 <div class="campo">
-                    <label>Abono:</label>
+                    <label class="label-campo">Abono:</label>
                     <input type="text" id="abono" placeholder="Ej. Compost orgánico">
                 </div>
                 <div class="campo">
-                    <label>Observaciones:</label>
+                    <label class="label-campo">Observaciones:</label>
                     <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
                 </div>
+                
                 <div class="campo">
-                    <label>Foto del progreso:</label>
-                    <input type="file" id="imagenHuerto" accept="image/*">
+                    <label class="label-campo">Foto del progreso:</label>
+                    <div class="contenedor-file">
+                        <label for="imagenHuerto" class="btn-file-custom">Seleccionar imagen</label>
+                        <input type="file" id="imagenHuerto" class="input-file-oculto" accept="image/*" onchange="actualizarNombreArchivo(this)">
+                        <span id="textoArchivo" class="nombre-archivo">Ningún archivo seleccionado</span>
+                    </div>
                 </div>
-                <button onclick="guardarBitacora()">Publicar en Bitácora</button>
+                
+                <button class="btn-publicar" onclick="guardarBitacora()">Publicar en Bitácora</button>
             </div>
 
             <div id="contenedorBitacora">Cargando registros...</div>
@@ -270,6 +310,16 @@
 
         if(rol === 'admin') {
             document.getElementById('seccionAdmin').style.display = 'block';
+        }
+
+        // Función sencilla en JS para pintar el nombre real del archivo al seleccionarlo
+        function actualizarNombreArchivo(input) {
+            const texto = document.getElementById('textoArchivo');
+            if (input.files && input.files.length > 0) {
+                texto.textContent = input.files[0].name;
+            } else {
+                texto.textContent = "Ningún archivo seleccionado";
+            }
         }
 
         async function cargarDatos() {
