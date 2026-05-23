@@ -89,7 +89,7 @@
             border-radius: 14px; 
             margin-bottom: 25px; 
             border: 1px solid #dbe3da; 
-            box-shadow: 0 6px 20px rgba(85, 122, 70, 0.04); 
+            box-shadow: 0 6px 20px rgba(85, 122, 70, 0.04)
         }
 
         #seccionAdmin h2 {
@@ -241,6 +241,81 @@
             display: block; 
         }
 
+        /* 💬 NUEVO ESTILO: SECCIÓN DE COMENTARIOS 💬 */
+        .seccion-comentarios {
+            margin-top: 16px;
+            padding-top: 14px;
+            border-top: 1px dashed #dbe3da;
+        }
+
+        .titulo-comentarios {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #557a46;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .lista-comentarios {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            padding-right: 4px;
+        }
+
+        /* Burbuja individual de comentario */
+        .comentario-item {
+            background: #fafbfa;
+            border: 1px solid #eef3ed;
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            font-size: 0.82rem;
+            line-height: 1.3;
+        }
+
+        .comentario-autor {
+            font-weight: bold;
+            color: #785880;
+            margin-right: 4px;
+        }
+
+        .comentario-texto {
+            color: #333333;
+        }
+
+        /* Formulario para comentar */
+        .form-comentario {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+
+        .input-comentario {
+            flex: 1;
+            padding: 6px 10px !important;
+            font-size: 0.82rem !important;
+            border-radius: 6px !important;
+        }
+
+        .btn-comentar {
+            background: #785880;
+            color: white;
+            border: none;
+            padding: 0 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-comentar:hover {
+            background: #63456a;
+        }
+
         .no-registros {
             text-align: center;
             color: #5c7050;
@@ -312,7 +387,6 @@
             document.getElementById('seccionAdmin').style.display = 'block';
         }
 
-        // Función sencilla en JS para pintar el nombre real del archivo al seleccionarlo
         function actualizarNombreArchivo(input) {
             const texto = document.getElementById('textoArchivo');
             if (input.files && input.files.length > 0) {
@@ -320,6 +394,19 @@
             } else {
                 texto.textContent = "Ningún archivo seleccionado";
             }
+        }
+
+        // 🛠️ Función auxiliar para procesar y renderizar los comentarios guardados
+        function generarHTMLComentarios(comentarios) {
+            if (!comentarios || comentarios.length === 0) {
+                return `<p style="font-style: italic; color: #8fa087; font-size: 0.78rem; margin: 4px 0;">No hay comentarios. ¡Sé el primero en escribir!</p>`;
+            }
+            return comentarios.map(c => `
+                <div class="comentario-item">
+                    <span class="comentario-autor">${c.usuario || 'Anónimo'}:</span>
+                    <span class="comentario-texto">${c.texto}</span>
+                </div>
+            `).join('');
         }
 
         async function cargarDatos() {
@@ -340,6 +427,9 @@
 
                 contenedor.innerHTML = '';
                 registros.forEach(reg => {
+                    // Tomamos el ID único de la publicación para vincular sus comentarios
+                    const postId = reg._id;
+
                     contenedor.innerHTML += `
                         <div class="entrada">
                             <small style="color: #785880; font-weight: 600;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
@@ -350,12 +440,55 @@
                             </p>
                             <p style="margin-top: 10px;"><strong>Notas:</strong> ${reg.observaciones}</p>
                             ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #8fa087; font-style: italic; margin-top: 12px;">Sin imagen adjunta</p>'}
+                            
+                            <div class="seccion-comentarios">
+                                <div class="titulo-comentarios">💬 Comentarios</div>
+                                <div class="lista-comentarios" id="lista-${postId}">
+                                    ${generarHTMLComentarios(reg.comentarios)}
+                                </div>
+                                <div class="form-comentario">
+                                    <input type="text" class="input-comentario" id="input-${postId}" placeholder="Escribe un comentario...">
+                                    <button class="btn-comentar" onclick="publicarComentario('${postId}')">Enviar</button>
+                                </div>
+                            </div>
                         </div>
                     `;
                 });
             } catch (error) {
                 console.error("Error al cargar datos:", error);
                 document.getElementById('contenedorBitacora').innerText = 'Error al conectar con el historial.';
+            }
+        }
+
+        // 🚀 NUEVA FUNCIÓN: Envía el comentario al backend vía POST de forma dinámica
+        async function publicarComentario(postId) {
+            const inputElement = document.getElementById(`input-${postId}`);
+            const textoComentario = inputElement.value.trim();
+
+            if (!textoComentario) {
+                alert('Escribe un comentario válido antes de enviar.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/bitacora/${postId}/comentarios`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Por si manejas tokens en tu API
+                    },
+                    body: JSON.stringify({ texto: textoComentario })
+                });
+
+                if (response.ok) {
+                    inputElement.value = ''; // Resetea el input limpio
+                    cargarDatos(); // Refresca de inmediato para renderizar el comentario nuevo
+                } else {
+                    alert('No se pudo publicar el comentario. Revisa la consola o tu servidor.');
+                }
+            } catch (error) {
+                console.error("Error al publicar comentario:", error);
+                alert('Error de conexión al enviar el comentario.');
             }
         }
 
