@@ -30,13 +30,21 @@ const User = mongoose.model('User', new mongoose.Schema({
     rol: { type: String, default: 'usuario' }
 }));
 
+// 💬 AQUÍ: Se actualizó el modelo para que soporte un arreglo de comentarios
 const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
     tipoPlanta: String, 
     altura: Number, 
     abono: String, 
     observaciones: String, 
-    imagenUrl: String, // Aquí ahora se guardará la imagen convertida a texto
-    fecha: { type: Date, default: Date.now }
+    imagenUrl: String, 
+    fecha: { type: Date, default: Date.now },
+    comentarios: [
+        {
+            usuario: { type: String, default: 'Anónimo' },
+            texto: { type: String, required: true },
+            fecha: { type: Date, default: Date.now }
+        }
+    ]
 }));
 
 // --- RUTAS API ---
@@ -74,7 +82,6 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     try {
         let imagenBase64 = '';
         
-        // Si subieron una imagen, la convertimos a formato de texto (Base64)
         if (req.file) {
             imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
         }
@@ -84,7 +91,7 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
             altura: req.body.altura,
             abono: req.body.abono,
             observaciones: req.body.observaciones,
-            imagenUrl: imagenBase64 // La imagen ahora se guarda directo en MongoDB
+            imagenUrl: imagenBase64 
         };
         
         await Bitacora.create(nuevaEntrada);
@@ -92,6 +99,40 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     } catch (error) {
         console.error("Error al guardar:", error);
         res.status(500).json({ error: "Error en el servidor" });
+    }
+});
+
+// 🚀 AQUÍ PUSE EL NUEVO CÓDIGO: Ruta para recibir y guardar los comentarios
+app.post('/api/bitacora/:id/comentarios', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { usuario, texto } = req.body;
+
+        if (!texto) {
+            return res.status(400).json({ error: 'El comentario no puede estar vacío' });
+        }
+
+        const nuevoComentario = {
+            usuario: usuario || 'Anónimo',
+            texto: texto,
+            fecha: new Date()
+        };
+
+        // Buscamos la publicación por ID y metemos el comentario al arreglo
+        const publicacionActualizada = await Bitacora.findByIdAndUpdate(
+            id,
+            { $push: { comentarios: nuevoComentario } },
+            { new: true }
+        );
+
+        if (!publicacionActualizada) {
+            return res.status(404).json({ error: 'No se encontró la publicación' });
+        }
+
+        res.json({ mensaje: "Comentario publicado con éxito", publicacionActualizada });
+    } catch (error) {
+        console.error("Error al guardar comentario:", error);
+        res.status(500).json({ error: "Error en el servidor al guardar el comentario" });
     }
 });
 
