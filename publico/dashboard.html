@@ -387,7 +387,7 @@
             return comentarios.map(c => {
                 // Si el rol es admin, genera el botón de borrar. Si no, lo deja vacío.
                 const botonBorrar = (rol === 'admin') 
-                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')" title="Borrar comentario">❌ Eliminar</span>`
+                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')" title="Borrar comentario">✖️</span>`
                     : '';
 
                 return `
