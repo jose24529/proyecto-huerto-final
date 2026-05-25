@@ -30,13 +30,13 @@ const User = mongoose.model('User', new mongoose.Schema({
     rol: { type: String, default: 'usuario' }
 }));
 
-// 💬 AQUÍ: Se actualizó el modelo para que soporte un arreglo de comentarios
+// 💬 MODELO ACTUALIZADO: Soporta el arreglo de comentarios con sus IDs únicos automáticos
 const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
     tipoPlanta: String, 
     altura: Number, 
     abono: String, 
     observaciones: String, 
-    imagenUrl: String, 
+    imagenUrl: String, // Aquí se guarda la imagen convertida a texto Base64
     fecha: { type: Date, default: Date.now },
     comentarios: [
         {
@@ -82,6 +82,7 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     try {
         let imagenBase64 = '';
         
+        // Si subieron una imagen, la convertimos a formato de texto (Base64)
         if (req.file) {
             imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
         }
@@ -91,7 +92,7 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
             altura: req.body.altura,
             abono: req.body.abono,
             observaciones: req.body.observaciones,
-            imagenUrl: imagenBase64 
+            imagenUrl: imagenBase64 // La imagen ahora se guarda directo en MongoDB
         };
         
         await Bitacora.create(nuevaEntrada);
@@ -102,7 +103,7 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     }
 });
 
-// 🚀 AQUÍ PUSE EL NUEVO CÓDIGO: Ruta para recibir y guardar los comentarios
+// 💬 5. AGREGAR COMENTARIO: Ruta para recibir y añadir un comentario a una publicación
 app.post('/api/bitacora/:id/comentarios', async (req, res) => {
     try {
         const { id } = req.params;
@@ -118,7 +119,6 @@ app.post('/api/bitacora/:id/comentarios', async (req, res) => {
             fecha: new Date()
         };
 
-        // Buscamos la publicación por ID y metemos el comentario al arreglo
         const publicacionActualizada = await Bitacora.findByIdAndUpdate(
             id,
             { $push: { comentarios: nuevoComentario } },
@@ -136,7 +136,30 @@ app.post('/api/bitacora/:id/comentarios', async (req, res) => {
     }
 });
 
-// 5. Ruta para admin (Subida individual a galería)
+// 🗑️ 6. MODERACIÓN / BORRAR COMENTARIO: Ruta para que el Admin elimine groserías o comentarios malos
+app.post('/api/bitacora/:postId/comentarios/:comentarioId/borrar', async (req, res) => {
+    try {
+        const { postId, comentarioId } = req.params;
+
+        // Buscamos la planta y removemos ($pull) del arreglo el comentario que coincida con el ID enviado
+        const postActualizado = await Bitacora.findByIdAndUpdate(
+            postId,
+            { $pull: { comentarios: { _id: comentarioId } } },
+            { new: true }
+        );
+
+        if (!postActualizado) {
+            return res.status(404).json({ error: 'No se encontró la publicación.' });
+        }
+
+        res.json({ mensaje: 'Comentario eliminado con éxito', postActualizado });
+    } catch (error) {
+        console.error('Error al eliminar comentario:', error);
+        res.status(500).json({ error: 'Error interno del servidor al borrar.' });
+    }
+});
+
+// 7. Ruta para admin (Subida individual a galería)
 app.post('/api/upload', upload.single('imagen'), (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'No se subió imagen' });
     const imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
