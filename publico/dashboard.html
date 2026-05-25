@@ -240,7 +240,7 @@
             display: block; 
         }
 
-        /* 💬 NUEVOS ESTILOS PARA LA SECCIÓN DE COMENTARIOS 💬 */
+        /* 💬 SECCIÓN DE COMENTARIOS 💬 */
         .seccion-comentarios {
             margin-top: 15px;
             padding-top: 12px;
@@ -379,16 +379,26 @@
             }
         }
 
-        // 💬 NUEVA FUNCIÓN: Genera el HTML de los comentarios guardados
-        function pintarComentarios(comentarios) {
+        // 💬 FUNCIÓN ACTUALIZADA: Pinta los comentarios y añade la cruz roja de borrar si eres Admin
+        function pintarComentarios(comentarios, idPost) {
             if (!comentarios || comentarios.length === 0) {
                 return `<p style="color: #8fa087; font-style: italic; font-size: 0.8rem; margin: 4px 0;">No hay comentarios. ¡Sé el primero en escribir!</p>`;
             }
-            return comentarios.map(c => `
-                <div class="comentario-item">
-                    <span class="comentario-usuario">${c.usuario}:</span> ${c.texto}
-                </div>
-            `).join('');
+            return comentarios.map(c => {
+                // Si el rol es admin, genera el botón de borrar. Si no, lo deja vacío.
+                const botonBorrar = (rol === 'admin') 
+                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')" title="Borrar comentario">❌ Eliminar</span>`
+                    : '';
+
+                return `
+                    <div class="comentario-item" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span class="comentario-usuario">${c.usuario}:</span> ${c.texto}
+                        </div>
+                        ${botonBorrar}
+                    </div>
+                `;
+            }).join('');
         }
 
         async function cargarDatos() {
@@ -423,7 +433,7 @@
                             <div class="seccion-comentarios">
                                 <div class="titulo-comentarios">💬 Comentarios</div>
                                 <div class="lista-comentarios">
-                                    ${pintarComentarios(reg.comentarios)}
+                                    ${pintarComentarios(reg.comentarios, reg._id)}
                                 </div>
                                 <div class="caja-comentario">
                                     <input type="text" class="input-comentario" id="input-${reg._id}" placeholder="Escribe un comentario...">
@@ -439,14 +449,12 @@
             }
         }
 
-        // 🚀 NUEVA FUNCIÓN: Envía el comentario al backend mediante POST
         async function publicarComentario(idPost) {
             const input = document.getElementById(`input-${idPost}`);
             const texto = input.value.trim();
 
             if (!texto) return alert("Por favor escribe algo primero.");
 
-            // Identifica dinámicamente si el que comenta es el Admin o un Alumno/Usuario
             const nombreUsuario = rol === 'admin' ? 'Admin 🌿' : 'Usuario 🧑‍🌾';
 
             try {
@@ -461,13 +469,33 @@
 
                 if (res.ok) {
                     input.value = '';
-                    cargarDatos(); // Recarga las publicaciones para pintar el nuevo comentario de inmediato
+                    cargarDatos();
                 } else {
                     alert("No se pudo publicar el comentario. Revisa tu servidor.");
                 }
             } catch (error) {
                 console.error("Error al comentar:", error);
                 alert("Error de conexión al enviar el comentario.");
+            }
+        }
+
+        // 🗑️ NUEVA FUNCIÓN JS: Ejecuta la petición para borrar el comentario de la BD al presionar la cruz
+        async function eliminarComentario(idPost, idComentario) {
+            if (!confirm("¿Seguro que quieres borrar este comentario?")) return;
+
+            try {
+                const res = await fetch(`/api/bitacora/${idPost}/comentarios/${idComentario}/borrar`, {
+                    method: 'POST'
+                });
+
+                if (res.ok) {
+                    cargarDatos(); // Recarga la interfaz inmediatamente para ver el cambio
+                } else {
+                    alert("No se pudo eliminar el comentario.");
+                }
+            } catch (error) {
+                console.error("Error al eliminar:", error);
+                alert("Error de conexión con el servidor.");
             }
         }
 
