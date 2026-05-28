@@ -14,7 +14,7 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ Base de datos lista'))
+    .then(() => console.log('・ʚ♡ɞ・ Base de datos lista'))
     .catch(err => console.error('❌ Error DB:', err));
 
 const User = mongoose.model('User', new mongoose.Schema({
@@ -89,4 +89,4 @@ app.post('/api/upload', upload.single('imagen'), (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`ʚᗢɞ Servidor en puerto ${PORT}`));
