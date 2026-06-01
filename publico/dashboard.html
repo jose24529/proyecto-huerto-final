@@ -81,12 +81,12 @@
             gap: 10px;
         }
 
-        /* Tarjeta del Panel Admin más compacta */
+        /* 🌟 TARJETA PRINCIPAL REDONDEADA */
         #seccionAdmin { 
             display: none; 
             background: #ffffff; 
             padding: 22px; 
-            border-radius: 14px; 
+            border-radius: 24px; 
             margin-bottom: 25px; 
             border: 1px solid #dbe3da; 
             box-shadow: 0 6px 20px rgba(85, 122, 70, 0.04); 
@@ -113,12 +113,12 @@
             font-size: 0.85rem;
         }
         
-        /* Inputs modificados: pequeños y limpios */
+        /* 🌟 INPUTS Y TEXTAREAS CON BORDES REDONDEADOS SUAVES */
         input[type="text"], input[type="number"], textarea { 
             width: 100%; 
-            padding: 8px 10px; 
+            padding: 10px 14px; 
             border: 1px solid #c0cca9; 
-            border-radius: 6px; 
+            border-radius: 12px; 
             box-sizing: border-box; 
             font-size: 0.88rem;
             background-color: #fafbfa;
@@ -133,7 +133,7 @@
             box-shadow: 0 0 5px rgba(85, 122, 70, 0.15);
         }
 
-        /* ✨ TRUCO PARA EL BOTÓN DE SELECCIONAR ARCHIVO PERSONALIZADO ✨ */
+        /* Ocultar input file original */
         .input-file-oculto {
             width: 0.1px;
             height: 0.1px;
@@ -143,6 +143,7 @@
             z-index: -1;
         }
 
+        /* 🌟 CONTENEDOR DE SUBIDA DE FOTO REDONDEADO */
         .contenedor-file {
             display: flex;
             align-items: center;
@@ -150,17 +151,18 @@
             background: #fafbfa;
             border: 1px dashed #b1c295;
             padding: 6px 10px;
-            border-radius: 6px;
+            border-radius: 12px; 
             box-sizing: border-box;
         }
 
+        /* 🌟 BOTÓN LILA SELECCIONAR IMAGEN REDONDEADO */
         .btn-file-custom {
             background-color: #785880; 
             color: white;
-            padding: 6px 12px;
+            padding: 8px 16px;
             font-size: 0.8rem;
             font-weight: bold;
-            border-radius: 4px;
+            border-radius: 8px; 
             cursor: pointer;
             display: inline-block;
             transition: all 0.2s ease;
@@ -181,15 +183,15 @@
             text-overflow: ellipsis;
         }
 
-        /* BOTÓN PRINCIPAL: Publicar en Bitácora */
+        /* 🌟 BOTÓN VERDE DE PUBLICAR CON CURVA MÁS PRONUNCIADA */
         .btn-publicar { 
             background: #557a46; 
             color: white; 
             border: none; 
-            padding: 11px; 
-            border-radius: 6px; 
+            padding: 13px; 
+            border-radius: 14px; 
             cursor: pointer; 
-            font-size: 0.9rem; 
+            font-size: 0.95rem; 
             font-weight: bold; 
             width: 100%; 
             transition: all 0.2s ease;
@@ -206,13 +208,13 @@
             margin-top: 15px;
         }
 
-        /* Publicaciones individuales compactas */
+        /* 🌟 PUBLICACIONES DEL HISTORIAL REDONDEADAS */
         .entrada { 
             background: white; 
             border: 1px solid #dbe3da; 
             padding: 20px; 
             margin-bottom: 18px; 
-            border-radius: 14px; 
+            border-radius: 24px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.01); 
         }
 
@@ -235,7 +237,7 @@
 
         .entrada img { 
             max-width: 100%; 
-            border-radius: 10px; 
+            border-radius: 14px; 
             margin-top: 12px; 
             display: block; 
         }
@@ -258,11 +260,12 @@
             margin-bottom: 10px;
         }
 
+        /* 🌟 BURBUJAS DE COMENTARIOS CON ESQUINAS REDONDAS */
         .comentario-item {
             background: #f9fbf8;
             border: 1px solid #edf2ec;
-            padding: 6px 10px;
-            border-radius: 6px;
+            padding: 8px 12px;
+            border-radius: 10px; 
             margin-bottom: 5px;
             font-size: 0.82rem;
         }
@@ -279,16 +282,17 @@
 
         .input-comentario {
             flex: 1;
-            padding: 6px 10px !important;
+            padding: 8px 12px !important;
             font-size: 0.82rem !important;
+            border-radius: 10px !important; 
         }
 
         .btn-enviar-comentario {
             background-color: #785880;
             color: white;
             border: none;
-            border-radius: 6px;
-            padding: 0 14px;
+            border-radius: 10px; 
+            padding: 0 16px;
             font-size: 0.82rem;
             font-weight: bold;
             cursor: pointer;
@@ -304,7 +308,7 @@
             color: #5c7050;
             background: white;
             padding: 35px;
-            border-radius: 14px;
+            border-radius: 24px;
             border: 1px dashed #785880;
         }
 
@@ -379,15 +383,14 @@
             }
         }
 
-        // 💬 FUNCIÓN ACTUALIZADA: Pinta los comentarios y añade la cruz roja de borrar si eres Admin
         function pintarComentarios(comentarios, idPost) {
             if (!comentarios || comentarios.length === 0) {
                 return `<p style="color: #8fa087; font-style: italic; font-size: 0.8rem; margin: 4px 0;">No hay comentarios. ¡Sé el primero en escribir!</p>`;
             }
             return comentarios.map(c => {
-                // Si el rol es admin, genera el botón de borrar. Si no, lo deja vacío.
+                // Genera la opción de eliminar si el rol es administrador
                 const botonBorrar = (rol === 'admin') 
-                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')" title="Borrar comentario">✖️</span>`
+                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')" title="Borrar comentario">❌ Eliminar</span>`
                     : '';
 
                 return `
@@ -479,7 +482,6 @@
             }
         }
 
-        // 🗑️ NUEVA FUNCIÓN JS: Ejecuta la petición para borrar el comentario de la BD al presionar la cruz
         async function eliminarComentario(idPost, idComentario) {
             if (!confirm("¿Seguro que quieres borrar este comentario?")) return;
 
@@ -489,7 +491,7 @@
                 });
 
                 if (res.ok) {
-                    cargarDatos(); // Recarga la interfaz inmediatamente para ver el cambio
+                    cargarDatos();
                 } else {
                     alert("No se pudo eliminar el comentario.");
                 }
