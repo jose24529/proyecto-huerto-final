@@ -10,10 +10,6 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'publico')));
 
-// ==============================================
-// NUEVA CONFIGURACIÓN DE IMÁGENES (Memoria RAM)
-// En lugar de guardarlas en una carpeta, las atrapamos en memoria
-// ==============================================
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -30,21 +26,19 @@ const User = mongoose.model('User', new mongoose.Schema({
     rol: { type: String, default: 'usuario' }
 }));
 
-// 💬 MODELO ACTUALIZADO: Soporta el arreglo de comentarios con sus IDs únicos automáticos
 const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
     tipoPlanta: String, 
     altura: Number, 
     abono: String, 
     observaciones: String, 
-    imagenUrl: String, // Aquí se guarda la imagen convertida a texto Base64
+    imagenUrl: String, 
     fecha: { type: Date, default: Date.now },
-    comentarios: [
-        {
-            usuario: { type: String, default: 'Anónimo' },
-            texto: { type: String, required: true },
-            fecha: { type: Date, default: Date.now }
-        }
-    ]
+    likes: { type: Number, default: 0 }, // 🌟 CAMBIO: Soporte para almacenar los "Me gusta"
+    comentarios: [{
+        usuario: String,
+        texto: String,
+        fecha: { type: Date, default: Date.now }
+    }]
 }));
 
 // --- RUTAS API ---
@@ -52,37 +46,38 @@ const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
 // 1. Registro
 app.post('/api/registro', async (req, res) => {
     try {
-        const salt = await bcrypt.genSalt(10);
-        const passHash = await bcrypt.hash(req.body.password, salt);
-        const nuevo = new User({...req.body, password: passHash});
-        await nuevo.save();
-        res.json({ mensaje: "Usuario creado" });
-    } catch (e) { res.status(500).json({error: e.message}); }
+        const { nombre, correo, password, rol } = req.body;
+        const passwordHash = await bcrypt.hash(password, 10);
+        const nuevo = await User.create({ nombre, correo, password: passwordHash, rol });
+        res.json(nuevo);
+    } catch (e) {
+        res.status(400).json({ error: "El correo ya existe" });
+    }
 });
 
 // 2. Login
 app.post('/api/login', async (req, res) => {
-    const user = await User.findOne({ correo: req.body.correo });
-    if (!user) return res.status(400).json({ error: 'No existe' });
-    const ok = await bcrypt.compare(req.body.password, user.password);
-    if (!ok) return res.status(400).json({ error: 'Password mal' });
+    const { correo, password } = req.body;
+    const user = await User.findOne({ correo });
+    if (!user) return res.status(400).json({ error: "No existe el usuario" });
 
-    const token = jwt.sign({ id: user._id, rol: user.rol }, 'secreto_super_seguro');
+    const ok = await bcrypt.compare(password, user.password);
+    if (!ok) return res.status(400).json({ error: "Contraseña incorrecta" });
+
+    const token = jwt.sign({ id: user._id, rol: user.rol }, 'SECRETO_SUPER_SEGURO');
     res.json({ token, rol: user.rol });
 });
 
-// 3. Ver Bitácora (Público/Maestros)
+// 3. Obtener Bitácora
 app.get('/api/bitacora', async (req, res) => {
     const lista = await Bitacora.find().sort({ fecha: -1 });
     res.json(lista);
 });
 
-// 4. Guardar Bitácora (Admin) - ¡MAGIA BASE64 AQUÍ!
+// 4. Guardar Bitácora (Admin)
 app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     try {
         let imagenBase64 = '';
-        
-        // Si subieron una imagen, la convertimos a formato de texto (Base64)
         if (req.file) {
             imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
         }
@@ -92,7 +87,7 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
             altura: req.body.altura,
             abono: req.body.abono,
             observaciones: req.body.observaciones,
-            imagenUrl: imagenBase64 // La imagen ahora se guarda directo en MongoDB
+            imagenUrl: imagenBase64
         };
         
         await Bitacora.create(nuevaEntrada);
@@ -103,68 +98,46 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     }
 });
 
-// 💬 5. AGREGAR COMENTARIO: Ruta para recibir y añadir un comentario a una publicación
+// ❤️ NUEVA RUTA: Incrementar "Me gusta" ❤️
+app.post('/api/bitacora/:id/like', async (req, res) => {
+    try {
+        const post = await Bitacora.findByIdAndUpdate(
+            req.params.id,
+            { $inc: { likes: 1 } },
+            { new: true }
+        );
+        res.json({ likes: post.likes });
+    } catch (error) {
+        res.status(500).json({ error: "Error al dar like" });
+    }
+});
+
+// 5. Publicar Comentario
 app.post('/api/bitacora/:id/comentarios', async (req, res) => {
     try {
-        const { id } = req.params;
-        const { usuario, texto } = req.body;
-
-        if (!texto) {
-            return res.status(400).json({ error: 'El comentario no puede estar vacío' });
-        }
-
-        const nuevoComentario = {
-            usuario: usuario || 'Anónimo',
-            texto: texto,
-            fecha: new Date()
-        };
-
-        const publicacionActualizada = await Bitacora.findByIdAndUpdate(
-            id,
-            { $push: { comentarios: nuevoComentario } },
-            { new: true }
-        );
-
-        if (!publicacionActualizada) {
-            return res.status(404).json({ error: 'No se encontró la publicación' });
-        }
-
-        res.json({ mensaje: "Comentario publicado con éxito", publicacionActualizada });
+        const post = await Bitacora.findById(req.params.id);
+        post.comentarios.push({
+            usuario: req.body.usuario,
+            texto: req.body.texto
+        });
+        await post.save();
+        res.json(post);
     } catch (error) {
-        console.error("Error al guardar comentario:", error);
-        res.status(500).json({ error: "Error en el servidor al guardar el comentario" });
+        res.status(500).json({ error: "Error al comentar" });
     }
 });
 
-// 🗑️ 6. MODERACIÓN / BORRAR COMENTARIO: Ruta para que el Admin elimine groserías o comentarios malos
-app.post('/api/bitacora/:postId/comentarios/:comentarioId/borrar', async (req, res) => {
+// 6. Eliminar Comentario
+app.post('/api/bitacora/:idPost/comentarios/:idComentario/borrar', async (req, res) => {
     try {
-        const { postId, comentarioId } = req.params;
-
-        // Buscamos la planta y removemos ($pull) del arreglo el comentario que coincida con el ID enviado
-        const postActualizado = await Bitacora.findByIdAndUpdate(
-            postId,
-            { $pull: { comentarios: { _id: comentarioId } } },
-            { new: true }
-        );
-
-        if (!postActualizado) {
-            return res.status(404).json({ error: 'No se encontró la publicación.' });
-        }
-
-        res.json({ mensaje: 'Comentario eliminado con éxito', postActualizado });
+        const post = await Bitacora.findById(req.params.idPost);
+        post.comentarios = post.comentarios.filter(c => c._id.toString() !== req.params.idComentario);
+        await post.save();
+        res.json(post);
     } catch (error) {
-        console.error('Error al eliminar comentario:', error);
-        res.status(500).json({ error: 'Error interno del servidor al borrar.' });
+        res.status(500).json({ error: "Error al borrar" });
     }
-});
-
-// 7. Ruta para admin (Subida individual a galería)
-app.post('/api/upload', upload.single('imagen'), (req, res) => {
-    if (!req.file) return res.status(400).json({ error: 'No se subió imagen' });
-    const imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
-    res.json({ imageUrl: imagenBase64 });
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor en puerto ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`));

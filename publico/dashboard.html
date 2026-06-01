@@ -143,14 +143,14 @@
             z-index: -1;
         }
 
-        /* 🌟 CONTENEDOR DE SUBIDA DE FOTO SIN BORDE (Línea innecesaria eliminada) */
+        /* 🌟 CONTENEDOR DE SUBIDA DE FOTO REDONDEADO (Borde sólido limpio) */
         .contenedor-file {
             display: flex;
             align-items: center;
-            gap: 12px;
-            background: transparent; /* Sin fondo gris */
-            border: none;             /* Línea completamente eliminada */
-            padding: 4px 0;           /* Ajuste fino de espacio */
+            gap: 10px;
+            background: transparent;
+            border: none;
+            padding: 4px 0;
             box-sizing: border-box;
         }
 
@@ -241,9 +241,43 @@
             display: block; 
         }
 
+        /* ❤️ BARRA DE ME GUSTA Y COMENTARIOS ESTILO RED SOCIAL 💬 */
+        .barra-interaccion {
+            display: flex;
+            gap: 20px;
+            margin: 14px 0 8px 0;
+            padding-top: 4px;
+        }
+
+        .interaccion-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6d7c65;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.15s ease;
+        }
+
+        .interaccion-item:hover {
+            transform: scale(1.05);
+        }
+
+        .interaccion-item.like-active {
+            color: #e05252;
+        }
+
+        .interaccion-item svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
         /* 💬 SECCIÓN DE COMENTARIOS 💬 */
         .seccion-comentarios {
-            margin-top: 15px;
+            margin-top: 10px;
             padding-top: 12px;
             border-top: 1px solid #edf2ec; 
         }
@@ -388,7 +422,7 @@
             }
             return comentarios.map(c => {
                 const botonBorrar = (rol === 'admin') 
-                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')" title="Borrar comentario">❌ Eliminar</span>`
+                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')" title="Borrar comentario">✖️</span>`
                     : '';
 
                 return `
@@ -420,6 +454,9 @@
 
                 contenedor.innerHTML = '';
                 registros.forEach(reg => {
+                    const totalLikes = reg.likes || 0;
+                    const totalComments = reg.comentarios ? reg.comentarios.length : 0;
+
                     contenedor.innerHTML += `
                         <div class="entrada">
                             <small style="color: #785880; font-weight: 600;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
@@ -431,6 +468,17 @@
                             <p style="margin-top: 10px;"><strong>Notas:</strong> ${reg.observaciones}</p>
                             ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #8fa087; font-style: italic; margin-top: 12px;">Sin imagen adjunta</p>'}
                             
+                            <div class="barra-interaccion">
+                                <div class="interaccion-item" onclick="darLike('${reg._id}')" id="like-btn-${reg._id}">
+                                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                    <span id="like-count-${reg._id}">${totalLikes}</span>
+                                </div>
+                                <div class="interaccion-item" onclick="enfocarComentario('${reg._id}')">
+                                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                                    <span>${totalComments}</span>
+                                </div>
+                            </div>
+
                             <div class="seccion-comentarios">
                                 <div class="titulo-comentarios">💬 Comentarios</div>
                                 <div class="lista-comentarios">
@@ -448,6 +496,24 @@
                 console.error("Error al cargar datos:", error);
                 document.getElementById('contenedorBitacora').innerText = 'Error al conectar con el historial.';
             }
+        }
+
+        async function darLike(idPost) {
+            try {
+                const res = await fetch(`/api/bitacora/${idPost}/like`, {
+                    method: 'POST'
+                });
+                if(res.ok) {
+                    const data = await res.json();
+                    document.getElementById(`like-count-${idPost}`).textContent = data.likes;
+                }
+            } catch (error) {
+                console.error("Error al dar like:", error);
+            }
+        }
+
+        function enfocarComentario(idPost) {
+            document.getElementById(`input-${idPost}`).focus();
         }
 
         async function publicarComentario(idPost) {
