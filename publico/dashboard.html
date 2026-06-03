@@ -451,6 +451,8 @@
                         <label for="imagenHuerto" class="btn-file-custom">Seleccionar imagen</label>
                         <input type="file" id="imagenHuerto" class="input-file-oculto" accept="image/*" onchange="actualizarNombreArchivo(this)">
                         <span id="textoArchivo" class="nombre-archivo">Ningún archivo seleccionado</span>
+                        <!-- 🌟 NUEVO: Botón X para deseleccionar o remover la foto elegida -->
+                        <span id="btnLimpiarArchivo" style="color: #d9534f; cursor: pointer; font-weight: bold; display: none; margin-left: 5px;" onclick="limpiarArchivoSeleccionado()" title="Quitar imagen">✖️</span>
                     </div>
                 </div>
                 
@@ -471,13 +473,28 @@
             document.getElementById('seccionAdmin').style.display = 'block';
         }
 
+        // 🌟 CORREGIDO: Administra el texto y activa el botón de la X roja al seleccionar archivo
         function actualizarNombreArchivo(input) {
             const texto = document.getElementById('textoArchivo');
+            const btnLimpiar = document.getElementById('btnLimpiarArchivo');
             if (input.files && input.files.length > 0) {
                 texto.textContent = input.files[0].name;
+                btnLimpiar.style.display = 'inline';
             } else {
                 texto.textContent = "Ningún archivo seleccionado";
+                btnLimpiar.style.display = 'none';
             }
+        }
+
+        // 🌟 NUEVA FUNCIÓN: Permite limpiar la imagen cargada y restablecer el estado original
+        function limpiarArchivoSeleccionado() {
+            const input = document.getElementById('imagenHuerto');
+            const texto = document.getElementById('textoArchivo');
+            const btnLimpiar = document.getElementById('btnLimpiarArchivo');
+            
+            input.value = ''; 
+            texto.textContent = "Ningún archivo seleccionado";
+            btnLimpiar.style.display = 'none';
         }
 
         function pintarComentarios(comentarios, idPost) {
@@ -521,7 +538,6 @@
                     const totalLikes = reg.likes || 0;
                     const totalComments = reg.comentarios ? reg.comentarios.length : 0;
 
-                    // 🌟 BOTONES DE ADMINISTRADOR (EDITAR Y BORRAR JUNTOS)
                     let bloqueAccionesAdmin = '';
                     if (rol === 'admin') {
                         bloqueAccionesAdmin = `
@@ -537,6 +553,7 @@
                             ${bloqueAccionesAdmin}
                             <small style="color: #785880; font-weight: 600;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
                             
+                            <!-- Bloque Estático -->
                             <div id="bloque-estatico-${reg._id}">
                                 <h3>🌿 ${reg.tipoPlanta}</h3>
                                 <p>
@@ -547,6 +564,7 @@
                                 <p style="margin-top: 10px;"><strong>Notas:</strong> ${reg.observaciones}</p>
                             </div>
 
+                            <!-- Bloque Editable Inline -->
                             <div id="bloque-editable-${reg._id}" style="display: none; margin-top: 15px;">
                                 <label class="label-campo">Modificar Nombre Planta:</label>
                                 <input type="text" class="input-edicion-inline" id="edit-planta-${reg._id}">
@@ -599,7 +617,6 @@
             }
         }
 
-        // 🌟 NUEVA FUNCIÓN VISUAL: Oculta la vista estática y muestra las cajas de entrada rellenas
         function activarModoEdicion(id, planta, dueno, altura, abono, obs) {
             document.getElementById(`bloque-estatico-${id}`).style.display = 'none';
             document.getElementById(`bloque-editable-${id}`).style.display = 'block';
@@ -614,7 +631,6 @@
             document.getElementById(`edit-obs-${id}`).value = obs;
         }
 
-        // 🌟 NUEVA FUNCIÓN: Envía los campos modificados mediante una petición PUT al servidor
         async function guardarEdicion(idPost) {
             const datosModificados = {
                 tipoPlanta: document.getElementById(`edit-planta-${idPost}`).value,
