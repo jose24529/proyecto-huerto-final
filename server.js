@@ -13,6 +13,8 @@ app.use(express.static(path.join(__dirname, 'publico')));
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
+const JWT_SECRET = 'SECRETO_SUPER_SEGURO';
+
 // --- CONEXIÓN MONGODB ---
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('✅ Base de datos lista'))
@@ -28,18 +30,35 @@ const User = mongoose.model('User', new mongoose.Schema({
 
 const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
     tipoPlanta: String, 
+    dueno: String, // 🌟 CAMBIO: Almacena el dueño de la planta
     altura: Number, 
     abono: String, 
     observaciones: String, 
     imagenUrl: String, 
     fecha: { type: Date, default: Date.now },
-    likes: { type: Number, default: 0 }, // 🌟 CAMBIO: Soporte para almacenar los "Me gusta"
+    likes: { type: Number, default: 0 }, 
     comentarios: [{
         usuario: String,
         texto: String,
         fecha: { type: Date, default: Date.now }
     }]
 }));
+
+// --- MIDDLEWARE DE VALIDACIÓN Y SEGURIDAD ---
+function verificarAdmin(req, res, next) {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) return res.status(401).json({ error: "Acceso denegado. No hay token." });
+
+    jwt.verify(token, JWT_SECRET, (err, decoded) => {
+        if (err) return res.status(403).json({ error: "Token inválido o expirado." });
+        if (decoded.rol !== 'admin') return res.status(403).json({ error: "Acceso denegado. Se requiere rol de Admin." });
+        
+        req.usuario = decoded;
+        next();
+    });
+}
 
 // --- RUTAS API ---
 
@@ -64,7 +83,7 @@ app.post('/api/login', async (req, res) => {
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) return res.status(400).json({ error: "Contraseña incorrecta" });
 
-    const token = jwt.sign({ id: user._id, rol: user.rol }, 'SECRETO_SUPER_SEGURO');
+    const token = jwt.sign({ id: user._id, rol: user.rol }, JWT_SECRET);
     res.json({ token, rol: user.rol });
 });
 
@@ -74,8 +93,8 @@ app.get('/api/bitacora', async (req, res) => {
     res.json(lista);
 });
 
-// 4. Guardar Bitácora (Admin)
-app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
+// 4. Guardar Bitácora (Solo Admin)
+app.post('/api/bitacora', verificarAdmin, upload.single('imagen'), async (req, res) => {
     try {
         let imagenBase64 = '';
         if (req.file) {
@@ -84,6 +103,7 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
 
         const nuevaEntrada = {
             tipoPlanta: req.body.tipoPlanta,
+            dueno: req.body.dueno, // Guardamos el dueño enviado desde el front
             altura: req.body.altura,
             abono: req.body.abono,
             observaciones: req.body.observaciones,
@@ -98,7 +118,40 @@ app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     }
 });
 
-// ❤️ NUEVA RUTA: Incrementar "Me gusta" ❤️
+// 🌟 NUEVA RUTA: Modificar una Publicación (Solo Admin) 🌟
+app.put('/api/bitacora/:id', verificarAdmin, async (req, res) => {
+    try {
+        const { tipoPlanta, dueno, altura, abono, observaciones } = req.body;
+        
+        const registroActualizado = await Bitacora.findByIdAndUpdate(
+            req.params.id,
+            { tipoPlanta, dueno, altura, abono, observaciones },
+            { new: true }
+        );
+
+        if (!registroActualizado) {
+            return res.status(404).json({ error: "No se encontró la publicación." });
+        }
+
+        res.json({ mensaje: "¡Publicación modificada con éxito!", registroActualizado });
+    } catch (error) {
+        console.error("Error al modificar publicación:", error);
+        res.status(500).json({ error: "Error interno al intentar editar." });
+    }
+});
+
+// 🌟 NUEVA RUTA: Eliminar entrada completa (Solo Admin) 🌟
+app.delete('/api/bitacora/:id', verificarAdmin, async (req, res) => {
+    try {
+        const eliminado = await Bitacora.findByIdAndDelete(req.params.id);
+        if (!eliminado) return res.status(404).json({ error: "No se encontró la publicación." });
+        res.json({ mensaje: "Publicación eliminada correctamente." });
+    } catch (error) {
+        res.status(500).json({ error: "Error al borrar publicación" });
+    }
+});
+
+// ❤️ Incrementar "Me gusta" (Público)
 app.post('/api/bitacora/:id/like', async (req, res) => {
     try {
         const post = await Bitacora.findByIdAndUpdate(
