@@ -215,6 +215,7 @@
             margin-bottom: 18px; 
             border-radius: 24px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.01); 
+            position: relative;
         }
 
         .entrada h3 {
@@ -356,6 +357,27 @@
             border: 1px solid #785880; 
         }
 
+        /* Botón elegante para que el administrador borre entradas enteras */
+        .btn-borrar-post {
+            position: absolute;
+            top: 18px;
+            right: 20px;
+            background: #fff5f5;
+            color: #d9534f;
+            border: 1px solid rgba(217, 83, 79, 0.2);
+            padding: 5px 10px;
+            font-size: 0.78rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .btn-borrar-post:hover {
+            background: #d9534f;
+            color: white;
+            border-color: #d9534f;
+        }
+
         @media (max-width: 1100px) {
             .axolotl-side {
                 display: none !important;
@@ -378,6 +400,10 @@
                 <div class="campo">
                     <label class="label-campo">Planta:</label>
                     <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
+                </div>
+                <div class="campo">
+                    <label class="label-campo">Dueño de la planta:</label>
+                    <input type="text" id="duenoPlanta" placeholder="Ej. Juan Pérez, Equipo 3...">
                 </div>
                 <div class="campo">
                     <label class="label-campo">Altura (cm):</label>
@@ -468,14 +494,24 @@
                     const totalLikes = reg.likes || 0;
                     const totalComments = reg.comentarios ? reg.comentarios.length : 0;
 
+                    // 🌟 VALIDACIÓN: Si eres administrador, pintamos el botón para borrar la entrada entera
+                    let botonBorrarPost = '';
+                    if (rol === 'admin') {
+                        botonBorrarPost = `<button class="btn-borrar-post" onclick="eliminarEntrada('${reg._id}')">🗑️ Borrar Entrada</button>`;
+                    }
+
                     contenedor.innerHTML += `
                         <div class="entrada">
+                            ${botonBorrarPost}
                             <small style="color: #785880; font-weight: 600;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
                             <h3>🌿 ${reg.tipoPlanta}</h3>
+                            
                             <p>
-                                <strong>Crecimiento:</strong> <span class="badge">📐 ${reg.altura} cm</span> 
-                                | <strong>Abono:</strong> <span class="badge">🧬 ${reg.abono || 'No especificado'}</span>
+                                <strong>Dueño:</strong> <span class="badge" style="background-color: #eef3ed; color: #405d33;">👤 ${reg.dueno || 'Sin asignar'}</span> |
+                                <strong>Crecimiento:</strong> <span class="badge">📐 ${reg.altura} cm</span> | 
+                                <strong>Abono:</strong> <span class="badge">🧬 ${reg.abono || 'No especificado'}</span>
                             </p>
+                            
                             <p style="margin-top: 10px;"><strong>Notas:</strong> ${reg.observaciones}</p>
                             ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #8fa087; font-style: italic; margin-top: 12px;">Sin imagen adjunta</p>'}
                             
@@ -516,11 +552,7 @@
                 });
                 if(res.ok) {
                     const data = await res.json();
-                    
-                    // Actualiza el número de likes en pantalla
                     document.getElementById(`like-count-${idPost}`).textContent = data.likes;
-                    
-                    // 🌟 Activa el color rojo en el corazón agregando la clase CSS
                     const botonLike = document.getElementById(`like-btn-${idPost}`);
                     botonLike.classList.add('like-active');
                 }
@@ -582,9 +614,34 @@
             }
         }
 
+        // 🌟 NUEVA FUNCIÓN: Envía petición DELETE al backend para borrar la entrada completa 🌟
+        async function eliminarEntrada(idPost) {
+            if (!confirm("¿Estás completamente seguro de que deseas eliminar esta publicación del historial?")) return;
+
+            try {
+                const res = await fetch(`/api/bitacora/${idPost}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}` // Mandamos el token de seguridad
+                    }
+                });
+
+                if (res.ok) {
+                    alert("Publicación eliminada correctamente.");
+                    cargarDatos();
+                } else {
+                    alert("No se pudo eliminar la publicación. Solo administradores autorizados.");
+                }
+            } catch (error) {
+                console.error("Error de red al borrar publicación:", error);
+                alert("Error de conexión con el servidor.");
+            }
+        }
+
         async function guardarBitacora() {
             const formData = new FormData();
             formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
+            formData.append('dueno', document.getElementById('duenoPlanta').value); // 🌟 ENVIAMOS EL DUEÑO AL BACKEND 
             formData.append('altura', document.getElementById('altura').value);
             formData.append('abono', document.getElementById('abono').value);
             formData.append('observaciones', document.getElementById('obs').value); 
@@ -597,6 +654,9 @@
             try {
                 const res = await fetch('/api/bitacora', {
                     method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                     body: formData 
                 });
 
