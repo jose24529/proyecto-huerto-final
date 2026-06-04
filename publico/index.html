@@ -36,14 +36,14 @@
             display: block;
         }
 
-        /* MITAD DERECHA: Zona de acceso */
+        /* MITAD DERECHA: Zona de acceso alineada hacia arriba */
         .panel-form {
             flex: 0.9; 
             background-color: #ffffff; 
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Subir la tarjeta al espacio superior deseado */
             justify-content: center;
-            padding: 15px;
+            padding: 40px 15px 15px 15px; /* Más espacio arriba para controlar la altura exacta */
             box-sizing: border-box;
             border-left: 1px solid rgba(182, 196, 177, 0.3);
         }
@@ -55,7 +55,7 @@
             border-radius: 24px;
             padding: 24px 28px 20px 28px; 
             width: 100%;
-            max-width: 390px; /* Un poco más ancha para aprovechar el espacio */
+            max-width: 390px; 
             box-shadow: 0 10px 30px rgba(78, 107, 59, 0.04);
             text-align: center;
             position: relative;
@@ -64,7 +64,7 @@
 
         /* ✨ ESTILO OPTIMIZADO PARA MÁXIMA CALIDAD DE kike.png ✨ */
         .logo-paec-obligatorio {
-            width: 140px; /* Tamaño ideal y compacto */
+            width: 140px; 
             height: auto;
             object-fit: contain;
             margin-bottom: 5px;
@@ -152,7 +152,7 @@
 
         /* 💄 SECCIÓN DE PRODUCTO: ROSA ARMONIOSO Y COMPACTO */
         .seccion-producto {
-            background-color: rgba(229, 143, 162, 0.07); /* Fondo rosa cosmético muy sutil */
+            background-color: rgba(229, 143, 162, 0.07); 
             border: 1px dashed rgba(229, 143, 162, 0.4);
             border-radius: 14px;
             padding: 10px;
@@ -162,7 +162,7 @@
 
         .producto-texto {
             font-size: 0.78rem;
-            color: #8c4354; /* Texto en gama rosa oscuro armónica */
+            color: #8c4354; 
             margin: 0 0 6px 0;
             line-height: 1.3;
             font-weight: 500;
@@ -178,7 +178,7 @@
             font-size: 0.78rem;
             text-decoration: none;
             padding: 7px 12px;
-            background-color: #e58fa2; /* Hermoso rosa labial */
+            background-color: #e58fa2; 
             border-radius: 20px;
             transition: all 0.2s ease;
             box-shadow: 0 2px 6px rgba(229, 143, 162, 0.2);
@@ -187,7 +187,7 @@
         }
 
         .instagram-link:hover {
-            background-color: #d06f84; /* Rosa un toque más intenso al pasar el cursor */
+            background-color: #d06f84; 
             transform: translateY(-1px);
             box-shadow: 0 4px 10px rgba(229, 143, 162, 0.3);
         }
@@ -203,7 +203,7 @@
             }
             .panel-form {
                 flex: 1;
-                padding: 15px;
+                padding: 40px 15px 15px 15px;
             }
         }
     </style>
