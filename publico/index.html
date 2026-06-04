@@ -43,55 +43,56 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 15px;
             box-sizing: border-box;
             border-left: 1px solid rgba(182, 196, 177, 0.3);
         }
 
-        /* Tarjeta con fondo verde oliva ultra suave que combina con la tortuga */
+        /* Tarjeta optimizada: Más ancha y compacta verticalmente para evitar scroll */
         .form-card {
             background-color: #f3f6f2; 
             border: 1px solid #dbe3da;
             border-radius: 24px;
-            padding: 45px 35px 30px 35px; 
+            padding: 24px 28px 20px 28px; 
             width: 100%;
-            max-width: 360px;
+            max-width: 390px; /* Un poco más ancha para aprovechar el espacio */
             box-shadow: 0 10px 30px rgba(78, 107, 59, 0.04);
             text-align: center;
             position: relative;
+            box-sizing: border-box;
         }
 
         /* ✨ ESTILO OPTIMIZADO PARA MÁXIMA CALIDAD DE kike.png ✨ */
         .logo-paec-obligatorio {
-            width: 200px;
+            width: 140px; /* Tamaño ideal y compacto */
             height: auto;
             object-fit: contain;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             display: inline-block;
         }
 
         /* Títulos estilizados en base a la tortuga */
         .brand-title {
             color: #3b522c; 
-            font-size: 2.3rem;
+            font-size: 1.9rem;
             margin-top: 0;
-            margin-bottom: 6px;
+            margin-bottom: 2px;
             font-weight: bold;
         }
 
         .brand-subtitle {
             color: #5c7050; 
-            font-size: 0.92rem;
+            font-size: 0.88rem;
             font-weight: 600;
-            margin-bottom: 32px;
-            line-height: 1.4;
+            margin-bottom: 15px; 
+            line-height: 1.3;
         }
 
         /* Inputs integrados con el fondo crema/verde */
         input { 
             width: 100%; 
-            margin-bottom: 14px; 
-            padding: 14px 12px; 
+            margin-bottom: 10px; 
+            padding: 11px 12px; 
             border: 1px solid #c0cca9;
             border-radius: 8px;
             box-sizing: border-box;
@@ -110,16 +111,16 @@
         /* Botón principal en color Verde Caparazón Profundo */
         button { 
             width: 100%; 
-            padding: 14px; 
+            padding: 12px; 
             cursor: pointer; 
             background: #4d693f; 
             color: white; 
             border: none; 
             border-radius: 8px; 
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: bold;
-            margin-top: 8px;
-            margin-bottom: 20px;
+            margin-top: 2px;
+            margin-bottom: 12px;
             transition: background 0.2s;
             box-shadow: 0 4px 12px rgba(77, 105, 63, 0.25);
         }
@@ -131,9 +132,9 @@
         /* Interruptor inferior de vista */
         .switch-form {
             border-top: 1px solid #d2ded0;
-            padding-top: 18px;
-            margin-bottom: 22px;
-            font-size: 0.85rem;
+            padding-top: 10px;
+            margin-bottom: 14px;
+            font-size: 0.82rem;
             color: #5c7050;
         }
 
@@ -149,19 +150,20 @@
             text-decoration: underline;
         }
 
-        /* 💄 SECCIÓN DE PRODUCTO: CONEXIÓN ENTRE HUERTO Y BÁLSAMO */
+        /* 💄 SECCIÓN DE PRODUCTO: ROSA ARMONIOSO Y COMPACTO */
         .seccion-producto {
-            background-color: rgba(120, 88, 128, 0.05); /* Toque sutil lavanda */
-            border: 1px dashed rgba(120, 88, 128, 0.3);
-            border-radius: 16px;
-            padding: 12px;
-            margin-top: 10px;
+            background-color: rgba(229, 143, 162, 0.07); /* Fondo rosa cosmético muy sutil */
+            border: 1px dashed rgba(229, 143, 162, 0.4);
+            border-radius: 14px;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
         }
 
         .producto-texto {
             font-size: 0.78rem;
-            color: #63456a;
-            margin: 0 0 8px 0;
+            color: #8c4354; /* Texto en gama rosa oscuro armónica */
+            margin: 0 0 6px 0;
             line-height: 1.3;
             font-weight: 500;
         }
@@ -173,21 +175,21 @@
             gap: 6px;
             color: #ffffff; 
             font-weight: bold;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             text-decoration: none;
-            padding: 8px 14px;
-            background-color: #785880; /* El color lila de tus ajolotes */
+            padding: 7px 12px;
+            background-color: #e58fa2; /* Hermoso rosa labial */
             border-radius: 20px;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(120, 88, 128, 0.2);
-            width: 90%;
+            box-shadow: 0 2px 6px rgba(229, 143, 162, 0.2);
+            width: 100%;
             box-sizing: border-box;
         }
 
         .instagram-link:hover {
-            background-color: #63456a;
+            background-color: #d06f84; /* Rosa un toque más intenso al pasar el cursor */
             transform: translateY(-1px);
-            box-shadow: 0 4px 10px rgba(120, 88, 128, 0.3);
+            box-shadow: 0 4px 10px rgba(229, 143, 162, 0.3);
         }
 
         .hidden {
@@ -201,7 +203,7 @@
             }
             .panel-form {
                 flex: 1;
-                padding: 20px;
+                padding: 15px;
             }
         }
     </style>
@@ -242,7 +244,7 @@
                     </div>
                 </div>
 
-                <!-- 🌟 CONTENEDOR JUSTIFICADO DEL BÁLSAMO LABIAL 🌟 -->
+                <!-- 🌟 SECCIÓN DEL BÁLSAMO LABIAL EN ROSA COSMÉTICO PERFECTO 🌟 -->
                 <div class="seccion-producto">
                     <p class="producto-texto">
                         Conoce la línea de <strong>Bálsamos Labiales Naturales</strong> elaborados con la cosecha y esencia de nuestro huerto.
