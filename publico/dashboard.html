@@ -72,8 +72,9 @@
             gap: 10px;
         }
 
-        #seccionAdmin { 
-            display: none; 
+        /* Cambiado de seccionAdmin a seccionSubirAvance para reflejar el acceso general */
+        #seccionSubirAvance { 
+            display: block; /* Ahora es visible para todos por defecto */
             background: #ffffff; 
             padding: 22px; 
             border-radius: 24px; 
@@ -82,7 +83,7 @@
             box-shadow: 0 6px 20px rgba(85, 122, 70, 0.04); 
         }
 
-        #seccionAdmin h2 {
+        #seccionSubirAvance h2 {
             margin-top: 0;
             color: #405d33;
             font-size: 1.15rem;
@@ -204,8 +205,9 @@
             <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
             <h1>🌱 Historial del Huerto</h1>
 
-            <div id="seccionAdmin">
-                <h2>Nueva Entrada (Panel Admin)</h2>
+            <!-- Cambiado de id="seccionAdmin" a "seccionSubirAvance" -->
+            <div id="seccionSubirAvance">
+                <h2 id="tituloFormulario">Nueva Entrada / Subir Avance</h2>
                 <div class="campo">
                     <label class="label-campo">Planta:</label>
                     <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
@@ -237,7 +239,7 @@
                     </div>
                 </div>
                 
-                <button class="btn-publicar" onclick="guardarBitacora()">Publicar en Bitácora</button>
+                <button class="btn-publicar" onclick="guardarBitacora()">Publicar Avance</button>
             </div>
 
             <div id="contenedorBitacora">Cargando registros...</div>
@@ -249,7 +251,13 @@
         const rol = localStorage.getItem('rol');
 
         if(!token) window.location.href = '/';
-        if(rol === 'admin') document.getElementById('seccionAdmin').style.display = 'block';
+        
+        // Ajustamos dinámicamente el título según el rol para que se vea más profesional
+        if(rol === 'admin') {
+            document.getElementById('tituloFormulario').innerText = "Nueva Entrada (Panel Admin)";
+        } else {
+            document.getElementById('tituloFormulario').innerText = "Compartir Avance de mi Planta";
+        }
 
         function actualizarNombreArchivo(input) {
             const texto = document.getElementById('textoArchivo');
@@ -277,6 +285,7 @@
                 return `<p style="color: #8fa087; font-style: italic; font-size: 0.8rem; margin: 4px 0;">No hay comentarios. ¡Sé el primero en escribir!</p>`;
             }
             return comentarios.map(c => {
+                // El botón para borrar comentarios individuales SOLO le sale al Admin
                 const botonBorrar = (rol === 'admin') 
                     ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')">✖️</span>`
                     : '';
@@ -299,7 +308,7 @@
                     contenedor.innerHTML = `
                         <div class="no-registros">
                             <p style="font-size: 1rem; margin: 0; font-weight: bold; color: #405d33;">No hay registros aún.</p>
-                            <p style="color: #785880; font-size: 0.85rem; margin-top: 4px;">¡El administrador debe subir la primera planta!</p>
+                            <p style="color: #785880; font-size: 0.85rem; margin-top: 4px;">¡Sé el primero en subir el avance de tu planta arriba!</p>
                         </div>
                     `;
                     return;
@@ -311,6 +320,7 @@
                     const totalComments = reg.comentarios ? reg.comentarios.length : 0;
                     let bloqueAccionesAdmin = '';
 
+                    // Los botones de Editar y Borrar publicaciones generales SOLO se generan si eres Admin
                     if (rol === 'admin') {
                         bloqueAccionesAdmin = `
                             <div class="admin-acciones-top" id="acciones-top-${reg._id}">
@@ -463,7 +473,12 @@
                 body: formData 
             });
 
-            if(res.ok) { alert('¡Publicado correctamente!'); location.reload(); }
+            if(res.ok) { 
+                alert('¡Tu avance ha sido compartido correctamente en la bitácora!'); 
+                location.reload(); 
+            } else {
+                alert('Hubo un inconveniente al publicar el avance en el servidor.');
+            }
         }
 
         cargarDatos();
