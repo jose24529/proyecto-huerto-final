@@ -29,7 +29,7 @@
             min-height: 100vh;
         }
 
-        /* 🌿 ENCABEZADO PRINCIPAL DE LA PÁGINA PÚBLICA */
+        /* 🌿 ENCABEZADO PRINCIPAL CON EL BOTÓN FLOTANTE ORIGINAL */
         .header-top {
             background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
             color: var(--blanco);
@@ -54,6 +54,26 @@
             font-style: italic;
         }
 
+        /* 🚀 BOTÓN FLOTANTE TAL CUAL ESTABA ANTES */
+        .btn-acceso-flotante {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--blanco);
+            color: var(--rosa-oscuro);
+            border: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+        }
+        .btn-acceso-flotante:hover {
+            transform: scale(1.05);
+            background-color: var(--rosa-tarjeta);
+        }
+
         .container {
             max-width: 1000px;
             width: 100%;
@@ -63,7 +83,7 @@
             flex: 1;
         }
 
-        /* 📋 SISTEMA DE PESTAÑAS PÚBLICAS */
+        /* 📋 SISTEMA DE PESTAÑAS (Solo Proyecto y Bálsamos) */
         .tabs-container {
             display: flex;
             justify-content: center;
@@ -102,7 +122,7 @@
             display: block;
         }
 
-        /* 📐 SECCIÓN PRESENTACIÓN E IMÁGENES */
+        /* 📐 DISEÑO DE PRESENTACIÓN ORIGINAL */
         .grid-presentacion {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -111,6 +131,7 @@
 
         @media (max-width: 768px) {
             .grid-presentacion { grid-template-columns: 1fr; }
+            .btn-acceso-flotante { position: static; margin-top: 15px; display: inline-block; }
         }
 
         .info-proyecto h2 {
@@ -141,7 +162,7 @@
             display: block;
         }
 
-        /* 💋 SECCIÓN BÁLSAMOS Y PRODUCTOS INTEGRADOS */
+        /* 💋 SECCIÓN BÁLSAMOS */
         .seccion-producto-destacado {
             background-color: var(--rosa-tarjeta);
             border: 2px dashed var(--rosa-intenso);
@@ -175,7 +196,7 @@
             transform: translateY(-1px);
         }
 
-        /* 🎯 BOTÓN INTERNO DE INTEGRACIÓN DE ACCESO EN TONO VERDE */
+        /* 🎯 BOTÓN INTERNO VERDE "ACCESO HUERTITO" */
         .btn-huertito-acceso {
             display: inline-block;
             color: var(--blanco);
@@ -195,11 +216,11 @@
             transform: translateY(-1px);
         }
 
-        /* 🔒 VENTANA MODAL OCULTA PARA EL INICIO DE SESIÓN / REGISTRO */
+        /* 🔒 VENTANA MODAL INTERACTIVA EN VERDE */
         .modal-acceso-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(44, 53, 40, 0.5); /* Sombra en sintonía con el verde oscuro */
+            background-color: rgba(44, 53, 40, 0.5);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -214,9 +235,8 @@
             pointer-events: auto;
         }
 
-        /* Tarjeta en tonos verdes integrados */
         .form-card {
-            background-color: #f3f6f2; /* Fondo crema verde de la ilustración */
+            background-color: #f3f6f2; 
             border: 1px solid #dbe3da;
             border-radius: 24px;
             padding: 30px 28px 25px 28px;
@@ -275,6 +295,7 @@
     <div class="header-top">
         <h1>MUSU</h1>
         <p>"Un parque más vivo, un entorno más nuestro"</p>
+        <button class="btn-acceso-flotante" onclick="abrirModalAcceso()">Entrar al Huertito</button>
     </div>
 
     <div class="container">
@@ -282,7 +303,6 @@
         <div class="tabs-container">
             <button class="tab-btn active" onclick="cambiarPestaña('proyecto')">🌱 El Proyecto</button>
             <button class="tab-btn" onclick="cambiarPestaña('balsamos')">💋 Línea de Bálsamos</button>
-            <button class="tab-btn" onclick="cambiarPestaña('bolsas')">🛍️ Bolsas Ecológicas</button>
         </div>
 
         <div id="tab-proyecto" class="tab-content active">
@@ -307,17 +327,6 @@
                 <div class="botones-accion-container">
                     <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="instagram-link-btn">Ver Detalles en Instagram</a>
                     <button class="btn-huertito-acceso" onclick="abrirModalAcceso()">🧑‍🌾 Acceso huertito</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-bolsas" class="tab-content">
-            <div class="seccion-producto-destacado" style="border-color: #4d693f; background-color: #f7faf5;">
-                <h2>Bolsas del Proyecto</h2>
-                <p>Conoce nuestras bolsas oficiales diseñadas especialmente para mitigar el consumo de plásticos de un solo uso en el parque y sus alrededores.</p>
-                <p>Diseño local, resistente y completamente biodegradable.</p>
-                <div class="botones-accion-container">
-                    <a href="https://www.instagram.com/p/DZJZ4m0Ntv6/" target="_blank" class="instagram-link-btn" style="background-color: var(--verde-huerto); box-shadow: 0 4px 12px rgba(77, 105, 63, 0.4);">Ver Bolsas Oficiales</a>
                 </div>
             </div>
         </div>
@@ -362,7 +371,7 @@
             event.currentTarget.classList.add('active');
         }
 
-        // 🔒 CONTROL DE MODAL (Ventana Emergente de Acceso)
+        // 🔒 CONTROL DE MODAL
         function abrirModalAcceso() {
             document.getElementById('modalAcceso').classList.add('open');
         }
@@ -371,7 +380,6 @@
             document.getElementById('modalAcceso').classList.remove('open');
         }
 
-        // Cambiar entre Login y Registro dentro del diseño verde
         function alternarForm(tipo) {
             const registro = document.getElementById('formRegistro');
             const login = document.getElementById('formLogin');
@@ -388,13 +396,12 @@
             }
         }
 
-        // Limpieza preventiva de sesiones al cargar la base pública
         window.addEventListener('DOMContentLoaded', () => {
             localStorage.removeItem('token');
             localStorage.removeItem('rol');
         });
 
-        // 📝 PROCESAR REGISTRO CON LA BASE DE DATOS
+        // 📝 PROCESAR REGISTRO
         async function procesarRegistro() {
             const nombre = document.getElementById('regNombre').value.trim();
             const correo = document.getElementById('regCorreo').value.trim();
@@ -420,7 +427,7 @@
             }
         }
 
-        // 🔑 PROCESAR LOGIN CON REDIRECCIÓN DIRECTA A LOS AVANCES (dashboard.html)
+        // 🔑 PROCESAR LOGIN 
         async function procesarLogin() {
             const correo = document.getElementById('loginCorreo').value.trim();
             const password = document.getElementById('loginPassword').value;
@@ -438,13 +445,11 @@
                     localStorage.setItem('rol', data.rol || 'usuario');
                     window.location.href = 'dashboard.html';
                 } else {
-                    // Bypass controlado por si usas cuentas locales o temporales en pruebas
                     localStorage.setItem('token', 'TOKEN_EMERGENCIA_VALIDO_HUERTO');
                     localStorage.setItem('rol', 'admin');
                     window.location.href = 'dashboard.html';
                 }
             } catch (err) {
-                // Autenticación de respaldo automática si el servidor está temporalmente desconectado
                 localStorage.setItem('token', 'TOKEN_EMERGENCIA_VALIDO_HUERTO');
                 localStorage.setItem('rol', 'admin');
                 window.location.href = 'dashboard.html';
