@@ -419,8 +419,8 @@
 
     <div class="dashboard-layout">
         <div class="main-content">
-            <!-- 🛠️ CORREGIDO: Redirección de cerrar sesión apunta de manera segura a login.html -->
-            <span class="logout" onclick="localStorage.clear(); location.href='login.html'">Cerrar Sesión</span>
+            <!-- 🛠️ ENLACE SUPERIOR CORREGIDO: Ahora apunta correctamente a index.html -->
+            <span class="logout" onclick="localStorage.clear(); location.href='index.html'">Cerrar Sesión</span>
             <h1>🌱 Historial del Huerto</h1>
 
             <div id="seccionAdmin">
@@ -452,7 +452,6 @@
                         <label for="imagenHuerto" class="btn-file-custom">Seleccionar imagen</label>
                         <input type="file" id="imagenHuerto" class="input-file-oculto" accept="image/*" onchange="actualizarNombreArchivo(this)">
                         <span id="textoArchivo" class="nombre-archivo">Ningún archivo seleccionado</span>
-                        <!-- 🌟 NUEVO: Botón X para deseleccionar o remover la foto elegida -->
                         <span id="btnLimpiarArchivo" style="color: #d9534f; cursor: pointer; font-weight: bold; display: none; margin-left: 5px;" onclick="limpiarArchivoSeleccionado()" title="Quitar imagen">✖️</span>
                     </div>
                 </div>
@@ -468,16 +467,15 @@
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
-        // 🛡️ CORREGIDO: Si no hay token, redirige específicamente a tu archivo login.html
+        // 🛡️ CONTROL DE SEGURIDAD CORREGIDO: Redirige a index.html en vez del login inexistente
         if(!token) {
-            window.location.href = 'login.html';
+            window.location.href = 'index.html';
         }
 
         if(rol === 'admin') {
             document.getElementById('seccionAdmin').style.display = 'block';
         }
 
-        // 🌟 CORREGIDO: Administra el texto y activa el botón de la X roja al seleccionar archivo
         function actualizarNombreArchivo(input) {
             const texto = document.getElementById('textoArchivo');
             const btnLimpiar = document.getElementById('btnLimpiarArchivo');
@@ -490,7 +488,6 @@
             }
         }
 
-        // 🌟 NUEVA FUNCIÓN: Permite limpiar la imagen cargada y restablecer el estado original
         function limpiarArchivoSeleccionado() {
             const input = document.getElementById('imagenHuerto');
             const texto = document.getElementById('textoArchivo');
@@ -557,7 +554,6 @@
                             ${bloqueAccionesAdmin}
                             <small style="color: #785880; font-weight: 600;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
                             
-                            <!-- Bloque Estático -->
                             <div id="bloque-estatico-${reg._id}">
                                 <h3>🌿 ${reg.tipoPlanta}</h3>
                                 <p>
@@ -568,7 +564,6 @@
                                 <p style="margin-top: 10px;"><strong>Notas:</strong> ${reg.observaciones}</p>
                             </div>
 
-                            <!-- Bloque Editable Inline -->
                             <div id="bloque-editable-${reg._id}" style="display: none; margin-top: 15px;">
                                 <label class="label-campo">Modificar Nombre Planta:</label>
                                 <input type="text" class="input-edicion-inline" id="edit-planta-${reg._id}">
@@ -686,7 +681,7 @@
             document.getElementById(`input-${idPost}`).focus();
         }
 
-        async function publicarComentario(idPost) {
+        async function pulsarComentario(idPost) {
             const input = document.getElementById(`input-${idPost}`);
             const texto = input.value.trim();
 
