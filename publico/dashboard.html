@@ -2,515 +2,471 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MUSU - Proyecto PAEC</title>
+    <title>Bitácora del Huerto</title>
     <style>
-        /* 🎨 PALETA ROSITA & VERDE HUERTO (DULCE, ORGÁNICA Y MODERNA) */
-        :root {
-            --rosa-principal: #fcd7de;  /* Rosa pastel de fondo base */
-            --rosa-intenso: #e58fa2;    /* Rosa de los bálsamos y detalles activos */
-            --rosa-oscuro: #8c4354;     /* Para textos elegantes sobre fondo rosa */
-            --rosa-tarjeta: #fff5f6;    /* Fondo de las tarjetas individuales */
-            --verde-huerto: #4d693f;    /* El verde original de tu huerto */
-            --verde-hover: #3a502f;     /* Verde oscuro para botones al pasar el mouse */
-            --blanco: #ffffff;
-            --texto-oscuro: #2c3528;    /* Texto principal ultra legible */
-        }
-
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            margin: 0;
-            padding: 0;
-            background-color: var(--rosa-principal);
-            color: var(--texto-oscuro);
-            -webkit-font-smoothing: antialiased;
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f7f2; 
+            color: #2e3b27;
+            min-height: 100vh;
         }
-
-        /* 🌸 ENCABEZADO LIMPIO CON TU SLOGAN PRINCIPAL */
-        .header-top {
-            background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
-            color: var(--blanco);
-            padding: 40px 20px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(140, 67, 84, 0.15);
-        }
-
-        .header-top h1 {
-            margin: 0;
-            font-size: 2.7rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .header-top p {
-            margin: 8px 0 0 0;
-            font-size: 1.25rem;
-            font-weight: 600;
-            font-style: italic;
-        }
-
-        /* 📲 NAVEGACIÓN ESTILO PÍLDORA CON DETALLES VERDES Y ROSAS */
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
+        
+        .dashboard-layout {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            padding: 12px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 15px rgba(140, 67, 84, 0.05);
-        }
-
-        .nav-link {
-            color: var(--texto-oscuro);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: bold;
-            cursor: pointer;
-            padding: 8px 20px;
-            border-radius: 20px;
-            transition: all 0.25s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--rosa-oscuro);
-            background-color: rgba(229, 143, 162, 0.15);
-        }
-
-        .nav-link.highlight {
-            background-color: var(--verde-huerto);
-            color: var(--blanco) !important;
-            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.3);
-        }
-        .nav-link.highlight:hover {
-            background-color: var(--verde-hover);
-            transform: translateY(-1px);
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 35px auto;
-            padding: 0 20px;
+            align-items: flex-start;
+            position: relative;
+            width: 100%;
+            padding: 25px 20px;
             box-sizing: border-box;
         }
 
-        /* 🎨 EFECTO MARCO DE VIDEO */
-        .video-effect-frame {
-            background: var(--blanco);
-            border-radius: 24px;
-            padding: 35px;
-            margin-bottom: 35px;
-            box-shadow: 0 15px 35px rgba(140, 67, 84, 0.08);
-            border: 10px solid #ffffff;
-            position: relative;
-            overflow: hidden;
+        .main-content {
+            flex: 1;
+            max-width: 580px; 
+            z-index: 2; 
         }
-
-        .video-effect-frame::before {
-            content: '';
-            position: absolute;
-            top: -25px; right: -25px;
-            width: 90px; height: 90px;
-            background: radial-gradient(circle, rgba(229,143,162,0.5) 30%, transparent 70%);
-            border-radius: 50%;
-            filter: blur(8px);
-        }
-        .video-effect-frame::after {
-            content: '';
-            position: absolute;
-            bottom: -35px; left: -25px;
-            width: 110px; height: 110px;
-            background: radial-gradient(circle, rgba(77,105,63,0.35) 20%, transparent 60%);
-            border-radius: 50%;
-            filter: blur(10px);
-        }
-
-        .logo-welcome-container {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .logo-welcome {
-            width: 100%;
-            max-width: 320px;
-            height: auto;
-            border-radius: 20px;
-            box-shadow: 0 6px 20px rgba(140, 67, 84, 0.06);
-        }
-
-        h2.section-title {
-            color: var(--rosa-oscuro);
-            font-size: 1.7rem;
-            margin-top: 0;
-            margin-bottom: 18px;
-            border-bottom: 2px solid rgba(229, 143, 162, 0.2);
-            padding-bottom: 8px;
-        }
-
-        /* DISEÑO DE CUADRÍCULA (ELABORACIÓN) */
-        .elaboracion-container {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .grid-productos {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .producto-card {
-            background: var(--rosa-tarjeta);
-            border: 1px solid rgba(229, 143, 162, 0.2);
-            border-left: 5px solid var(--verde-huerto);
-            border-radius: 14px;
-            padding: 18px;
-        }
-
-        .producto-card.rosa-card {
-            border-left-color: var(--rosa-intenso);
-        }
-
-        .producto-card h3 {
-            margin: 0 0 8px 0;
-            color: var(--rosa-oscuro);
-            font-size: 1.15rem;
-        }
-
-        .producto-card p {
-            font-size: 0.92rem;
-            line-height: 1.5;
-            color: #3b4238;
-            margin: 0;
-        }
-
-        .img-evidencia {
-            width: 100%;
-            border-radius: 18px;
-            object-fit: cover;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-            border: 2px solid #ffffff;
-        }
-
-        /* DISEÑO DE CUADRÍCULA (RESULTADOS) */
-        .resultados-layout {
-            display: grid;
-            grid-template-columns: 0.85fr 1.15fr;
-            gap: 25px;
-            align-items: center;
-        }
-
-        /* 🔒 ACCESO DEL HUERTITO */
-        .instagram-layout {
-            display: flex;
-            background: var(--blanco);
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(140, 67, 84, 0.1);
-            min-height: 560px;
-            border: 8px solid #ffffff;
-        }
-
-        .panel-image { flex: 1.2; background-color: #fafafa; }
-        .panel-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
-        .panel-form {
-            flex: 0.9; display: flex; align-items: center; justify-content: center;
-            padding: 40px 20px; box-sizing: border-box;
-            background-color: var(--rosa-tarjeta);
+        /* 🦎 AJOLOTES LATERALES EN LOS ESPACIOS BLANCOS 🦎 */
+        .axolotl-side {
+            position: fixed;
+            top: 18%;
+            width: 230px;
+            height: auto;
+            pointer-events: none;
+            user-select: none;
         }
 
-        .form-card {
-            background-color: #ffffff; border: 1px solid rgba(229, 143, 162, 0.2);
-            border-radius: 24px; padding: 25px 30px; width: 100%; max-width: 380px; text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+        .axolotl-left { left: 35px; }
+        .axolotl-right { right: 35px; }
+        
+        .logout { 
+            float: right; 
+            color: #785880; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 20px; 
+            border: 1px solid rgba(120, 88, 128, 0.3);
+            background: #ffffff;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .logout:hover { 
+            background: #f1ebf2;
+            border-color: #785880;
+            transform: translateY(-1px);
+        }
+        
+        h1 { 
+            color: #557a46; 
+            font-size: 1.8rem; 
+            margin-top: 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .logo-paec-obligatorio { width: 120px; height: auto; margin-bottom: 5px; }
-        .brand-title { color: var(--verde-huerto); font-size: 1.9rem; font-weight: bold; margin: 0; }
-        .brand-subtitle { color: #5c6656; font-size: 0.88rem; margin-bottom: 20px; line-height: 1.4; }
-
-        input { 
-            width: 100%; margin-bottom: 12px; padding: 12px; 
-            border: 1px solid #cbd4c8; border-radius: 12px; box-sizing: border-box;
-            font-size: 0.9rem; background-color: #fafdfa; transition: all 0.2s;
+        #seccionAdmin { 
+            display: none; 
+            background: #ffffff; 
+            padding: 22px; 
+            border-radius: 24px; 
+            margin-bottom: 25px; 
+            border: 1px solid #dbe3da; 
+            box-shadow: 0 6px 20px rgba(85, 122, 70, 0.04); 
         }
-        input:focus { outline: none; border-color: var(--verde-huerto); box-shadow: 0 0 6px rgba(77,105,63,0.15); }
 
-        button.btn-verde { 
-            width: 100%; padding: 13px; background: var(--verde-huerto); color: white; 
-            border: none; border-radius: 12px; font-size: 0.95rem; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.2); transition: background 0.2s;
+        #seccionAdmin h2 {
+            margin-top: 0;
+            color: #405d33;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eef3ed;
+            padding-bottom: 6px;
         }
-        button.btn-verde:hover { background: var(--verde-hover); }
 
-        .switch-form { border-top: 1px solid rgba(229, 143, 162, 0.15); padding-top: 12px; margin-top: 15px; font-size: 0.85rem; color: #666; }
-        .switch-link { color: var(--verde-huerto); font-weight: bold; cursor: pointer; }
-
-        .seccion-producto {
-            background-color: rgba(229, 143, 162, 0.08); 
-            border: 1px dashed var(--rosa-intenso);
-            border-radius: 16px; padding: 14px; margin-top: 18px;
+        .campo { margin-bottom: 12px; }
+        
+        .label-campo { 
+            font-weight: 600; 
+            display: block; 
+            margin-bottom: 4px; 
+            color: #557a46; 
+            font-size: 0.85rem;
         }
-        .instagram-link {
-            display: block; color: white; font-weight: bold; font-size: 0.8rem;
-            text-decoration: none; padding: 9px; background-color: var(--rosa-intenso); border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(229, 143, 162, 0.25);
+        
+        input[type="text"], input[type="number"], textarea { 
+            width: 100%; 
+            padding: 10px 14px; 
+            border: 1px solid #c0cca9; 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            font-size: 0.88rem;
+            background-color: #fafbfa;
+            color: #2e3b27;
+            outline: none;
+            transition: all 0.2s;
         }
-        .instagram-link:hover { background-color: #d47a8e; }
 
-        .enlace-discreto-container { margin-top: 14px; }
-        .enlace-discreto { font-size: 0.78rem; color: #737c70; text-decoration: none; }
-
-        .hidden { display: none !important; }
-
-        @media (max-width: 850px) {
-            .elaboracion-container, .resultados-layout { grid-template-columns: 1fr; }
-            .instagram-layout { flex-direction: column; }
-            .panel-image { display: none; }
+        input:focus, textarea:focus {
+            border-color: #557a46;
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(85, 122, 70, 0.15);
         }
+
+        .input-file-oculto {
+            width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;
+        }
+
+        .contenedor-file {
+            display: flex; align-items: center; gap: 12px; background: transparent; border: none; padding: 4px 0; box-sizing: border-box;
+        }
+
+        .btn-file-custom {
+            background-color: #785880; 
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 8px; 
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.2s ease;
+            user-select: none;
+            box-shadow: 0 2px 5px rgba(120, 88, 128, 0.2);
+        }
+
+        .btn-file-custom:hover { background-color: #63456a; }
+
+        .nombre-archivo { font-size: 0.82rem; color: #6d7c65; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .btn-publicar { 
+            background: #557a46; color: white; border: none; padding: 13px; border-radius: 14px; cursor: pointer; font-size: 0.95rem; font-weight: bold; width: 100%; transition: all 0.2s ease; box-shadow: 0 3px 10px rgba(85, 122, 70, 0.15); margin-top: 5px;
+        }
+        .btn-publicar:hover { background: #405d33; transform: translateY(-1px); }
+
+        .entrada { 
+            background: white; border: 1px solid #dbe3da; padding: 20px; margin-bottom: 18px; border-radius: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.01); position: relative;
+        }
+
+        .entrada h3 { margin: 8px 0; color: #405d33; font-size: 1.2rem; }
+
+        .badge {
+            background-color: #f1ebf2; color: #785880; padding: 3px 8px; border-radius: 5px; font-size: 0.82rem; font-weight: 600; display: inline-block; border: 1px solid rgba(120, 88, 128, 0.1);
+        }
+
+        .entrada img { max-width: 100%; border-radius: 14px; margin-top: 12px; display: block; }
+
+        .barra-interaccion { display: flex; gap: 20px; margin: 14px 0 8px 0; padding-top: 4px; }
+
+        .interaccion-item { display: flex; align-items: center; gap: 6px; font-size: 0.95rem; font-weight: bold; user-select: none; cursor: pointer; transition: transform 0.15s ease, color 0.2s ease; }
+        .interaccion-item:hover { transform: scale(1.08); }
+        .interaccion-item svg { width: 22px; height: 22px; fill: currentColor; }
+
+        .btn-like { color: #a0aea0; }
+        .btn-like.like-active { color: #ff4d6d; filter: drop-shadow(0 2px 4px rgba(255, 77, 109, 0.3)); }
+        .btn-comment { color: #785880; }
+
+        .seccion-comentarios { margin-top: 10px; padding-top: 12px; border-top: 1px solid #edf2ec; }
+        .titulo-comentarios { font-size: 0.85rem; font-weight: bold; color: #557a46; margin-bottom: 6px; }
+        .comentario-item { background: #f9fbf8; border: 1px solid #edf2ec; padding: 8px 12px; border-radius: 10px; margin-bottom: 5px; font-size: 0.82rem; }
+        .comentario-usuario { font-weight: bold; color: #785880; }
+        .caja-comentario { display: flex; gap: 6px; }
+        .input-comentario { flex: 1; padding: 8px 12px !important; font-size: 0.82rem !important; border-radius: 10px !important; }
+        
+        .btn-enviar-comentario { background-color: #785880; color: white; border: none; border-radius: 10px; padding: 0 16px; font-size: 0.82rem; font-weight: bold; cursor: pointer; }
+        .btn-enviar-comentario:hover { background-color: #63456a; }
+
+        .no-registros { text-align: center; color: #5c7050; background: white; padding: 35px; border-radius: 24px; border: 1px solid #785880; }
+
+        .admin-acciones-top { position: absolute; top: 16px; right: 20px; display: flex; gap: 8px; }
+        .btn-editar-post { background: #fdfafd; color: #785880; border: 1px solid rgba(120, 88, 128, 0.2); padding: 5px 11px; font-size: 0.78rem; font-weight: bold; border-radius: 8px; cursor: pointer; }
+        .btn-borrar-post { background: #fff5f5; color: #d9534f; border: 1px solid rgba(217, 83, 79, 0.2); padding: 5px 11px; font-size: 0.78rem; font-weight: bold; border-radius: 8px; cursor: pointer; }
+
+        .input-edicion-inline { margin-bottom: 8px; padding: 6px 10px; font-size: 0.84rem; }
+
+        @media (max-width: 1100px) { .axolotl-side { display: none !important; } }
     </style>
 </head>
 <body>
 
-    <div class="header-top">
-        <h1>MUSU</h1>
-        <p>"Dale besos a tu cora 💋"</p>
-    </div>
+    <img src="/ajolote2.png" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
+    <img src="/ajolote1.png" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
 
-    <div class="navbar">
-        <span class="nav-link active" id="tabPublico" onclick="irA('publico')">✨ Presentación del Producto</span>
-        <span class="nav-link" id="tabHuerto" onclick="irA('huerto')">🌱 Acceso Huertito</span>
-    </div>
+    <div class="dashboard-layout">
+        <div class="main-content">
+            <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
+            <h1>🌱 Historial del Huerto</h1>
 
-    <div class="container">
-        
-        <div id="vistaPublica">
-            
-            <div class="video-effect-frame">
-                <div class="logo-welcome-container">
-                    <img src="logo.jpeg" alt="Logotipo Oficial MUSU" class="logo-welcome">
+            <div id="seccionAdmin">
+                <h2>Nueva Entrada (Panel Admin)</h2>
+                <div class="campo">
+                    <label class="label-campo">Planta:</label>
+                    <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
                 </div>
-                <h2 class="section-title">🧴 Presentación del Proyecto</h2>
+                <div class="campo">
+                    <label class="label-campo">Dueño de la planta:</label>
+                    <input type="text" id="duenoPlanta" placeholder="Ej. Juan Pérez, Equipo 3...">
+                </div>
+                <div class="campo">
+                    <label class="label-campo">Altura (cm):</label>
+                    <input type="number" id="altura" placeholder="Ej. 15">
+                </div>
+                <div class="campo">
+                    <label class="label-campo">Abono:</label>
+                    <input type="text" id="abono" placeholder="Ej. Compost orgánico">
+                </div>
+                <div class="campo">
+                    <label class="label-campo">Observaciones:</label>
+                    <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
+                </div>
                 
-                <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 0;">
-                    Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales para la hidratación y el bienestar de la piel y los labios. Nuestro proyecto está compuesto por un bálsamo labial hidratante, un exfoliante labial y un aceite para manos, codos y rodillas, elaborados con ingredientes naturales como miel, aceite de coco, aceite de almendras, aceite de oliva y vitamina E.
-                </p>
-                <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 12px 0 0 0;">
-                    El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables. A través de la elaboración de estos productos, buscamos promover el uso de ingredientes naturales y demostrar que es posible crear productos de calidad de forma sencilla y económica. Además, nuestro proyecto fomenta hábitos de cuidado personal que contribuyen a una mejor imagen y bienestar.
-                </p>
-            </div>
-
-            <div class="video-effect-frame" style="background: linear-gradient(135deg, rgba(255,245,246,1), rgba(240,245,239,1));">
-                <h2 class="section-title">🎯 Objetivo General</h2>
-                <p style="font-size: 1.1rem; line-height: 1.6; color: #222; margin: 0; font-weight: 500;">
-                    Elaborar un kit de cuidado personal utilizando ingredientes naturales que ayuden a hidratar y proteger la piel y los labios, ofreciendo una alternativa económica, accesible y libre de componentes químicos agresivos.
-                </p>
-            </div>
-
-            <div class="video-effect-frame">
-                <h2 class="section-title">🌿 Fórmulas y Elaboración</h2>
-                <div class="elaboracion-container">
-                    
-                    <div class="grid-productos">
-                        <div class="producto-card">
-                            <h3>💧 Aceite Nutritivo Base</h3>
-                            <p>Primero mezclamos las 12 cucharadas de aceite de almendras con las 6½ cucharadas de aceite de oliva. Después agregamos el contenido de las 10 cápsulas de vitamina E y revolvimos bien hasta obtener una mezcla uniforme. Finalmente, colocamos el aceite en un frasco limpio para su uso.</p>
-                        </div>
-                        <div class="producto-card rosa-card">
-                            <h3>💋 Bálsamo Hidratante</h3>
-                            <p>Comenzamos colocando la cera de abeja, el aceite de coco y el aceite de oliva en un recipiente resistente al calor. Después derretimos los ingredientes a baño María mientras mezclábamos suavemente. Cuando la mezcla estuvo completamente líquida, la retiramos del fuego y agregamos la vitamina E, la miel y la esencia. Revolvimos rápidamente y vertimos la mezcla en un frasco limpio para que se enfriara.</p>
-                        </div>
-                        <div class="producto-card">
-                            <h3>✨ Exfoliante Labial</h3>
-                            <p>Mezclamos la miel, el aceite de coco y el azúcar en un recipiente pequeño. Revolvimos todos los ingredientes hasta obtener una pasta uniforme. Finalmente, el exfoliante quedó listo para su aplicación en los labios.</p>
-                        </div>
+                <div class="campo">
+                    <label class="label-campo">Foto del progreso:</label>
+                    <div class="contenedor-file">
+                        <label for="imagenHuerto" class="btn-file-custom">Seleccionar imagen</label>
+                        <input type="file" id="imagenHuerto" class="input-file-oculto" accept="image/*" onchange="actualizarNombreArchivo(this)">
+                        <span id="textoArchivo" class="nombre-archivo">Ningún archivo seleccionado</span>
+                        <span id="btnLimpiarArchivo" style="color: #d9534f; cursor: pointer; font-weight: bold; display: none; margin-left: 5px;" onclick="limpiarArchivoSeleccionado()" title="Quitar imagen">✖️</span>
                     </div>
-
-                    <div>
-                        <img src="ev3.jpeg" alt="Proceso de Elaboración de MUSU" class="img-evidencia" style="max-height: 490px;">
-                        <p style="font-size: 0.82rem; text-align: center; color: var(--rosa-oscuro); margin-top: 10px; font-style: italic; font-weight: 500;">Evidencia: Preparación artesanal del exfoliante labial en laboratorio.</p>
-                    </div>
-
                 </div>
-            </div>
-
-            <div class="video-effect-frame">
-                <h2 class="section-title">📈 Resultado y Presentación</h2>
                 
-                <div class="resultados-layout">
-                    
-                    <div>
-                        <img src="ev1.jpeg" alt="Presentación del Stand MUSU" class="img-evidencia">
-                        <p style="font-size: 0.82rem; text-align: center; color: var(--rosa-oscuro); margin-top: 10px; font-style: italic; font-weight: 500;">Stand físico oficial presentando la marca MUSU.</p>
-                    </div>
-
-                    <div style="font-size: 0.95rem; line-height: 1.6; color: #3b4238;">
-                        <p style="margin-top: 0;">
-                            Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.
-                        </p>
-                        <p style="margin-bottom: 0; background: rgba(229,143,162,0.06); padding: 15px; border-radius: 12px; border-left: 4px solid var(--rosa-intenso); font-weight: 500;">
-                            Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. También les llamó la atención que los productos fueran fáciles de elaborar y que estuvieran hechos con ingredientes accesibles. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos. Muchas personas mencionaron que les gustó la idea, la presentación y los beneficios que ofrecen para el cuidado personal, por lo que consideramos que nuestro proyecto tuvo una buena aceptación.
-                        </p>
-                    </div>
-
-                </div>
+                <button class="btn-publicar" onclick="guardarBitacora()">Publicar en Bitácora</button>
             </div>
 
+            <div id="contenedorBitacora">Cargando registros...</div>
         </div>
-
-        <div id="vistaHuerto" class="instagram-layout hidden">
-            <div class="panel-image">
-                <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
-            </div>
-            
-            <div class="panel-form">
-                <div class="form-card">
-                    <img src="/kike.png" alt="Logotipo PAEC" class="logo-paec-obligatorio">
-                    <div class="brand-title">🌱 Huertito</div>
-                    <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
-
-                    <div id="formRegistro">
-                        <input type="text" id="regNombre" placeholder="Nombre completo">
-                        <input type="email" id="regEmail" placeholder="Correo electrónico">
-                        <input type="password" id="regPassword" placeholder="Contraseña">
-                        <button class="btn-verde" onclick="ejecutarRegistro()">Registrarte</button>
-                        <div class="switch-form">
-                            ¿Tienes una cuenta? <span class="switch-link" onclick="alternarForm('login')">Iniciar sesión</span>
-                        </div>
-                    </div>
-
-                    <div id="formLogin" class="hidden">
-                        <input type="email" id="logEmail" placeholder="Correo electrónico">
-                        <input type="password" id="logPassword" placeholder="Contraseña">
-                        <button class="btn-verde" onclick="ejecutarLogin()">Entrar</button>
-                        <div class="switch-form">
-                            ¿No tienes una cuenta? <span class="switch-link" onclick="alternarForm('registro')">Regístrate</span>
-                        </div>
-                    </div>
-
-                    <div class="seccion-producto">
-                        <p style="font-size: 0.78rem; color: var(--rosa-oscuro); margin: 0 0 6px 0; font-weight: 600;">Conoce la línea de Bálsamos Labiales Naturales.</p>
-                        <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="instagram-link">💋 Ver Nuestro Bálsamo</a>
-                    </div>
-
-                    <div class="enlace-discreto-container">
-                        <a href="https://www.instagram.com/p/DZJZ4m0Ntv6/" target="_blank" class="enlace-discreto">🛍️ Ver bolsas del proyecto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <script>
-        // Lógica de control para pestañas
-        function irA(pantalla) {
-            const tabPublico = document.getElementById('tabPublico');
-            const tabHuerto = document.getElementById('tabHuerto');
-            const vistaPublica = document.getElementById('vistaPublica');
-            const vistaHuerto = document.getElementById('vistaHuerto');
+        const token = localStorage.getItem('token');
+        const rol = localStorage.getItem('rol');
 
-            if(pantalla === 'publico') {
-                vistaPublica.classList.remove('hidden');
-                vistaHuerto.classList.add('hidden');
-                tabPublico.classList.add('active');
-                tabHuerto.classList.remove('active');
-                tabHuerto.classList.remove('highlight');
+        if(!token) window.location.href = '/';
+        if(rol === 'admin') document.getElementById('seccionAdmin').style.display = 'block';
+
+        function actualizarNombreArchivo(input) {
+            const texto = document.getElementById('textoArchivo');
+            const btnLimpiar = document.getElementById('btnLimpiarArchivo');
+            if (input.files && input.files.length > 0) {
+                texto.textContent = input.files[0].name;
+                btnLimpiar.style.display = 'inline';
             } else {
-                vistaPublica.classList.add('hidden');
-                vistaHuerto.classList.remove('hidden');
-                tabHuerto.classList.add('active');
-                tabHuerto.classList.add('highlight');
-                tabPublico.classList.remove('active');
+                texto.textContent = "Ningún archivo seleccionado";
+                btnLimpiar.style.display = 'none';
             }
         }
 
-        // Alternar Login/Registro
-        function alternarForm(tipo) {
-            const registro = document.getElementById('formRegistro');
-            const login = document.getElementById('formLogin');
-            const slogan = document.getElementById('textoSlogan');
-
-            if(tipo === 'login') {
-                registro.classList.add('hidden');
-                login.classList.remove('hidden');
-                slogan.innerText = 'Ingresa para gestionar y monitorear tus plantas.';
-            } else {
-                login.classList.add('hidden');
-                registro.classList.remove('hidden');
-                slogan.innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
-            }
+        function limpiarArchivoSeleccionado() {
+            const input = document.getElementById('imagenHuerto');
+            const texto = document.getElementById('textoArchivo');
+            const btnLimpiar = document.getElementById('btnLimpiarArchivo');
+            input.value = ''; 
+            texto.textContent = "Ningún archivo seleccionado";
+            btnLimpiar.style.display = 'none';
         }
 
-        // 🚀 PETICIÓN REAL: REGISTRO DE USUARIOS
-        async function ejecutarRegistro() {
-            const nombre = document.getElementById('regNombre').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
-
-            if (!nombre || !email || !password) {
-                return alert('Por favor, rellena todos los campos para registrarte.');
+        function pintarComentarios(comentarios, idPost) {
+            if (!comentarios || comentarios.length === 0) {
+                return `<p style="color: #8fa087; font-style: italic; font-size: 0.8rem; margin: 4px 0;">No hay comentarios. ¡Sé el primero en escribir!</p>`;
             }
+            return comentarios.map(c => {
+                const botonBorrar = (rol === 'admin') 
+                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')">✖️</span>`
+                    : '';
+                return `
+                    <div class="comentario-item" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div><span class="comentario-usuario">${c.usuario}:</span> ${c.texto}</div>
+                        ${botonBorrar}
+                    </div>
+                `;
+            }).join('');
+        }
 
+        async function cargarDatos() {
             try {
-                const res = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nombre, email, password })
-                });
-
-                const data = await res.json();
-
-                if (res.ok) {
-                    alert('¡Registro exitoso! Ahora inicia sesión con tus datos.');
-                    alternarForm('login');
-                } else {
-                    alert('Error al registrarse: ' + (data.error || 'Inténtalo de nuevo.'));
+                const res = await fetch('/api/bitacora');
+                const registros = await res.json();
+                const contenedor = document.getElementById('contenedorBitacora');
+                
+                if (registros.length === 0) {
+                    contenedor.innerHTML = `
+                        <div class="no-registros">
+                            <p style="font-size: 1rem; margin: 0; font-weight: bold; color: #405d33;">No hay registros aún.</p>
+                            <p style="color: #785880; font-size: 0.85rem; margin-top: 4px;">¡El administrador debe subir la primera planta!</p>
+                        </div>
+                    `;
+                    return;
                 }
-            } catch (err) {
-                console.error(err);
-                alert('Error de conexión con el servidor.');
+
+                contenedor.innerHTML = '';
+                registros.forEach(reg => {
+                    const totalLikes = reg.likes || 0;
+                    const totalComments = reg.comentarios ? reg.comentarios.length : 0;
+                    let bloqueAccionesAdmin = '';
+
+                    if (rol === 'admin') {
+                        bloqueAccionesAdmin = `
+                            <div class="admin-acciones-top" id="acciones-top-${reg._id}">
+                                <button class="btn-editar-post" onclick="activarModoEdicion('${reg._id}', '${reg.tipoPlanta}', '${reg.dueno || ''}', ${reg.altura}, '${reg.abono || ''}', \`${reg.observaciones}\`)">✏️ Editar</button>
+                                <button class="btn-borrar-post" onclick="eliminarEntrada('${reg._id}')">🗑️ Borrar</button>
+                            </div>
+                        `;
+                    }
+
+                    contenedor.innerHTML += `
+                        <div class="entrada" id="entrada-${reg._id}">
+                            ${bloqueAccionesAdmin}
+                            <small style="color: #785880; font-weight: 600;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
+                            
+                            <div id="bloque-estatico-${reg._id}">
+                                <h3>🌿 ${reg.tipoPlanta}</h3>
+                                <p>
+                                    <strong>Dueño:</strong> <span class="badge" style="background-color: #eef3ed; color: #405d33;">👤 ${reg.dueno || 'Sin asignar'}</span> |
+                                    <strong>Crecimiento:</strong> <span class="badge">📐 ${reg.altura} cm</span> | 
+                                    <strong>Abono:</strong> <span class="badge">🧬 ${reg.abono || 'No especificado'}</span>
+                                </p>
+                                <p style="margin-top: 10px;"><strong>Notas:</strong> ${reg.observaciones}</p>
+                            </div>
+
+                            <div id="bloque-editable-${reg._id}" style="display: none; margin-top: 15px;">
+                                <input type="text" class="input-edicion-inline" id="edit-planta-${reg._id}">
+                                <input type="text" class="input-edicion-inline" id="edit-dueno-${reg._id}">
+                                <input type="number" class="input-edicion-inline" id="edit-altura-${reg._id}">
+                                <input type="text" class="input-edicion-inline" id="edit-abono-${reg._id}">
+                                <textarea rows="2" class="input-edicion-inline" id="edit-obs-${reg._id}"></textarea>
+                                <button class="btn-publicar" style="background: #785880; margin-bottom: 8px;" onclick="guardarEdicion('${reg._id}')">💾 Guardar Cambios</button>
+                                <button class="btn-borrar-post" style="width: 100%;" onclick="cargarDatos()">Cancelar</button>
+                            </div>
+
+                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #8fa087; font-style: italic; margin-top: 12px;">Sin imagen adjunta</p>'}
+                            
+                            <div class="barra-interaccion">
+                                <div class="interaccion-item btn-like" onclick="darLike('${reg._id}')" id="like-btn-${reg._id}">
+                                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                    <span id="like-count-${reg._id}">${totalLikes}</span>
+                                </div>
+                                <div class="interaccion-item btn-comment" onclick="enfocarComentario('${reg._id}')">
+                                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                                    <span>${totalComments}</span>
+                                </div>
+                            </div>
+
+                            <div class="seccion-comentarios">
+                                <div class="titulo-comentarios">💬 Comentarios</div>
+                                <div class="lista-comentarios">${pintarComentarios(reg.comentarios, reg._id)}</div>
+                                <div class="caja-comentario">
+                                    <input type="text" class="input-comentario" id="input-${reg._id}" placeholder="Escribe un comentario...">
+                                    <button class="btn-enviar-comentario" onclick="publicarComentario('${reg._id}')">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                document.getElementById('contenedorBitacora').innerText = 'Error al conectar con el historial.';
             }
         }
 
-        // 🚀 PETICIÓN REAL: INICIO DE SESIÓN (LOGIN)
-        async function ejecutarLogin() {
-            const email = document.getElementById('logEmail').value.trim();
-            const password = document.getElementById('logPassword').value.trim();
+        function activarModoEdicion(id, planta, dueno, altura, abono, obs) {
+            document.getElementById(`bloque-estatico-${id}`).style.display = 'none';
+            document.getElementById(`bloque-editable-${id}`).style.display = 'block';
+            if (document.getElementById(`acciones-top-${id}`)) document.getElementById(`acciones-top-${id}`).style.display = 'none';
 
-            if (!email || !password) {
-                return alert('Por favor, introduce tu correo y contraseña.');
-            }
+            document.getElementById(`edit-planta-${id}`).value = planta;
+            document.getElementById(`edit-dueno-${id}`).value = dueno;
+            document.getElementById(`edit-altura-${id}`).value = altura;
+            document.getElementById(`edit-abono-${id}`).value = abono;
+            document.getElementById(`edit-obs-${id}`).value = obs;
+        }
 
-            try {
-                const res = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
+        async function guardarEdicion(idPost) {
+            const datosModificados = {
+                tipoPlanta: document.getElementById(`edit-planta-${idPost}`).value,
+                dueno: document.getElementById(`edit-dueno-${idPost}`).value,
+                altura: document.getElementById(`edit-altura-${idPost}`).value,
+                abono: document.getElementById(`edit-abono-${idPost}`).value,
+                observaciones: document.getElementById(`edit-obs-${idPost}`).value
+            };
 
+            const res = await fetch(`/api/bitacora/${idPost}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify(datosModificados)
+            });
+
+            if (res.ok) { alert("¡Modificado con éxito!"); cargarDatos(); }
+            else { alert("Error al guardar."); }
+        }
+
+        async function darLike(idPost) {
+            const res = await fetch(`/api/bitacora/${idPost}/like`, { method: 'POST' });
+            if(res.ok) {
                 const data = await res.json();
-
-                if (res.ok && data.token) {
-                    // Guardamos las credenciales reales para que dashboard.html las valide
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('rol', data.rol || 'usuario'); // Separa 'admin' de los demás usuarios
-
-                    // Redirección directa al archivo de bitácora real
-                    window.location.href = 'dashboard.html';
-                } else {
-                    alert('Error de acceso: ' + (data.error || 'Credenciales incorrectas.'));
-                }
-            } catch (err) {
-                console.error(err);
-                alert('Error de conexión al intentar iniciar sesión.');
+                document.getElementById(`like-count-${idPost}`).textContent = data.likes;
+                document.getElementById(`like-btn-${idPost}`).classList.add('like-active');
             }
         }
+
+        function enfocarComentario(idPost) { document.getElementById(`input-${idPost}`).focus(); }
+
+        async function publicarComentario(idPost) {
+            const input = document.getElementById(`input-${idPost}`);
+            const texto = input.value.trim();
+            if (!texto) return alert("Escribe un comentario.");
+
+            const nombreUsuario = rol === 'admin' ? 'Admin 🌿' : 'Usuario 🧑‍🌾';
+            const res = await fetch(`/api/bitacora/${idPost}/comentarios`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ usuario: nombreUsuario, texto: texto })
+            });
+
+            if (res.ok) { input.value = ''; cargarDatos(); }
+        }
+
+        async function eliminarComentario(idPost, idComentario) {
+            if (!confirm("¿Borrar comentario?")) return;
+            const res = await fetch(`/api/bitacora/${idPost}/comentarios/${idComentario}/borrar`, { method: 'POST' });
+            if (res.ok) cargarDatos();
+        }
+
+        async function eliminarEntrada(idPost) {
+            if (!confirm("¿Eliminar publicación?")) return;
+            const res = await fetch(`/api/bitacora/${idPost}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) cargarDatos();
+        }
+
+        async function guardarBitacora() {
+            const formData = new FormData();
+            formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
+            formData.append('dueno', document.getElementById('duenoPlanta').value); 
+            formData.append('altura', document.getElementById('altura').value);
+            formData.append('abono', document.getElementById('abono').value);
+            formData.append('observaciones', document.getElementById('obs').value); 
+
+            const archivo = document.getElementById('imagenHuerto').files[0];
+            if (archivo) formData.append('imagen', archivo); 
+
+            const res = await fetch('/api/bitacora', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData 
+            });
+
+            if(res.ok) { alert('¡Publicado correctamente!'); location.reload(); }
+        }
+
+        cargarDatos();
     </script>
 </body>
 </html>
