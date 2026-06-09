@@ -25,7 +25,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 🌸 ENCABEZADO ROSA INTENSO CON TEXTO BLANCO */
+        /* 🌸 ENCABEZADO CON TU FRASE OFICIAL */
         .header-top {
             background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
             color: var(--blanco);
@@ -44,8 +44,8 @@
 
         .header-top p {
             margin: 8px 0 0 0;
-            font-size: 1.1rem;
-            opacity: 0.95;
+            font-size: 1.25rem;
+            font-weight: 600;
             font-style: italic;
         }
 
@@ -79,7 +79,6 @@
             background-color: rgba(229, 143, 162, 0.15);
         }
 
-        /* Destacado especial verde para el botón del Huertito */
         .nav-link.highlight {
             background-color: var(--verde-huerto);
             color: var(--blanco) !important;
@@ -97,7 +96,7 @@
             box-sizing: border-box;
         }
 
-        /* 🎨 EFECTO MARCO DE VIDEO (FONDO BLANCO PURO CON MANCHAS COLORIDAS) */
+        /* 🎨 EFECTO MARCO DE VIDEO */
         .video-effect-frame {
             background: var(--blanco);
             border-radius: 24px;
@@ -109,7 +108,6 @@
             overflow: hidden;
         }
 
-        /* Manchas estilo salpicadura de pintura del video */
         .video-effect-frame::before {
             content: '';
             position: absolute;
@@ -129,7 +127,6 @@
             filter: blur(10px);
         }
 
-        /* CONTENEDOR DEL LOGO INTEGRADO */
         .logo-welcome-container {
             text-align: center;
             margin-bottom: 25px;
@@ -191,7 +188,6 @@
             margin: 0;
         }
 
-        /* IMÁGENES INTEGRADAS (ev3.jpeg y ev1.jpeg) */
         .img-evidencia {
             width: 100%;
             border-radius: 18px;
@@ -208,7 +204,7 @@
             align-items: center;
         }
 
-        /* 🔒 ACCESO DEL HUERTITO CON DISEÑO DE DOBLE PANEL INTEGRADO */
+        /* 🔒 ACCESO DEL HUERTITO */
         .instagram-layout {
             display: flex;
             background: var(--blanco);
@@ -281,9 +277,10 @@
 </head>
 <body>
 
+    <!-- 🌸 ENCABEZADO LIMPIO CON TU SLOGAN PRINCIPAL -->
     <div class="header-top">
         <h1>MUSU</h1>
-        <p>"Un parque más vivo, un entorno más nuestro"</p>
+        <p>"Prepara tus labios con nuestros bálsamos y dale besos a tu cora 💋"</p>
     </div>
 
     <div class="navbar">
@@ -301,10 +298,6 @@
                 </div>
                 <h2 class="section-title">🧴 Presentación del Proyecto</h2>
                 
-                <p style="font-size: 1.25rem; font-weight: 600; color: var(--rosa-oscuro); text-align: center; margin: 0 0 20px 0; font-style: italic;">
-                    Prepara tus labios con nuestros bálsamos y dale besos a tu cora 💋
-                </p>
-
                 <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 0;">
                     Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales para la hidratación y el bienestar de la piel y los labios. Nuestro proyecto está compuesto por un bálsamo labial hidratante, un exfoliante labial y un aceite para manos, codos y rodillas, elaborados con ingredientes naturales como miel, aceite de coco, aceite de almendras, aceite de oliva y vitamina E.
                 </p>
@@ -331,7 +324,7 @@
                         </div>
                         <div class="producto-card rosa-card">
                             <h3>💋 Bálsamo Hidratante</h3>
-                            <p>Comenzamos colocando la cera de abeja, el aceite de coco y el aceite de oliva en un recipiente resistente al calor. Después derretimos los ingredientes a baño María mientras mezclábamos suavemente. Cuando la mezcla estuvo completamente líquida, la retiramos del fuego y agregamos la vitamina E, la miel y la esencia. Revolvimos rápidamente y vertimos la mezcla en un frasco limpio para que se enviara.</p>
+                            <p>Comenzamos colocando la cera de abeja, el aceite de coco y el aceite de oliva en un recipiente resistente al calor. Después derretimos los ingredientes a baño María mientras mezclábamos suavemente. Cuando la mezcla estuvo completamente líquida, la retiramos del fuego y agregamos la vitamina E, la miel y la esencia. Revolvimos rápidamente y vertimos la mezcla en un frasco limpio para que se enfriara.</p>
                         </div>
                         <div class="producto-card">
                             <h3>✨ Exfoliante Labial</h3>
@@ -382,24 +375,24 @@
                     <div class="brand-title">🌱 Huertito</div>
                     <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
-                    <form id="formRegistro" onsubmit="event.preventDefault(); procesarRegistro();">
-                        <input type="text" id="regNombre" placeholder="Nombre completo" required>
-                        <input type="email" id="regCorreo" placeholder="Correo electrónico" required>
-                        <input type="password" id="regPassword" placeholder="Contraseña" required>
-                        <button type="submit" class="btn-verde">Registrarte</button>
+                    <div id="formRegistro">
+                        <input type="text" placeholder="Nombre completo">
+                        <input type="email" placeholder="Correo electrónico">
+                        <input type="password" placeholder="Contraseña">
+                        <button class="btn-verde">Registrarte</button>
                         <div class="switch-form">
                             ¿Tienes una cuenta? <span class="switch-link" onclick="alternarForm('login')">Iniciar sesión</span>
                         </div>
-                    </form>
+                    </div>
 
-                    <form id="formLogin" class="hidden" onsubmit="event.preventDefault(); procesarLogin();">
-                        <input type="email" id="loginCorreo" placeholder="Correo electrónico" required>
-                        <input type="password" id="loginPassword" placeholder="Contraseña" required>
-                        <button type="submit" class="btn-verde">Entrar</button>
+                    <div id="formLogin" class="hidden">
+                        <input type="email" placeholder="Correo electrónico">
+                        <input type="password" placeholder="Contraseña">
+                        <button class="btn-verde">Entrar</button>
                         <div class="switch-form">
                             ¿No tienes una cuenta? <span class="switch-link" onclick="alternarForm('registro')">Regístrate</span>
                         </div>
-                    </form>
+                    </div>
 
                     <div class="seccion-producto">
                         <p style="font-size: 0.78rem; color: var(--rosa-oscuro); margin: 0 0 6px 0; font-weight: 600;">Conoce la línea de Bálsamos Labiales Naturales.</p>
@@ -416,7 +409,7 @@
     </div>
 
     <script>
-        // Lógica de control para cambiar de lado (pestañas superiores)
+        // Lógica de control para pestañas
         function irA(pantalla) {
             const tabPublico = document.getElementById('tabPublico');
             const tabHuerto = document.getElementById('tabHuerto');
@@ -438,7 +431,7 @@
             }
         }
 
-        // Alternar Login/Registro dentro del panel del Huertito
+        // Alternar Login/Registro
         function alternarForm(tipo) {
             const registro = document.getElementById('formRegistro');
             const login = document.getElementById('formLogin');
@@ -452,69 +445,6 @@
                 login.classList.add('hidden');
                 registro.classList.remove('hidden');
                 slogan.innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
-            }
-        }
-
-        // Limpieza preventiva de sesiones al recargar para evitar trabas de navegación
-        window.addEventListener('DOMContentLoaded', () => {
-            localStorage.removeItem('token');
-            localStorage.removeItem('rol');
-        });
-
-        // 🚀 CONEXIÓN DE ACCIÓN: PROCESAR REGISTRO HACIA EL BACKEND
-        async function procesarRegistro() {
-            const nombre = document.getElementById('regNombre').value.trim();
-            const correo = document.getElementById('regCorreo').value.trim();
-            const password = document.getElementById('regPassword').value;
-
-            try {
-                const res = await fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nombre, correo, password })
-                });
-                
-                if (res.ok) {
-                    alert('¡Cuenta creada con éxito! Procede a Iniciar Sesión.');
-                    alternarForm('login');
-                } else {
-                    const data = await res.json();
-                    alert('Error: ' + (data.error || 'No se pudo completar el registro.'));
-                }
-            } catch (err) {
-                alert('Registro exitoso. Cambiando a inicio de sesión...');
-                alternarForm('login');
-            }
-        }
-
-        // 🚀 CONEXIÓN DE ACCIÓN: PROCESAR INICIO DE SESIÓN CON REDIRECCIÓN DIRECTA AL DASHBOARD
-        async function procesarLogin() {
-            const correo = document.getElementById('loginCorreo').value.trim();
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                const res = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ correo, password })
-                });
-                const data = await res.json();
-
-                if (res.ok) {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('rol', data.rol || 'admin'); 
-                    window.location.href = 'dashboard.html';
-                } else {
-                    // Si el servidor responde pero fallan tus datos locales de prueba, fuerza la entrada para no trancarte
-                    localStorage.setItem('token', 'TOKEN_BYPASS_COMPLETO');
-                    localStorage.setItem('rol', 'admin'); 
-                    window.location.href = 'dashboard.html';
-                }
-            } catch (err) {
-                // Si la base de datos o el server.js están apagados en este instante, aplica pase directo seguro
-                localStorage.setItem('token', 'TOKEN_BYPASS_COMPLETO');
-                localStorage.setItem('rol', 'admin'); 
-                window.location.href = 'dashboard.html';
             }
         }
     </script>
