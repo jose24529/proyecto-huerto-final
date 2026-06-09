@@ -2,259 +2,381 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>TubbieArt - Proyecto PAEC</title>
+    <title>MUSU - Proyecto PAEC</title>
     <style>
-        /* Estilos Base inspirados en WhatsApp Image 2026-06-09 at 8.36.00 AM.jpeg */
+        /* 🎨 PALETA ROSITA & VERDE HUERTO (DULCE, ORGÁNICA Y MODERNA) */
+        :root {
+            --rosa-principal: #fcd7de;  /* Rosa pastel de fondo base */
+            --rosa-intenso: #e58fa2;    /* Rosa de los bálsamos y detalles activos */
+            --rosa-oscuro: #8c4354;     /* Para textos elegantes sobre fondo rosa */
+            --rosa-tarjeta: #fff5f6;    /* Fondo de las tarjetas individuales */
+            --verde-huerto: #4d693f;    /* El verde original de tu huerto */
+            --verde-hover: #3a502f;     /* Verde oscuro para botones al pasar el mouse */
+            --blanco: #ffffff;
+            --texto-oscuro: #2c3528;    /* Texto principal ultra legible */
+        }
+
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
             padding: 0;
-            background-color: #ebf0f9; /* Fondo azul/grisáceo claro de la imagen */
-            color: #2e3b27;
+            background-color: var(--rosa-principal);
+            color: var(--texto-oscuro);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* 💜 ENCABEZADO Y MENÚ SUPERIOR DE LA IMAGEN */
+        /* 🌸 ENCABEZADO ROSA INTENSO CON TEXTO BLANCO */
         .header-top {
-            background-color: #6a49a8; /* Morado TubbieArt */
-            color: #ffffff;
-            padding: 20px;
+            background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
+            color: var(--blanco);
+            padding: 40px 20px;
             text-align: center;
+            box-shadow: 0 4px 20px rgba(140, 67, 84, 0.15);
         }
 
         .header-top h1 {
             margin: 0;
-            font-size: 1.6rem;
-            font-weight: bold;
+            font-size: 2.7rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .header-top p {
-            margin: 5px 0 0 0;
+            margin: 8px 0 0 0;
             font-size: 1.1rem;
-            opacity: 0.9;
+            opacity: 0.95;
+            font-style: italic;
         }
 
+        /* 📲 NAVEGACIÓN ESTILO PÍLDORA CON DETALLES VERDES Y ROSAS */
         .navbar {
-            background-color: #48317a; /* Morado oscuro para el menú */
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
             display: flex;
             justify-content: center;
             gap: 15px;
             padding: 12px;
-            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(140, 67, 84, 0.05);
         }
 
         .nav-link {
-            color: #ffffff;
+            color: var(--texto-oscuro);
             text-decoration: none;
             font-size: 0.95rem;
             font-weight: bold;
             cursor: pointer;
-            padding: 4px 8px;
-            border-radius: 4px;
-            transition: background 0.2s;
+            padding: 8px 20px;
+            border-radius: 20px;
+            transition: all 0.25s ease;
         }
 
         .nav-link:hover, .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.15);
+            color: var(--rosa-oscuro);
+            background-color: rgba(229, 143, 162, 0.15);
         }
 
-        /* Botón especial llamativo en el menú que conecta con tus colores */
+        /* Destacado especial verde para el botón del Huertito */
         .nav-link.highlight {
-            background-color: #4d693f; /* Tu verde original */
-            border: 1px solid #c0cca9;
+            background-color: var(--verde-huerto);
+            color: var(--blanco) !important;
+            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.3);
         }
         .nav-link.highlight:hover {
-            background-color: #3a502f;
+            background-color: var(--verde-hover);
+            transform: translateY(-1px);
         }
 
-        /* CONTEXTO DE CONTENIDO */
         .container {
             max-width: 1000px;
-            margin: 30px auto;
-            padding: 0 15px;
+            margin: 35px auto;
+            padding: 0 20px;
             box-sizing: border-box;
         }
 
-        /* VISTA 1: PRESENTACIÓN PÚBLICA (TubbieArt) */
-        .public-card {
-            background-color: #ffffff;
-            border-radius: 8px;
-            padding: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        /* 🎨 EFECTO MARCO DE VIDEO (FONDO BLANCO PURO CON MANCHAS COLORIDAS) */
+        .video-effect-frame {
+            background: var(--blanco);
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: 0 15px 35px rgba(140, 67, 84, 0.08);
+            border: 10px solid #ffffff;
+            position: relative;
+            overflow: hidden;
         }
 
-        .public-title {
-            color: #48317a;
-            font-size: 2rem;
+        /* Manchas estilo salpicadura de pintura del video */
+        .video-effect-frame::before {
+            content: '';
+            position: absolute;
+            top: -25px; right: -25px;
+            width: 90px; height: 90px;
+            background: radial-gradient(circle, rgba(229,143,162,0.5) 30%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(8px);
+        }
+        .video-effect-frame::after {
+            content: '';
+            position: absolute;
+            bottom: -35px; left: -25px;
+            width: 110px; height: 110px;
+            background: radial-gradient(circle, rgba(77,105,63,0.35) 20%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+
+        /* CONTENEDOR DEL LOGO INTEGRADO */
+        .logo-welcome-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-welcome {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(140, 67, 84, 0.06);
+        }
+
+        h2.section-title {
+            color: var(--rosa-oscuro);
+            font-size: 1.7rem;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            border-bottom: 2px solid rgba(229, 143, 162, 0.2);
+            padding-bottom: 8px;
         }
 
-        .public-text {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            color: #333333;
+        /* DISEÑO DE CUADRÍCULA (ELABORACIÓN) */
+        .elaboracion-container {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 25px;
+            align-items: center;
         }
 
-        /* VISTA 2: TU ACCESO AL HUERTITO INTEGRADO */
+        .grid-productos {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .producto-card {
+            background: var(--rosa-tarjeta);
+            border: 1px solid rgba(229, 143, 162, 0.2);
+            border-left: 5px solid var(--verde-huerto);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .producto-card.rosa-card {
+            border-left-color: var(--rosa-intenso);
+        }
+
+        .producto-card h3 {
+            margin: 0 0 8px 0;
+            color: var(--rosa-oscuro);
+            font-size: 1.15rem;
+        }
+
+        .producto-card p {
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #3b4238;
+            margin: 0;
+        }
+
+        /* IMÁGENES INTEGRADAS (ev3.jpeg y ev1.jpeg) */
+        .img-evidencia {
+            width: 100%;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            border: 2px solid #ffffff;
+        }
+
+        /* DISEÑO DE CUADRÍCULA (RESULTADOS) */
+        .resultados-layout {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        /* 🔒 ACCESO DEL HUERTITO CON DISEÑO DE DOBLE PANEL INTEGRADO */
         .instagram-layout {
             display: flex;
-            background: #ffffff;
-            border-radius: 24px;
+            background: var(--blanco);
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            min-height: 550px;
+            box-shadow: 0 15px 40px rgba(140, 67, 84, 0.1);
+            min-height: 560px;
+            border: 8px solid #ffffff;
         }
 
-        .panel-image {
-            flex: 1.2; 
-            background-color: #f9f9f9;
-        }
-
-        .panel-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            display: block;
-        }
-
+        .panel-image { flex: 1.2; background-color: #fafafa; }
+        .panel-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
         .panel-form {
-            flex: 0.9; 
-            display: flex;
-            align-items: flex-start; 
-            justify-content: center;
-            padding: 40px 20px; 
-            box-sizing: border-box;
-            border-left: 1px solid rgba(182, 196, 177, 0.3);
+            flex: 0.9; display: flex; align-items: center; justify-content: center;
+            padding: 40px 20px; box-sizing: border-box;
+            background-color: var(--rosa-tarjeta);
         }
 
         .form-card {
-            background-color: #f3f6f2; /* Crema original */
-            border: 1px solid #dbe3da;
-            border-radius: 24px;
-            padding: 24px 28px 20px 28px; 
-            width: 100%;
-            max-width: 390px; 
-            text-align: center;
-            box-sizing: border-box;
+            background-color: #ffffff; border: 1px solid rgba(229, 143, 162, 0.2);
+            border-radius: 24px; padding: 25px 30px; width: 100%; max-width: 380px; text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
         }
 
-        .logo-paec-obligatorio {
-            width: 130px; 
-            height: auto;
-            margin-bottom: 5px;
-        }
-
-        .brand-title {
-            color: #3b522c; 
-            font-size: 1.9rem;
-            font-weight: bold;
-            margin-bottom: 2px;
-        }
-
-        .brand-subtitle {
-            color: #5c7050; 
-            font-size: 0.88rem;
-            margin-bottom: 15px; 
-            line-height: 1.3;
-        }
+        .logo-paec-obligatorio { width: 120px; height: auto; margin-bottom: 5px; }
+        .brand-title { color: var(--verde-huerto); font-size: 1.9rem; font-weight: bold; margin: 0; }
+        .brand-subtitle { color: #5c6656; font-size: 0.88rem; margin-bottom: 20px; line-height: 1.4; }
 
         input { 
-            width: 100%; 
-            margin-bottom: 10px; 
-            padding: 11px 12px; 
-            border: 1px solid #c0cca9;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 0.88rem;
+            width: 100%; margin-bottom: 12px; padding: 12px; 
+            border: 1px solid #cbd4c8; border-radius: 12px; box-sizing: border-box;
+            font-size: 0.9rem; background-color: #fafdfa; transition: all 0.2s;
         }
+        input:focus { outline: none; border-color: var(--verde-huerto); box-shadow: 0 0 6px rgba(77,105,63,0.15); }
 
-        button { 
-            width: 100%; 
-            padding: 12px; 
-            background: #4d693f; /* Tu verde */
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 0.92rem;
-            font-weight: bold;
-            cursor: pointer;
+        button.btn-verde { 
+            width: 100%; padding: 13px; background: var(--verde-huerto); color: white; 
+            border: none; border-radius: 12px; font-size: 0.95rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.2); transition: background 0.2s;
         }
+        button.btn-verde:hover { background: var(--verde-hover); }
 
-        button:hover { background: #3a502f; }
+        .switch-form { border-top: 1px solid rgba(229, 143, 162, 0.15); padding-top: 12px; margin-top: 15px; font-size: 0.85rem; color: #666; }
+        .switch-link { color: var(--verde-huerto); font-weight: bold; cursor: pointer; }
 
-        .switch-form {
-            border-top: 1px solid #d2ded0;
-            padding-top: 10px;
-            margin-top: 10px;
-            font-size: 0.82rem;
-            color: #5c7050;
-        }
-
-        .switch-link {
-            color: #4d693f;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        /* 💄 SECCIÓN ROSA DEL BÁLSAMO */
         .seccion-producto {
-            background-color: rgba(229, 143, 162, 0.07); 
-            border: 1px dashed rgba(229, 143, 162, 0.4);
-            border-radius: 14px;
-            padding: 10px;
-            margin-top: 12px;
+            background-color: rgba(229, 143, 162, 0.08); 
+            border: 1px dashed var(--rosa-intenso);
+            border-radius: 16px; padding: 14px; margin-top: 18px;
         }
-
         .instagram-link {
-            display: block;
-            color: #ffffff; 
-            font-weight: bold;
-            font-size: 0.78rem;
-            text-decoration: none;
-            padding: 7px;
-            background-color: #e58fa2; /* Tu rosa */
-            border-radius: 20px;
+            display: block; color: white; font-weight: bold; font-size: 0.8rem;
+            text-decoration: none; padding: 9px; background-color: var(--rosa-intenso); border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(229, 143, 162, 0.25);
         }
+        .instagram-link:hover { background-color: #d47a8e; }
 
-        .enlace-discreto-container { margin-top: 10px; }
-        .enlace-discreto { font-size: 0.75rem; color: #7a8a73; text-decoration: none; }
+        .enlace-discreto-container { margin-top: 14px; }
+        .enlace-discreto { font-size: 0.78rem; color: #737c70; text-decoration: none; }
 
         .hidden { display: none !important; }
+
+        @media (max-width: 850px) {
+            .elaboracion-container, .resultados-layout { grid-template-columns: 1fr; }
+            .instagram-layout { flex-direction: column; }
+            .panel-image { display: none; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 💜 ENCABEZADO FIJO DE TU CAMPAÑA -->
+    <!-- 🌸 ENCABEZADO SUPERIOR -->
     <div class="header-top">
-        <h1>TubbieArt</h1>
+        <h1>MUSU</h1>
         <p>"Un parque más vivo, un entorno más nuestro"</p>
     </div>
 
-    <!-- 📲 NAVEGACIÓN COMPLETA -->
+    <!-- 📲 BARRA DE NAVEGACIÓN INTEGRADORA -->
     <div class="navbar">
-        <span class="nav-link active" id="tabInicio" onclick="cambiarPestaña('inicio')">Inicio</span>
-        <span class="nav-link" onclick="cambiarPestaña('inicio')">Objetivo</span>
-        <span class="nav-link" onclick="cambiarPestaña('inicio')">Avances</span>
-        <span class="nav-link" onclick="cambiarPestaña('inicio')">Resultados</span>
-        <!-- El botón del Huerto destaca hermosamente usando tu verde original -->
-        <span class="nav-link highlight" id="tabHuerto" onclick="cambiarPestaña('huerto')">🌱 Acceso Huertito</span>
+        <span class="nav-link active" id="tabPublico" onclick="irA('publico')">✨ Presentación del Producto</span>
+        <span class="nav-link" id="tabHuerto" onclick="irA('huerto')">🌱 Acceso Huertito</span>
     </div>
 
-    <!-- CONTENEDOR DE CONTENIDO VARIABLE -->
     <div class="container">
         
-        <!-- PESTAÑA 1: VISTA PÚBLICA DEL PRODUCTO/PROYECTO -->
-        <div id="vistaPublica" class="public-card">
-            <h2 class="public-title">Presentación del proyecto</h2>
-            <p class="public-text">
-                TubbieArt es un proyecto del PAEC diseñado para restaurar un parque y darle una segunda vida. 
-                Su propósito es transformar un espacio que estaba deteriorado en un lugar agradable, funcional y visualmente atractivo. 
-                A través de diversas actividades —como limpieza, pintura, mantenimiento de áreas verdes y creación de elementos artísticos— 
-                el proyecto busca mejorar el entorno y promover el sentido de pertenencia en la comunidad.
-            </p>
+        <!-- ================= VISTA PRESENTACIÓN (PRODUCTO MUSU) ================= -->
+        <div id="vistaPublica">
+            
+            <!-- BIENVENIDA CON TU LOGO OFICIAL -->
+            <div class="video-effect-frame">
+                <div class="logo-welcome-container">
+                    <img src="logo.jpeg" alt="Logotipo Oficial MUSU" class="logo-welcome">
+                </div>
+                <h2 class="section-title">🔮 Presentación del Proyecto</h2>
+                <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 0;">
+                    TubbieArt es un proyecto del PAEC diseñado para restaurar un parque y darle una segunda vida. 
+                    Su propósito es transformar un espacio que estaba deteriorado en un lugar agradable, funcional y visualmente atractivo. 
+                    A través de diversas actividades —como limpieza, pintura, mantenimiento de áreas verdes y creación de elementos artísticos— 
+                    el proyecto busca mejorar el entorno y promover el sentido de pertenencia en la comunidad.
+                </p>
+            </div>
+
+            <!-- OBJETIVO DEL KIT -->
+            <div class="video-effect-frame" style="background: linear-gradient(135deg, rgba(255,245,246,1), rgba(240,245,239,1));">
+                <h2 class="section-title">🎯 Objetivo General</h2>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #222; margin: 0; font-weight: 500;">
+                    Elaborar un kit de cuidado personal utilizando ingredientes naturales que ayuden a hidratar y proteger la piel y los labios, ofreciendo una alternativa económica, accesible y libre de componentes químicos agresivos.
+                </p>
+            </div>
+
+            <!-- SECCIÓN: ELABORACIÓN CON LA FOTO ev3.jpeg -->
+            <div class="video-effect-frame">
+                <h2 class="section-title">🌿 Fórmulas y Elaboración</h2>
+                <div class="elaboracion-container">
+                    
+                    <div class="grid-productos">
+                        <div class="producto-card">
+                            <h3>💧 Aceite Nutritivo Base</h3>
+                            <p>Primero mezclamos las 12 cucharadas de aceite de almendras con las 6½ cucharadas de aceite de oliva. Después agregamos el contenido de las 10 cápsulas de vitamina E y revolvimos bien hasta obtener una mezcla uniforme. Finalmente, colocamos el aceite en un frasco limpio para su uso.</p>
+                        </div>
+                        <div class="producto-card rosa-card">
+                            <h3>💋 Bálsamo Hidratante</h3>
+                            <p>Comenzamos colocando la cera de abeja, el aceite de coco y el aceite de oliva en un recipiente resistente al calor. Después derretimos los ingredientes a baño María mientras mezclábamos suavemente. Cuando la mezcla estuvo completamente líquida, la retiramos del fuego y agregamos la vitamina E, la miel y la esencia. Revolvimos rápidamente y vertimos la mezcla en un frasco limpio para que se enfriara.</p>
+                        </div>
+                        <div class="producto-card">
+                            <h3>✨ Exfoliante Labial</h3>
+                            <p>Mezclamos la miel, el aceite de coco y el azúcar en un recipiente pequeño. Revolvimos todos los ingredientes hasta obtener una pasta uniforme. Finalmente, el exfoliante quedó listo para su aplicación en los labios.</p>
+                        </div>
+                    </div>
+
+                    <!-- FOTO ev3.jpeg EN COLUMNA -->
+                    <div>
+                        <img src="ev3.jpeg" alt="Proceso de Elaboración de MUSU" class="img-evidencia" style="max-height: 490px;">
+                        <p style="font-size: 0.82rem; text-align: center; color: var(--rosa-oscuro); margin-top: 10px; font-style: italic; font-weight: 500;">Evidencia: Preparación artesanal del exfoliante labial en laboratorio.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SECCIÓN: RESULTADOS CON LA FOTO ev1.jpeg -->
+            <div class="video-effect-frame">
+                <h2 class="section-title">📈 Resultado y Presentación</h2>
+                
+                <div class="resultados-layout">
+                    
+                    <!-- FOTO ev1.jpeg EN COLUMNA -->
+                    <div>
+                        <img src="ev1.jpeg" alt="Presentación del Stand MUSU" class="img-evidencia">
+                        <p style="font-size: 0.82rem; text-align: center; color: var(--rosa-oscuro); margin-top: 10px; font-style: italic; font-weight: 500;">Stand físico oficial presentando la marca MUSU.</p>
+                    </div>
+
+                    <!-- TEXTOS OFICIALES -->
+                    <div style="font-size: 0.95rem; line-height: 1.6; color: #3b4238;">
+                        <p style="margin-top: 0;">
+                            Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.
+                        </p>
+                        <p style="margin-bottom: 0; background: rgba(229,143,162,0.06); padding: 15px; border-radius: 12px; border-left: 4px solid var(--rosa-intenso); font-weight: 500;">
+                            Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. También les llamó la atención que los productos fueran fáciles de elaborar y que estuvieran hechos con ingredientes accesibles. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos. Muchas personas mencionaron que les gustó la idea, la presentación y los beneficios que ofrecen para el cuidado personal, por lo que consideramos que nuestro proyecto tuvo una buena aceptación.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
-        <!-- PESTAÑA 2: VISTA DEL LOGIN DE TU HUERTO (Exactamente tu diseño anterior) -->
+        <!-- ================= VISTA HUERTO (CON PANEL ACCESO) ================= -->
         <div id="vistaHuerto" class="instagram-layout hidden">
             <div class="panel-image">
                 <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
@@ -270,23 +392,23 @@
                         <input type="text" placeholder="Nombre completo">
                         <input type="email" placeholder="Correo electrónico">
                         <input type="password" placeholder="Contraseña">
-                        <button>Registrarte</button>
+                        <button class="btn-verde">Registrarte</button>
                         <div class="switch-form">
-                            ¿Tienes una cuenta? <span class="switch-link" onclick="alternarForm( 'login' )">Iniciar sesión</span>
+                            ¿Tienes una cuenta? <span class="switch-link" onclick="alternarForm('login')">Iniciar sesión</span>
                         </div>
                     </div>
 
                     <div id="formLogin" class="hidden">
                         <input type="email" placeholder="Correo electrónico">
                         <input type="password" placeholder="Contraseña">
-                        <button>Entrar</button>
+                        <button class="btn-verde">Entrar</button>
                         <div class="switch-form">
-                            ¿No tienes una cuenta? <span class="switch-link" onclick="alternarForm( 'registro' )">Regístrate</span>
+                            ¿No tienes una cuenta? <span class="switch-link" onclick="alternarForm('registro')">Regístrate</span>
                         </div>
                     </div>
 
                     <div class="seccion-producto">
-                        <p style="font-size: 0.78rem; color: #8c4354; margin: 0 0 6px 0;">Conoce la línea de Bálsamos Labiales Naturales.</p>
+                        <p style="font-size: 0.78rem; color: var(--rosa-oscuro); margin: 0 0 6px 0; font-weight: 600;">Conoce la línea de Bálsamos Labiales Naturales.</p>
                         <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="instagram-link">💋 Ver Nuestro Bálsamo</a>
                     </div>
 
@@ -300,27 +422,29 @@
     </div>
 
     <script>
-        // Lógica para alternar las pestañas superiores limpiamente
-        function cambiarPestaña(pantalla) {
-            const tabInicio = document.getElementById('tabInicio');
+        // Lógica de control para pestañas
+        function irA(pantalla) {
+            const tabPublico = document.getElementById('tabPublico');
             const tabHuerto = document.getElementById('tabHuerto');
             const vistaPublica = document.getElementById('vistaPublica');
             const vistaHuerto = document.getElementById('vistaHuerto');
 
-            if(pantalla === 'inicio') {
+            if(pantalla === 'publico') {
                 vistaPublica.classList.remove('hidden');
                 vistaHuerto.classList.add('hidden');
-                tabInicio.classList.add('active');
+                tabPublico.classList.add('active');
                 tabHuerto.classList.remove('active');
-            } else if (pantalla === 'huerto') {
+                tabHuerto.classList.remove('highlight');
+            } else {
                 vistaPublica.classList.add('hidden');
                 vistaHuerto.classList.remove('hidden');
                 tabHuerto.classList.add('active');
-                tabInicio.classList.remove('active');
+                tabHuerto.classList.add('highlight');
+                tabPublico.classList.remove('active');
             }
         }
 
-        // Alternar entre login y registro dentro del Huertito
+        // Alternar Login/Registro
         function alternarForm(tipo) {
             const registro = document.getElementById('formRegistro');
             const login = document.getElementById('formLogin');
