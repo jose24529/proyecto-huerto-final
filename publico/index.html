@@ -25,7 +25,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* 🌸 ENCABEZADO CON TU FRASE OFICIAL */
+        /* 🌸 ENCABEZADO LIMPIO CON TU SLOGAN PRINCIPAL */
         .header-top {
             background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
             color: var(--blanco);
@@ -266,18 +266,6 @@
         .enlace-discreto-container { margin-top: 14px; }
         .enlace-discreto { font-size: 0.78rem; color: #737c70; text-decoration: none; }
 
-        /* Estilo para el mensaje de éxito */
-        .success-message {
-            color: var(--verde-huerto);
-            font-size: 1rem;
-            font-weight: bold;
-            background-color: rgba(77, 105, 63, 0.1);
-            padding: 15px;
-            border-radius: 12px;
-            margin-top: 15px;
-            border: 1px solid rgba(77, 105, 63, 0.2);
-        }
-
         .hidden { display: none !important; }
 
         @media (max-width: 850px) {
@@ -376,6 +364,7 @@
 
         </div>
 
+        <!-- 🔒 PANEL DE ACCESO AUTÉNTICO CON RUTA BACKEND CORREGIDA -->
         <div id="vistaHuerto" class="instagram-layout hidden">
             <div class="panel-image">
                 <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
@@ -387,25 +376,22 @@
                     <div class="brand-title">🌱 Huertito</div>
                     <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
-                    <!-- Mensaje de éxito al ingresar -->
-                    <div id="mensajeExito" class="success-message hidden">
-                        ¡Bienvenido/a al Huertito! Acceso concedido correctamente. 🌿✨
-                    </div>
-
+                    <!-- FORMULARIO DE REGISTRO REAL -->
                     <div id="formRegistro">
-                        <input type="text" placeholder="Nombre completo">
-                        <input type="email" placeholder="Correo electrónico">
-                        <input type="password" placeholder="Contraseña">
-                        <button class="btn-verde" onclick="procesarAcceso()">Registrarte</button>
+                        <input type="text" id="regNombre" placeholder="Nombre completo">
+                        <input type="email" id="regEmail" placeholder="Correo electrónico">
+                        <input type="password" id="regPassword" placeholder="Contraseña">
+                        <button class="btn-verde" onclick="ejecutarRegistro()">Registrarte</button>
                         <div class="switch-form">
                             ¿Tienes una cuenta? <span class="switch-link" onclick="alternarForm('login')">Iniciar sesión</span>
                         </div>
                     </div>
 
+                    <!-- FORMULARIO DE LOGUEO REAL -->
                     <div id="formLogin" class="hidden">
-                        <input type="email" placeholder="Correo electrónico">
-                        <input type="password" placeholder="Contraseña">
-                        <button class="btn-verde" onclick="procesarAcceso()">Entrar</button>
+                        <input type="email" id="logEmail" placeholder="Correo electrónico">
+                        <input type="password" id="logPassword" placeholder="Contraseña">
+                        <button class="btn-verde" onclick="ejecutarLogin()">Entrar</button>
                         <div class="switch-form">
                             ¿No tienes una cuenta? <span class="switch-link" onclick="alternarForm('registro')">Regístrate</span>
                         </div>
@@ -453,38 +439,83 @@
             const registro = document.getElementById('formRegistro');
             const login = document.getElementById('formLogin');
             const slogan = document.getElementById('textoSlogan');
-            const mensaje = document.getElementById('mensajeExito');
-
-            // Resetear el mensaje de éxito al cambiar
-            mensaje.classList.add('hidden');
 
             if(tipo === 'login') {
                 registro.classList.add('hidden');
                 login.classList.remove('hidden');
-                slogan.classList.remove('hidden');
                 slogan.innerText = 'Ingresa para gestionar y monitorear tus plantas.';
             } else {
                 login.classList.add('hidden');
                 registro.classList.remove('hidden');
-                slogan.classList.remove('hidden');
                 slogan.innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
             }
         }
 
-        // 🛠️ FUNCIÓN PARA HACER FUNCIONAR LOS BOTONES DE REGISTRO/LOGIN
-        function procesarAcceso() {
-            const registro = document.getElementById('formRegistro');
-            const login = document.getElementById('formLogin');
-            const slogan = document.getElementById('textoSlogan');
-            const mensaje = document.getElementById('mensajeExito');
+        // 🚀 PETICIÓN BACKEND CORREGIDA: REGISTRO
+        async function ejecutarRegistro() {
+            const nombre = document.getElementById('regNombre').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
 
-            // Ocultamos los formularios e instrucciones
-            registro.classList.add('hidden');
-            login.classList.add('hidden');
-            slogan.classList.add('hidden');
+            if (!nombre || !email || !password) {
+                return alert('Por favor, rellena todos los campos para registrarte.');
+            }
 
-            // Mostramos el cartel de éxito
-            mensaje.classList.remove('hidden');
+            try {
+                // Ruta corregida sin el '/api'
+                const res = await fetch('/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('¡Registro exitoso! Ahora inicia sesión con tus datos.');
+                    alternarForm('login');
+                } else {
+                    alert('Error al registrarse: ' + (data.error || 'Inténtalo de nuevo.'));
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error de conexión con el servidor.');
+            }
+        }
+
+        // 🚀 PETICIÓN BACKEND CORREGIDA: LOGIN REAL CON CONTROL DE ROLES
+        async function ejecutarLogin() {
+            const email = document.getElementById('logEmail').value.trim();
+            const password = document.getElementById('logPassword').value.trim();
+
+            if (!email || !password) {
+                return alert('Por favor, introduce tu correo y contraseña.');
+            }
+
+            try {
+                // Ruta corregida sin el '/api'
+                const res = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok && data.token) {
+                    // Almacenamos el token y rol de forma local en el navegador
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('rol', data.rol || 'usuario'); 
+
+                    // Redirección directa hacia tu panel real de bitácora
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert('Error de acceso: ' + (data.error || 'Credenciales incorrectas.'));
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error de conexión al intentar iniciar sesión.');
+            }
         }
     </script>
 </body>
