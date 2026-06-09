@@ -2,31 +2,112 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Huerto - Acceso</title>
+    <title>TubbieArt - Proyecto PAEC</title>
     <style>
-        /* Estructura general de pantalla dividida al 100% */
+        /* Estilos Base inspirados en WhatsApp Image 2026-06-09 at 8.36.00 AM.jpeg */
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             margin: 0;
             padding: 0;
-            display: flex;
-            min-height: 100vh;
-            background-color: #ffffff;
+            background-color: #ebf0f9; /* Fondo azul/grisáceo claro de la imagen */
             color: #2e3b27;
         }
 
-        .instagram-layout {
-            display: flex;
-            width: 100%;
-            min-height: 100vh;
+        /* 💜 ENCABEZADO Y MENÚ SUPERIOR DE LA IMAGEN */
+        .header-top {
+            background-color: #6a49a8; /* Morado TubbieArt */
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
         }
 
-        /* MITAD IZQUIERDA: Tu ilustración original abarcando todo el espacio */
+        .header-top h1 {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        .header-top p {
+            margin: 5px 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .navbar {
+            background-color: #48317a; /* Morado oscuro para el menú */
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Botón especial llamativo en el menú que conecta con tus colores */
+        .nav-link.highlight {
+            background-color: #4d693f; /* Tu verde original */
+            border: 1px solid #c0cca9;
+        }
+        .nav-link.highlight:hover {
+            background-color: #3a502f;
+        }
+
+        /* CONTEXTO DE CONTENIDO */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 15px;
+            box-sizing: border-box;
+        }
+
+        /* VISTA 1: PRESENTACIÓN PÚBLICA (TubbieArt) */
+        .public-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .public-title {
+            color: #48317a;
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .public-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #333333;
+        }
+
+        /* VISTA 2: TU ACCESO AL HUERTITO INTEGRADO */
+        .instagram-layout {
+            display: flex;
+            background: #ffffff;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            min-height: 550px;
+        }
+
         .panel-image {
             flex: 1.2; 
-            position: relative;
-            background-color: #ffffff;
-            overflow: hidden;
+            background-color: #f9f9f9;
         }
 
         .panel-image img {
@@ -36,59 +117,47 @@
             display: block;
         }
 
-        /* MITAD DERECHA: Zona de acceso alineada hacia arriba */
         .panel-form {
             flex: 0.9; 
-            background-color: #ffffff; 
             display: flex;
-            align-items: flex-start; /* Subir la tarjeta al espacio superior deseado */
+            align-items: flex-start; 
             justify-content: center;
-            padding: 40px 15px 15px 15px; /* Más espacio arriba para controlar la altura exacta */
+            padding: 40px 20px; 
             box-sizing: border-box;
             border-left: 1px solid rgba(182, 196, 177, 0.3);
         }
 
-        /* Tarjeta optimizada: Más ancha y compacta verticalmente para evitar scroll */
         .form-card {
-            background-color: #f3f6f2; 
+            background-color: #f3f6f2; /* Crema original */
             border: 1px solid #dbe3da;
             border-radius: 24px;
             padding: 24px 28px 20px 28px; 
             width: 100%;
             max-width: 390px; 
-            box-shadow: 0 10px 30px rgba(78, 107, 59, 0.04);
             text-align: center;
-            position: relative;
             box-sizing: border-box;
         }
 
-        /* ✨ ESTILO OPTIMIZADO PARA MÁXIMA CALIDAD DE kike.png ✨ */
         .logo-paec-obligatorio {
-            width: 140px; 
+            width: 130px; 
             height: auto;
-            object-fit: contain;
             margin-bottom: 5px;
-            display: inline-block;
         }
 
-        /* Títulos estilizados en base a la tortuga */
         .brand-title {
             color: #3b522c; 
             font-size: 1.9rem;
-            margin-top: 0;
-            margin-bottom: 2px;
             font-weight: bold;
+            margin-bottom: 2px;
         }
 
         .brand-subtitle {
             color: #5c7050; 
             font-size: 0.88rem;
-            font-weight: 600;
             margin-bottom: 15px; 
             line-height: 1.3;
         }
 
-        /* Inputs integrados con el fondo crema/verde */
         input { 
             width: 100%; 
             margin-bottom: 10px; 
@@ -97,43 +166,26 @@
             border-radius: 8px;
             box-sizing: border-box;
             font-size: 0.88rem;
-            background-color: #ffffff; 
-            color: #2e3b27;
-            outline: none;
-            transition: all 0.2s;
         }
 
-        input:focus {
-            border-color: #4d693f; 
-            box-shadow: 0 0 6px rgba(77, 105, 63, 0.2);
-        }
-
-        /* Botón principal en color Verde Caparazón Profundo */
         button { 
             width: 100%; 
             padding: 12px; 
-            cursor: pointer; 
-            background: #4d693f; 
+            background: #4d693f; /* Tu verde */
             color: white; 
             border: none; 
             border-radius: 8px; 
             font-size: 0.92rem;
             font-weight: bold;
-            margin-top: 2px;
-            margin-bottom: 12px;
-            transition: background 0.2s;
-            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.25);
+            cursor: pointer;
         }
 
-        button:hover { 
-            background: #3a502f; 
-        }
+        button:hover { background: #3a502f; }
 
-        /* Interruptor inferior de vista */
         .switch-form {
             border-top: 1px solid #d2ded0;
             padding-top: 10px;
-            margin-bottom: 14px;
+            margin-top: 10px;
             font-size: 0.82rem;
             color: #5c7050;
         }
@@ -142,116 +194,105 @@
             color: #4d693f;
             font-weight: bold;
             cursor: pointer;
-            text-decoration: none;
-            margin-left: 3px;
         }
 
-        .switch-link:hover {
-            text-decoration: underline;
-        }
-
-        /* 💄 SECCIÓN DE PRODUCTO: ROSA ARMONIOSO Y COMPACTO */
+        /* 💄 SECCIÓN ROSA DEL BÁLSAMO */
         .seccion-producto {
             background-color: rgba(229, 143, 162, 0.07); 
             border: 1px dashed rgba(229, 143, 162, 0.4);
             border-radius: 14px;
             padding: 10px;
-            margin-top: 5px;
-            box-sizing: border-box;
-        }
-
-        .producto-texto {
-            font-size: 0.78rem;
-            color: #8c4354; 
-            margin: 0 0 6px 0;
-            line-height: 1.3;
-            font-weight: 500;
+            margin-top: 12px;
         }
 
         .instagram-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
+            display: block;
             color: #ffffff; 
             font-weight: bold;
             font-size: 0.78rem;
             text-decoration: none;
-            padding: 7px 12px;
-            background-color: #e58fa2; 
+            padding: 7px;
+            background-color: #e58fa2; /* Tu rosa */
             border-radius: 20px;
-            transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(229, 143, 162, 0.2);
-            width: 100%;
-            box-sizing: border-box;
         }
 
-        .instagram-link:hover {
-            background-color: #d06f84; 
-            transform: translateY(-1px);
-            box-shadow: 0 4px 10px rgba(229, 143, 162, 0.3);
-        }
+        .enlace-discreto-container { margin-top: 10px; }
+        .enlace-discreto { font-size: 0.75rem; color: #7a8a73; text-decoration: none; }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* Soporte responsivo para móviles */
-        @media (max-width: 768px) {
-            .panel-image {
-                display: none;
-            }
-            .panel-form {
-                flex: 1;
-                padding: 40px 15px 15px 15px;
-            }
-        }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <div class="instagram-layout">
+    <!-- 💜 ENCABEZADO FIJO DE TU CAMPAÑA -->
+    <div class="header-top">
+        <h1>TubbieArt</h1>
+        <p>"Un parque más vivo, un entorno más nuestro"</p>
+    </div>
+
+    <!-- 📲 NAVEGACIÓN COMPLETA -->
+    <div class="navbar">
+        <span class="nav-link active" id="tabInicio" onclick="cambiarPestaña('inicio')">Inicio</span>
+        <span class="nav-link" onclick="cambiarPestaña('inicio')">Objetivo</span>
+        <span class="nav-link" onclick="cambiarPestaña('inicio')">Avances</span>
+        <span class="nav-link" onclick="cambiarPestaña('inicio')">Resultados</span>
+        <!-- El botón del Huerto destaca hermosamente usando tu verde original -->
+        <span class="nav-link highlight" id="tabHuerto" onclick="cambiarPestaña('huerto')">🌱 Acceso Huertito</span>
+    </div>
+
+    <!-- CONTENEDOR DE CONTENIDO VARIABLE -->
+    <div class="container">
         
-        <div class="panel-image">
-            <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
+        <!-- PESTAÑA 1: VISTA PÚBLICA DEL PRODUCTO/PROYECTO -->
+        <div id="vistaPublica" class="public-card">
+            <h2 class="public-title">Presentación del proyecto</h2>
+            <p class="public-text">
+                TubbieArt es un proyecto del PAEC diseñado para restaurar un parque y darle una segunda vida. 
+                Su propósito es transformar un espacio que estaba deteriorado en un lugar agradable, funcional y visualmente atractivo. 
+                A través de diversas actividades —como limpieza, pintura, mantenimiento de áreas verdes y creación de elementos artísticos— 
+                el proyecto busca mejorar el entorno y promover el sentido de pertenencia en la comunidad.
+            </p>
         </div>
-        
-        <div class="panel-form">
-            <div class="form-card">
-                <img src="/kike.png" alt="Logotipo PAEC" class="logo-paec-obligatorio">
 
-                <div class="brand-title">🌱 Huertito</div>
-                <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
+        <!-- PESTAÑA 2: VISTA DEL LOGIN DE TU HUERTO (Exactamente tu diseño anterior) -->
+        <div id="vistaHuerto" class="instagram-layout hidden">
+            <div class="panel-image">
+                <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
+            </div>
+            
+            <div class="panel-form">
+                <div class="form-card">
+                    <img src="/kike.png" alt="Logotipo PAEC" class="logo-paec-obligatorio">
+                    <div class="brand-title">🌱 Huertito</div>
+                    <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
-                <div id="formRegistro" autocomplete="off">
-                    <input type="text" id="regNombre" placeholder="Nombre completo" autocomplete="off">
-                    <input type="email" id="regCorreo" placeholder="Correo electrónico" autocomplete="off">
-                    <input type="password" id="regPass" placeholder="Contraseña" autocomplete="new-password">
-                    <button onclick="registrar()">Registrarte</button>
-                    
-                    <div class="switch-form">
-                        ¿Tienes una cuenta? <span class="switch-link" onclick="mostrarLogin()">Iniciar sesión</span>
+                    <div id="formRegistro">
+                        <input type="text" placeholder="Nombre completo">
+                        <input type="email" placeholder="Correo electrónico">
+                        <input type="password" placeholder="Contraseña">
+                        <button>Registrarte</button>
+                        <div class="switch-form">
+                            ¿Tienes una cuenta? <span class="switch-link" onclick="alternarForm( 'login' )">Iniciar sesión</span>
+                        </div>
                     </div>
-                </div>
 
-                <div id="formLogin" class="hidden" autocomplete="off">
-                    <input type="email" id="loginCorreo" placeholder="Correo electrónico" autocomplete="username">
-                    <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password">
-                    <button onclick="login()">Entrar</button>
-                    
-                    <div class="switch-form">
-                        ¿No tienes una cuenta? <span class="switch-link" onclick="mostrarRegistro()">Regístrate</span>
+                    <div id="formLogin" class="hidden">
+                        <input type="email" placeholder="Correo electrónico">
+                        <input type="password" placeholder="Contraseña">
+                        <button>Entrar</button>
+                        <div class="switch-form">
+                            ¿No tienes una cuenta? <span class="switch-link" onclick="alternarForm( 'registro' )">Regístrate</span>
+                        </div>
                     </div>
-                </div>
 
-                <!-- 🌟 SECCIÓN DEL BÁLSAMO LABIAL EN ROSA COSMÉTICO PERFECTO 🌟 -->
-                <div class="seccion-producto">
-                    <p class="producto-texto">
-                        Conoce la línea de <strong>Bálsamos Labiales Naturales</strong> elaborados con la cosecha y esencia de nuestro huerto.
-                    </p>
-                    <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="instagram-link">
-                        💋 Ver Nuestro Bálsamo
-                    </a>
+                    <div class="seccion-producto">
+                        <p style="font-size: 0.78rem; color: #8c4354; margin: 0 0 6px 0;">Conoce la línea de Bálsamos Labiales Naturales.</p>
+                        <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="instagram-link">💋 Ver Nuestro Bálsamo</a>
+                    </div>
+
+                    <div class="enlace-discreto-container">
+                        <a href="https://www.instagram.com/p/DZJZ4m0Ntv6/" target="_blank" class="enlace-discreto">🛍️ Ver bolsas del proyecto</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -259,71 +300,40 @@
     </div>
 
     <script>
-        function mostrarLogin() {
-            document.getElementById('formRegistro').classList.add('hidden');
-            document.getElementById('formLogin').classList.remove('hidden');
-            document.getElementById('textoSlogan').innerText = 'Ingresa para gestionar y monitorear tus plantas.';
-        }
+        // Lógica para alternar las pestañas superiores limpiamente
+        function cambiarPestaña(pantalla) {
+            const tabInicio = document.getElementById('tabInicio');
+            const tabHuerto = document.getElementById('tabHuerto');
+            const vistaPublica = document.getElementById('vistaPublica');
+            const vistaHuerto = document.getElementById('vistaHuerto');
 
-        function mostrarRegistro() {
-            document.getElementById('formLogin').classList.add('hidden');
-            document.getElementById('formRegistro').classList.remove('hidden');
-            document.getElementById('textoSlogan').innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
-        }
-
-        async function registrar() {
-            const correoInput = document.getElementById('regCorreo').value;
-            const passInput = document.getElementById('regPass').value;
-            const data = {
-                nombre: document.getElementById('regNombre').value,
-                correo: correoInput,
-                password: passInput
-            };
-            const res = await fetch('/api/registro', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-            
-            if(res.ok) {
-                alert("¡Registrado con éxito! Entrando al huerto...");
-                const loginRes = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ correo: correoInput, password: passInput })
-                });
-                const info = await loginRes.json();
-                
-                if(info.token) {
-                    localStorage.setItem('token', info.token);
-                    localStorage.setItem('rol', info.rol); 
-                    window.location.href = '/dashboard.html';
-                } else {
-                    mostrarLogin();
-                }
-            } else {
-                alert("Error al registrar.");
+            if(pantalla === 'inicio') {
+                vistaPublica.classList.remove('hidden');
+                vistaHuerto.classList.add('hidden');
+                tabInicio.classList.add('active');
+                tabHuerto.classList.remove('active');
+            } else if (pantalla === 'huerto') {
+                vistaPublica.classList.add('hidden');
+                vistaHuerto.classList.remove('hidden');
+                tabHuerto.classList.add('active');
+                tabInicio.classList.remove('active');
             }
         }
 
-        async function login() {
-            const data = {
-                correo: document.getElementById('loginCorreo').value,
-                password: document.getElementById('loginPass').value
-            };
-            const res = await fetch('/api/login', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
-            });
-            const info = await res.json();
-            
-            if(info.token) {
-                localStorage.setItem('token', info.token);
-                localStorage.setItem('rol', info.rol); 
-                window.location.href = '/dashboard.html';
+        // Alternar entre login y registro dentro del Huertito
+        function alternarForm(tipo) {
+            const registro = document.getElementById('formRegistro');
+            const login = document.getElementById('formLogin');
+            const slogan = document.getElementById('textoSlogan');
+
+            if(tipo === 'login') {
+                registro.classList.add('hidden');
+                login.classList.remove('hidden');
+                slogan.innerText = 'Ingresa para gestionar y monitorear tus plantas.';
             } else {
-                alert("Datos incorrectos");
+                login.classList.add('hidden');
+                registro.classList.remove('hidden');
+                slogan.innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
             }
         }
     </script>
