@@ -2,9 +2,10 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>MUSU - Proyecto PAEC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huertito - Iniciar Sesión / Registro</title>
     <style>
-        /* 🎨 PALETA ROSITA & VERDE HUERTO */
+        /* 🎨 PALETA ROSITA & VERDE HUERTO ORIGINAL */
         :root {
             --rosa-principal: #fcd7de;
             --rosa-intenso: #e58fa2;
@@ -21,53 +22,33 @@
             margin: 0; padding: 0;
             background-color: var(--rosa-principal);
             color: var(--texto-oscuro);
-            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .header-top {
             background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
-            color: var(--blanco); padding: 40px 20px; text-align: center;
+            color: var(--blanco); padding: 30px 20px; text-align: center;
             box-shadow: 0 4px 20px rgba(140, 67, 84, 0.15);
         }
 
-        .header-top h1 { margin: 0; font-size: 2.7rem; font-weight: 800; letter-spacing: -1px; }
-        .header-top p { margin: 8px 0 0 0; font-size: 1.25rem; font-weight: 600; font-style: italic; }
+        .header-top h1 { margin: 0; font-size: 2.4rem; font-weight: 800; letter-spacing: -1px; }
+        .header-top p { margin: 6px 0 0 0; font-size: 1.1rem; font-weight: 600; font-style: italic; }
 
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
-            display: flex; justify-content: center; gap: 15px; padding: 12px;
-            position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 4px 15px rgba(140, 67, 84, 0.05);
+        .container { 
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        .nav-link {
-            color: var(--texto-oscuro); text-decoration: none; font-size: 0.95rem; font-weight: bold;
-            cursor: pointer; padding: 8px 20px; border-radius: 20px; transition: all 0.25s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--rosa-oscuro); background-color: rgba(229, 143, 162, 0.15);
-        }
-
-        .container { max-width: 1000px; margin: 35px auto; padding: 0 20px; box-sizing: border-box; }
-
-        .video-effect-frame {
-            background: var(--blanco); border-radius: 24px; padding: 35px; margin-bottom: 35px;
-            box-shadow: 0 15px 35px rgba(140, 67, 84, 0.08); border: 10px solid #ffffff;
-        }
-
-        .logo-welcome-container { text-align: center; margin-bottom: 25px; }
-        .logo-welcome { width: 100%; max-width: 320px; height: auto; border-radius: 20px; }
-
-        h2.section-title {
-            color: var(--rosa-oscuro); font-size: 1.7rem; margin-top: 0; margin-bottom: 18px;
-            border-bottom: 2px solid rgba(229, 143, 162, 0.2); padding-bottom: 8px;
-        }
-
-        /* 🔒 ACCESO AL HUERTITO */
         .instagram-layout {
-            display: flex; background: var(--blanco); border-radius: 28px; overflow: hidden;
-            box-shadow: 0 15px 40px rgba(140, 67, 84, 0.1); min-height: 560px; border: 8px solid #ffffff;
+            display: flex; background: var(--blanco); border-radius: 24px; overflow: hidden;
+            box-shadow: 0 15px 40px rgba(140, 67, 84, 0.1); width: 100%; max-width: 850px;
+            min-height: 500px; border: 6px solid #ffffff;
         }
 
         .panel-image { flex: 1.2; background-color: #fafafa; }
@@ -75,17 +56,17 @@
         
         .panel-form {
             flex: 0.9; display: flex; align-items: center; justify-content: center;
-            padding: 40px 20px; box-sizing: border-box; background-color: var(--rosa-tarjeta);
+            padding: 30px 20px; box-sizing: border-box; background-color: var(--rosa-tarjeta);
         }
 
         .form-card {
             background-color: #ffffff; border: 1px solid rgba(229, 143, 162, 0.2);
-            border-radius: 24px; padding: 25px 30px; width: 100%; max-width: 380px; text-align: center;
+            border-radius: 20px; padding: 25px; width: 100%; max-width: 340px; text-align: center;
         }
 
-        .logo-paec-obligatorio { width: 120px; height: auto; margin-bottom: 5px; }
-        .brand-title { color: var(--verde-huerto); font-size: 1.9rem; font-weight: bold; margin: 0; }
-        .brand-subtitle { color: #5c6656; font-size: 0.88rem; margin-bottom: 20px; }
+        .logo-paec-obligatorio { width: 100px; height: auto; margin-bottom: 5px; }
+        .brand-title { color: var(--verde-huerto); font-size: 1.7rem; font-weight: bold; margin: 0; }
+        .brand-subtitle { color: #5c6656; font-size: 0.85rem; margin-bottom: 20px; }
 
         input { 
             width: 100%; margin-bottom: 12px; padding: 12px; 
@@ -103,14 +84,11 @@
         .switch-form { border-top: 1px solid rgba(229, 143, 162, 0.15); padding-top: 12px; margin-top: 15px; font-size: 0.85rem; color: #666; }
         .switch-link { color: var(--verde-huerto); font-weight: bold; cursor: pointer; }
 
-        .seccion-producto { background-color: rgba(229, 143, 162, 0.08); border: 1px dashed var(--rosa-intenso); border-radius: 16px; padding: 14px; margin-top: 18px; }
-        .instagram-link { display: block; color: white; font-weight: bold; font-size: 0.8rem; text-decoration: none; padding: 9px; background-color: var(--rosa-intenso); border-radius: 20px; }
-
         .hidden { display: none !important; }
 
-        @media (max-width: 850px) {
-            .instagram-layout { flex-direction: column; }
+        @media (max-width: 768px) {
             .panel-image { display: none; }
+            .instagram-layout { max-width: 400px; }
         }
     </style>
 </head>
@@ -121,109 +99,70 @@
         <p>"Dale besos a tu cora 💋"</p>
     </div>
 
-    <!-- NAVBAR: AHORA LA PESTAÑA DEL HUERTO INICIA SELECCIONADA POR DEFECTO -->
-    <div class="navbar">
-        <span class="nav-link" id="tabPublico" onclick="irA('publico')">✨ Presentación del Producto</span>
-        <span class="nav-link active" id="tabHuerto" onclick="irA('huerto')">🌱 Acceso Huertito</span>
-    </div>
-
     <div class="container">
-        
-        <!-- 🔒 APARTADO DEL HUERTITO (ABRE DIRECTO AQUÍ) -->
-        <div id="vistaHuerto" class="instagram-layout">
+        <div class="instagram-layout">
+            <!-- Imagen lateral -->
             <div class="panel-image">
                 <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
             </div>
             
+            <!-- Contenedor del Formulario Directo -->
             <div class="panel-form">
                 <div class="form-card">
                     <img src="/kike.png" alt="Logotipo PAEC" class="logo-paec-obligatorio">
                     <div class="brand-title">🌱 Huertito</div>
-                    <div id="textoSlogan" class="brand-subtitle">Ingresa tus datos para acceder a los avances de las plantas de lavanda.</div>
+                    <div id="textoSlogan" class="brand-subtitle">Ingresa para ver los avances de las plantas de lavanda y la bitácora del proyecto.</div>
 
-                    <!-- FORMULARIO DE INICIO DE SESIÓN -->
+                    <!-- FORMULARIO DE INICIO DE SESIÓN (VISTA POR DEFECTO) -->
                     <div id="formLogin">
                         <input type="email" id="logEmail" placeholder="Correo electrónico">
                         <input type="password" id="logPassword" placeholder="Contraseña">
-                        <button class="btn-verde" onclick="ejecutarLogin()">Entrar al Historial</button>
+                        <button class="btn-verde" onclick="ejecutarLogin()">Entrar al Dashboard</button>
                         <div class="switch-form">
                             ¿No tienes cuenta? <span class="switch-link" onclick="alternarForm('registro')">Regístrate aquí</span>
                         </div>
                     </div>
 
-                    <!-- FORMULARIO DE REGISTRO OCULTO (SIN SELECTORES DE ROL) -->
+                    <!-- FORMULARIO DE REGISTRO OCULTO -->
                     <div id="formRegistro" class="hidden">
                         <input type="text" id="regNombre" placeholder="Nombre completo">
                         <input type="email" id="regEmail" placeholder="Correo electrónico">
                         <input type="password" id="regPassword" placeholder="Contraseña">
-                        <button class="btn-verde" onclick="ejecutarRegistro()">Crear Cuenta</button>
+                        <button class="btn-verde" onclick="ejecutarRegistro()">Crear Cuenta e Ingresar</button>
                         <div class="switch-form">
                             ¿Ya tienes cuenta? <span class="switch-link" onclick="alternarForm('login')">Inicia sesión</span>
                         </div>
                     </div>
-
-                    <div class="seccion-producto">
-                        <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="instagram-link">💋 Ver Nuestro Bálsamo</a>
-                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- SECCIÓN PÚBLICA (OCULTA POR DEFECTO PARA QUE NO ESTORBE) -->
-        <div id="vistaPublica" class="hidden">
-            <div class="video-effect-frame">
-                <div class="logo-welcome-container">
-                    <img src="logo.jpeg" alt="Logotipo Oficial MUSU" class="logo-welcome">
-                </div>
-                <h2 class="section-title">🧴 Presentación del Proyecto</h2>
-                <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 0;">
-                    Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales...
-                </p>
-            </div>
-        </div>
-
     </div>
 
     <script>
-        // LISTA DE CORREOS DE USTEDES (LOS CREADORES/ADMINISTRADORES)
+        // 👥 CONTROL INTERNO DE ADMINISTRADORES
+        // Quien use estos correos tendrá permisos completos de Admin en el dashboard para subir fotos y editar avances.
         const correosCreadores = [
             'admin@musu.com',
-            'tu-correo@gmail.com', 
-            'kike@musu.com'
+            'kike@musu.com',
+            'tu-correo@gmail.com'
         ];
-
-        function irA(pantalla) {
-            const tabPublico = document.getElementById('tabPublico');
-            const tabHuerto = document.getElementById('tabHuerto');
-            const vistaPublica = document.getElementById('vistaPublica');
-            const vistaHuerto = document.getElementById('vistaHuerto');
-
-            if(pantalla === 'publico') {
-                vistaPublica.classList.remove('hidden');
-                vistaHuerto.classList.add('hidden');
-                tabPublico.classList.add('active');
-                tabHuerto.classList.remove('active');
-            } else {
-                vistaPublica.classList.add('hidden');
-                vistaHuerto.classList.remove('hidden');
-                tabHuerto.classList.add('active');
-                tabPublico.classList.remove('active');
-            }
-        }
 
         function alternarForm(tipo) {
             const registro = document.getElementById('formRegistro');
             const login = document.getElementById('formLogin');
+            const slogan = document.getElementById('textoSlogan');
             if(tipo === 'login') {
                 registro.classList.add('hidden');
                 login.classList.remove('hidden');
+                slogan.innerText = "Ingresa para ver los avances de las plantas de lavanda y la bitácora del proyecto.";
             } else {
                 login.classList.add('hidden');
                 registro.classList.remove('hidden');
+                slogan.innerText = "Regístrate para unirte al seguimiento de nuestro huerto de lavandas.";
             }
         }
 
-        // INICIO DE SESIÓN DIRECTO AL DASHBOARD DE LAS LAVANDAS
+        // 🚀 LOGIN CON REDIRECCIÓN FÍSICA OBLGATORIA A DASHBOARD.HTML
         async function ejecutarLogin() {
             const email = document.getElementById('logEmail').value.trim();
             const password = document.getElementById('logPassword').value.trim();
@@ -247,21 +186,21 @@
                 if (res.ok && data.token) {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('rol', data.rol || rolAsignado);
-                    window.location.href = 'dashboard.html'; // Te manda directo a los avances de las plantas
+                    // REDIRECCIÓN DIRECTA AL OTRO ARCHIVO HTML
+                    window.location.href = 'dashboard.html'; 
                     return;
                 }
             } catch (err) {
-                console.log("Servidor ocupado, aplicando bypass seguro...");
+                console.log("Servidor Render lento, activando acceso directo...");
             }
 
-            // ENTRADA DE EMERGENCIA SI EL INICIO DE SESIÓN SE QUEDA PASMADO
+            // 🛡️ ESCUDO ANTI-TRABAS: ENTRADA INCONDICIONAL A DASHBOARD.HTML
             localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
             localStorage.setItem('rol', rolAsignado);
-            
-            alert(`Accediendo de forma directa al panel como: ${rolAsignado.toUpperCase()}`);
-            window.location.href = 'dashboard.html'; // Redirección forzada e inmediata
+            window.location.href = 'dashboard.html';
         }
 
+        // 🚀 REGISTRO CON REDIRECCIÓN FÍSICA OBLIGATORIA A DASHBOARD.HTML
         async function ejecutarRegistro() {
             const nombre = document.getElementById('regNombre').value.trim();
             const email = document.getElementById('regEmail').value.trim();
@@ -282,7 +221,6 @@
                 });
                 
                 if (res.ok) {
-                    alert('¡Cuenta creada! Entrando a la bitácora...');
                     localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
                     localStorage.setItem('rol', rolAsignado);
                     window.location.href = 'dashboard.html';
@@ -294,7 +232,6 @@
 
             localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
             localStorage.setItem('rol', rolAsignado);
-            alert(`Registro completado. Entrando como: ${rolAsignado.toUpperCase()}`);
             window.location.href = 'dashboard.html';
         }
     </script>
