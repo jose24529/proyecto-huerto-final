@@ -419,8 +419,8 @@
 
     <div class="dashboard-layout">
         <div class="main-content">
-            <!-- 🛠️ ENLACE SUPERIOR CORREGIDO: Ahora apunta correctamente a index.html -->
-            <span class="logout" onclick="localStorage.clear(); location.href='index.html'">Cerrar Sesión</span>
+            <!-- 🛠️ SOLUCIÓN MAESTRA: Al cerrar sesión te manda a '/' (la raíz del servidor de Node) -->
+            <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
             <h1>🌱 Historial del Huerto</h1>
 
             <div id="seccionAdmin">
@@ -467,9 +467,9 @@
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
-        // 🛡️ CONTROL DE SEGURIDAD CORREGIDO: Redirige a index.html en vez del login inexistente
+        // 🛡️ SOLUCIÓN MAESTRA SEGURIDAD: Si intentan entrar directo sin token, los regresa a la raíz '/'
         if(!token) {
-            window.location.href = 'index.html';
+            window.location.href = '/';
         }
 
         if(rol === 'admin') {
@@ -604,7 +604,7 @@
                                 </div>
                                 <div class="caja-comentario">
                                     <input type="text" class="input-comentario" id="input-${reg._id}" placeholder="Escribe un comentario...">
-                                    <button class="btn-enviar-comentario" onclick="publicarComentario('${reg._id}')">Enviar</button>
+                                    <button class="btn-enviar-comentario" onclick="pulsarComentario('${reg._id}')">Enviar</button>
                                 </div>
                             </div>
                         </div>
