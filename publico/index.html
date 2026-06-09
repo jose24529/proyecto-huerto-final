@@ -29,7 +29,7 @@
             min-height: 100vh;
         }
 
-        /* 🌿 ENCABEZADO */
+        /* 🌿 ENCABEZADO FIJO */
         .header-top {
             background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
             color: var(--blanco);
@@ -107,7 +107,7 @@
             display: block;
         }
 
-        /* 💋 PESTAÑA 1: PRESENTACIÓN DEL PROYECTO (TEXTOS E IMÁGENES) */
+        /* 💋 PESTAÑA 1: PRESENTACIÓN DEL PROYECTO */
         .seccion-editorial {
             background-color: var(--blanco);
             border-radius: 24px;
@@ -136,7 +136,7 @@
             color: #3d4a37;
         }
 
-        /* Contenedores de Elaboración (Tarjetas de Recetas) */
+        /* Tarjetas de Recetas */
         .grid-elaboracion {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -191,7 +191,7 @@
             max-height: 450px;
         }
 
-        /* 🐢 PESTAÑA 2: ACCESO AL HUERTO CON LA TORTUGA IZQUIERDA */
+        /* 🐢 PESTAÑA 2: ACCESO AL HUERTO FIX */
         .grid-huerto-layout {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -231,10 +231,13 @@
             box-sizing: border-box;
         }
 
-        .logo-paec {
-            width: 90px;
-            height: auto;
+        .logo-paec-original {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: contain;
             margin-bottom: 10px;
+            display: inline-block;
         }
 
         .huerto-title {
@@ -357,14 +360,14 @@
 
     <div class="container">
         
-        <!-- 💋 PESTAÑA 1: PRESENTACIÓN DEL PROYECTO (TEXTOS E IMÁGENES EV1 Y EV3) -->
+        <!-- 💋 PESTAÑA 1: PRESENTACIÓN DEL PROYECTO -->
         <div id="seccion-producto" class="tab-content active">
             <div class="seccion-editorial">
                 <h2>Presentación del Proyecto</h2>
                 <p>Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales para la hidratación y el bienestar de la piel y los labios. Nuestro proyecto está compuesto por un bálsamo labial hidratante, un exfoliante labial y un aceite para manos, codos y rodillas, elaborados con ingredientes naturales como miel, aceite de coco, aceite de almendras, aceite de oliva y vitamina E.</p>
                 <p>El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables. A través de la elaboración de estos productos, buscamos promover el uso de ingredientes naturales y demostrar que es posible crear productos de calidad de forma sencilla y económica. Además, nuestro proyecto fomenta hábitos de cuidado personal que contribuyen a una mejor imagen y bienestar.</p>
 
-                <h3>Resultados comunitarios</h3>
+                <h3>Resultados</h3>
                 <p>Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.</p>
                 <p>Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. También les llamó la atención que los productos fueran fáciles de elaborar y que estuvieran hechos con ingredientes accesibles. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos. Muchas personas mencionaron que les gustó la idea, la presentación y los beneficios que ofrecen para el cuidado personal, por lo que consideramos que nuestro proyecto tuvo una buena aceptación.</p>
 
@@ -396,18 +399,19 @@
             </div>
         </div>
 
-        <!-- 🐢 PESTAÑA 2: ACCESO AL HUERTO (LA TORTUGA ESTÁ AQUÍ FIJA) -->
+        <!-- 🐢 PESTAÑA 2: ACCESO AL HUERTO -->
         <div id="seccion-huerto" class="tab-content">
             <div class="grid-huerto-layout">
                 
-                <!-- La ilustración de la tortuga se ubica fijamente a la izquierda en esta sección -->
+                <!-- Ilustración de la tortuga restaurada a la izquierda -->
                 <div class="contenedor-ilustracion-tortuga">
                     <img src="Captura de pantalla 2026-06-09 155215.jpg" alt="Ilustración Tortuga PAEC Huertito">
                 </div>
 
                 <!-- Panel de Formulario Derecho -->
                 <div class="panel-login-derecho">
-                    <img src="ev3.jpeg" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; margin-bottom: 10px;" alt="Miniatura Logo">
+                    <!-- Logotipo original del PAEC restaurado en el círculo superior -->
+                    <img src="kike.png" alt="Logotipo PAEC" class="logo-paec-original">
                     <div class="huerto-title">🌱 Huertito</div>
                     <div id="instruccionSub" class="huerto-subtitle">Ingresa para gestionar y monitorear tus plantas.</div>
 
