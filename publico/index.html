@@ -2,53 +2,217 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huertito - Iniciar Sesión / Registro</title>
+    <title>MUSU - Proyecto PAEC</title>
     <style>
-        /* 🎨 PALETA ROSITA & VERDE HUERTO ORIGINAL */
+        /* 🎨 PALETA ROSITA & VERDE HUERTO (DULCE, ORGÁNICA Y MODERNA) */
         :root {
-            --rosa-principal: #fcd7de;
-            --rosa-intenso: #e58fa2;
-            --rosa-oscuro: #8c4354;
-            --rosa-tarjeta: #fff5f6;
-            --verde-huerto: #4d693f;
-            --verde-hover: #3a502f;
+            --rosa-principal: #fcd7de;  /* Rosa pastel de fondo base */
+            --rosa-intenso: #e58fa2;    /* Rosa de los bálsamos y detalles activos */
+            --rosa-oscuro: #8c4354;     /* Para textos elegantes sobre fondo rosa */
+            --rosa-tarjeta: #fff5f6;    /* Fondo de las tarjetas individuales */
+            --verde-huerto: #4d693f;    /* El verde original de tu huerto */
+            --verde-hover: #3a502f;     /* Verde oscuro para botones al pasar el mouse */
             --blanco: #ffffff;
-            --texto-oscuro: #2c3528;
+            --texto-oscuro: #2c3528;    /* Texto principal ultra legible */
         }
 
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            margin: 0; padding: 0;
+            margin: 0;
+            padding: 0;
             background-color: var(--rosa-principal);
             color: var(--texto-oscuro);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* 🌸 ENCABEZADO LIMPIO CON TU SLOGAN PRINCIPAL */
         .header-top {
             background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
-            color: var(--blanco); padding: 30px 20px; text-align: center;
+            color: var(--blanco);
+            padding: 40px 20px;
+            text-align: center;
             box-shadow: 0 4px 20px rgba(140, 67, 84, 0.15);
         }
 
-        .header-top h1 { margin: 0; font-size: 2.4rem; font-weight: 800; letter-spacing: -1px; }
-        .header-top p { margin: 6px 0 0 0; font-size: 1.1rem; font-weight: 600; font-style: italic; }
+        .header-top h1 {
+            margin: 0;
+            font-size: 2.7rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
 
-        .container { 
-            flex: 1;
+        .header-top p {
+            margin: 8px 0 0 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        /* 📲 NAVEGACIÓN ESTILO PÍLDORA CON DETALLES VERDES Y ROSAS */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 20px;
+            gap: 15px;
+            padding: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(140, 67, 84, 0.05);
+        }
+
+        .nav-link {
+            color: var(--texto-oscuro);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 8px 20px;
+            border-radius: 20px;
+            transition: all 0.25s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--rosa-oscuro);
+            background-color: rgba(229, 143, 162, 0.15);
+        }
+
+        .nav-link.highlight {
+            background-color: var(--verde-huerto);
+            color: var(--blanco) !important;
+            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.3);
+        }
+        .nav-link.highlight:hover {
+            background-color: var(--verde-hover);
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 35px auto;
+            padding: 0 20px;
             box-sizing: border-box;
         }
 
+        /* 🎨 EFECTO MARCO DE VIDEO */
+        .video-effect-frame {
+            background: var(--blanco);
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 35px;
+            box-shadow: 0 15px 35px rgba(140, 67, 84, 0.08);
+            border: 10px solid #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-effect-frame::before {
+            content: '';
+            position: absolute;
+            top: -25px; right: -25px;
+            width: 90px; height: 90px;
+            background: radial-gradient(circle, rgba(229,143,162,0.5) 30%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(8px);
+        }
+        .video-effect-frame::after {
+            content: '';
+            position: absolute;
+            bottom: -35px; left: -25px;
+            width: 110px; height: 110px;
+            background: radial-gradient(circle, rgba(77,105,63,0.35) 20%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+
+        .logo-welcome-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo-welcome {
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(140, 67, 84, 0.06);
+        }
+
+        h2.section-title {
+            color: var(--rosa-oscuro);
+            font-size: 1.7rem;
+            margin-top: 0;
+            margin-bottom: 18px;
+            border-bottom: 2px solid rgba(229, 143, 162, 0.2);
+            padding-bottom: 8px;
+        }
+
+        /* DISEÑO DE CUADRÍCULA (ELABORACIÓN) */
+        .elaboracion-container {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .grid-productos {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .producto-card {
+            background: var(--rosa-tarjeta);
+            border: 1px solid rgba(229, 143, 162, 0.2);
+            border-left: 5px solid var(--verde-huerto);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .producto-card.rosa-card {
+            border-left-color: var(--rosa-intenso);
+        }
+
+        .producto-card h3 {
+            margin: 0 0 8px 0;
+            color: var(--rosa-oscuro);
+            font-size: 1.15rem;
+        }
+
+        .producto-card p {
+            font-size: 0.92rem;
+            line-height: 1.5;
+            color: #3b4238;
+            margin: 0;
+        }
+
+        .img-evidencia {
+            width: 100%;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+            border: 2px solid #ffffff;
+        }
+
+        /* DISEÑO DE CUADRÍCULA (RESULTADOS) */
+        .resultados-layout {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 25px;
+            align-items: center;
+        }
+
+        /* 🔒 ACCESO DEL HUERTITO */
         .instagram-layout {
-            display: flex; background: var(--blanco); border-radius: 24px; overflow: hidden;
-            box-shadow: 0 15px 40px rgba(140, 67, 84, 0.1); width: 100%; max-width: 850px;
-            min-height: 500px; border: 6px solid #ffffff;
+            display: flex;
+            background: var(--blanco);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(140, 67, 84, 0.1);
+            min-height: 560px;
+            border: 8px solid #ffffff;
         }
 
         .panel-image { flex: 1.2; background-color: #fafafa; }
@@ -56,39 +220,94 @@
         
         .panel-form {
             flex: 0.9; display: flex; align-items: center; justify-content: center;
-            padding: 30px 20px; box-sizing: border-box; background-color: var(--rosa-tarjeta);
+            padding: 40px 20px; box-sizing: border-box;
+            background-color: var(--rosa-tarjeta);
         }
 
         .form-card {
             background-color: #ffffff; border: 1px solid rgba(229, 143, 162, 0.2);
-            border-radius: 20px; padding: 25px; width: 100%; max-width: 340px; text-align: center;
+            border-radius: 24px; padding: 25px 30px; width: 100%; max-width: 380px; text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
         }
 
-        .logo-paec-obligatorio { width: 100px; height: auto; margin-bottom: 5px; }
-        .brand-title { color: var(--verde-huerto); font-size: 1.7rem; font-weight: bold; margin: 0; }
-        .brand-subtitle { color: #5c6656; font-size: 0.85rem; margin-bottom: 20px; }
+        .logo-paec-obligatorio { width: 120px; height: auto; margin-bottom: 5px; }
+        .brand-title { color: var(--verde-huerto); font-size: 1.9rem; font-weight: bold; margin: 0; }
+        .brand-subtitle { color: #5c6656; font-size: 0.88rem; margin-bottom: 20px; line-height: 1.4; }
 
         input { 
             width: 100%; margin-bottom: 12px; padding: 12px; 
             border: 1px solid #cbd4c8; border-radius: 12px; box-sizing: border-box;
-            font-size: 0.9rem; background-color: #fafdfa;
+            font-size: 0.9rem; background-color: #fafdfa; transition: all 0.2s;
         }
+        input:focus { outline: none; border-color: var(--verde-huerto); box-shadow: 0 0 6px rgba(77,105,63,0.15); }
 
         button.btn-verde { 
             width: 100%; padding: 13px; background: var(--verde-huerto); color: white; 
             border: none; border-radius: 12px; font-size: 0.95rem; font-weight: bold; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.2);
+            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.2); transition: background 0.2s;
         }
         button.btn-verde:hover { background: var(--verde-hover); }
 
         .switch-form { border-top: 1px solid rgba(229, 143, 162, 0.15); padding-top: 12px; margin-top: 15px; font-size: 0.85rem; color: #666; }
         .switch-link { color: var(--verde-huerto); font-weight: bold; cursor: pointer; }
 
+        .seccion-producto {
+            background-color: rgba(229, 143, 162, 0.08); 
+            border: 1px dashed var(--rosa-intenso);
+            border-radius: 16px; padding: 14px; margin-top: 18px;
+        }
+        .instagram-link {
+            display: block; color: white; font-weight: bold; font-size: 0.8rem;
+            text-decoration: none; padding: 9px; background-color: var(--rosa-intenso); border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(229, 143, 162, 0.25);
+        }
+        .instagram-link:hover { background-color: #d47a8e; }
+
+        /* 🌿 ESTILOS PARA LA BITÁCORA DEL HUERTO REAL */
+        .huerto-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .bitacora-card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(77, 105, 63, 0.05);
+            border: 1px solid rgba(77, 105, 63, 0.1);
+        }
+        .badge-fecha {
+            background-color: var(--verde-huerto);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .btn-cerrar-sesion {
+            background-color: var(--rosa-intenso);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            float: right;
+            transition: background 0.2s;
+        }
+        .btn-cerrar-sesion:hover {
+            background-color: var(--rosa-oscuro);
+        }
+
         .hidden { display: none !important; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 850px) {
+            .elaboracion-container, .resultados-layout { grid-template-columns: 1fr; }
+            .instagram-layout { flex-direction: column; }
             .panel-image { display: none; }
-            .instagram-layout { max-width: 400px; }
         }
     </style>
 </head>
@@ -99,79 +318,211 @@
         <p>"Dale besos a tu cora 💋"</p>
     </div>
 
-    <div class="container">
-        <div class="instagram-layout">
-            <!-- Imagen lateral -->
-            <div class="panel-image">
-                <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
-            </div>
-            
-            <!-- Contenedor del Formulario Directo -->
-            <div class="panel-form">
-                <div class="form-card">
-                    <img src="/kike.png" alt="Logotipo PAEC" class="logo-paec-obligatorio">
-                    <div class="brand-title">🌱 Huertito</div>
-                    <div id="textoSlogan" class="brand-subtitle">Ingresa para ver los avances de las plantas de lavanda y la bitácora del proyecto.</div>
+    <div class="navbar">
+        <span class="nav-link active" id="tabPublico" onclick="irA('publico')">✨ Presentación del Producto</span>
+        <span class="nav-link" id="tabHuerto" onclick="irA('huerto')">🌱 Acceso Huertito</span>
+    </div>
 
-                    <!-- FORMULARIO DE INICIO DE SESIÓN (VISTA POR DEFECTO) -->
-                    <div id="formLogin">
-                        <input type="email" id="logEmail" placeholder="Correo electrónico">
-                        <input type="password" id="logPassword" placeholder="Contraseña">
-                        <button class="btn-verde" onclick="ejecutarLogin()">Entrar al Dashboard</button>
-                        <div class="switch-form">
-                            ¿No tienes cuenta? <span class="switch-link" onclick="alternarForm('registro')">Regístrate aquí</span>
+    <div class="container">
+        
+        <!-- PARTE 1: PÁGINA DEL PRODUCTO MUSU (VISTA PÚBLICA) -->
+        <div id="vistaPublica">
+            <div class="video-effect-frame">
+                <div class="logo-welcome-container">
+                    <img src="logo.jpeg" alt="Logotipo Oficial MUSU" class="logo-welcome">
+                </div>
+                <h2 class="section-title">🧴 Presentación del Proyecto</h2>
+                <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 0;">
+                    Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales para la hidratación y el bienestar de la piel y los labios...
+                </p>
+                <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 12px 0 0 0;">
+                    El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables...
+                </p>
+            </div>
+
+            <div class="video-effect-frame" style="background: linear-gradient(135deg, rgba(255,245,246,1), rgba(240,245,239,1));">
+                <h2 class="section-title">🎯 Objetivo General</h2>
+                <p style="font-size: 1.1rem; line-height: 1.6; color: #222; margin: 0; font-weight: 500;">
+                    Elaborar un kit de cuidado personal utilizando ingredientes naturales que ayuden a hidratar y proteger la piel y los labios, ofreciendo una alternativa económica, accesible y libre de componentes químicos agresivos.
+                </p>
+            </div>
+
+            <div class="video-effect-frame">
+                <h2 class="section-title">🌿 Fórmulas y Elaboración</h2>
+                <div class="elaboracion-container">
+                    <div class="grid-productos">
+                        <div class="producto-card">
+                            <h3>💧 Aceite Nutritivo Base</h3>
+                            <p>Primero mezclamos las 12 cucharadas de aceite de almendras con las 6½ cucharadas de aceite de oliva...</p>
+                        </div>
+                        <div class="producto-card rosa-card">
+                            <h3>💋 Bálsamo Hidratante</h3>
+                            <p>Comenzamos colocando la cera de abeja, el aceite de coco y el aceite de oliva en un recipiente...</p>
                         </div>
                     </div>
-
-                    <!-- FORMULARIO DE REGISTRO OCULTO -->
-                    <div id="formRegistro" class="hidden">
-                        <input type="text" id="regNombre" placeholder="Nombre completo">
-                        <input type="email" id="regEmail" placeholder="Correo electrónico">
-                        <input type="password" id="regPassword" placeholder="Contraseña">
-                        <button class="btn-verde" onclick="ejecutarRegistro()">Crear Cuenta e Ingresar</button>
-                        <div class="switch-form">
-                            ¿Ya tienes cuenta? <span class="switch-link" onclick="alternarForm('login')">Inicia sesión</span>
-                        </div>
+                    <div>
+                        <img src="ev3.jpeg" alt="Proceso de Elaboración" class="img-evidencia">
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- PARTE 2: ACCESO AL HUERTITO (FORMULARIOS) -->
+        <div id="vistaHuerto" class="instagram-layout hidden">
+            <div class="panel-image">
+                <img src="sorpresa.png?v=25" alt="Proyecto PAEC">
+            </div>
+            
+            <div class="panel-form">
+                <div class="form-card">
+                    <img src="kike.png" alt="Logotipo PAEC" class="logo-paec-obligatorio">
+                    <div class="brand-title">🌱 Huertito</div>
+                    <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
+
+                    <!-- Formulario de Registro -->
+                    <div id="formRegistro">
+                        <input type="text" id="regNombre" placeholder="Nombre completo">
+                        <input type="email" id="regEmail" placeholder="Correo electrónico">
+                        <input type="password" id="regPassword" placeholder="Contraseña">
+                        <button class="btn-verde" onclick="ejecutarRegistro()">Registrarte</button>
+                        <div class="switch-form">
+                            ¿Tienes una cuenta? <span class="switch-link" onclick="alternarForm('login')">Iniciar sesión</span>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Login -->
+                    <div id="formLogin" class="hidden">
+                        <input type="email" id="logEmail" placeholder="Correo electrónico">
+                        <input type="password" id="logPassword" placeholder="Contraseña">
+                        <button class="btn-verde" onclick="ejecutarLogin()">Entrar</button>
+                        <div class="switch-form">
+                            ¿No tienes una cuenta? <span class="switch-link" onclick="alternarForm('registro')">Regístrate</span>
+                        </div>
+                    </div>
+
+                    <div class="seccion-producto">
+                        <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="instagram-link">💋 Ver Nuestro Bálsamo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PARTE 3: AVANCES DEL HUERTO DE LAVANDA (SOLO VISIBLE CON ACCESO CONCEDIDO) -->
+        <div id="contenidoHuertoReal" class="video-effect-frame hidden">
+            <button class="btn-cerrar-sesion" onclick="cerrarSesionHuerto()">🔒 Salir del Huerto</button>
+            <h2 class="section-title">🌿 Avances del Huerto de Lavanda</h2>
+            <p>¡Bienvenido al sistema de monitoreo! Aquí registramos el desarrollo ecológico de las plantas de lavanda.</p>
+            
+            <div class="huerto-grid">
+                <div class="bitacora-card">
+                    <span class="badge-fecha">Fase 1: Plantación</span>
+                    <h3 style="margin: 0 0 8px 0; color: var(--verde-huerto);">🌱 Preparación y Siembra</h3>
+                    <p style="font-size: 0.9rem; margin: 0 0 12px 0;">Selección del suelo arenoso y colocación de los esquejes de lavanda.</p>
+                    <img src="ev3.jpeg" alt="Siembra" class="img-evidencia" style="height: 150px;">
+                </div>
+
+                <div class="bitacora-card">
+                    <span class="badge-fecha">Fase 2: Crecimiento</span>
+                    <h3 style="margin: 0 0 8px 0; color: var(--verde-huerto);">🌿 Primeros Brotes</h3>
+                    <p style="font-size: 0.9rem; margin: 0 0 12px 0;">Las plantas se adaptaron exitosamente al entorno mostrando hojas verdes.</p>
+                    <img src="logo.jpeg" alt="Progreso" class="img-evidencia" style="height: 150px;">
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // 👥 CONTROL INTERNO DE ADMINISTRADORES
-        // Quien use estos correos tendrá permisos completos de Admin en el dashboard para subir fotos y editar avances.
-        const correosCreadores = [
-            'admin@musu.com',
-            'kike@musu.com',
-            'tu-correo@gmail.com'
-        ];
+        // Lógica de control para cambiar manualmente entre pestañas
+        function irA(pantalla) {
+            const tabPublico = document.getElementById('tabPublico');
+            const tabHuerto = document.getElementById('tabHuerto');
+            const vistaPublica = document.getElementById('vistaPublica');
+            const vistaHuerto = document.getElementById('vistaHuerto');
+            const contenidoHuertoReal = document.getElementById('contenidoHuertoReal');
+
+            if(pantalla === 'publico') {
+                vistaPublica.classList.remove('hidden');
+                vistaHuerto.classList.add('hidden');
+                contenidoHuertoReal.classList.add('hidden'); 
+                tabPublico.classList.add('active');
+                tabHuerto.classList.remove('active');
+                tabHuerto.classList.remove('highlight');
+            } else {
+                vistaPublica.classList.add('hidden');
+                tabHuerto.classList.add('active');
+                tabHuerto.classList.add('highlight');
+                tabPublico.classList.remove('active');
+
+                // Si ya tiene una sesión iniciada, lo mandamos directo a los avances de lavanda
+                if(localStorage.getItem('token')) {
+                    contenidoHuertoReal.classList.remove('hidden');
+                    vistaHuerto.classList.add('hidden');
+                } else {
+                    vistaHuerto.classList.remove('hidden');
+                    contenidoHuertoReal.classList.add('hidden');
+                }
+            }
+        }
 
         function alternarForm(tipo) {
             const registro = document.getElementById('formRegistro');
             const login = document.getElementById('formLogin');
             const slogan = document.getElementById('textoSlogan');
+
             if(tipo === 'login') {
                 registro.classList.add('hidden');
                 login.classList.remove('hidden');
-                slogan.innerText = "Ingresa para ver los avances de las plantas de lavanda y la bitácora del proyecto.";
+                slogan.innerText = 'Ingresa para gestionar y monitorear tus plantas.';
             } else {
                 login.classList.add('hidden');
                 registro.classList.remove('hidden');
-                slogan.innerText = "Regístrate para unirte al seguimiento de nuestro huerto de lavandas.";
+                slogan.innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
             }
         }
 
-        // 🚀 LOGIN CON REDIRECCIÓN FÍSICA OBLGATORIA A DASHBOARD.HTML
+        // 🚀 REGISTRO: Te manda directo a loguearte para ver el huerto
+        async function ejecutarRegistro() {
+            const nombre = document.getElementById('regNombre').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+
+            if (!nombre || !email || !password) {
+                return alert('Por favor, rellena todos los campos para registrarte.');
+            }
+
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, email, password })
+                });
+
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('¡Registro exitoso! Iniciando sesión automáticamente...');
+                    
+                    // Para ahorrarle pasos al usuario, tras registrarse, hacemos login automático directo al huerto
+                    document.getElementById('logEmail').value = email;
+                    document.getElementById('logPassword').value = password;
+                    ejecutarLogin();
+                } else {
+                    alert('Error al registrarse: ' + (data.error || 'Inténtalo de nuevo.'));
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error de conexión con el servidor.');
+            }
+        }
+
+        // 🚀 INICIO DE SESIÓN: Te bloquea el acceso a MUSU y te abre de golpe el huerto de lavanda
         async function ejecutarLogin() {
             const email = document.getElementById('logEmail').value.trim();
             const password = document.getElementById('logPassword').value.trim();
 
-            if (!email || !password) return alert('Por favor escribe tu correo y contraseña.');
-
-            let rolAsignado = 'usuario';
-            if (correosCreadores.includes(email.toLowerCase())) {
-                rolAsignado = 'admin';
+            if (!email || !password) {
+                return alert('Por favor, introduce tu correo y contraseña.');
             }
 
             try {
@@ -180,59 +531,38 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
-                
+
                 const data = await res.json();
 
                 if (res.ok && data.token) {
                     localStorage.setItem('token', data.token);
-                    localStorage.setItem('rol', data.rol || rolAsignado);
-                    // REDIRECCIÓN DIRECTA AL OTRO ARCHIVO HTML
-                    window.location.href = 'dashboard.html'; 
-                    return;
+                    localStorage.setItem('rol', data.rol || 'usuario');
+
+                    alert('¡Acceso concedido! Bienvenido a los avances del Huerto de Lavanda.');
+                    
+                    // 🔒 LOGICA CLAVE: Ocultamos la vista del formulario y revelamos el huerto real
+                    // Manteniéndolo dentro del apartado del huerto sin mandarlo a la pestaña de productos
+                    document.getElementById('vistaPublica').classList.add('hidden'); 
+                    document.getElementById('vistaHuerto').classList.add('hidden');
+                    document.getElementById('contenidoHuertoReal').classList.remove('hidden');
+                } else {
+                    alert('Error de acceso: ' + (data.error || 'Credenciales incorrectas.'));
                 }
             } catch (err) {
-                console.log("Servidor Render lento, activando acceso directo...");
+                console.error(err);
+                alert('Error de conexión al intentar iniciar sesión.');
             }
-
-            // 🛡️ ESCUDO ANTI-TRABAS: ENTRADA INCONDICIONAL A DASHBOARD.HTML
-            localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
-            localStorage.setItem('rol', rolAsignado);
-            window.location.href = 'dashboard.html';
         }
 
-        // 🚀 REGISTRO CON REDIRECCIÓN FÍSICA OBLIGATORIA A DASHBOARD.HTML
-        async function ejecutarRegistro() {
-            const nombre = document.getElementById('regNombre').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value.trim();
-
-            if (!nombre || !email || !password) return alert('Rellena todos los campos.');
-
-            let rolAsignado = 'usuario';
-            if (correosCreadores.includes(email.toLowerCase())) {
-                rolAsignado = 'admin';
-            }
-
-            try {
-                const res = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nombre, email, password, rol: rolAsignado })
-                });
-                
-                if (res.ok) {
-                    localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
-                    localStorage.setItem('rol', rolAsignado);
-                    window.location.href = 'dashboard.html';
-                    return;
-                }
-            } catch (err) {
-                console.log("Bypass de registro activo...");
-            }
-
-            localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
-            localStorage.setItem('rol', rolAsignado);
-            window.location.href = 'dashboard.html';
+        function cerrarSesionHuerto() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('rol');
+            alert('Has cerrado sesión.');
+            
+            // Regresa al login del huerto limpio
+            document.getElementById('contenidoHuertoReal').classList.add('hidden');
+            document.getElementById('vistaHuerto').classList.remove('hidden');
+            alternarForm('login');
         }
     </script>
 </body>
