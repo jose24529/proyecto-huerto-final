@@ -419,7 +419,8 @@
 
     <div class="dashboard-layout">
         <div class="main-content">
-            <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
+            <!-- 🛠️ CORREGIDO: Redirección de cerrar sesión apunta de manera segura a login.html -->
+            <span class="logout" onclick="localStorage.clear(); location.href='login.html'">Cerrar Sesión</span>
             <h1>🌱 Historial del Huerto</h1>
 
             <div id="seccionAdmin">
@@ -467,7 +468,10 @@
         const token = localStorage.getItem('token');
         const rol = localStorage.getItem('rol');
 
-        if(!token) window.location.href = '/';
+        // 🛡️ CORREGIDO: Si no hay token, redirige específicamente a tu archivo login.html
+        if(!token) {
+            window.location.href = 'login.html';
+        }
 
         if(rol === 'admin') {
             document.getElementById('seccionAdmin').style.display = 'block';
