@@ -107,12 +107,13 @@
             display: block;
         }
 
-        /* 💋 PESTAÑA 1: PRESENTACIÓN DEL PROYECTO */
-        .seccion-editorial {
+        /* 💋 TARJETAS SEPARADAS ESTILO EDITORIAL (INSPIRADO EN TU IMAGEN) */
+        .bloque-seccion {
             background-color: var(--blanco);
             border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
+            margin-bottom: 25px; /* Espaciado entre bloques */
         }
 
         .contenedor-logo-musu {
@@ -121,40 +122,51 @@
         }
 
         .logo-musu-presentacion {
-            max-width: 280px;
+            max-width: 240px;
             height: auto;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
 
-        .seccion-editorial h2 {
+        .bloque-seccion h2 {
             color: var(--rosa-oscuro);
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin-top: 0;
             border-bottom: 2px solid var(--rosa-principal);
             padding-bottom: 8px;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .seccion-editorial h3 {
-            color: var(--verde-huerto);
-            font-size: 1.4rem;
-            margin-top: 30px;
-        }
-
-        .seccion-editorial p {
+        .bloque-seccion p {
             line-height: 1.7;
             font-size: 1.05rem;
             text-align: justify;
             color: #3d4a37;
+            margin-bottom: 0;
+        }
+
+        /* Distribución de Resultados (Texto + Imagen al lado) */
+        .resultados-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 30px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .resultados-layout {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Tarjetas de Recetas */
         .grid-elaboracion {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-top: 20px;
+            margin-bottom: 25px;
         }
 
         .tarjeta-receta {
@@ -173,35 +185,26 @@
             padding-bottom: 5px;
         }
 
-        /* Galería de Evidencias */
-        .galeria-evidencias {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        @media (max-width: 768px) {
-            .galeria-evidencias { grid-template-columns: 1fr; }
-        }
-
-        .caja-foto {
+        /* Contenedores de Fotos específicos */
+        .caja-foto-integrada {
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
             border: 4px solid var(--blanco);
             background-color: #f9f9f9;
         }
 
-        .caja-foto img {
+        .caja-foto-integrada img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
             display: block;
+            object-fit: cover;
         }
 
-        .caja-foto.alto-fijo img {
-            max-height: 450px;
+        .foto-proceso-ancho {
+            max-height: 400px;
+            width: 100%;
+            object-fit: cover;
         }
 
         /* 🐢 PESTAÑA 2: ACCESO AL HUERTO */
@@ -377,22 +380,36 @@
         
         <!-- 💋 PESTAÑA 1: PRESENTACIÓN DEL PROYECTO -->
         <div id="seccion-producto" class="tab-content active">
-            <div class="seccion-editorial">
-                
-                <!-- Logo Oficial de MUSU modificado exactamente a logo.jpeg -->
+            
+            <!-- BLOQUE 1: PRESENTACIÓN -->
+            <div class="bloque-seccion">
                 <div class="contenedor-logo-musu">
                     <img src="logo.jpeg" alt="Logo Oficial MUSU" class="logo-musu-presentacion">
                 </div>
-
-                <h2>Presentación del Proyecto</h2>
+                <h2>📝 Presentación del Proyecto</h2>
                 <p>Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales para la hidratación y el bienestar de la piel y los labios. Nuestro proyecto está compuesto por un bálsamo labial hidratante, un exfoliante labial y un aceite para manos, codos y rodillas, elaborados con ingredientes naturales como miel, aceite de coco, aceite de almendras, aceite de oliva y vitamina E.</p>
+                <br>
                 <p>El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables. A través de la elaboración de estos productos, buscamos promover el uso de ingredientes naturales y demostrar que es posible crear productos de calidad de forma sencilla y económica. Además, nuestro proyecto fomenta hábitos de cuidado personal que contribuyen a una mejor imagen y bienestar.</p>
+            </div>
 
-                <h3>Resultados</h3>
-                <p>Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.</p>
-                <p>Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. También les llamó la atención que los productos fueran fáciles de elaborar y que estuvieran hechos con ingredientes accesibles. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos. Muchas personas mencionaron que les gustó la idea, la presentación y los beneficios que ofrecen para el cuidado personal, por lo que consideramos que nuestro proyecto tuvo una buena aceptación.</p>
+            <!-- BLOQUE 2: RESULTADOS (Aquí se integra ev1.jpeg a un lado) -->
+            <div class="bloque-seccion">
+                <h2>📊 Resultados</h2>
+                <div class="resultados-layout">
+                    <div>
+                        <p>Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.</p>
+                        <br>
+                        <p>Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. También les llamó la atención que los productos fueran fáciles de elaborar y que estuvieran hechos con ingredientes accesibles. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos. Muchas personas mencionaron que les gustó la idea, la presentación y los beneficios que ofrecen para el cuidado personal, por lo que consideramos que nuestro proyecto tuvo una buena aceptación.</p>
+                    </div>
+                    <div class="caja-foto-integrada">
+                        <img src="ev1.jpeg" alt="Evidencia de Presentación de Cartel Musu">
+                    </div>
+                </div>
+            </div>
 
-                <h3>Procesos de Elaboración</h3>
+            <!-- BLOQUE 3: PROCESOS DE ELABORACIÓN (Aquí se integra ev3.jpeg abajo) -->
+            <div class="bloque-seccion">
+                <h2>👩‍🍳 Procesos de Elaboración</h2>
                 <div class="grid-elaboracion">
                     <div class="tarjeta-receta">
                         <h4>Elaboración del aceite para manos, codos y rodillas</h4>
@@ -407,16 +424,13 @@
                         <p>Mezclamos la miel, el aceite de coco y el azúcar en un recipiente pequeño. Revolvimos todos los ingredientes hasta obtener una pasta uniforme. Finalmente, el exfoliante quedó listo para su aplicación en los labios.</p>
                     </div>
                 </div>
-
-                <div class="galeria-evidencias">
-                    <div class="caja-foto alto-fijo">
-                        <img src="ev3.jpeg" alt="Evidencia de Mezclas y Frascos de Bálsamo">
-                    </div>
-                    <div class="caja-foto">
-                        <img src="ev1.jpeg" alt="Evidencia de Presentación de Cartel Musu">
-                    </div>
+                
+                <!-- Imagen de los procesos abajo a lo ancho -->
+                <div class="caja-foto-integrada">
+                    <img src="ev3.jpeg" alt="Evidencia de Mezclas y Frascos de Bálsamo" class="foto-proceso-ancho">
                 </div>
             </div>
+
         </div>
 
         <!-- 🐢 PESTAÑA 2: ACCESO AL HUERTO -->
@@ -429,7 +443,6 @@
 
                 <!-- Panel de Formulario Derecho -->
                 <div class="panel-login-derecho">
-                    <!-- El logo kike.png ahora se muestra limpio y sin el color negro forzado de fondo -->
                     <img src="kike.png" alt="Logotipo PAEC" class="logo-paec-original">
                     <div class="huerto-title">🌱 Huertito</div>
                     <div id="instruccionSub" class="huerto-subtitle">Ingresa para gestionar y monitorear tus plantas.</div>
