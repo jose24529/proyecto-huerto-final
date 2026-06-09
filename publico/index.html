@@ -266,6 +266,18 @@
         .enlace-discreto-container { margin-top: 14px; }
         .enlace-discreto { font-size: 0.78rem; color: #737c70; text-decoration: none; }
 
+        /* Estilo para el mensaje de éxito */
+        .success-message {
+            color: var(--verde-huerto);
+            font-size: 1rem;
+            font-weight: bold;
+            background-color: rgba(77, 105, 63, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            border: 1px solid rgba(77, 105, 63, 0.2);
+        }
+
         .hidden { display: none !important; }
 
         @media (max-width: 850px) {
@@ -280,7 +292,7 @@
     <!-- 🌸 ENCABEZADO LIMPIO CON TU SLOGAN PRINCIPAL -->
     <div class="header-top">
         <h1>MUSU</h1>
-        <p>"Prepara tus labios con nuestros bálsamos y dale besos a tu cora 💋"</p>
+        <p>"Dale besos a tu cora 💋"</p>
     </div>
 
     <div class="navbar">
@@ -375,11 +387,16 @@
                     <div class="brand-title">🌱 Huertito</div>
                     <div id="textoSlogan" class="brand-subtitle">Regístrate para ver las fotos y el progreso de nuestro huerto.</div>
 
+                    <!-- Mensaje de éxito al ingresar -->
+                    <div id="mensajeExito" class="success-message hidden">
+                        ¡Bienvenido/a al Huertito! Acceso concedido correctamente. 🌿✨
+                    </div>
+
                     <div id="formRegistro">
                         <input type="text" placeholder="Nombre completo">
                         <input type="email" placeholder="Correo electrónico">
                         <input type="password" placeholder="Contraseña">
-                        <button class="btn-verde">Registrarte</button>
+                        <button class="btn-verde" onclick="procesarAcceso()">Registrarte</button>
                         <div class="switch-form">
                             ¿Tienes una cuenta? <span class="switch-link" onclick="alternarForm('login')">Iniciar sesión</span>
                         </div>
@@ -388,7 +405,7 @@
                     <div id="formLogin" class="hidden">
                         <input type="email" placeholder="Correo electrónico">
                         <input type="password" placeholder="Contraseña">
-                        <button class="btn-verde">Entrar</button>
+                        <button class="btn-verde" onclick="procesarAcceso()">Entrar</button>
                         <div class="switch-form">
                             ¿No tienes una cuenta? <span class="switch-link" onclick="alternarForm('registro')">Regístrate</span>
                         </div>
@@ -436,16 +453,38 @@
             const registro = document.getElementById('formRegistro');
             const login = document.getElementById('formLogin');
             const slogan = document.getElementById('textoSlogan');
+            const mensaje = document.getElementById('mensajeExito');
+
+            // Resetear el mensaje de éxito al cambiar
+            mensaje.classList.add('hidden');
 
             if(tipo === 'login') {
                 registro.classList.add('hidden');
                 login.classList.remove('hidden');
+                slogan.classList.remove('hidden');
                 slogan.innerText = 'Ingresa para gestionar y monitorear tus plantas.';
             } else {
                 login.classList.add('hidden');
                 registro.classList.remove('hidden');
+                slogan.classList.remove('hidden');
                 slogan.innerText = 'Regístrate para ver las fotos y el progreso de nuestro huerto.';
             }
+        }
+
+        // 🛠️ FUNCIÓN PARA HACER FUNCIONAR LOS BOTONES DE REGISTRO/LOGIN
+        function procesarAcceso() {
+            const registro = document.getElementById('formRegistro');
+            const login = document.getElementById('formLogin');
+            const slogan = document.getElementById('textoSlogan');
+            const mensaje = document.getElementById('mensajeExito');
+
+            // Ocultamos los formularios e instrucciones
+            registro.classList.add('hidden');
+            login.classList.add('hidden');
+            slogan.classList.add('hidden');
+
+            // Mostramos el cartel de éxito
+            mensaje.classList.remove('hidden');
         }
     </script>
 </body>
