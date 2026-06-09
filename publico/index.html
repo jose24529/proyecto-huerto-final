@@ -49,11 +49,6 @@
             color: var(--rosa-oscuro); background-color: rgba(229, 143, 162, 0.15);
         }
 
-        .nav-link.highlight {
-            background-color: var(--verde-huerto); color: var(--blanco) !important;
-            box-shadow: 0 4px 12px rgba(77, 105, 63, 0.3);
-        }
-
         .container { max-width: 1000px; margin: 35px auto; padding: 0 20px; box-sizing: border-box; }
 
         .video-effect-frame {
@@ -68,18 +63,6 @@
             color: var(--rosa-oscuro); font-size: 1.7rem; margin-top: 0; margin-bottom: 18px;
             border-bottom: 2px solid rgba(229, 143, 162, 0.2); padding-bottom: 8px;
         }
-
-        .elaboracion-container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 25px; align-items: center; }
-        .grid-productos { display: flex; flex-direction: column; gap: 15px; }
-        
-        .producto-card {
-            background: var(--rosa-tarjeta); border: 1px solid rgba(229, 143, 162, 0.2);
-            border-left: 5px solid var(--verde-huerto); border-radius: 14px; padding: 18px;
-        }
-        .producto-card.rosa-card { border-left-color: var(--rosa-intenso); }
-
-        .img-evidencia { width: 100%; border-radius: 18px; object-fit: cover; }
-        .resultados-layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 25px; align-items: center; }
 
         /* 🔒 ACCESO AL HUERTITO */
         .instagram-layout {
@@ -126,7 +109,6 @@
         .hidden { display: none !important; }
 
         @media (max-width: 850px) {
-            .elaboracion-container, .resultados-layout { grid-template-columns: 1fr; }
             .instagram-layout { flex-direction: column; }
             .panel-image { display: none; }
         }
@@ -139,26 +121,16 @@
         <p>"Dale besos a tu cora 💋"</p>
     </div>
 
+    <!-- NAVBAR: AHORA LA PESTAÑA DEL HUERTO INICIA SELECCIONADA POR DEFECTO -->
     <div class="navbar">
-        <span class="nav-link active" id="tabPublico" onclick="irA('publico')">✨ Presentación del Producto</span>
-        <span class="nav-link" id="tabHuerto" onclick="irA('huerto')">🌱 Acceso Huertito</span>
+        <span class="nav-link" id="tabPublico" onclick="irA('publico')">✨ Presentación del Producto</span>
+        <span class="nav-link active" id="tabHuerto" onclick="irA('huerto')">🌱 Acceso Huertito</span>
     </div>
 
     <div class="container">
         
-        <div id="vistaPublica">
-            <div class="video-effect-frame">
-                <div class="logo-welcome-container">
-                    <img src="logo.jpeg" alt="Logotipo Oficial MUSU" class="logo-welcome">
-                </div>
-                <h2 class="section-title">🧴 Presentación del Proyecto</h2>
-                <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 0;">
-                    Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales...
-                </p>
-            </div>
-        </div>
-
-        <div id="vistaHuerto" class="instagram-layout hidden">
+        <!-- 🔒 APARTADO DEL HUERTITO (ABRE DIRECTO AQUÍ) -->
+        <div id="vistaHuerto" class="instagram-layout">
             <div class="panel-image">
                 <img src="/sorpresa.png?v=25" alt="Proyecto PAEC">
             </div>
@@ -169,6 +141,7 @@
                     <div class="brand-title">🌱 Huertito</div>
                     <div id="textoSlogan" class="brand-subtitle">Ingresa tus datos para acceder a los avances de las plantas de lavanda.</div>
 
+                    <!-- FORMULARIO DE INICIO DE SESIÓN -->
                     <div id="formLogin">
                         <input type="email" id="logEmail" placeholder="Correo electrónico">
                         <input type="password" id="logPassword" placeholder="Contraseña">
@@ -178,6 +151,7 @@
                         </div>
                     </div>
 
+                    <!-- FORMULARIO DE REGISTRO OCULTO (SIN SELECTORES DE ROL) -->
                     <div id="formRegistro" class="hidden">
                         <input type="text" id="regNombre" placeholder="Nombre completo">
                         <input type="email" id="regEmail" placeholder="Correo electrónico">
@@ -194,11 +168,24 @@
                 </div>
             </div>
         </div>
+
+        <!-- SECCIÓN PÚBLICA (OCULTA POR DEFECTO PARA QUE NO ESTORBE) -->
+        <div id="vistaPublica" class="hidden">
+            <div class="video-effect-frame">
+                <div class="logo-welcome-container">
+                    <img src="logo.jpeg" alt="Logotipo Oficial MUSU" class="logo-welcome">
+                </div>
+                <h2 class="section-title">🧴 Presentación del Proyecto</h2>
+                <p style="font-size: 1.05rem; line-height: 1.6; color: #3b4238; margin: 0;">
+                    Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales...
+                </p>
+            </div>
+        </div>
+
     </div>
 
     <script>
-        // LISTA DE CORREOS DE LOS CREADORES (ADMINISTRADORES)
-        // Pon aquí los correos de ustedes. Quien use estos correos entrará automáticamente como Admin.
+        // LISTA DE CORREOS DE USTEDES (LOS CREADORES/ADMINISTRADORES)
         const correosCreadores = [
             'admin@musu.com',
             'tu-correo@gmail.com', 
@@ -236,14 +223,13 @@
             }
         }
 
-        // 🚀 ACCIÓN DE INICIO DE SESIÓN INTEGRAL
+        // INICIO DE SESIÓN DIRECTO AL DASHBOARD DE LAS LAVANDAS
         async function ejecutarLogin() {
             const email = document.getElementById('logEmail').value.trim();
             const password = document.getElementById('logPassword').value.trim();
 
             if (!email || !password) return alert('Por favor escribe tu correo y contraseña.');
 
-            // EVALUACIÓN DE ROLES INTERNA AUTOMÁTICA
             let rolAsignado = 'usuario';
             if (correosCreadores.includes(email.toLowerCase())) {
                 rolAsignado = 'admin';
@@ -261,24 +247,21 @@
                 if (res.ok && data.token) {
                     localStorage.setItem('token', data.token);
                     localStorage.setItem('rol', data.rol || rolAsignado);
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'dashboard.html'; // Te manda directo a los avances de las plantas
                     return;
                 }
             } catch (err) {
-                console.log("Detectando estado del servidor...");
+                console.log("Servidor ocupado, aplicando bypass seguro...");
             }
 
-            // 🛡️ SISTEMA AUTOMÁTICO DE ENTRADA DIRECTA (FAILE-SAFE ANTI-TRABAS)
-            // Si el servidor de Render falla, bloquea la petición o tarda en responder, 
-            // este bloque se activa inmediatamente para darte paso incondicional y que entres a ver las lavandas.
+            // ENTRADA DE EMERGENCIA SI EL INICIO DE SESIÓN SE QUEDA PASMADO
             localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
             localStorage.setItem('rol', rolAsignado);
             
-            alert(`Accediendo al sistema en modo directo como: ${rolAsignado.toUpperCase()}`);
-            window.location.href = 'dashboard.html';
+            alert(`Accediendo de forma directa al panel como: ${rolAsignado.toUpperCase()}`);
+            window.location.href = 'dashboard.html'; // Redirección forzada e inmediata
         }
 
-        // 🚀 ACCIÓN DE REGISTRO AUTOMÁTICO (CUALQUIER EXTRAÑO SERÁ USUARIO GENERAL)
         async function ejecutarRegistro() {
             const nombre = document.getElementById('regNombre').value.trim();
             const email = document.getElementById('regEmail').value.trim();
@@ -299,17 +282,16 @@
                 });
                 
                 if (res.ok) {
-                    alert('¡Cuenta creada correctamente! Iniciando sesión...');
+                    alert('¡Cuenta creada! Entrando a la bitácora...');
                     localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
                     localStorage.setItem('rol', rolAsignado);
                     window.location.href = 'dashboard.html';
                     return;
                 }
             } catch (err) {
-                console.log("Guardando datos de sesión...");
+                console.log("Bypass de registro activo...");
             }
 
-            // Bypass de registro para que nunca se quede pasmada la pantalla
             localStorage.setItem('token', 'TOKEN_EMERGENCIA_MUSU');
             localStorage.setItem('rol', rolAsignado);
             alert(`Registro completado. Entrando como: ${rolAsignado.toUpperCase()}`);
