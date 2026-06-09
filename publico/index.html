@@ -115,7 +115,6 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.05);
         }
 
-        /* Contenedor exclusivo para el logo de MUSU */
         .contenedor-logo-musu {
             text-align: center;
             margin-bottom: 25px;
@@ -245,10 +244,10 @@
             box-sizing: border-box;
         }
 
-        /* Círculo del logo PAEC optimizado y ampliado */
+        /* Círculo del logo PAEC reajustado un poco más pequeño */
         .logo-paec-original {
-            width: 160px;
-            height: 160px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: contain;
             margin-bottom: 15px;
@@ -381,7 +380,6 @@
         <div id="seccion-producto" class="tab-content active">
             <div class="seccion-editorial">
                 
-                <!-- Logo Oficial de MUSU integrado exitosamente -->
                 <div class="contenedor-logo-musu">
                     <img src="image_0c8abb.jpg" alt="Logo Oficial MUSU" class="logo-musu-presentacion">
                 </div>
@@ -391,7 +389,7 @@
                 <p>El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables. A través de la elaboración de estos productos, buscamos promover el uso de ingredientes naturales y demostrar que es posible crear productos de calidad de forma sencilla y económica. Además, nuestro proyecto fomenta hábitos de cuidado personal que contribuyen a una mejor imagen y bienestar.</p>
 
                 <h3>Resultados</h3>
-                <p>Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes and los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.</p>
+                <p>Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.</p>
                 <p>Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. También les llamó la atención que los productos fueran fáciles de elaborar y que estuvieran hechos con ingredientes accesibles. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos. Muchas personas mencionaron que les gustó la idea, la presentación y los beneficios que ofrecen para el cuidado personal, por lo que consideramos que nuestro proyecto tuvo una buena aceptación.</p>
 
                 <h3>Procesos de Elaboración</h3>
@@ -410,7 +408,6 @@
                     </div>
                 </div>
 
-                <!-- Bloque de imágenes incrustadas fotográficas -->
                 <div class="galeria-evidencias">
                     <div class="caja-foto alto-fijo">
                         <img src="ev3.jpeg" alt="Evidencia de Mezclas y Frascos de Bálsamo">
@@ -426,15 +423,14 @@
         <div id="seccion-huerto" class="tab-content">
             <div class="grid-huerto-layout">
                 
-                <!-- Ilustración de la tortuga vinculada al nombre exacto: sorpresa.png -->
                 <div class="contenedor-ilustracion-tortuga">
                     <img src="sorpresa.png" alt="Ilustración Tortuga PAEC Huertito">
                 </div>
 
                 <!-- Panel de Formulario Derecho -->
                 <div class="panel-login-derecho">
-                    <!-- Logotipo del PAEC vinculado al nombre exacto: logo.jpeg -->
-                    <img src="logo.jpeg" alt="Logotipo PAEC" class="logo-paec-original">
+                    <!-- Nombre del archivo modificado exactamente a kike.png -->
+                    <img src="kike.png" alt="Logotipo PAEC" class="logo-paec-original">
                     <div class="huerto-title">🌱 Huertito</div>
                     <div id="instruccionSub" class="huerto-subtitle">Ingresa para gestionar y monitorear tus plantas.</div>
 
@@ -459,7 +455,6 @@
                         </div>
                     </form>
 
-                    <!-- Caja promocional de bálsamos -->
                     <div class="caja-balsamo-promocional">
                         Conoce la línea de <strong>Bálsamos Labiales Naturales MUSU</strong> elaborados con la cosecha y esencia de nuestro huerto.
                         <br>
@@ -473,7 +468,6 @@
     </div>
 
     <script>
-        // LÓGICA DE CONTROL DE PESTAÑAS PRINCIPALES
         function alternarSeccionPestañas(objetivo) {
             const vistaProd = document.getElementById('seccion-producto');
             const vistaHuer = document.getElementById('seccion-huerto');
@@ -493,7 +487,6 @@
             }
         }
 
-        // CONTROL INTERNO DEL FORMULARIO (LOGIN / REGISTRO)
         function cambiarModeloFormulario(modo) {
             const fLogin = document.getElementById('formLogin');
             const fRegistro = document.getElementById('formRegistro');
