@@ -456,44 +456,28 @@
             if (res.ok) cargarDatos();
         }
 
-        /* 🛠️ APARTADO CORREGIDO SIN ALTERAR NADA MÁS 🛠️ */
         async function guardarBitacora() {
-            // Validamos que por lo menos pongan el nombre de la planta
-            const tipoPlanta = document.getElementById('tipoPlanta').value.trim();
-            if (!tipoPlanta) {
-                return alert('Por favor, introduce el tipo de planta.');
-            }
-
             const formData = new FormData();
-            formData.append('tipoPlanta', tipoPlanta);
+            formData.append('tipoPlanta', document.getElementById('tipoPlanta').value);
             formData.append('dueno', document.getElementById('duenoPlanta').value); 
             formData.append('altura', document.getElementById('altura').value);
             formData.append('abono', document.getElementById('abono').value);
             formData.append('observaciones', document.getElementById('obs').value); 
 
             const archivo = document.getElementById('imagenHuerto').files[0];
-            if (archivo) {
-                formData.append('imagen', archivo); 
-            }
+            if (archivo) formData.append('imagen', archivo); 
 
-            try {
-                const res = await fetch('/api/bitacora', {
-                    method: 'POST',
-                    headers: { 
-                        'Authorization': `Bearer ${token}`
-                        // ¡IMPORTANTE! No agregues 'Content-Type': 'multipart/form-data' aquí. El navegador lo hace automáticamente y le asigna un "boundary" único.
-                    },
-                    body: formData 
-                });
+            const res = await fetch('/api/bitacora', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${token}` },
+                body: formData 
+            });
 
-                if(res.ok) { 
-                    alert('¡Tu avance ha sido compartido correctamente en la bitácora!'); 
-                    location.reload(); 
-                } else {
-                    alert('Hubo un inconveniente al publicar el avance en el servidor.');
-                }
-            } catch (error) {
-                alert('No se pudo establecer conexión con el servidor.');
+            if(res.ok) { 
+                alert('¡Tu avance ha sido compartido correctamente en la bitácora!'); 
+                location.reload(); 
+            } else {
+                alert('Hubo un inconveniente al publicar el avance en el servidor.');
             }
         }
 
