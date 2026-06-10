@@ -2,8 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto Huerto Escolar - Lavanda</title>
+    <title>Bitácora del Huerto</title>
     <style>
         body { 
             font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
@@ -11,510 +10,494 @@
             padding: 0; 
             background-color: #f4f7f2; 
             color: #2e3b27;
+            min-height: 100vh;
         }
-
-        /* BARRA DE NAVEGACIÓN */
-        .navbar {
-            background-color: #ffffff;
-            padding: 15px 30px;
+        
+        .dashboard-layout {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(85, 122, 70, 0.06);
-            border-bottom: 1px solid #dbe3da;
+            justify-content: center;
+            align-items: flex-start;
+            position: relative;
+            width: 100%;
+            padding: 25px 20px;
+            box-sizing: border-box;
         }
 
-        .navbar-brand {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #557a46;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        .main-content {
+            flex: 1;
+            max-width: 580px; 
+            z-index: 2; 
+        }
+        
+        /* 🦎 AJOLOTES LATERALES EN LOS ESPACIOS BLANCOS 🦎 */
+        .axolotl-side {
+            position: fixed;
+            top: 18%;
+            width: 230px;
+            height: auto;
+            pointer-events: none;
+            user-select: none;
         }
 
-        .btn-login {
+        .axolotl-left { left: 35px; }
+        .axolotl-right { right: 35px; }
+        
+        .logout { 
+            float: right; 
             color: #785880; 
             cursor: pointer; 
             font-weight: bold; 
             text-decoration: none;
-            font-size: 0.9rem;
-            padding: 8px 18px;
+            font-size: 0.85rem;
+            padding: 6px 14px;
             border-radius: 20px; 
             border: 1px solid rgba(120, 88, 128, 0.3);
             background: #ffffff;
             transition: all 0.2s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
         }
-
-        .btn-login:hover { 
+        .logout:hover { 
             background: #f1ebf2;
             border-color: #785880;
+            transform: translateY(-1px);
         }
-
-        /* CONTENEDOR PRINCIPAL */
-        .container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .header-proyecto {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header-proyecto h1 {
-            color: #405d33;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .header-proyecto p {
-            color: #6d7c65;
-            font-size: 1.1rem;
-            margin: 0;
-        }
-
-        /* MENÚ DE PESTAÑAS (TABS) */
-        .tabs-menu {
-            display: flex;
-            gap: 10px;
-            border-bottom: 2px solid #eef3ed;
-            margin-bottom: 30px;
-            overflow-x: auto;
-            padding-bottom: 5px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 12px 20px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            color: #6d7c65;
-            cursor: pointer;
-            border-radius: 12px 12px 0 0;
-            transition: all 0.2s;
-            white-space: nowrap;
-        }
-
-        .tab-btn:hover {
-            color: #557a46;
-            background-color: #eef3ed;
-        }
-
-        .tab-btn.active {
-            color: #557a46;
-            border-bottom: 3px solid #557a46;
-            background-color: #ffffff;
-        }
-
-        /* CONTENIDO DE LAS PESTAÑAS */
-        .tab-content {
-            display: none;
-            background: #ffffff;
-            padding: 35px;
-            border-radius: 24px;
-            border: 1px solid #dbe3da;
-            box-shadow: 0 6px 20px rgba(85, 122, 70, 0.02);
-            animation: fadeIn 0.4s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            color: #405d33;
-            border-bottom: 2px solid #f4f7f2;
-            padding-bottom: 10px;
+        
+        h1 { 
+            color: #557a46; 
+            font-size: 1.8rem; 
             margin-top: 0;
-        }
-
-        p {
-            line-height: 1.6;
-            color: #3a4733;
-        }
-
-        /* INTEGRANTES */
-        .grid-integrantes {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .card-integrante {
-            background: #f9fbf8;
-            border: 1px solid #edf2ec;
-            padding: 15px 20px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            color: #2e3b27;
-        }
-
-        .card-integrante span {
-            background: #785880;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-        }
-
-        /* DISEÑO DE LA LÍNEA DEL TIEMPO (TIMELINE) */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 10px 0;
-        }
-
-        /* Eje central de la línea */
-        .timeline::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: #c0cca9;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-        }
-
-        /* Contenedores de los pasos */
-        .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        /* Nodos/Burbujas numéricas en el centro */
-        .timeline-item::after {
-            content: attr(data-step);
-            position: absolute;
-            width: 28px;
-            height: 28px;
-            right: -14px;
-            background-color: #557a46;
-            border: 4px solid #f4f7f2;
-            top: 15px;
-            border-radius: 50%;
-            z-index: 1;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            line-height: 28px;
-            font-size: 0.85rem;
-        }
-
-        /* Posicionamiento izquierda y derecha */
-        .left { left: 0; }
-        .right { left: 50%; }
-
-        .right::after { left: -14px; }
-
-        /* Cajas de contenido */
-        .timeline-card {
-            padding: 20px;
-            background-color: #f9fbf8;
-            position: relative;
-            border-radius: 18px;
-            border: 1px solid #edf2ec;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-        }
-
-        .timeline-card h3 {
-            margin-top: 0;
-            color: #405d33;
-            font-size: 1.05rem;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .timeline-card img {
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-            display: block;
-            border: 1px solid #dbe3da;
-        }
-
-        /* GALERÍA DE IMÁGENES */
-        .galeria-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .galeria-item {
-            background: #f9fbf8;
-            border: 1px solid #dbe3da;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        .galeria-item img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .galeria-item .pie {
-            padding: 12px;
-            font-size: 0.85rem;
-            text-align: center;
-            font-weight: 500;
-            color: #557a46;
-        }
-
-        /* SUBSECCIONES MARCO TEÓRICO */
-        .subseccion {
-            background: #fafbfa;
-            padding: 20px;
-            border-radius: 14px;
             margin-bottom: 20px;
-            border-left: 4px solid #557a46;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .subseccion h3 { margin-top: 0; color: #557a46; }
-
-        /* Adaptabilidad para Teléfonos Celulares */
-        @media screen and (max-width: 600px) {
-            .timeline::after { left: 31px; }
-            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .timeline-item::after { left: 17px; right: auto; }
-            .left { left: 0; }
-            .right { left: 0; }
+        /* Cambiado de seccionAdmin a seccionSubirAvance para reflejar el acceso general */
+        #seccionSubirAvance { 
+            display: block; /* Ahora es visible para todos por defecto */
+            background: #ffffff; 
+            padding: 22px; 
+            border-radius: 24px; 
+            margin-bottom: 25px; 
+            border: 1px solid #dbe3da; 
+            box-shadow: 0 6px 20px rgba(85, 122, 70, 0.04); 
         }
+
+        #seccionSubirAvance h2 {
+            margin-top: 0;
+            color: #405d33;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eef3ed;
+            padding-bottom: 6px;
+        }
+
+        .campo { margin-bottom: 12px; }
+        
+        .label-campo { 
+            font-weight: 600; 
+            display: block; 
+            margin-bottom: 4px; 
+            color: #557a46; 
+            font-size: 0.85rem;
+        }
+        
+        input[type="text"], input[type="number"], textarea { 
+            width: 100%; 
+            padding: 10px 14px; 
+            border: 1px solid #c0cca9; 
+            border-radius: 12px; 
+            box-sizing: border-box; 
+            font-size: 0.88rem;
+            background-color: #fafbfa;
+            color: #2e3b27;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #557a46;
+            background-color: #ffffff;
+            box-shadow: 0 0 5px rgba(85, 122, 70, 0.15);
+        }
+
+        .input-file-oculto {
+            width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;
+        }
+
+        .contenedor-file {
+            display: flex; align-items: center; gap: 12px; background: transparent; border: none; padding: 4px 0; box-sizing: border-box;
+        }
+
+        .btn-file-custom {
+            background-color: #785880; 
+            color: white;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 8px; 
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.2s ease;
+            user-select: none;
+            box-shadow: 0 2px 5px rgba(120, 88, 128, 0.2);
+        }
+
+        .btn-file-custom:hover { background-color: #63456a; }
+
+        .nombre-archivo { font-size: 0.82rem; color: #6d7c65; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        .btn-publicar { 
+            background: #557a46; color: white; border: none; padding: 13px; border-radius: 14px; cursor: pointer; font-size: 0.95rem; font-weight: bold; width: 100%; transition: all 0.2s ease; box-shadow: 0 3px 10px rgba(85, 122, 70, 0.15); margin-top: 5px;
+        }
+        .btn-publicar:hover { background: #405d33; transform: translateY(-1px); }
+
+        .entrada { 
+            background: white; border: 1px solid #dbe3da; padding: 20px; margin-bottom: 18px; border-radius: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.01); position: relative;
+        }
+
+        .entrada h3 { margin: 8px 0; color: #405d33; font-size: 1.2rem; }
+
+        .badge {
+            background-color: #f1ebf2; color: #785880; padding: 3px 8px; border-radius: 5px; font-size: 0.82rem; font-weight: 600; display: inline-block; border: 1px solid rgba(120, 88, 128, 0.1);
+        }
+
+        .entrada img { max-width: 100%; border-radius: 14px; margin-top: 12px; display: block; }
+
+        .barra-interaccion { display: flex; gap: 20px; margin: 14px 0 8px 0; padding-top: 4px; }
+
+        .interaccion-item { display: flex; align-items: center; gap: 6px; font-size: 0.95rem; font-weight: bold; user-select: none; cursor: pointer; transition: transform 0.15s ease, color 0.2s ease; }
+        .interaccion-item:hover { transform: scale(1.08); }
+        .interaccion-item svg { width: 22px; height: 22px; fill: currentColor; }
+
+        .btn-like { color: #a0aea0; }
+        .btn-like.like-active { color: #ff4d6d; filter: drop-shadow(0 2px 4px rgba(255, 77, 109, 0.3)); }
+        .btn-comment { color: #785880; }
+
+        .seccion-comentarios { margin-top: 10px; padding-top: 12px; border-top: 1px solid #edf2ec; }
+        .titulo-comentarios { font-size: 0.85rem; font-weight: bold; color: #557a46; margin-bottom: 6px; }
+        .comentario-item { background: #f9fbf8; border: 1px solid #edf2ec; padding: 8px 12px; border-radius: 10px; margin-bottom: 5px; font-size: 0.82rem; }
+        .comentario-usuario { font-weight: bold; color: #785880; }
+        .caja-comentario { display: flex; gap: 6px; }
+        .input-comentario { flex: 1; padding: 8px 12px !important; font-size: 0.82rem !important; border-radius: 10px !important; }
+        
+        .btn-enviar-comentario { background-color: #785880; color: white; border: none; border-radius: 10px; padding: 0 16px; font-size: 0.82rem; font-weight: bold; cursor: pointer; }
+        .btn-enviar-comentario:hover { background-color: #63456a; }
+
+        .no-registros { text-align: center; color: #5c7050; background: white; padding: 35px; border-radius: 24px; border: 1px solid #785880; }
+
+        .admin-acciones-top { position: absolute; top: 16px; right: 20px; display: flex; gap: 8px; }
+        .btn-editar-post { background: #fdfafd; color: #785880; border: 1px solid rgba(120, 88, 128, 0.2); padding: 5px 11px; font-size: 0.78rem; font-weight: bold; border-radius: 8px; cursor: pointer; }
+        .btn-borrar-post { background: #fff5f5; color: #d9534f; border: 1px solid rgba(217, 83, 79, 0.2); padding: 5px 11px; font-size: 0.78rem; font-weight: bold; border-radius: 8px; cursor: pointer; }
+
+        .input-edicion-inline { margin-bottom: 8px; padding: 6px 10px; font-size: 0.84rem; }
+
+        @media (max-width: 1100px) { .axolotl-side { display: none !important; } }
     </style>
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR -->
-    <nav class="navbar">
-        <div class="navbar-brand">🌱 Bitácora del Huerto Escolar</div>
-        <a href="/login.html" class="btn-login">Acceso Alumnos / Admin</a>
-    </nav>
+    <img src="/ajolote2.png" alt="Ajolote Izquierdo" class="axolotl-side axolotl-left">
+    <img src="/ajolote1.png" alt="Ajolote Derecho" class="axolotl-side axolotl-right">
 
-    <div class="container">
-        
-        <!-- ENCABEZADO -->
-        <div class="header-proyecto">
-            <h1>Cultivando un Futuro Sustentable</h1>
-            <p>Memoria Técnica y Registro de Evidencias del Huerto Escolar</p>
-        </div>
+    <div class="dashboard-layout">
+        <div class="main-content">
+            <span class="logout" onclick="localStorage.clear(); location.href='/'">Cerrar Sesión</span>
+            <h1>🌱 Historial del Huerto</h1>
 
-        <!-- MENÚ INTERACTIVO -->
-        <div class="tabs-menu">
-            <button class="tab-btn active" onclick="cambiarPestana(event, 'info')">General</button>
-            <button class="tab-btn" onclick="cambiarPestana(event, 'integrantes')">Equipo</button>
-            <button class="tab-btn" onclick="cambiarPestana(event, 'timeline-tab')">Línea del Tiempo</button>
-            <button class="tab-btn" onclick="cambiarPestana(event, 'marco')">Marco Teórico</button>
-            <button class="tab-btn" onclick="cambiarPestana(event, 'galeria')">Galería de Evidencias</button>
-        </div>
-
-        <!-- PESTAÑA 1: GENERAL -->
-        <div id="info" class="tab-content active">
-            <h2>🎯 Objetivo del Proyecto</h2>
-            <p>Diseñar, implementar y mantener un huerto escolar sustentable enfocado en la producción de lavanda. Se busca aprender dinámicas agroecológicas mediante el trabajo en equipo, la optimización de recursos hídricos y el desarrollo de un modelo de negocio innovador basado en las propiedades de esta planta medicinal y aromática.</p>
-            
-            <br>
-            <h2>💡 Justificación</h2>
-            <p>El cultivo de lavanda representa una excelente oportunidad pedagógica y productiva en la escuela. Es una planta resistente que requiere cuidados específicos de riego y suelo, sirviendo como base para estudiar la botánica práctica. Además, su potencial de transformación permite al equipo incursionar en proyectos de emprendimiento sustentable, dándole un valor agregado a la materia prima cosechada.</p>
-        </div>
-
-        <!-- PESTAÑA 2: INTEGRANTES -->
-        <div id="integrantes" class="tab-content">
-            <h2>👥 Integrantes del Equipo</h2>
-            <p>El presente proyecto es coordinado y ejecutado por los siguientes alumnos:</p>
-            
-            <div class="grid-integrantes">
-                <div class="card-integrante"><span>1</span> ARELY DENISSE BARAJAS RODRÍGUEZ</div>
-                <div class="card-integrante"><span>2</span> MBALIA DESIREE ORTEGA OLAEZ</div>
-                <div class="card-integrante"><span>3</span> ANA MARICELA RINCÓN TOVAR</div>
-                <div class="card-integrante"><span>4</span> FATIMA DE JESUS HERNANDEZ LUGO</div>
-                <div class="card-integrante"><span>5</span> JOSÉ LUIS CERVANTES ARREDONDO</div>
-                <div class="card-integrante"><span>6</span> ANGEL ABRAHAM REGALDO LÓPEZ</div>
-                <div class="card-integrante"><span>7</span> JUAN DIEGO SANTACRUZ AGUILAR</div>
-            </div>
-
-            <br><br>
-            <h2>📸 Imágenes de Equipo</h2>
-            <div class="galeria-grid">
-                <div class="galeria-item">
-                    <img src="/equipo1.png" alt="Equipo planeando" onerror="this.src='https://placehold.co/400x300?text=Equipo+Organización'">
-                    <div class="pie">Sesión de Planificación</div>
+            <!-- Cambiado de id="seccionAdmin" a "seccionSubirAvance" -->
+            <div id="seccionSubirAvance">
+                <h2 id="tituloFormulario">Nueva Entrada / Subir Avance</h2>
+                <div class="campo">
+                    <label class="label-campo">Planta:</label>
+                    <input type="text" id="tipoPlanta" placeholder="Ej. Tomate, Albahaca...">
                 </div>
-                <div class="galeria-item">
-                    <img src="/equipo2.png" alt="Equipo trabajando" onerror="this.src='https://placehold.co/400x300?text=Equipo+en+Campo'">
-                    <div class="pie">Trabajo en Equipo</div>
+                <div class="campo">
+                    <label class="label-campo">Dueño de la planta:</label>
+                    <input type="text" id="duenoPlanta" placeholder="Ej. Juan Pérez, Equipo 3...">
                 </div>
-            </div>
-        </div>
-
-        <!-- PESTAÑA 3: LÍNEA DEL TIEMPO -->
-        <div id="timeline-tab" class="tab-content">
-            <h2>⏳ Proceso de Desarrollo del Proyecto</h2>
-            <p>A continuación se detalla cronológicamente cada uno de los pasos realizados por el equipo, desde la preparación del suelo hasta la consolidación del producto final:</p>
-            
-            <div class="timeline">
+                <div class="campo">
+                    <label class="label-campo">Altura (cm):</label>
+                    <input type="number" id="altura" placeholder="Ej. 15">
+                </div>
+                <div class="campo">
+                    <label class="label-campo">Abono:</label>
+                    <input type="text" id="abono" placeholder="Ej. Compost orgánico">
+                </div>
+                <div class="campo">
+                    <label class="label-campo">Observaciones:</label>
+                    <textarea id="obs" rows="3" placeholder="¿Cómo se ve la planta hoy?"></textarea>
+                </div>
                 
-                <!-- PASO 1 -->
-                <div class="timeline-item left" data-step="1">
-                    <div class="timeline-card">
-                        <h3>1. Realización de surcos</h3>
-                        <img src="1.jpg" alt="Realización de surcos" onerror="this.src='https://placehold.co/400x250?text=Paso+1:+Surcos'">
+                <div class="campo">
+                    <label class="label-campo">Foto del progreso:</label>
+                    <div class="contenedor-file">
+                        <label for="imagenHuerto" class="btn-file-custom">Seleccionar imagen</label>
+                        <input type="file" id="imagenHuerto" class="input-file-oculto" accept="image/*" onchange="actualizarNombreArchivo(this)">
+                        <span id="textoArchivo" class="nombre-archivo">Ningún archivo seleccionado</span>
+                        <span id="btnLimpiarArchivo" style="color: #d9534f; cursor: pointer; font-weight: bold; display: none; margin-left: 5px;" onclick="limpiarArchivoSeleccionado()" title="Quitar imagen">✖️</span>
                     </div>
                 </div>
-
-                <!-- PASO 2 -->
-                <div class="timeline-item right" data-step="2">
-                    <div class="timeline-card">
-                        <h3>2. Plantación de la planta de lavanda</h3>
-                        <img src="2.jpg" alt="Plantación de lavanda" onerror="this.src='https://placehold.co/400x250?text=Paso+2:+Plantación'">
-                    </div>
-                </div>
-
-                <!-- PASO 3 -->
-                <div class="timeline-item left" data-step="3">
-                    <div class="timeline-card">
-                        <h3>3. Investigación del sistema de riego</h3>
-                        <img src="3.jpg" alt="Investigación de riego" onerror="this.src='https://placehold.co/400x250?text=Paso+3:+Investigación+Riego'">
-                    </div>
-                </div>
-
-                <!-- PASO 4 -->
-                <div class="timeline-item right" data-step="4">
-                    <div class="timeline-card">
-                        <h3>4. Realización del sistema de riego</h3>
-                        <img src="4.jpg" alt="Realización del sistema de riego" onerror="this.src='https://placehold.co/400x250?text=Paso+4:+Armado+de+Riego'">
-                    </div>
-                </div>
-
-                <!-- PASO 5 -->
-                <div class="timeline-item left" data-step="5">
-                    <div class="timeline-card">
-                        <h3>5. Aplicación del sistema de riego</h3>
-                        <img src="5.jpg" alt="Aplicación de riego" onerror="this.src='https://placehold.co/400x250?text=Paso+5:+Riego+Activo'">
-                    </div>
-                </div>
-
-                <!-- PASO 6 -->
-                <div class="timeline-item right" data-step="6">
-                    <div class="timeline-card">
-                        <h3>6. Medición de lavandas y aplicación de abono</h3>
-                        <img src="6.jpg" alt="Medición y abono" onerror="this.src='https://placehold.co/400x250?text=Paso+6:+Control+y+Abono'">
-                    </div>
-                </div>
-
-                <!-- PASO 7 -->
-                <div class="timeline-item left" data-step="7">
-                    <div class="timeline-card">
-                        <h3>7. Investigación de producto innovador y creación de marca (Nombre, Slogan, Logo, Carteles y Material Didáctico)</h3>
-                        <img src="7.jpg" alt="Identidad del producto" onerror="this.src='https://placehold.co/400x250?text=Paso+7:+Diseño+de+Marca'">
-                    </div>
-                </div>
-
-                <!-- PASO 8 -->
-                <div class="timeline-item right" data-step="8">
-                    <div class="timeline-card">
-                        <h3>8. Adquisición de materiales para hacer el producto</h3>
-                        <img src="8.jpg" alt="Adquisición de materiales" onerror="this.src='https://placehold.co/400x250?text=Paso+8:+Materiales'">
-                    </div>
-                </div>
-
-                <!-- PASO 9 -->
-                <div class="timeline-item left" data-step="9">
-                    <div class="timeline-card">
-                        <h3>9. Realización del producto</h3>
-                        <img src="9.jpg" alt="Realización del producto" onerror="this.src='https://placehold.co/400x250?text=Paso+9:+Producción'">
-                    </div>
-                </div>
-
-                <!-- PASO 10 -->
-                <div class="timeline-item right" data-step="10">
-                    <div class="timeline-card">
-                        <h3>10. Presentación del producto innovador</h3>
-                        <img src="10.jpg" alt="Presentación final" onerror="this.src='https://placehold.co/400x250?text=Paso+10:+Presentación'">
-                    </div>
-                </div>
-
+                
+                <button class="btn-publicar" onclick="guardarBitacora()">Publicar Avance</button>
             </div>
+
+            <div id="contenedorBitacora">Cargando registros...</div>
         </div>
-
-        <!-- PESTAÑA 4: MARCO TEÓRICO -->
-        <div id="marco" class="tab-content">
-            <h2>📖 Marco Teórico e Investigación</h2>
-            <p>El sustento conceptual que respalda las decisiones de campo e ingeniería tomadas por el equipo:</p>
-            
-            <div class="subseccion">
-                <h3>1. El Cultivo de Lavanda (Lavandula)</h3>
-                <p>La lavanda es una planta perenne de la familia de las lamiáceas. Destaca por su alta resistencia a las sequías una vez establecida, requiriendo suelos con excelente drenaje y un pH de neutro a ligeramente alcalino para evitar la asfixia radicular.</p>
-            </div>
-
-            <div class="subseccion">
-                <h3>2. Eficiencia hídrica y Sistemas de Riego</h3>
-                <p>La lavanda es sumamente sensible al exceso de humedad. La implementación de sistemas de riego controlados (como el riego por goteo o localizado) permite suministrar la cantidad exacta de agua directamente a la base de la planta, minimizando la evaporación y previniendo la proliferación de hongos fitopatógenos.</p>
-            </div>
-
-            <div class="subseccion">
-                <h3>3. Emprendimiento Sustentable y Valor Agregado</h3>
-                <p>El diseño de productos derivados del huerto escolar (como aceites esenciales, jabones, aromatizantes o saquitos relajantes) fomenta la economía circular. El proceso incluye desde la identidad gráfica (logo y slogan) hasta el empaque ecológico, promoviendo habilidades comerciales e innovadoras en el equipo.</p>
-            </div>
-        </div>
-
-        <!-- PESTAÑA 5: GALERÍA GENERAL -->
-        <div id="galeria" class="tab-content">
-            <h2>🌱 Galería de Imágenes del Huerto</h2>
-            <p>Fotografías adicionales de las lavandas y los resultados en el huerto escolar:</p>
-            
-            <div class="galeria-grid">
-                <div class="galeria-item">
-                    <img src="/huerto1.png" alt="Huerto" onerror="this.src='https://placehold.co/400x300?text=Vista+General+1'">
-                    <div class="pie">Camas de Cultivo</div>
-                </div>
-                <div class="galeria-item">
-                    <img src="/huerto2.png" alt="Detalle" onerror="this.src='https://placehold.co/400x300?text=Detalle+Lavanda'">
-                    <div class="pie">Primeros Brotes de Lavanda</div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <script>
-        function cambiarPestana(evt, nombrePestana) {
-            const contenidos = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < contenidos.length; i++) {
-                contenidos[i].className = contenidos[i].className.replace(" active", "");
-            }
+        const token = localStorage.getItem('token');
+        const rol = localStorage.getItem('rol');
 
-            const botones = document.getElementsByClassName("tab-btn");
-            for (let i = 0; i < botones.length; i++) {
-                botones[i].className = botones[i].className.replace(" active", "");
-            }
-
-            document.getElementById(nombrePestana).className += " active";
-            evt.currentTarget.className += " active";
+        if(!token) window.location.href = '/';
+        
+        // Ajustamos dinámicamente el título según el rol para que se vea más profesional
+        if(rol === 'admin') {
+            document.getElementById('tituloFormulario').innerText = "Nueva Entrada (Panel Admin)";
+        } else {
+            document.getElementById('tituloFormulario').innerText = "Compartir Avance de mi Planta";
         }
+
+        function actualizarNombreArchivo(input) {
+            const texto = document.getElementById('textoArchivo');
+            const btnLimpiar = document.getElementById('btnLimpiarArchivo');
+            if (input.files && input.files.length > 0) {
+                texto.textContent = input.files[0].name;
+                btnLimpiar.style.display = 'inline';
+            } else {
+                texto.textContent = "Ningún archivo seleccionado";
+                btnLimpiar.style.display = 'none';
+            }
+        }
+
+        function limpiarArchivoSeleccionado() {
+            const input = document.getElementById('imagenHuerto');
+            const texto = document.getElementById('textoArchivo');
+            const btnLimpiar = document.getElementById('btnLimpiarArchivo');
+            input.value = ''; 
+            texto.textContent = "Ningún archivo seleccionado";
+            btnLimpiar.style.display = 'none';
+        }
+
+        function pintarComentarios(comentarios, idPost) {
+            if (!comentarios || comentarios.length === 0) {
+                return `<p style="color: #8fa087; font-style: italic; font-size: 0.8rem; margin: 4px 0;">No hay comentarios. ¡Sé el primero en escribir!</p>`;
+            }
+            return comentarios.map(c => {
+                // El botón para borrar comentarios individuales SOLO le sale al Admin
+                const botonBorrar = (rol === 'admin') 
+                    ? `<span style="color: #d9534f; cursor: pointer; font-weight: bold; margin-left: 15px; font-size: 0.75rem;" onclick="eliminarComentario('${idPost}', '${c._id}')">✖️</span>`
+                    : '';
+                return `
+                    <div class="comentario-item" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div><span class="comentario-usuario">${c.usuario}:</span> ${c.texto}</div>
+                        ${botonBorrar}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function cargarDatos() {
+            try {
+                const res = await fetch('/api/bitacora');
+                const registros = await res.json();
+                const contenedor = document.getElementById('contenedorBitacora');
+                
+                if (registros.length === 0) {
+                    contenedor.innerHTML = `
+                        <div class="no-registros">
+                            <p style="font-size: 1rem; margin: 0; font-weight: bold; color: #405d33;">No hay registros aún.</p>
+                            <p style="color: #785880; font-size: 0.85rem; margin-top: 4px;">¡Sé el primero en subir el avance de tu planta arriba!</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                contenedor.innerHTML = '';
+                registros.forEach(reg => {
+                    const totalLikes = reg.likes || 0;
+                    const totalComments = reg.comentarios ? reg.comentarios.length : 0;
+                    let bloqueAccionesAdmin = '';
+
+                    // Los botones de Editar y Borrar publicaciones generales SOLO se generan si eres Admin
+                    if (rol === 'admin') {
+                        bloqueAccionesAdmin = `
+                            <div class="admin-acciones-top" id="acciones-top-${reg._id}">
+                                <button class="btn-editar-post" onclick="activarModoEdicion('${reg._id}', '${reg.tipoPlanta}', '${reg.dueno || ''}', ${reg.altura}, '${reg.abono || ''}', \`${reg.observaciones}\`)">✏️ Editar</button>
+                                <button class="btn-borrar-post" onclick="eliminarEntrada('${reg._id}')">🗑️ Borrar</button>
+                            </div>
+                        `;
+                    }
+
+                    contenedor.innerHTML += `
+                        <div class="entrada" id="entrada-${reg._id}">
+                            ${bloqueAccionesAdmin}
+                            <small style="color: #785880; font-weight: 600;">📅 ${new Date(reg.fecha).toLocaleString()}</small>
+                            
+                            <div id="bloque-estatico-${reg._id}">
+                                <h3>🌿 ${reg.tipoPlanta}</h3>
+                                <p>
+                                    <strong>Dueño:</strong> <span class="badge" style="background-color: #eef3ed; color: #405d33;">👤 ${reg.dueno || 'Sin asignar'}</span> |
+                                    <strong>Crecimiento:</strong> <span class="badge">📐 ${reg.altura} cm</span> | 
+                                    <strong>Abono:</strong> <span class="badge">🧬 ${reg.abono || 'No especificado'}</span>
+                                </p>
+                                <p style="margin-top: 10px;"><strong>Notas:</strong> ${reg.observaciones}</p>
+                            </div>
+
+                            <div id="bloque-editable-${reg._id}" style="display: none; margin-top: 15px;">
+                                <input type="text" class="input-edicion-inline" id="edit-planta-${reg._id}">
+                                <input type="text" class="input-edicion-inline" id="edit-dueno-${reg._id}">
+                                <input type="number" class="input-edicion-inline" id="edit-altura-${reg._id}">
+                                <input type="text" class="input-edicion-inline" id="edit-abono-${reg._id}">
+                                <textarea rows="2" class="input-edicion-inline" id="edit-obs-${reg._id}"></textarea>
+                                <button class="btn-publicar" style="background: #785880; margin-bottom: 8px;" onclick="guardarEdicion('${reg._id}')">💾 Guardar Cambios</button>
+                                <button class="btn-borrar-post" style="width: 100%;" onclick="cargarDatos()">Cancelar</button>
+                            </div>
+
+                            ${reg.imagenUrl ? `<img src="${reg.imagenUrl}" alt="Foto del huerto">` : '<p style="color: #8fa087; font-style: italic; margin-top: 12px;">Sin imagen adjunta</p>'}
+                            
+                            <div class="barra-interaccion">
+                                <div class="interaccion-item btn-like" onclick="darLike('${reg._id}')" id="like-btn-${reg._id}">
+                                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                                    <span id="like-count-${reg._id}">${totalLikes}</span>
+                                </div>
+                                <div class="interaccion-item btn-comment" onclick="enfocarComentario('${reg._id}')">
+                                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+                                    <span>${totalComments}</span>
+                                </div>
+                            </div>
+
+                            <div class="seccion-comentarios">
+                                <div class="titulo-comentarios">💬 Comentarios</div>
+                                <div class="lista-comentarios">${pintarComentarios(reg.comentarios, reg._id)}</div>
+                                <div class="caja-comentario">
+                                    <input type="text" class="input-comentario" id="input-${reg._id}" placeholder="Escribe un comentario...">
+                                    <button class="btn-enviar-comentario" onclick="publicarComentario('${reg._id}')">Enviar</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (error) {
+                document.getElementById('contenedorBitacora').innerText = 'Error al conectar con el historial.';
+            }
+        }
+
+        function activarModoEdicion(id, planta, dueno, altura, abono, obs) {
+            document.getElementById(`bloque-estatico-${id}`).style.display = 'none';
+            document.getElementById(`bloque-editable-${id}`).style.display = 'block';
+            if (document.getElementById(`acciones-top-${id}`)) document.getElementById(`acciones-top-${id}`).style.display = 'none';
+
+            document.getElementById(`edit-planta-${id}`).value = planta;
+            document.getElementById(`edit-dueno-${id}`).value = dueno;
+            document.getElementById(`edit-altura-${id}`).value = altura;
+            document.getElementById(`edit-abono-${id}`).value = abono;
+            document.getElementById(`edit-obs-${id}`).value = obs;
+        }
+
+        async function guardarEdicion(idPost) {
+            const datosModificados = {
+                tipoPlanta: document.getElementById(`edit-planta-${idPost}`).value,
+                dueno: document.getElementById(`edit-dueno-${idPost}`).value,
+                altura: document.getElementById(`edit-altura-${idPost}`).value,
+                abono: document.getElementById(`edit-abono-${idPost}`).value,
+                observaciones: document.getElementById(`edit-obs-${idPost}`).value
+            };
+
+            const res = await fetch(`/api/bitacora/${idPost}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify(datosModificados)
+            });
+
+            if (res.ok) { alert("¡Modificado con éxito!"); cargarDatos(); }
+            else { alert("Error al guardar."); }
+        }
+
+        async function darLike(idPost) {
+            const res = await fetch(`/api/bitacora/${idPost}/like`, { method: 'POST' });
+            if(res.ok) {
+                const data = await res.json();
+                document.getElementById(`like-count-${idPost}`).textContent = data.likes;
+                document.getElementById(`like-btn-${idPost}`).classList.add('like-active');
+            }
+        }
+
+        function enfocarComentario(idPost) { document.getElementById(`input-${idPost}`).focus(); }
+
+        async function publicarComentario(idPost) {
+            const input = document.getElementById(`input-${idPost}`);
+            const texto = input.value.trim();
+            if (!texto) return alert("Escribe un comentario.");
+
+            const nombreUsuario = rol === 'admin' ? 'Admin 🌿' : 'Usuario 🧑‍🌾';
+            const res = await fetch(`/api/bitacora/${idPost}/comentarios`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                body: JSON.stringify({ usuario: nombreUsuario, texto: texto })
+            });
+
+            if (res.ok) { input.value = ''; cargarDatos(); }
+        }
+
+        async function eliminarComentario(idPost, idComentario) {
+            if (!confirm("¿Borrar comentario?")) return;
+            const res = await fetch(`/api/bitacora/${idPost}/comentarios/${idComentario}/borrar`, { method: 'POST' });
+            if (res.ok) cargarDatos();
+        }
+
+        async function eliminarEntrada(idPost) {
+            if (!confirm("¿Eliminar publicación?")) return;
+            const res = await fetch(`/api/bitacora/${idPost}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) cargarDatos();
+        }
+
+        /* 🛠️ APARTADO CORREGIDO SIN ALTERAR NADA MÁS 🛠️ */
+        async function guardarBitacora() {
+            // Validamos que por lo menos pongan el nombre de la planta
+            const tipoPlanta = document.getElementById('tipoPlanta').value.trim();
+            if (!tipoPlanta) {
+                return alert('Por favor, introduce el tipo de planta.');
+            }
+
+            const formData = new FormData();
+            formData.append('tipoPlanta', tipoPlanta);
+            formData.append('dueno', document.getElementById('duenoPlanta').value); 
+            formData.append('altura', document.getElementById('altura').value);
+            formData.append('abono', document.getElementById('abono').value);
+            formData.append('observaciones', document.getElementById('obs').value); 
+
+            const archivo = document.getElementById('imagenHuerto').files[0];
+            if (archivo) {
+                formData.append('imagen', archivo); 
+            }
+
+            try {
+                const res = await fetch('/api/bitacora', {
+                    method: 'POST',
+                    headers: { 
+                        'Authorization': `Bearer ${token}`
+                        // ¡IMPORTANTE! No agregues 'Content-Type': 'multipart/form-data' aquí. El navegador lo hace automáticamente y le asigna un "boundary" único.
+                    },
+                    body: formData 
+                });
+
+                if(res.ok) { 
+                    alert('¡Tu avance ha sido compartido correctamente en la bitácora!'); 
+                    location.reload(); 
+                } else {
+                    alert('Hubo un inconveniente al publicar el avance en el servidor.');
+                }
+            } catch (error) {
+                alert('No se pudo establecer conexión con el servidor.');
+            }
+        }
+
+        cargarDatos();
     </script>
 </body>
 </html>
