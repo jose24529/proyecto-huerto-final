@@ -54,7 +54,7 @@
             font-weight: 500;
         }
 
-        /* 📋 BARRA DE PESTAÑAS NAVEGABLES (3 OPCIONES) */
+        /* 📋 BARRA DE PESTAÑAS NAVEGABLES (4 OPCIONES) */
         .tabs-nav-bar {
             background-color: var(--blanco);
             display: flex;
@@ -83,6 +83,12 @@
         .tab-btn.active-producto {
             background-color: #fff0f2;
             color: var(--rosa-oscuro);
+        }
+
+        .tab-btn.active-cronograma {
+            background-color: #f7e6e9;
+            color: var(--rosa-oscuro);
+            border: 1px solid #f2cbd2;
         }
 
         .tab-btn.active-paec {
@@ -171,7 +177,8 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-top: 20px;
+            margin-top: 25px;
+            margin-bottom: 25px;
         }
 
         .cronograma-img {
@@ -187,6 +194,32 @@
         .cronograma-img:hover {
             transform: scale(1.03);
             box-shadow: 0 8px 25px rgba(229, 143, 162, 0.25);
+        }
+
+        .contenedor-boton-drive {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-drive {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--rosa-oscuro);
+            color: var(--blanco);
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 15px rgba(140, 67, 84, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .btn-drive:hover {
+            background-color: #703340;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(140, 67, 84, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -349,7 +382,7 @@
             object-fit: cover;
         }
 
-        /* 🐢 PESTAÑA 3: ACCESO AL HUERTO */
+        /* 🐢 PESTAÑA 4: ACCESO AL HUERTO */
         .grid-huerto-layout {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -501,10 +534,13 @@
         <p>"Dale besos a tu cora 💋"</p>
     </div>
 
-    <!-- 📋 BARRA DE PESTAÑAS NAVEGABLES (3 SECCIONES) -->
+    <!-- 📋 BARRA DE PESTAÑAS NAVEGABLES (4 SECCIONES) -->
     <div class="tabs-nav-bar">
         <button id="btn-tab-prod" class="tab-btn active-producto" onclick="alternarSeccionPestañas('producto')">
             ✨ Presentación MUSU
+        </button>
+        <button id="btn-tab-crono" class="tab-btn" onclick="alternarSeccionPestañas('cronograma')">
+            📅 Cronograma
         </button>
         <button id="btn-tab-paec" class="tab-btn" onclick="alternarSeccionPestañas('paec')">
             🌿 Proyecto PAEC
@@ -556,16 +592,6 @@
                 </div>
             </div>
 
-            <!-- 📅 NUEVA SECCIÓN: CRONOGRAMA DE ACTIVIDADES -->
-            <div class="bloque-seccion">
-                <h2>📅 Cronograma de Actividades</h2>
-                <p>A continuación se detalla la planificación temporal, fechas asignadas y el progreso de las fases organizativas contempladas para la consolidación de nuestro proyecto (puedes pasar el cursor sobre las imágenes para ampliarlas):</p>
-                <div class="cronograma-grid">
-                    <img src="cronograma1.png" alt="Cronograma de Actividades Parte 1" class="cronograma-img">
-                    <img src="cronograma2.png" alt="Cronograma de Actividades Parte 2" class="cronograma-img">
-                </div>
-            </div>
-
             <div class="bloque-seccion">
                 <h2>👩‍🍳 Procesos de Elaboración</h2>
                 <div class="grid-elaboracion">
@@ -592,7 +618,26 @@
 
         </div>
 
-        <!-- 🌿 PESTAÑA 2: APARTADO PROYECTO PAEC -->
+        <!-- 📅 PESTAÑA 2: NUEVA SECCIÓN EXCLUSIVA PARA EL CRONOGRAMA -->
+        <div id="seccion-cronograma" class="tab-content">
+            <div class="bloque-seccion">
+                <h2>📅 Cronograma de Actividades</h2>
+                <p>Aquí puedes consultar la organización, fechas asignadas y el avance de los bloques de actividades planificados para el desarrollo integral del proyecto. Pasa el cursor sobre las imágenes para verlas en detalle o usa el botón inferior para abrir el documento completo.</p>
+                
+                <div class="cronograma-grid">
+                    <img src="cronograma1.png" alt="Cronograma de Actividades Parte 1" class="cronograma-img">
+                    <img src="cronograma2.png" alt="Cronograma de Actividades Parte 2" class="cronograma-img">
+                </div>
+
+                <div class="contenedor-boton-drive">
+                    <a href="https://drive.google.com/file/d/16og28RICdJI-CTKXoBB7wlRdZ_Ws4dab/view?usp=classroom_web&authuser=0" target="_blank" class="btn-drive">
+                        📁 Ver Cronograma en Google Drive ↗
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🌿 PESTAÑA 3: APARTADO PROYECTO PAEC -->
         <div id="seccion-paec" class="tab-content">
             
             <div class="bloque-seccion">
@@ -721,7 +766,7 @@
 
         </div>
 
-        <!-- 🐢 PESTAÑA 3: ACCESO AL HUERTO -->
+        <!-- 🐢 PESTAÑA 4: ACCESO AL HUERTO -->
         <div id="seccion-huerto" class="tab-content">
             <div class="grid-huerto-layout">
                 
@@ -768,24 +813,31 @@
     <script>
         function alternarSeccionPestañas(objetivo) {
             const vistaProd = document.getElementById('seccion-producto');
+            const vistaCrono = document.getElementById('seccion-cronograma');
             const vistaPaec = document.getElementById('seccion-paec');
             const vistaHuer = document.getElementById('seccion-huerto');
             
             const btnProd = document.getElementById('btn-tab-prod');
+            const btnCrono = document.getElementById('btn-tab-crono');
             const btnPaec = document.getElementById('btn-tab-paec');
             const btnHuer = document.getElementById('btn-tab-huer');
 
             btnProd.classList.remove('active-producto');
+            btnCrono.classList.remove('active-cronograma');
             btnPaec.classList.remove('active-paec');
             btnHuer.classList.remove('active-huerto');
 
             vistaProd.classList.remove('active');
+            vistaCrono.classList.remove('active');
             vistaPaec.classList.remove('active');
             vistaHuer.classList.remove('active');
 
             if(objetivo === 'producto') {
                 vistaProd.classList.add('active');
                 btnProd.classList.add('active-producto');
+            } else if(objetivo === 'cronograma') {
+                vistaCrono.classList.add('active');
+                btnCrono.classList.add('active-cronograma');
             } else if(objetivo === 'paec') {
                 vistaPaec.classList.add('active');
                 btnPaec.classList.add('active-paec');
