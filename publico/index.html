@@ -125,6 +125,7 @@
             max-width: 240px;
             height: auto;
             border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(140, 67, 84, 0.1);
         }
 
         .bloque-seccion h2 {
@@ -146,7 +147,6 @@
             margin-bottom: 0;
         }
 
-        /* Distribución en 2 columnas (Texto + Imagen) */
         .columnas-layout {
             display: grid;
             grid-template-columns: 1.2fr 0.8fr;
@@ -158,6 +158,100 @@
             .columnas-layout {
                 grid-template-columns: 1fr;
             }
+        }
+
+        /* Lista de Integrantes y Actividades */
+        .lista-estilizada {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .lista-estilizada li {
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            color: #3d4a37;
+            line-height: 1.5;
+        }
+
+        /* ⏳ NUEVA LÍNEA DEL TIEMPO INTERACTIVA */
+        .timeline-container {
+            position: relative;
+            max-width: 100%;
+            margin: 30px auto;
+            padding: 10px 0;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--rosa-intenso);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: transparent;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '🌱';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -17px;
+            background-color: var(--blanco);
+            border: 3px solid var(--verde-huerto);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .left { left: 0; }
+        .right { left: 50%; }
+
+        .right::after { left: -14px; }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: var(--rosa-tarjeta);
+            position: relative;
+            border-radius: 16px;
+            border: 1px solid #f7d5dc;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .timeline-content h3 {
+            margin-top: 0;
+            color: var(--rosa-oscuro);
+            font-size: 1.15rem;
+        }
+
+        .timeline-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 12px;
+            border: 2px solid var(--blanco);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline-container::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 18px; right: auto; }
+            .right { left: 0%; }
         }
 
         /* Tarjetas de Recetas */
@@ -188,7 +282,7 @@
         /* Galería de Fotos Integrada */
         .galeria-fotos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
@@ -238,7 +332,6 @@
             display: block;
         }
 
-        /* Panel Fijo Derecho de Login */
         .panel-login-derecho {
             background-color: #ffffff;
             border: 1px solid #f0f0f0;
@@ -271,7 +364,6 @@
             margin-bottom: 25px;
         }
 
-        /* Inputs */
         input {
             width: 100%;
             margin-bottom: 14px;
@@ -322,7 +414,6 @@
             text-decoration: underline;
         }
 
-        /* Publicidad Inferior del Bálsamo */
         .caja-balsamo-promocional {
             margin-top: 25px;
             border: 1px dashed var(--rosa-intenso);
@@ -369,7 +460,7 @@
     <!-- 📋 BARRA DE PESTAÑAS SUPERIORES -->
     <div class="tabs-nav-bar">
         <button id="btn-tab-prod" class="tab-btn active-producto" onclick="alternarSeccionPestañas('producto')">
-            ✨ Presentación del Proyecto
+            ✨ Proyecto Huerto & MUSU
         </button>
         <button id="btn-tab-huer" class="tab-btn" onclick="alternarSeccionPestañas('huerto')">
             🌱 Acceso Huertito
@@ -378,42 +469,160 @@
 
     <div class="container">
         
-        <!-- 💋 PESTAÑA 1: PRESENTACIÓN DEL PROYECTO -->
+        <!-- 💋 PESTAÑA 1: APARTADO COMPLETO DEL PROYECTO -->
         <div id="seccion-producto" class="tab-content active">
             
+            <!-- Bloque de Identificación y Equipo -->
             <div class="bloque-seccion">
                 <div class="contenedor-logo-musu">
                     <img src="logo.jpeg" alt="Logo Oficial MUSU" class="logo-musu-presentacion">
                 </div>
-                <h2>📝 Presentación del Proyecto</h2>
+                <h2>👥 Equipo de Trabajo e Integrantes</h2>
                 <div class="columnas-layout">
                     <div>
-                        <p>Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales para la hidratación y el bienestar de la piel y los labios. Nuestro proyecto está compuesto por un bálsamo labial hidratante, un exfoliante labial y un aceite para manos, codos y rodillas, elaborados con ingredientes naturales como miel, aceite de coco, aceite de almendras, aceite de oliva y vitamina E.</p>
-                        <br>
-                        <p>El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables. A través de la elaboración de estos productos, buscamos promover el uso de ingredientes naturales y demostrar que es posible crear productos de calidad de forma sencilla y económica. Además, nuestro proyecto fomenta hábitos de cuidado personal que contribuyen a una mejor imagen y bienestar.</p>
+                        <p>Este proyecto surge del trabajo en equipo, la investigación y la dedicación enfocada al desarrollo sustentable y el bienestar personal a través de nuestro huerto urbano escolar.</p>
+                        <h4 style="color: var(--rosa-oscuro); margin-bottom: 5px;">Integrantes:</h4>
+                        <ul class="lista-estilizada">
+                            <li>ARELY DENISSE BARAJAS RODRÍGUEZ</li>
+                            <li>MBALIA DESIREE ORTEGA OLAEZ</li>
+                            <li>ANA MARICELA RINCÓN TOVAR</li>
+                            <li>FATIMA DE JESUS HERNANDEZ LUGO</li>
+                            <li>JOSÉ LUIS CERVANTES ARREDONDO</li>
+                            <li>ANGEL ABRAHAM REGALDO LÓPEZ</li>
+                            <li>JUAN DIEGO SANTACRUZ AGUILAR</li>
+                        </ul>
                     </div>
                     <div class="caja-foto-integrada">
-                        <img src="ev2.jpeg" alt="Presentación de Integrantes del Equipo Musu">
+                        <img src="ev2.jpeg" alt="Imágenes de Equipo Musu">
                     </div>
                 </div>
             </div>
 
+            <!-- Bloque de Fundamentos del Huerto (Objetivo y Justificación) -->
             <div class="bloque-seccion">
-                <h2>📊 Resultados</h2>
-                <div class="columnas-layout">
-                    <div>
-                        <p>Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.</p>
-                        <br>
-                        <p>Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. También les llamó la atención que los productos fueran fáciles de elaborar y que estuvieran hechos con ingredientes accesibles. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos. Muchas personas mencionaron que les gustó la idea, la presentación y los beneficios que ofrecen para el cuidado personal, por lo que consideramos que nuestro proyecto tuvo una buena aceptación.</p>
+                <h2>🎯 Enfoque del Proyecto: Huertito Urbano</h2>
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: var(--verde-huerto); margin-bottom: 5px;">🌱 Objetivo General</h4>
+                    <p>Diseñar, implementar y documentar un huerto escolar urbano enfocado en el cultivo sustentable de lavanda, aplicando sistemas eficientes de riego y control orgánico para obtener materia prima natural destinada a la elaboración de productos de cuidado e hidratación personal de alta calidad.</p>
+                </div>
+                <div>
+                    <h4 style="color: var(--verde-huerto); margin-bottom: 5px;">⚖️ Justificación</h4>
+                    <p>La urbanización actual limita los espacios verdes y nos desconecta de los procesos de producción natural. Este proyecto demuestra que mediante la correcta planeación de surcos, el uso inteligente del agua y el aprovechamiento de plantas medicinales y aromáticas como la lavanda, es posible consolidar un ciclo de economía circular escolar: sembrando de forma limpia, cuidando el recurso hídrico y transformando la cosecha en soluciones accesibles para la piel.</p>
+                </div>
+            </div>
+
+            <!-- ⏳ NUEVA SECCIÓN: LÍNEA DEL TIEMPO INTERACTIVA DEL PROCESO -->
+            <div class="bloque-seccion">
+                <h2>⏳ Línea del Tiempo: Cronología del Huerto</h2>
+                <p style="margin-bottom: 25px;">Sigue paso a paso las etapas clave que realizamos para transformar un terreno vacío en nuestro huerto productor y en el posterior lanzamiento de la marca.</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>1. Realización de surcos</h3>
+                            <p>Preparación del terreno agrícola, aireación de la tierra y trazado de líneas estructurales para optimizar la siembra.</p>
+                            <img src="1.jpg" alt="Realización de surcos" class="timeline-img">
+                        </div>
                     </div>
-                    <div class="caja-foto-integrada">
-                        <img src="ev1.jpeg" alt="Evidencia de Presentación de Cartel Musu">
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>2. Plantación de lavanda</h3>
+                            <p>Colocación de las plantas en los surcos establecidos, asegurando el espacio necesario para el desarrollo de sus raíces.</p>
+                            <img src="2.jpg" alt="Plantación de lavanda" class="timeline-img">
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>3. Investigación del sistema de riego</h3>
+                            <p>Análisis técnico para definir un método de riego eficiente que dosifique el agua sin desperdicios en la escuela.</p>
+                            <img src="3.jpg" alt="Investigación del sistema de riego" class="timeline-img">
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>4. Realización del sistema de riego</h3>
+                            <p>Hémsamble y preparación de los componentes físicos, mangueras y conectores calculados en la etapa previa.</p>
+                            <img src="4.jpg" alt="Realización del sistema de riego" class="timeline-img">
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>5. Aplicación del sistema de riego</h3>
+                            <p>Montaje definitivo sobre el terreno y primera prueba activa para dotar de agua controlada a cada planta cultivada.</p>
+                            <img src="5.jpg" alt="Aplicación del sistema de riego" class="timeline-img">
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>6. Medición y aplicación de abono</h3>
+                            <p>Monitoreo constante de la altura de las lavandas junto con la adición de nutrientes orgánicos para fortalecer su crecimiento.</p>
+                            <img src="6.jpg" alt="Medición de lavandas y aplicación de abono" class="timeline-img">
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>7. Diseño de Identidad e Innovación</h3>
+                            <p>Creación conceptual del proyecto final: Nombre (MUSU), eslogan corporativo, logotipo oficial, diseño de carteles y material didáctico para la comunidad.</p>
+                            <img src="7.jpg" alt="Investigación de producto innovador" class="timeline-img">
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>8. Adquisición de materiales</h3>
+                            <p>Compra y recolección controlada de insumos naturales de grado estético (aceites esenciales, cera de abeja, envases limpios).</p>
+                            <img src="8.jpg" alt="Adquisición de materiales para hacer el producto" class="timeline-img">
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <h3>9. Realización del producto</h3>
+                            <p>Procesamiento manual bajo normas higiénicas para formular el bálsamo hidratante, el exfoliante y los aceites orgánicos.</p>
+                            <img src="9.jpg" alt="Realización del producto" class="timeline-img">
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <h3>10. Presentación del producto</h3>
+                            <p>Exhibición final del proyecto, resolución de dudas al público y recopilación de retroalimentación exitosa del ecosistema MUSU.</p>
+                            <img src="10.jpg" alt="Presentación del producto" class="timeline-img">
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Bloque de Marco Teórico y Más Info -->
             <div class="bloque-seccion">
-                <h2>👩‍🍳 Procesos de Elaboración</h2>
+                <h2>📚 Marco Teórico e Información del Huerto</h2>
+                <div class="columnas-layout">
+                    <div>
+                        <p>Los huertos urbanos escolares funcionan como laboratorios vivos de aprendizaje interdisciplinario. El cultivo de especies perennes como la <em>Lavandula</em> requiere condiciones específicas de suelo (sustratos con excelente drenaje) y exposición lumínica prolongada para favorecer la concentración de aceites esenciales en sus flores.</p>
+                        <br>
+                        <p>Adicionalmente, el diseño e instalación de sistemas de riego focalizados mitigan el estrés hídrico de las plantas y controlan la humedad del suelo de forma constante, evitando la proliferación de hongos dañinos. Con esto, logramos una cosecha sana apta para extraer propiedades calmantes, antisépticas e hidratantes aplicables en la cosmética natural escolar.</p>
+                    </div>
+                    <div class="caja-foto-integrada">
+                        <img src="ev1.jpeg" alt="Imágenes del huerto y cartel">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloque de Actividades Realizadas en Total -->
+            <div class="bloque-seccion">
+                <h2>📋 Lista de Actividades Ejecutadas</h2>
+                <p>En resumen, las tareas completadas a lo largo de este bloque comprenden:</p>
+                <ul class="lista-estilizada">
+                    <li>✔️ Limpieza profunda, deshierbe y remoción del terreno asignado.</li>
+                    <li>✔️ Trazado físico de surcos con pendientes calculadas para flujo hídrico.</li>
+                    <li>✔️ Adopción, transporte y siembra controlada de plántulas de lavanda.</li>
+                    <li>✔️ Diseño e ingeniería técnica de un sistema de riego automatizado o por goteo.</li>
+                    <li>✔️ Monitoreo continuo de variables biológicas (altura, color, plagas).</li>
+                    <li>✔️ Formulación en laboratorio escolar de bálsamos labiales, exfoliantes y aceites de hidratación.</li>
+                    <li>✔️ Exposición pública de resultados con recursos de diseño de marca interactivos.</li>
+                </ul>
+            </div>
+
+            <!-- Bloque Editorial de Recetas original -->
+            <div class="bloque-seccion">
+                <h2>👩‍🍳 Procesos de Elaboración (Productos)</h2>
                 <div class="grid-elaboracion">
                     <div class="tarjeta-receta">
                         <h4>Elaboración del aceite para manos, codos y rodillas</h4>
@@ -430,15 +639,9 @@
                 </div>
                 
                 <div class="galeria-fotos-grid">
-                    <div class="caja-foto-integrada">
-                        <img src="ev4.jpeg" alt="Paso de preparación Musu 1">
-                    </div>
-                    <div class="caja-foto-integrada">
-                        <img src="ev3.jpeg" alt="Paso de preparación Musu 2">
-                    </div>
-                    <div class="caja-foto-integrada">
-                        <img src="ev5.jpeg" alt="Paso de preparación Musu 3">
-                    </div>
+                    <div class="caja-foto-integrada"><img src="ev4.jpeg" alt="Evidencia preparación 1"></div>
+                    <div class="caja-foto-integrada"><img src="ev3.jpeg" alt="Evidencia preparación 2"></div>
+                    <div class="caja-foto-integrada"><img src="ev5.jpeg" alt="Evidencia preparación 3"></div>
                 </div>
             </div>
 
@@ -550,7 +753,6 @@
                     alert('Aviso: ' + (data.error || 'Verifica los datos insertados.'));
                 }
             } catch (err) {
-                // Modo simulación local por si falla el backend
                 alert('Usuario registrado localmente (Modo Demostración).');
                 cambiarModeloFormulario('login');
             }
@@ -573,7 +775,6 @@
                     localStorage.setItem('rol', data.rol || 'usuario'); 
                     window.location.href = 'dashboard.html';
                 } else {
-                    // Simulación automática de roles si el servidor no responde
                     evaluarAccesoSimulado(correo);
                 }
             } catch (err) {
@@ -581,8 +782,6 @@
             }
         }
 
-        // Simulación para pruebas rápidas en tu escuela:
-        // Si entras con "ana24563@cbtis75.edu.mx" u otro correo escolar, detectará si eres Admin o Usuario normal.
         function evaluarAccesoSimulado(correo) {
             localStorage.setItem('token', 'TOKEN_DEMO_HUERTITO');
             if(correo.includes('admin') || correo.includes('ana24563')) {
