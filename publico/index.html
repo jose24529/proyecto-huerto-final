@@ -54,13 +54,14 @@
             font-weight: 500;
         }
 
-        /* 📋 BARRA DE PESTAÑAS NAVEGABLES */
+        /* 📋 BARRA DE PESTAÑAS NAVEGABLES (3 OPCIONES) */
         .tabs-nav-bar {
             background-color: var(--blanco);
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             padding: 12px 0;
-            gap: 15px;
+            gap: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
@@ -82,6 +83,12 @@
         .tab-btn.active-producto {
             background-color: #fff0f2;
             color: var(--rosa-oscuro);
+        }
+
+        .tab-btn.active-paec {
+            background-color: #eaf2e6;
+            color: var(--verde-huerto);
+            border: 1px solid #d0dacb;
         }
 
         .tab-btn.active-huerto {
@@ -139,6 +146,11 @@
             gap: 10px;
         }
 
+        .bloque-seccion h2.verde-titulo {
+            color: var(--verde-huerto);
+            border-bottom: 2px solid #e2ece0;
+        }
+
         .bloque-seccion p {
             line-height: 1.7;
             font-size: 1.05rem;
@@ -173,7 +185,7 @@
             line-height: 1.5;
         }
 
-        /* ⏳ NUEVA LÍNEA DEL TIEMPO INTERACTIVA */
+        /* ⏳ LÍNEA DEL TIEMPO INTERACTIVA */
         .timeline-container {
             position: relative;
             max-width: 100%;
@@ -185,7 +197,7 @@
             content: '';
             position: absolute;
             width: 4px;
-            background-color: var(--rosa-intenso);
+            background-color: var(--verde-huerto);
             top: 0;
             bottom: 0;
             left: 50%;
@@ -201,7 +213,7 @@
         }
 
         .timeline-item::after {
-            content: '🌱';
+            content: '🌿';
             position: absolute;
             width: 25px;
             height: 25px;
@@ -224,16 +236,16 @@
 
         .timeline-content {
             padding: 20px;
-            background-color: var(--rosa-tarjeta);
+            background-color: #fafdf9;
             position: relative;
             border-radius: 16px;
-            border: 1px solid #f7d5dc;
+            border: 1px solid #dbe6d7;
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
         .timeline-content h3 {
             margin-top: 0;
-            color: var(--rosa-oscuro);
+            color: var(--verde-huerto);
             font-size: 1.15rem;
         }
 
@@ -302,7 +314,7 @@
             object-fit: cover;
         }
 
-        /* 🐢 PESTAÑA 2: ACCESO AL HUERTO */
+        /* 🐢 PESTAÑA 3: ACCESO AL HUERTO */
         .grid-huerto-layout {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -457,10 +469,13 @@
         <p>"Dale besos a tu cora 💋"</p>
     </div>
 
-    <!-- 📋 BARRA DE PESTAÑAS SUPERIORES -->
+    <!-- 📋 BARRA DE PESTAÑAS NAVEGABLES (3 SECCIONES) -->
     <div class="tabs-nav-bar">
         <button id="btn-tab-prod" class="tab-btn active-producto" onclick="alternarSeccionPestañas('producto')">
-            ✨ Proyecto Huerto & MUSU
+            ✨ Presentación MUSU
+        </button>
+        <button id="btn-tab-paec" class="tab-btn" onclick="alternarSeccionPestañas('paec')">
+            🌿 Proyecto PAEC
         </button>
         <button id="btn-tab-huer" class="tab-btn" onclick="alternarSeccionPestañas('huerto')">
             🌱 Acceso Huertito
@@ -469,185 +484,201 @@
 
     <div class="container">
         
-        <!-- 💋 PESTAÑA 1: APARTADO COMPLETO DEL PROYECTO -->
+        <!-- 💋 PESTAÑA 1: PRESENTACIÓN DEL PROYECTO MUSU (Info original) -->
         <div id="seccion-producto" class="tab-content active">
             
-            <!-- Bloque de Identificación y Equipo -->
             <div class="bloque-seccion">
                 <div class="contenedor-logo-musu">
                     <img src="logo.jpeg" alt="Logo Oficial MUSU" class="logo-musu-presentacion">
                 </div>
-                <h2>👥 Equipo de Trabajo e Integrantes</h2>
+                <h2>📝 Presentación del Proyecto</h2>
                 <div class="columnas-layout">
                     <div>
-                        <p>Este proyecto surge del trabajo en equipo, la investigación y la dedicación enfocada al desarrollo sustentable y el bienestar personal a través de nuestro huerto urbano escolar.</p>
-                        <h4 style="color: var(--rosa-oscuro); margin-bottom: 5px;">Integrantes:</h4>
-                        <ul class="lista-estilizada">
-                            <li>ARELY DENISSE BARAJAS RODRÍGUEZ</li>
-                            <li>MBALIA DESIREE ORTEGA OLAEZ</li>
-                            <li>ANA MARICELA RINCÓN TOVAR</li>
-                            <li>FATIMA DE JESUS HERNANDEZ LUGO</li>
-                            <li>JOSÉ LUIS CERVANTES ARREDONDO</li>
-                            <li>ANGEL ABRAHAM REGALDO LÓPEZ</li>
-                            <li>JUAN DIEGO SANTACRUZ AGUILAR</li>
-                        </ul>
+                        <p>Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales para la hidratación y el bienestar de la piel y los labios. Nuestro proyecto está compuesto por un bálsamo labial hidratante, un exfoliante labial y un aceite para manos, codos y rodillas, elaborados con ingredientes naturales como miel, aceite de coco, aceite de almendras, aceite de oliva y vitamina E.</p>
+                        <br>
+                        <p>El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables. A través de la elaboración de estos productos, buscamos promover el uso de ingredientes naturales y demostrar que es posible crear productos de calidad de forma sencilla y económica.</p>
                     </div>
                     <div class="caja-foto-integrada">
-                        <img src="ev2.jpeg" alt="Imágenes de Equipo Musu">
+                        <img src="ev2.jpeg" alt="Presentación de Integrantes del Equipo Musu">
                     </div>
                 </div>
             </div>
 
-            <!-- Bloque de Fundamentos del Huerto (Objetivo y Justificación) -->
             <div class="bloque-seccion">
-                <h2>🎯 Enfoque del Proyecto: Huertito Urbano</h2>
+                <h2>📊 Resultados del Proyecto</h2>
+                <div class="columnas-layout">
+                    <div>
+                        <p>Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios.</p>
+                        <br>
+                        <p>Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos.</p>
+                    </div>
+                    <div class="caja-foto-integrada">
+                        <img src="ev1.jpeg" alt="Evidencia de Presentación de Cartel Musu">
+                    </div>
+                </div>
+            </div>
+
+            <div class="bloque-seccion">
+                <h2>👩‍🍳 Procesos de Elaboración</h2>
+                <div class="grid-elaboracion">
+                    <div class="tarjeta-receta">
+                        <h4>Elaboración del aceite para manos, codos y rodillas</h4>
+                        <p>Primero mezclamos las 12 cucharadas de aceite de almendras con las 6½ cucharadas de aceite de oliva. Después agregamos el contenido de las 10 cápsulas de vitamina E y revolvimos bien hasta obtener una mezcla uniforme.</p>
+                    </div>
+                    <div class="tarjeta-receta">
+                        <h4>Elaboración del bálsamo hidratante</h4>
+                        <p>Comenzamos colocando la cera de abeja, el aceite de coco y el aceite de oliva en un recipiente resistente al calor. Después derretimos los ingredientes a baño María mientras mezclábamos suavemente. Agregamos la vitamina E, la miel y la esencia.</p>
+                    </div>
+                    <div class="tarjeta-receta">
+                        <h4>Elaboración del exfoliante labial</h4>
+                        <p>Mezclamos la miel, el aceite de coco y el azúcar en un recipiente pequeño. Revolvimos todos los ingredientes hasta obtener una pasta uniforme. Finalmente, el exfoliante quedó listo.</p>
+                    </div>
+                </div>
+                
+                <div class="galeria-fotos-grid">
+                    <div class="caja-foto-integrada"><img src="ev4.jpeg" alt="Paso de preparación Musu 1"></div>
+                    <div class="caja-foto-integrada"><img src="ev3.jpeg" alt="Paso de preparación Musu 2"></div>
+                    <div class="caja-foto-integrada"><img src="ev5.jpeg" alt="Paso de preparación Musu 3"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 🌿 PESTAÑA 2: NUEVO APARTADO PROYECTO PAEC -->
+        <div id="seccion-paec" class="tab-content">
+            
+            <!-- Bloque de Integrantes -->
+            <div class="bloque-seccion">
+                <h2 class="verde-titulo">👥 Integrantes del Equipo</h2>
+                <p>El desarrollo integral del huerto y la investigación del proyecto PAEC está a cargo de los estudiantes:</p>
+                <ul class="lista-estilizada">
+                    <li><strong>ARELY DENISSE BARAJAS RODRÍGUEZ</strong></li>
+                    <li><strong>MBALIA DESIREE ORTEGA OLAEZ</strong></li>
+                    <li><strong>ANA MARICELA RINCÓN TOVAR</strong></li>
+                    <li><strong>FATIMA DE JESUS HERNANDEZ LUGO</strong></li>
+                    <li><strong>JOSÉ LUIS CERVANTES ARREDONDO</strong></li>
+                    <li><strong>ANGEL ABRAHAM REGALDO LÓPEZ</strong></li>
+                    <li><strong>JUAN DIEGO SANTACRUZ AGUILAR</strong></li>
+                </ul>
+            </div>
+
+            <!-- Bloque de Objetivos y Justificación -->
+            <div class="bloque-seccion">
+                <h2 class="verde-titulo">🎯 Fundamentos del Huerto Urbano</h2>
                 <div style="margin-bottom: 20px;">
-                    <h4 style="color: var(--verde-huerto); margin-bottom: 5px;">🌱 Objetivo General</h4>
-                    <p>Diseñar, implementar y documentar un huerto escolar urbano enfocado en el cultivo sustentable de lavanda, aplicando sistemas eficientes de riego y control orgánico para obtener materia prima natural destinada a la elaboración de productos de cuidado e hidratación personal de alta calidad.</p>
+                    <h4 style="color: var(--verde-huerto); margin-bottom: 5px;">🌱 Objetivo del Proyecto</h4>
+                    <p>Diseñar, implementar y documentar un huerto escolar sustentable enfocado en la plantación de lavanda, aplicando sistemas eficientes de riego y control orgánico para obtener materia prima natural de alta calidad destinada a la elaboración de productos cosméticos e innovadores de cuidado personal.</p>
                 </div>
                 <div>
                     <h4 style="color: var(--verde-huerto); margin-bottom: 5px;">⚖️ Justificación</h4>
-                    <p>La urbanización actual limita los espacios verdes y nos desconecta de los procesos de producción natural. Este proyecto demuestra que mediante la correcta planeación de surcos, el uso inteligente del agua y el aprovechamiento de plantas medicinales y aromáticas como la lavanda, es posible consolidar un ciclo de economía circular escolar: sembrando de forma limpia, cuidando el recurso hídrico y transformando la cosecha en soluciones accesibles para la piel.</p>
+                    <p>Este proyecto responde a la necesidad de implementar prácticas verdes y de desarrollo sustentable dentro del entorno escolar. La siembra guiada de plantas aromáticas como la lavanda, en conjunto con tecnologías eficientes de riego, demuestra un modelo práctico de autoabastecimiento ecológico. La materia prima cosechada reduce costos de producción y fomenta alternativas saludables y orgánicas para el cuidado cutáneo de la comunidad.</p>
                 </div>
             </div>
 
-            <!-- ⏳ NUEVA SECCIÓN: LÍNEA DEL TIEMPO INTERACTIVA DEL PROCESO -->
+            <!-- Cronología con imágenes del 1 al 10 -->
             <div class="bloque-seccion">
-                <h2>⏳ Línea del Tiempo: Cronología del Huerto</h2>
-                <p style="margin-bottom: 25px;">Sigue paso a paso las etapas clave que realizamos para transformar un terreno vacío en nuestro huerto productor y en el posterior lanzamiento de la marca.</p>
+                <h2 class="verde-titulo">⏳ Línea del Tiempo: Proceso del Huerto</h2>
+                <p style="margin-bottom: 25px;">A continuación se detalla cronológicamente cada una de las fases realizadas en el huerto escolar urbano:</p>
                 
                 <div class="timeline-container">
                     <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3>1. Realización de surcos</h3>
-                            <p>Preparación del terreno agrícola, aireación de la tierra y trazado de líneas estructurales para optimizar la siembra.</p>
+                            <p>Preparación adecuada de la tierra agrícola, remoción y trazo físico de los surcos para la siembra.</p>
                             <img src="1.jpg" alt="Realización de surcos" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-content">
-                            <h3>2. Plantación de lavanda</h3>
-                            <p>Colocación de las plantas en los surcos establecidos, asegurando el espacio necesario para el desarrollo de sus raíces.</p>
-                            <img src="2.jpg" alt="Plantación de lavanda" class="timeline-img">
+                            <h3>2. Plantación de la planta de lavanda</h3>
+                            <p>Colocación y cuidado inicial de las plantas de lavanda a lo largo de los canales preparados.</p>
+                            <img src="2.jpg" alt="Plantación de la planta de lavanda" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3>3. Investigación del sistema de riego</h3>
-                            <p>Análisis técnico para definir un método de riego eficiente que dosifique el agua sin desperdicios en la escuela.</p>
+                            <p>Análisis de métodos eficientes y sustentables para suministrar agua controlada al cultivo.</p>
                             <img src="3.jpg" alt="Investigación del sistema de riego" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-content">
                             <h3>4. Realización del sistema de riego</h3>
-                            <p>Hémsamble y preparación de los componentes físicos, mangueras y conectores calculados en la etapa previa.</p>
+                            <p>Diseño y ensamblaje de la red física de tuberías, mangueras y goteros correspondientes.</p>
                             <img src="4.jpg" alt="Realización del sistema de riego" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3>5. Aplicación del sistema de riego</h3>
-                            <p>Montaje definitivo sobre el terreno y primera prueba activa para dotar de agua controlada a cada planta cultivada.</p>
+                            <p>Instalación definitiva sobre el terreno del huerto y activación de la irrigación periódica.</p>
                             <img src="5.jpg" alt="Aplicación del sistema de riego" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-content">
-                            <h3>6. Medición y aplicación de abono</h3>
-                            <p>Monitoreo constante de la altura de las lavandas junto con la adición de nutrientes orgánicos para fortalecer su crecimiento.</p>
+                            <h3>6. Medición de lavandas y aplicación de abono</h3>
+                            <p>Control métrico del crecimiento vegetal y suplementación con nutrientes orgánicos.</p>
                             <img src="6.jpg" alt="Medición de lavandas y aplicación de abono" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item left">
                         <div class="timeline-content">
-                            <h3>7. Diseño de Identidad e Innovación</h3>
-                            <p>Creación conceptual del proyecto final: Nombre (MUSU), eslogan corporativo, logotipo oficial, diseño de carteles y material didáctico para la comunidad.</p>
+                            <h3>7. Investigación de producto innovador y creación de identidad</h3>
+                            <p>Conceptualización de la marca, definición del nombre, eslogan, logo oficial, carteles expositivos y material didáctico.</p>
                             <img src="7.jpg" alt="Investigación de producto innovador" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-content">
-                            <h3>8. Adquisición de materiales</h3>
-                            <p>Compra y recolección controlada de insumos naturales de grado estético (aceites esenciales, cera de abeja, envases limpios).</p>
+                            <h3>8. Adquisición de materiales para hacer el producto</h3>
+                            <p>Recopilación organizada de recipientes y elementos naturales complementarios para la manufactura.</p>
                             <img src="8.jpg" alt="Adquisición de materiales para hacer el producto" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item left">
                         <div class="timeline-content">
                             <h3>9. Realización del producto</h3>
-                            <p>Procesamiento manual bajo normas higiénicas para formular el bálsamo hidratante, el exfoliante y los aceites orgánicos.</p>
+                            <p>Proceso de producción en laboratorio de las piezas cosméticas oficiales de MUSU.</p>
                             <img src="9.jpg" alt="Realización del producto" class="timeline-img">
                         </div>
                     </div>
                     <div class="timeline-item right">
                         <div class="timeline-content">
                             <h3>10. Presentación del producto</h3>
-                            <p>Exhibición final del proyecto, resolución de dudas al público y recopilación de retroalimentación exitosa del ecosistema MUSU.</p>
+                            <p>Exhibición ante los docentes y comunidad estudiantil del proyecto escolar terminado con éxito.</p>
                             <img src="10.jpg" alt="Presentación del producto" class="timeline-img">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Bloque de Marco Teórico y Más Info -->
+            <!-- Marco Teórico -->
             <div class="bloque-seccion">
-                <h2>📚 Marco Teórico e Información del Huerto</h2>
-                <div class="columnas-layout">
-                    <div>
-                        <p>Los huertos urbanos escolares funcionan como laboratorios vivos de aprendizaje interdisciplinario. El cultivo de especies perennes como la <em>Lavandula</em> requiere condiciones específicas de suelo (sustratos con excelente drenaje) y exposición lumínica prolongada para favorecer la concentración de aceites esenciales en sus flores.</p>
-                        <br>
-                        <p>Adicionalmente, el diseño e instalación de sistemas de riego focalizados mitigan el estrés hídrico de las plantas y controlan la humedad del suelo de forma constante, evitando la proliferación de hongos dañinos. Con esto, logramos una cosecha sana apta para extraer propiedades calmantes, antisépticas e hidratantes aplicables en la cosmética natural escolar.</p>
-                    </div>
-                    <div class="caja-foto-integrada">
-                        <img src="ev1.jpeg" alt="Imágenes del huerto y cartel">
-                    </div>
-                </div>
+                <h2 class="verde-titulo">📚 Marco Teórico e Info Adicional</h2>
+                <p>El desarrollo de huertos escolares representa una herramienta activa para la educación ambiental. Plantas perennes como la <em>Lavandula</em> son ideales para estos ecosistemas urbanos gracias a su resistencia y a sus propiedades terapéuticas. El control del agua por medio de sistemas automáticos o focalizados evita el estrés hídrico de la raíz, garantizando que las plantas generen una floración rica en aceites, base principal para las formulaciones naturales estéticas.</p>
             </div>
 
-            <!-- Bloque de Actividades Realizadas en Total -->
+            <!-- Lista de cosas que se realizaron -->
             <div class="bloque-seccion">
-                <h2>📋 Lista de Actividades Ejecutadas</h2>
-                <p>En resumen, las tareas completadas a lo largo de este bloque comprenden:</p>
+                <h2 class="verde-titulo">📋 Lista de Tareas Realizadas</h2>
                 <ul class="lista-estilizada">
-                    <li>✔️ Limpieza profunda, deshierbe y remoción del terreno asignado.</li>
-                    <li>✔️ Trazado físico de surcos con pendientes calculadas para flujo hídrico.</li>
-                    <li>✔️ Adopción, transporte y siembra controlada de plántulas de lavanda.</li>
-                    <li>✔️ Diseño e ingeniería técnica de un sistema de riego automatizado o por goteo.</li>
-                    <li>✔️ Monitoreo continuo de variables biológicas (altura, color, plagas).</li>
-                    <li>✔️ Formulación en laboratorio escolar de bálsamos labiales, exfoliantes y aceites de hidratación.</li>
-                    <li>✔️ Exposición pública de resultados con recursos de diseño de marca interactivos.</li>
+                    <li>✔️ Remoción del suelo, retiro de maleza y adecuación física.</li>
+                    <li>✔️ Cavado de surcos alineados para optimizar el espacio.</li>
+                    <li>✔️ Siembra ordenada de las plántulas de lavanda.</li>
+                    <li>✔️ Investigación y diseño técnico de ingeniería hidráulica básica.</li>
+                    <li>✔️ Instalación física y pruebas operativas de riego.</li>
+                    <li>✔️ Monitoreo biológico y colocación de abonos orgánicos.</li>
+                    <li>✔️ Diseño gráfico e identidad de marca (Slogan, Logotipo y Carteles).</li>
+                    <li>✔️ Compra de insumos y envases sanitizados.</li>
+                    <li>✔️ Elaboración controlada del bálsamo, exfoliante y aceite hidratante.</li>
                 </ul>
-            </div>
-
-            <!-- Bloque Editorial de Recetas original -->
-            <div class="bloque-seccion">
-                <h2>👩‍🍳 Procesos de Elaboración (Productos)</h2>
-                <div class="grid-elaboracion">
-                    <div class="tarjeta-receta">
-                        <h4>Elaboración del aceite para manos, codos y rodillas</h4>
-                        <p>Primero mezclamos las 12 cucharadas de aceite de almendras con las 6½ cucharadas de aceite de oliva. Después agregamos el contenido de las 10 cápsulas de vitamina E y revolvimos bien hasta obtener una mezcla uniforme. Finalmente, colocamos el aceite en un frasco limpio para su uso.</p>
-                    </div>
-                    <div class="tarjeta-receta">
-                        <h4>Elaboración del bálsamo hidratante</h4>
-                        <p>Comenzamos colocando la cera de abeja, el aceite de coco y el aceite de oliva en un recipiente resistente al calor. Después derretimos los ingredientes a baño María mientras mezclábamos suavemente. Cuando la mezcla estuvo completamente líquida, la retiramos del fuego y agregamos la vitamina E, la miel y la esencia. Revolvimos rápidamente y vertimos la mezcla en un frasco limpio para que se enfriara.</p>
-                    </div>
-                    <div class="tarjeta-receta">
-                        <h4>Elaboración del exfoliante labial</h4>
-                        <p>Mezclamos la miel, el aceite de coco y el azúcar en un recipiente pequeño. Revolvimos todos los ingredientes hasta obtener una pasta uniforme. Finalmente, el exfoliante quedó listo para su aplicación en los labios.</p>
-                    </div>
-                </div>
-                
-                <div class="galeria-fotos-grid">
-                    <div class="caja-foto-integrada"><img src="ev4.jpeg" alt="Evidencia preparación 1"></div>
-                    <div class="caja-foto-integrada"><img src="ev3.jpeg" alt="Evidencia preparación 2"></div>
-                    <div class="caja-foto-integrada"><img src="ev5.jpeg" alt="Evidencia preparación 3"></div>
-                </div>
             </div>
 
         </div>
 
-        <!-- 🐢 PESTAÑA 2: ACCESO AL HUERTO -->
+        <!-- 🐢 PESTAÑA 3: ACCESO AL HUERTO -->
         <div id="seccion-huerto" class="tab-content">
             <div class="grid-huerto-layout">
                 
@@ -682,7 +713,7 @@
                     </form>
 
                     <div class="caja-balsamo-promocional">
-                        Conoce la línea de <strong>Bálsamos Labiales Naturales MUSU</strong> elaborados con la cosecha y esencia de nuestro huerto.
+                        Conoce la línea de <strong>Bálsamos Labiales Naturales MUSU</strong> de nuestro huerto.
                         <br>
                         <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="btn-enlace-balsamo">💋 Ver Nuestro Bálsamo</a>
                     </div>
@@ -696,20 +727,32 @@
     <script>
         function alternarSeccionPestañas(objetivo) {
             const vistaProd = document.getElementById('seccion-producto');
+            const vistaPaec = document.getElementById('seccion-paec');
             const vistaHuer = document.getElementById('seccion-huerto');
+            
             const btnProd = document.getElementById('btn-tab-prod');
+            const btnPaec = document.getElementById('btn-tab-paec');
             const btnHuer = document.getElementById('btn-tab-huer');
+
+            // Quitar clases activas visuales de todos los botones
+            btnProd.classList.remove('active-producto');
+            btnPaec.classList.remove('active-paec');
+            btnHuer.classList.remove('active-huerto');
+
+            // Ocultar todos los contenedores
+            vistaProd.classList.remove('active');
+            vistaPaec.classList.remove('active');
+            vistaHuer.classList.remove('active');
 
             if(objetivo === 'producto') {
                 vistaProd.classList.add('active');
-                vistaHuer.classList.remove('active');
                 btnProd.classList.add('active-producto');
-                btnHuer.classList.remove('active-huerto');
-            } else {
+            } else if(objetivo === 'paec') {
+                vistaPaec.classList.add('active');
+                btnPaec.classList.add('active-paec');
+            } else if(objetivo === 'huerto') {
                 vistaHuer.classList.add('active');
-                vistaProd.classList.remove('active');
                 btnHuer.classList.add('active-huerto');
-                btnProd.classList.remove('active-producto');
             }
         }
 
