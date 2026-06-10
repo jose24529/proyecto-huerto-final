@@ -10,14 +10,28 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'publico')));
 
+// --- 📸 CONFIGURACIÓN DE MULTER OPTIMIZADA PARA TODO TIPO DE ARCHIVOS ---
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({ 
+    storage: storage,
+    limits: { 
+        fileSize: 20 * 1024 * 1024 // Subido a 20 Megabytes para soportar fotos de alta resolución
+    },
+    fileFilter: (req, file, cb) => {
+        // Permisivo con cualquier archivo multimedia clasificado como imagen para evitar rebotes de celular
+        if (file.mimetype.startsWith('image/')) {
+            cb(null, true);
+        } else {
+            cb(null, true); 
+        }
+    }
+});
 
 const JWT_SECRET = 'SECRETO_SUPER_SEGURO';
 
 // --- CONEXIÓN MONGODB ---
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ Base de datos lista'))
+    .then(() => console.log('✅ Base de datos lista y conectada'))
     .catch(err => console.error('❌ Error DB:', err));
 
 // --- MODELOS ---
@@ -30,7 +44,7 @@ const User = mongoose.model('User', new mongoose.Schema({
 
 const Bitacora = mongoose.model('Bitacora', new mongoose.Schema({
     tipoPlanta: String, 
-    dueno: String, // 🌟 CAMBIO: Almacena el dueño de la planta
+    dueno: String, 
     altura: Number, 
     abono: String, 
     observaciones: String, 
@@ -89,23 +103,30 @@ app.post('/api/login', async (req, res) => {
 
 // 3. Obtener Bitácora
 app.get('/api/bitacora', async (req, res) => {
-    const lista = await Bitacora.find().sort({ fecha: -1 });
-    res.json(lista);
+    try {
+        const lista = await Bitacora.find().sort({ fecha: -1 });
+        res.json(lista);
+    } catch (error) {
+        res.status(500).json({ error: "Error al obtener registros" });
+    }
 });
 
-// 4. Guardar Bitácora (Solo Admin)
-app.post('/api/bitacora', verificarAdmin, upload.single('imagen'), async (req, res) => {
+// 4. Guardar Bitácora (¡PÚBLICO! - Cualquier usuario/colaborador puede aportar)
+app.post('/api/bitacora', upload.single('imagen'), async (req, res) => {
     try {
         let imagenBase64 = '';
         if (req.file) {
             imagenBase64 = `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}`;
+        } else {
+            // Imagen por defecto si deciden enviar el avance sin adjuntar foto
+            imagenBase64 = "https://images.unsplash.com/photo-1530595467537-0b5996c41f2d?q=80&w=500";
         }
 
         const nuevaEntrada = {
             tipoPlanta: req.body.tipoPlanta,
-            dueno: req.body.dueno, // Guardamos el dueño enviado desde el front
-            altura: req.body.altura,
-            abono: req.body.abono,
+            dueno: req.body.dueno || "Anónimo", 
+            altura: Number(req.body.altura) || 0,
+            abono: req.body.abono || "Ninguno",
             observaciones: req.body.observaciones,
             imagenUrl: imagenBase64
         };
@@ -114,11 +135,11 @@ app.post('/api/bitacora', verificarAdmin, upload.single('imagen'), async (req, r
         res.json({ mensaje: "Guardado con éxito" });
     } catch (error) {
         console.error("Error al guardar:", error);
-        res.status(500).json({ error: "Error en el servidor" });
+        res.status(500).json({ error: "Error en el servidor al intentar guardar" });
     }
 });
 
-// 🌟 NUEVA RUTA: Modificar una Publicación (Solo Admin) 🌟
+// 5. Modificar una Publicación (Solo Admin)
 app.put('/api/bitacora/:id', verificarAdmin, async (req, res) => {
     try {
         const { tipoPlanta, dueno, altura, abono, observaciones } = req.body;
@@ -140,7 +161,7 @@ app.put('/api/bitacora/:id', verificarAdmin, async (req, res) => {
     }
 });
 
-// 🌟 NUEVA RUTA: Eliminar entrada completa (Solo Admin) 🌟
+// 6. Eliminar entrada completa (Solo Admin)
 app.delete('/api/bitacora/:id', verificarAdmin, async (req, res) => {
     try {
         const eliminado = await Bitacora.findByIdAndDelete(req.params.id);
@@ -151,7 +172,7 @@ app.delete('/api/bitacora/:id', verificarAdmin, async (req, res) => {
     }
 });
 
-// ❤️ Incrementar "Me gusta" (Público)
+// 7. Incrementar "Me gusta" (Público)
 app.post('/api/bitacora/:id/like', async (req, res) => {
     try {
         const post = await Bitacora.findByIdAndUpdate(
@@ -165,12 +186,12 @@ app.post('/api/bitacora/:id/like', async (req, res) => {
     }
 });
 
-// 5. Publicar Comentario
+// 8. Publicar Comentario (Público)
 app.post('/api/bitacora/:id/comentarios', async (req, res) => {
     try {
         const post = await Bitacora.findById(req.params.id);
         post.comentarios.push({
-            usuario: req.body.usuario,
+            usuario: req.body.usuario || "Colaborador",
             texto: req.body.texto
         });
         await post.save();
@@ -180,7 +201,7 @@ app.post('/api/bitacora/:id/comentarios', async (req, res) => {
     }
 });
 
-// 6. Eliminar Comentario
+// 9. Eliminar Comentario (Público/Admin)
 app.post('/api/bitacora/:idPost/comentarios/:idComentario/borrar', async (req, res) => {
     try {
         const post = await Bitacora.findById(req.params.idPost);
@@ -192,5 +213,9 @@ app.post('/api/bitacora/:idPost/comentarios/:idComentario/borrar', async (req, r
     }
 });
 
+// --- 🚀 INICIO ADAPTATIVO DEL SERVIDOR ---
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`));
+
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`✅ Servidor corriendo globalmente en el puerto: ${PORT}`);
+});
