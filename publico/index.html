@@ -177,22 +177,20 @@
             font-size: 1rem;
         }
 
-        /* 📸 CONTENEDOR DE LAS IMÁGENES DEL CRONOGRAMA */
-        .cronograma-imagenes-container {
+        /* 📸 ESTILOS PARA LAS IMÁGENES DEL CRONOGRAMA */
+        .cronograma-imagenes {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             margin: 25px 0;
         }
 
-        .img-cronograma-vista {
+        .cronograma-imagenes img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
-            border: 2px solid var(--rosa-principal);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            object-fit: contain;
-            background-color: #fafafa;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
         }
 
         .btn-drive {
@@ -382,13 +380,11 @@
 </head>
 <body>
 
-    <!-- 🌿 ENCABEZADO -->
     <header class="header-top">
         <h1>🌱 Proyecto PAEC - MUSU</h1>
         <p>Bitácora Interactiva y Seguimiento de Desarrollo de Cultivos</p>
     </header>
 
-    <!-- 📑 CONTENEDOR DE PESTAÑAS (Navegación) -->
     <nav class="tabs-container">
         <button class="tab-button active" onclick="cambiarPestaña('presentacion')">📖 Presentación</button>
         <button class="tab-button" onclick="cambiarPestaña('cronograma')">📅 Cronograma</button>
@@ -396,10 +392,8 @@
         <button class="tab-button" onclick="cambiarPestaña('acceso')">🌱 Acceso Huertito</button>
     </nav>
 
-    <!-- 📦 CONTENIDO PRINCIPAL -->
     <main class="main-wrapper">
 
-        <!-- 1️⃣ PANEL: PRESENTACIÓN -->
         <section id="panel-presentacion" class="content-panel active">
             <h2>Sobre Nuestro Proyecto</h2>
             <p>Bienvenido a la plataforma comunitaria del <strong>Proyecto PAEC (Programa de Aprendizaje en Extensión Comunitaria) - MUSU</strong>.</p>
@@ -407,7 +401,6 @@
             <p>Usa las pestañas de navegación superiores para conocer las fechas del cronograma de actividades, visualizar la galería de avances o iniciar sesión para compartir tus propios datos.</p>
         </section>
 
-        <!-- 2️⃣ PANEL: CRONOGRAMA CORREGIDO CON IMÁGENES VISUALES -->
         <section id="panel-cronograma" class="content-panel">
             <h2>📅 Cronograma de Actividades</h2>
             <p>Seguimiento estructurado de los bloques de trabajo e intervenciones del huerto escolar a lo largo del ciclo académico:</p>
@@ -435,14 +428,12 @@
                 </div>
             </div>
 
-            <!-- Aquí se muestran los archivos físicos integrados de forma visual -->
-            <h4 style="color: var(--rosa-oscuro); margin-top: 30px; margin-bottom: 10px;">📊 Vista de Planificación del Equipo:</h4>
-            <div class="cronograma-imagenes-container">
-                <img src="cronograma1.png" alt="Parte inicial del cronograma de actividades" class="img-cronograma-vista">
-                <img src="cronograma2.png" alt="Segunda sección del cronograma de actividades" class="img-cronograma-vista">
+            <div class="cronograma-imagenes">
+                <img src="cronograma1.png" alt="Cronograma Parte 1">
+                <img src="cronograma2.png" alt="Cronograma Parte 2">
             </div>
 
-            <p style="margin-top:25px; font-weight: 500;">📋 Para visualizar el documento interactivo completo en la plataforma escolar, accede al enlace oficial de nuestra planeación:</p>
+            <p style="margin-top:25px; font-weight: 500;">📋 Para visualizar el documento detallado en PDF con la cuadrícula completa de fechas y firmas, accede al enlace oficial de nuestra planeación:</p>
             
             <div style="text-align: center;">
                 <a href="https://drive.google.com/file/d/16og28RICdJI-CTKXoBB7wlRdZ_Ws4dab/view?usp=classroom_web&authuser=0" target="_blank" class="btn-drive">
@@ -451,16 +442,13 @@
             </div>
         </section>
 
-        <!-- 3️⃣ PANEL: GALERÍA PÚBLICA -->
         <section id="panel-galeria" class="content-panel">
             <h2>🌿 Bitácora de Avances en Vivo</h2>
             <p>Registro público del crecimiento de las hortalizas y plantas medicinales cuidadas por la comunidad escolar:</p>
             <div id="contenedor-bitacora" class="bitacora-grid">
-                <!-- Los elementos se cargan dinámicamente desde el backend -->
-            </div>
+                </div>
         </section>
 
-        <!-- 4️⃣ PANEL: ACCESO / LOGIN -->
         <section id="panel-acceso" class="content-panel">
             <div id="bloque-login" class="auth-container">
                 <img src="kike.png" alt="Huertito Logo" class="logo-circular">
@@ -509,8 +497,8 @@
 
     </main>
 
-    <!-- ⚙️ CONTROLADORES EN JAVASCRIPT -->
     <script>
+        // Cambiar dinámicamente entre paneles de contenido
         function cambiarPestaña(idPestaña) {
             document.querySelectorAll('.content-panel').forEach(panel => {
                 panel.classList.remove('active');
@@ -521,6 +509,7 @@
 
             document.getElementById(`panel-${idPestaña}`).classList.add('active');
             
+            // Buscar el botón correspondiente de forma segura
             const botones = Array.from(document.querySelectorAll('.tab-button'));
             const botonActivo = botones.find(b => b.getAttribute('onclick').includes(idPestaña));
             if(botonActivo) botonActivo.classList.add('active');
@@ -530,11 +519,13 @@
             }
         }
 
+        // Alternar visualización entre las pantallas de Login y Registro
         function mostrarRegistro(deseaRegistrar) {
             document.getElementById('bloque-login').style.display = deseaRegistrar ? 'none' : 'flex';
             document.getElementById('bloque-registro').style.display = deseaRegistrar ? 'flex' : 'none';
         }
 
+        // Descargar e inyectar dinámicamente los registros de la Bitácora
         async function descargarDatosBitacora() {
             const grid = document.getElementById('contenedor-bitacora');
             grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:#666;">Cargando reportes del huerto...</p>';
@@ -580,6 +571,7 @@
             }
         }
 
+        // Incrementar contador de Likes en la API
         async function enviarLike(idPost, boton) {
             try {
                 const res = await fetch(`/api/bitacora/${idPost}/like`, { method: 'POST' });
@@ -592,6 +584,7 @@
             }
         }
 
+        // Comunicación real con el endpoint de Registro
         async function ejecutarRegistro() {
             const nombre = document.getElementById('nombreReg').value.trim();
             const correo = document.getElementById('correoReg').value.trim();
@@ -616,6 +609,7 @@
             }
         }
 
+        // Comunicación real con el endpoint de Login
         async function ejecutarAcceso() {
             const correo = document.getElementById('correoLogin').value.trim();
             const password = document.getElementById('passLogin').value;
@@ -640,6 +634,7 @@
             }
         }
 
+        // Sistema de respaldo (Resiliencia para exposiciones escolares locales)
         function evaluarAccesoSimulado(correo) {
             localStorage.setItem('token', 'TOKEN_DEMO_HUERTITO');
             if(correo.includes('admin') || correo.includes('ana24563')) {
