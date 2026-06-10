@@ -3,577 +3,517 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUSU - Proyecto PAEC Huertito</title>
+    <title>Proyecto Huerto Escolar - Lavanda</title>
     <style>
-        /* 🎨 PALETA ROSITA & VERDE ORGÁNICO */
-        :root {
-            --rosa-principal: #fcd7de;  
-            --rosa-intenso: #e58fa2;    
-            --rosa-oscuro: #8c4354;     
-            --rosa-tarjeta: #fff5f6;    
-            --verde-huerto: #4d693f;    
-            --verde-hover: #3a502f;     
-            --blanco: #ffffff;
-            --texto-oscuro: #2c3528;    
+        body { 
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f4f7f2; 
+            color: #2e3b27;
         }
 
-        body {
-            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--rosa-principal);
-            color: var(--texto-oscuro);
-            -webkit-font-smoothing: antialiased;
+        /* BARRA DE NAVEGACIÓN */
+        .navbar {
+            background-color: #ffffff;
+            padding: 15px 30px;
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(85, 122, 70, 0.06);
+            border-bottom: 1px solid #dbe3da;
         }
 
-        /* 🌿 ENCABEZADO */
-        .header-top {
-            background: linear-gradient(135deg, var(--rosa-oscuro), var(--rosa-intenso));
-            color: var(--blanco);
-            padding: 40px 20px;
+        .navbar-brand {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #557a46;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-login {
+            color: #785880; 
+            cursor: pointer; 
+            font-weight: bold; 
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 18px;
+            border-radius: 20px; 
+            border: 1px solid rgba(120, 88, 128, 0.3);
+            background: #ffffff;
+            transition: all 0.2s ease;
+        }
+
+        .btn-login:hover { 
+            background: #f1ebf2;
+            border-color: #785880;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .header-proyecto {
             text-align: center;
-            box-shadow: 0 4px 20px rgba(140, 67, 84, 0.15);
+            margin-bottom: 40px;
         }
 
-        .header-top h1 {
+        .header-proyecto h1 {
+            color: #405d33;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header-proyecto p {
+            color: #6d7c65;
+            font-size: 1.1rem;
             margin: 0;
-            font-size: 3.2rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
         }
 
-        .header-top p {
-            margin: 10px 0 0 0;
-            font-size: 1.3rem;
-            opacity: 0.95;
-            font-style: italic;
-            font-weight: 500;
-        }
-
-        /* 📋 BARRA DE PESTAÑAS NAVEGABLES */
-        .tabs-nav-bar {
-            background-color: var(--blanco);
+        /* MENÚ DE PESTAÑAS (TABS) */
+        .tabs-menu {
             display: flex;
-            justify-content: center;
-            padding: 12px 0;
-            gap: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            gap: 10px;
+            border-bottom: 2px solid #eef3ed;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 5px;
         }
 
         .tab-btn {
-            background-color: transparent;
+            background: none;
             border: none;
-            padding: 10px 22px;
-            border-radius: 20px;
-            font-size: 1rem;
+            padding: 12px 20px;
+            font-size: 0.95rem;
             font-weight: bold;
-            color: var(--texto-oscuro);
+            color: #6d7c65;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            border-radius: 12px 12px 0 0;
             transition: all 0.2s;
+            white-space: nowrap;
         }
 
-        .tab-btn.active-producto {
-            background-color: #fff0f2;
-            color: var(--rosa-oscuro);
+        .tab-btn:hover {
+            color: #557a46;
+            background-color: #eef3ed;
         }
 
-        .tab-btn.active-huerto {
-            background-color: var(--verde-huerto);
-            color: var(--blanco);
+        .tab-btn.active {
+            color: #557a46;
+            border-bottom: 3px solid #557a46;
+            background-color: #ffffff;
         }
 
-        .container {
-            max-width: 1100px;
-            width: 100%;
-            margin: 25px auto;
-            padding: 0 20px;
-            box-sizing: border-box;
-            flex: 1;
-        }
-
+        /* CONTENIDO DE LAS PESTAÑAS */
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease-in-out;
+            background: #ffffff;
+            padding: 35px;
+            border-radius: 24px;
+            border: 1px solid #dbe3da;
+            box-shadow: 0 6px 20px rgba(85, 122, 70, 0.02);
+            animation: fadeIn 0.4s ease;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        /* 💋 TARJETAS SEPARADAS ESTILO EDITORIAL */
-        .bloque-seccion {
-            background-color: var(--blanco);
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
-            margin-bottom: 25px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .contenedor-logo-musu {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .logo-musu-presentacion {
-            max-width: 240px;
-            height: auto;
-            border-radius: 20px;
-        }
-
-        .bloque-seccion h2 {
-            color: var(--rosa-oscuro);
-            font-size: 1.8rem;
+        h2 {
+            color: #405d33;
+            border-bottom: 2px solid #f4f7f2;
+            padding-bottom: 10px;
             margin-top: 0;
-            border-bottom: 2px solid var(--rosa-principal);
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .bloque-seccion p {
-            line-height: 1.7;
-            font-size: 1.05rem;
-            text-align: justify;
-            color: #3d4a37;
-            margin-bottom: 0;
+        p {
+            line-height: 1.6;
+            color: #3a4733;
         }
 
-        /* Distribución en 2 columnas (Texto + Imagen) */
-        .columnas-layout {
+        /* INTEGRANTES */
+        .grid-integrantes {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 30px;
-            align-items: center;
-        }
-
-        @media (max-width: 768px) {
-            .columnas-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Tarjetas de Recetas */
-        .grid-elaboracion {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-            margin-bottom: 25px;
-        }
-
-        .tarjeta-receta {
-            background-color: var(--rosa-tarjeta);
-            border: 1px solid #f7d5dc;
-            border-radius: 16px;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
-        .tarjeta-receta h4 {
-            margin-top: 0;
-            color: var(--rosa-oscuro);
-            font-size: 1.1rem;
-            border-bottom: 1px dashed var(--rosa-intenso);
-            padding-bottom: 5px;
-        }
-
-        /* Galería de Fotos Integrada */
-        .galeria-fotos-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
             margin-top: 20px;
         }
 
-        .caja-foto-integrada {
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
-            border: 4px solid var(--blanco);
-            background-color: #f9f9f9;
-        }
-
-        .caja-foto-integrada img {
-            width: 100%;
-            height: 100%;
-            display: block;
-            object-fit: cover;
-        }
-
-        /* 🐢 PESTAÑA 2: ACCESO AL HUERTO */
-        .grid-huerto-layout {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 25px;
-            background-color: var(--blanco);
-            padding: 25px;
-            border-radius: 24px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-            align-items: center;
-        }
-
-        @media (max-width: 768px) {
-            .grid-huerto-layout { grid-template-columns: 1fr; }
-        }
-
-        .contenedor-ilustracion-tortuga {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            display: flex;
-        }
-
-        .contenedor-ilustracion-tortuga img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Panel Fijo Derecho de Login */
-        .panel-login-derecho {
-            background-color: #ffffff;
-            border: 1px solid #f0f0f0;
-            border-radius: 20px;
-            padding: 35px 25px;
-            text-align: center;
-            box-sizing: border-box;
-        }
-
-        .logo-paec-original {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: contain;
-            margin-bottom: 15px;
-            display: inline-block;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .huerto-title {
-            color: var(--verde-huerto);
-            font-size: 2.1rem;
-            font-weight: bold;
-            margin: 0 0 5px 0;
-        }
-
-        .huerto-subtitle {
-            color: #60705a;
-            font-size: 0.92rem;
-            margin-bottom: 25px;
-        }
-
-        /* Inputs */
-        input {
-            width: 100%;
-            margin-bottom: 14px;
-            padding: 12px 15px;
-            border: 1px solid #d0dacb;
-            border-radius: 10px;
-            box-sizing: border-box;
-            font-size: 0.9rem;
-            background-color: #fcfdfe;
-            color: #2c3528;
-            outline: none;
-            transition: all 0.2s;
-        }
-        input:focus {
-            border-color: var(--verde-huerto);
-            background-color: #ffffff;
-        }
-
-        button.btn-enviar-huerto {
-            width: 100%;
-            padding: 13px;
-            background-color: var(--verde-huerto);
-            color: var(--blanco);
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 5px;
-        }
-        button.btn-enviar-huerto:hover {
-            background-color: var(--verde-hover);
-        }
-
-        .opciones-alternas {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: #60705a;
-        }
-        .link-cambio {
-            color: var(--verde-huerto);
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .link-cambio:hover {
-            text-decoration: underline;
-        }
-
-        /* Publicidad Inferior del Bálsamo */
-        .caja-balsamo-promocional {
-            margin-top: 25px;
-            border: 1px dashed var(--rosa-intenso);
-            background-color: var(--rosa-tarjeta);
+        .card-integrante {
+            background: #f9fbf8;
+            border: 1px solid #edf2ec;
+            padding: 15px 20px;
             border-radius: 14px;
-            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            color: #2e3b27;
+        }
+
+        .card-integrante span {
+            background: #785880;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 0.85rem;
-            color: var(--rosa-oscuro);
+        }
+
+        /* DISEÑO DE LA LÍNEA DEL TIEMPO (TIMELINE) */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 10px 0;
+        }
+
+        /* Eje central de la línea */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #c0cca9;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        /* Contenedores de los pasos */
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        /* Nodos/Burbujas numéricas en el centro */
+        .timeline-item::after {
+            content: attr(data-step);
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            right: -14px;
+            background-color: #557a46;
+            border: 4px solid #f4f7f2;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            line-height: 28px;
+            font-size: 0.85rem;
+        }
+
+        /* Posicionamiento izquierda y derecha */
+        .left { left: 0; }
+        .right { left: 50%; }
+
+        .right::after { left: -14px; }
+
+        /* Cajas de contenido */
+        .timeline-card {
+            padding: 20px;
+            background-color: #f9fbf8;
+            position: relative;
+            border-radius: 18px;
+            border: 1px solid #edf2ec;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .timeline-card h3 {
+            margin-top: 0;
+            color: #405d33;
+            font-size: 1.05rem;
+            margin-bottom: 12px;
             line-height: 1.4;
         }
 
-        .btn-enlace-balsamo {
-            display: inline-block;
-            margin-top: 10px;
-            background-color: var(--rosa-intenso);
-            color: white;
-            padding: 8px 18px;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.82rem;
-            transition: background 0.2s;
-        }
-        .btn-enlace-balsamo:hover {
-            background-color: #d47a8e;
+        .timeline-card img {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            display: block;
+            border: 1px solid #dbe3da;
         }
 
-        .hidden { display: none !important; }
+        /* GALERÍA DE IMÁGENES */
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+        .galeria-item {
+            background: #f9fbf8;
+            border: 1px solid #dbe3da;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .galeria-item .pie {
+            padding: 12px;
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: 500;
+            color: #557a46;
+        }
+
+        /* SUBSECCIONES MARCO TEÓRICO */
+        .subseccion {
+            background: #fafbfa;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            border-left: 4px solid #557a46;
+        }
+
+        .subseccion h3 { margin-top: 0; color: #557a46; }
+
+        /* Adaptabilidad para Teléfonos Celulares */
+        @media screen and (max-width: 600px) {
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 17px; right: auto; }
+            .left { left: 0; }
+            .right { left: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header-top">
-        <h1>MUSU</h1>
-        <p>"Dale besos a tu cora 💋"</p>
-    </div>
-
-    <div class="tabs-nav-bar">
-        <button id="btn-tab-prod" class="tab-btn active-producto" onclick="alternarSeccionPestañas('producto')">
-            ✨ Presentación del Proyecto
-        </button>
-        <button id="btn-tab-huer" class="tab-btn" onclick="alternarSeccionPestañas('huerto')">
-            🌱 Acceso Huertito
-        </button>
-    </div>
+    <!-- BARRA SUPERIOR -->
+    <nav class="navbar">
+        <div class="navbar-brand">🌱 Bitácora del Huerto Escolar</div>
+        <a href="/login.html" class="btn-login">Acceso Alumnos / Admin</a>
+    </nav>
 
     <div class="container">
         
-        <div id="seccion-producto" class="tab-content active">
-            
-            <div class="bloque-seccion">
-                <div class="contenedor-logo-musu">
-                    <img src="logo.jpeg" alt="Logo Oficial MUSU" class="logo-musu-presentacion">
-                </div>
-                <h2>📝 Presentación del Proyecto</h2>
-                <div class="columnas-layout">
-                    <div>
-                        <p>Musu es un proyecto de cuidado personal creado con el propósito de ofrecer productos naturales para la hidratación y el bienestar de la piel y los labios. Nuestro proyecto está compuesto por un bálsamo labial hidratante, un exfoliante labial y un aceite para manos, codos y rodillas, elaborados con ingredientes naturales como miel, aceite de coco, aceite de almendras, aceite de oliva y vitamina E.</p>
-                        <br>
-                        <p>El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables. A través de la elaboración de estos productos, buscamos promover el uso de ingredientes naturales y demostrar que es posible crear productos de calidad de forma sencilla y económica. Además, nuestro proyecto fomenta hábitos de cuidado personal que contribuyen a una mejor imagen y bienestar.</p>
-                    </div>
-                    <div class="caja-foto-integrada">
-                        <img src="ev2.jpeg" alt="Presentación de Integrantes del Equipo Musu">
-                    </div>
-                </div>
-            </div>
-
-            <div class="bloque-seccion">
-                <h2>📊 Resultados</h2>
-                <div class="columnas-layout">
-                    <div>
-                        <p>Cuando presentamos nuestro proyecto, nos dimos cuenta de que algunas personas no entendían completamente la finalidad de nuestros productos al verlos por primera vez. Por eso, decidimos explicar más a fondo en qué consistían, cuáles eran sus ingredientes y los beneficios que aportaban para el cuidado de la piel y los labios. Les comentamos que el objetivo principal era ayudar a mantener la piel hidratada y los labios suaves y saludables, contribuyendo a una mejor apariencia y a una sonrisa más cuidada.</p>
-                        <br>
-                        <p>Conforme fuimos explicando el proceso de elaboración y las ventajas de utilizar ingredientes naturales, las personas comenzaron a mostrar más interés en el proyecto. También les llamó la atención que los productos fueran fáciles de elaborar y que estuvieran hechos con ingredientes accesibles. Al final de la presentación, la mayoría comprendió mejor nuestra propuesta y expresó comentarios positivos sobre los productos. Muchas personas mencionaron que les gustó la idea, la presentación y los beneficios que ofrecen para el cuidado personal, por lo que consideramos que nuestro proyecto tuvo una buena aceptación.</p>
-                    </div>
-                    <div class="caja-foto-integrada">
-                        <img src="ev1.jpeg" alt="Evidencia de Presentación de Cartel Musu">
-                    </div>
-                </div>
-            </div>
-
-            <div class="bloque-seccion">
-                <h2>👩‍🍳 Procesos de Elaboración</h2>
-                <div class="grid-elaboracion">
-                    <div class="tarjeta-receta">
-                        <h4>Elaboración del aceite para manos, codos y rodillas</h4>
-                        <p>Primero mezclamos las 12 cucharadas de aceite de almendras con las 6½ cucharadas de aceite de oliva. Después agregamos el contenido de las 10 cápsulas de vitamina E y revolvimos bien hasta obtener una mezcla uniforme. Finalmente, colocamos el aceite en un frasco limpio para su uso.</p>
-                    </div>
-                    <div class="tarjeta-receta">
-                        <h4>Elaboración del bálsamo hidratante</h4>
-                        <p>Comenzamos colocando la cera de abeja, el aceite de coco y el aceite de oliva en un recipiente resistente al calor. Después derretimos los ingredientes a baño María mientras mezclábamos suavemente. Cuando la mezcla estuvo completamente líquida, la retiramos del fuego y agregamos la vitamina E, la miel y la esencia. Revolvimos rápidamente y vertimos la mezcla en un frasco limpio para que se enviara.</p>
-                    </div>
-                    <div class="tarjeta-receta">
-                        <h4>Elaboración del exfoliante labial</h4>
-                        <p>Mezclamos la miel, el aceite de coco y el azúcar en un recipiente pequeño. Revolvimos todos los ingredientes hasta obtener una pasta uniforme. Finalmente, el exfoliante quedó listo para su aplicación en los labios.</p>
-                    </div>
-                </div>
-                
-                <div class="galeria-fotos-grid">
-                    <div class="caja-foto-integrada">
-                        <img src="ev4.jpeg" alt="Paso de preparación Musu 1">
-                    </div>
-                    <div class="caja-foto-integrada">
-                        <img src="ev3.jpeg" alt="Paso de preparación Musu 2">
-                    </div>
-                    <div class="caja-foto-integrada">
-                        <img src="ev5.jpeg" alt="Paso de preparación Musu 3">
-                    </div>
-                </div>
-            </div>
-
+        <!-- ENCABEZADO -->
+        <div class="header-proyecto">
+            <h1>Cultivando un Futuro Sustentable</h1>
+            <p>Memoria Técnica y Registro de Evidencias del Huerto Escolar</p>
         </div>
 
-        <div id="seccion-huerto" class="tab-content">
-            <div class="grid-huerto-layout">
-                
-                <div class="contenedor-ilustracion-tortuga">
-                    <img src="sorpresa.png" alt="Ilustración Tortuga PAEC Huertito">
+        <!-- MENÚ INTERACTIVO -->
+        <div class="tabs-menu">
+            <button class="tab-btn active" onclick="cambiarPestana(event, 'info')">General</button>
+            <button class="tab-btn" onclick="cambiarPestana(event, 'integrantes')">Equipo</button>
+            <button class="tab-btn" onclick="cambiarPestana(event, 'timeline-tab')">Línea del Tiempo</button>
+            <button class="tab-btn" onclick="cambiarPestana(event, 'marco')">Marco Teórico</button>
+            <button class="tab-btn" onclick="cambiarPestana(event, 'galeria')">Galería de Evidencias</button>
+        </div>
+
+        <!-- PESTAÑA 1: GENERAL -->
+        <div id="info" class="tab-content active">
+            <h2>🎯 Objetivo del Proyecto</h2>
+            <p>Diseñar, implementar y mantener un huerto escolar sustentable enfocado en la producción de lavanda. Se busca aprender dinámicas agroecológicas mediante el trabajo en equipo, la optimización de recursos hídricos y el desarrollo de un modelo de negocio innovador basado en las propiedades de esta planta medicinal y aromática.</p>
+            
+            <br>
+            <h2>💡 Justificación</h2>
+            <p>El cultivo de lavanda representa una excelente oportunidad pedagógica y productiva en la escuela. Es una planta resistente que requiere cuidados específicos de riego y suelo, sirviendo como base para estudiar la botánica práctica. Además, su potencial de transformación permite al equipo incursionar en proyectos de emprendimiento sustentable, dándole un valor agregado a la materia prima cosechada.</p>
+        </div>
+
+        <!-- PESTAÑA 2: INTEGRANTES -->
+        <div id="integrantes" class="tab-content">
+            <h2>👥 Integrantes del Equipo</h2>
+            <p>El presente proyecto es coordinado y ejecutado por los siguientes alumnos:</p>
+            
+            <div class="grid-integrantes">
+                <div class="card-integrante"><span>1</span> ARELY DENISSE BARAJAS RODRÍGUEZ</div>
+                <div class="card-integrante"><span>2</span> MBALIA DESIREE ORTEGA OLAEZ</div>
+                <div class="card-integrante"><span>3</span> ANA MARICELA RINCÓN TOVAR</div>
+                <div class="card-integrante"><span>4</span> FATIMA DE JESUS HERNANDEZ LUGO</div>
+                <div class="card-integrante"><span>5</span> JOSÉ LUIS CERVANTES ARREDONDO</div>
+                <div class="card-integrante"><span>6</span> ANGEL ABRAHAM REGALDO LÓPEZ</div>
+                <div class="card-integrante"><span>7</span> JUAN DIEGO SANTACRUZ AGUILAR</div>
+            </div>
+
+            <br><br>
+            <h2>📸 Imágenes de Equipo</h2>
+            <div class="galeria-grid">
+                <div class="galeria-item">
+                    <img src="/equipo1.png" alt="Equipo planeando" onerror="this.src='https://placehold.co/400x300?text=Equipo+Organización'">
+                    <div class="pie">Sesión de Planificación</div>
                 </div>
+                <div class="galeria-item">
+                    <img src="/equipo2.png" alt="Equipo trabajando" onerror="this.src='https://placehold.co/400x300?text=Equipo+en+Campo'">
+                    <div class="pie">Trabajo en Equipo</div>
+                </div>
+            </div>
+        </div>
 
-                <div class="panel-login-derecho">
-                    <img src="kike.png" alt="Logotipo PAEC" class="logo-paec-original">
-                    <div class="huerto-title">🌱 Huertito</div>
-                    <div id="instruccionSub" class="huerto-subtitle">Ingresa para gestionar y monitorear tus plantas.</div>
-
-                    <form id="formLogin" onsubmit="event.preventDefault(); ejecutarAcceso();">
-                        <input type="email" id="correoLogin" placeholder="Correo electrónico" required autocomplete="username">
-                        <input type="password" id="passLogin" placeholder="Contraseña" required autocomplete="current-password">
-                        <button type="submit" class="btn-enviar-huerto">Entrar</button>
-                        <div class="opciones-alternas">
-                            ¿No tienes una cuenta? <span class="link-cambio" onclick="cambiarModeloFormulario('registro')">Regístrate</span>
-                        </div>
-                    </form>
-
-                    <form id="formRegistro" class="hidden" onsubmit="event.preventDefault(); ejecutarRegistro();">
-                        <input type="text" id="nombreReg" placeholder="Nombre completo" required autocomplete="off">
-                        <input type="email" id="correoReg" placeholder="Correo electrónico" required autocomplete="off">
-                        <input type="password" id="passReg" placeholder="Contraseña" required autocomplete="new-password">
-                        <button type="submit" class="btn-enviar-huerto">Registrarte</button>
-                        <div class="opciones-alternas">
-                            ¿Tienes una cuenta? <span class="link-cambio" onclick="cambiarModeloFormulario('login')">Iniciar sesión</span>
-                        </div>
-                    </form>
-
-                    <div class="caja-balsamo-promocional">
-                        Conoce la línea de <strong>Bálsamos Labiales Naturales MUSU</strong> elaborados con la cosecha y esencia de nuestro huerto.
-                        <br>
-                        <a href="https://www.instagram.com/p/DZI-aLJoxfY/" target="_blank" class="btn-enlace-balsamo">💋 Ver Nuestro Bálsamo</a>
+        <!-- PESTAÑA 3: LÍNEA DEL TIEMPO -->
+        <div id="timeline-tab" class="tab-content">
+            <h2>⏳ Proceso de Desarrollo del Proyecto</h2>
+            <p>A continuación se detalla cronológicamente cada uno de los pasos realizados por el equipo, desde la preparación del suelo hasta la consolidación del producto final:</p>
+            
+            <div class="timeline">
+                
+                <!-- PASO 1 -->
+                <div class="timeline-item left" data-step="1">
+                    <div class="timeline-card">
+                        <h3>1. Realización de surcos</h3>
+                        <img src="1.jpg" alt="Realización de surcos" onerror="this.src='https://placehold.co/400x250?text=Paso+1:+Surcos'">
                     </div>
                 </div>
 
+                <!-- PASO 2 -->
+                <div class="timeline-item right" data-step="2">
+                    <div class="timeline-card">
+                        <h3>2. Plantación de la planta de lavanda</h3>
+                        <img src="2.jpg" alt="Plantación de lavanda" onerror="this.src='https://placehold.co/400x250?text=Paso+2:+Plantación'">
+                    </div>
+                </div>
+
+                <!-- PASO 3 -->
+                <div class="timeline-item left" data-step="3">
+                    <div class="timeline-card">
+                        <h3>3. Investigación del sistema de riego</h3>
+                        <img src="3.jpg" alt="Investigación de riego" onerror="this.src='https://placehold.co/400x250?text=Paso+3:+Investigación+Riego'">
+                    </div>
+                </div>
+
+                <!-- PASO 4 -->
+                <div class="timeline-item right" data-step="4">
+                    <div class="timeline-card">
+                        <h3>4. Realización del sistema de riego</h3>
+                        <img src="4.jpg" alt="Realización del sistema de riego" onerror="this.src='https://placehold.co/400x250?text=Paso+4:+Armado+de+Riego'">
+                    </div>
+                </div>
+
+                <!-- PASO 5 -->
+                <div class="timeline-item left" data-step="5">
+                    <div class="timeline-card">
+                        <h3>5. Aplicación del sistema de riego</h3>
+                        <img src="5.jpg" alt="Aplicación de riego" onerror="this.src='https://placehold.co/400x250?text=Paso+5:+Riego+Activo'">
+                    </div>
+                </div>
+
+                <!-- PASO 6 -->
+                <div class="timeline-item right" data-step="6">
+                    <div class="timeline-card">
+                        <h3>6. Medición de lavandas y aplicación de abono</h3>
+                        <img src="6.jpg" alt="Medición y abono" onerror="this.src='https://placehold.co/400x250?text=Paso+6:+Control+y+Abono'">
+                    </div>
+                </div>
+
+                <!-- PASO 7 -->
+                <div class="timeline-item left" data-step="7">
+                    <div class="timeline-card">
+                        <h3>7. Investigación de producto innovador y creación de marca (Nombre, Slogan, Logo, Carteles y Material Didáctico)</h3>
+                        <img src="7.jpg" alt="Identidad del producto" onerror="this.src='https://placehold.co/400x250?text=Paso+7:+Diseño+de+Marca'">
+                    </div>
+                </div>
+
+                <!-- PASO 8 -->
+                <div class="timeline-item right" data-step="8">
+                    <div class="timeline-card">
+                        <h3>8. Adquisición de materiales para hacer el producto</h3>
+                        <img src="8.jpg" alt="Adquisición de materiales" onerror="this.src='https://placehold.co/400x250?text=Paso+8:+Materiales'">
+                    </div>
+                </div>
+
+                <!-- PASO 9 -->
+                <div class="timeline-item left" data-step="9">
+                    <div class="timeline-card">
+                        <h3>9. Realización del producto</h3>
+                        <img src="9.jpg" alt="Realización del producto" onerror="this.src='https://placehold.co/400x250?text=Paso+9:+Producción'">
+                    </div>
+                </div>
+
+                <!-- PASO 10 -->
+                <div class="timeline-item right" data-step="10">
+                    <div class="timeline-card">
+                        <h3>10. Presentación del producto innovador</h3>
+                        <img src="10.jpg" alt="Presentación final" onerror="this.src='https://placehold.co/400x250?text=Paso+10:+Presentación'">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- PESTAÑA 4: MARCO TEÓRICO -->
+        <div id="marco" class="tab-content">
+            <h2>📖 Marco Teórico e Investigación</h2>
+            <p>El sustento conceptual que respalda las decisiones de campo e ingeniería tomadas por el equipo:</p>
+            
+            <div class="subseccion">
+                <h3>1. El Cultivo de Lavanda (Lavandula)</h3>
+                <p>La lavanda es una planta perenne de la familia de las lamiáceas. Destaca por su alta resistencia a las sequías una vez establecida, requiriendo suelos con excelente drenaje y un pH de neutro a ligeramente alcalino para evitar la asfixia radicular.</p>
+            </div>
+
+            <div class="subseccion">
+                <h3>2. Eficiencia hídrica y Sistemas de Riego</h3>
+                <p>La lavanda es sumamente sensible al exceso de humedad. La implementación de sistemas de riego controlados (como el riego por goteo o localizado) permite suministrar la cantidad exacta de agua directamente a la base de la planta, minimizando la evaporación y previniendo la proliferación de hongos fitopatógenos.</p>
+            </div>
+
+            <div class="subseccion">
+                <h3>3. Emprendimiento Sustentable y Valor Agregado</h3>
+                <p>El diseño de productos derivados del huerto escolar (como aceites esenciales, jabones, aromatizantes o saquitos relajantes) fomenta la economía circular. El proceso incluye desde la identidad gráfica (logo y slogan) hasta el empaque ecológico, promoviendo habilidades comerciales e innovadoras en el equipo.</p>
+            </div>
+        </div>
+
+        <!-- PESTAÑA 5: GALERÍA GENERAL -->
+        <div id="galeria" class="tab-content">
+            <h2>🌱 Galería de Imágenes del Huerto</h2>
+            <p>Fotografías adicionales de las lavandas y los resultados en el huerto escolar:</p>
+            
+            <div class="galeria-grid">
+                <div class="galeria-item">
+                    <img src="/huerto1.png" alt="Huerto" onerror="this.src='https://placehold.co/400x300?text=Vista+General+1'">
+                    <div class="pie">Camas de Cultivo</div>
+                </div>
+                <div class="galeria-item">
+                    <img src="/huerto2.png" alt="Detalle" onerror="this.src='https://placehold.co/400x300?text=Detalle+Lavanda'">
+                    <div class="pie">Primeros Brotes de Lavanda</div>
+                </div>
             </div>
         </div>
 
     </div>
 
     <script>
-        function alternarSeccionPestañas(objetivo) {
-            const vistaProd = document.getElementById('seccion-producto');
-            const vistaHuer = document.getElementById('seccion-huerto');
-            const btnProd = document.getElementById('btn-tab-prod');
-            const btnHuer = document.getElementById('btn-tab-huer');
-
-            if(objetivo === 'producto') {
-                vistaProd.classList.add('active');
-                vistaHuer.classList.remove('active');
-                btnProd.classList.add('active-producto');
-                btnHuer.classList.remove('active-huerto');
-            } else {
-                vistaHuer.classList.add('active');
-                vistaProd.classList.remove('active');
-                btnHuer.classList.add('active-huerto');
-                btnProd.classList.remove('active-producto');
+        function cambiarPestana(evt, nombrePestana) {
+            const contenidos = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contenidos.length; i++) {
+                contenidos[i].className = contenidos[i].className.replace(" active", "");
             }
-        }
 
-        function cambiarModeloFormulario(modo) {
-            const fLogin = document.getElementById('formLogin');
-            const fRegistro = document.getElementById('formRegistro');
-            const sub = document.getElementById('instruccionSub');
-
-            if(modo === 'login') {
-                fRegistro.classList.add('hidden');
-                fLogin.classList.remove('hidden');
-                sub.innerText = 'Ingresa para gestionar y monitorear tus plantas.';
-            } else {
-                fLogin.classList.add('hidden');
-                fRegistro.classList.remove('hidden');
-                sub.innerText = 'Regístrate para ver las fotos y avances del huerto urbano.';
+            const botones = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < botones.length; i++) {
+                botones[i].className = botones[i].className.replace(" active", "");
             }
-        }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            localStorage.removeItem('token');
-            localStorage.removeItem('rol');
-        });
-
-        async function ejecutarRegistro() {
-            const nombre = document.getElementById('nombreReg').value.trim();
-            const correo = document.getElementById('correoReg').value.trim();
-            const password = document.getElementById('passReg').value;
-
-            try {
-                const res = await fetch('/api/registro', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ nombre, correo, password })
-                });
-                if (res.ok) {
-                    alert('¡Registro completado! Ya puedes iniciar sesión.');
-                    cambiarModeloFormulario('login');
-                } else {
-                    const data = await res.json();
-                    alert('Aviso: ' + (data.error || 'Verifica los datos insertados.'));
-                }
-            } catch (err) {
-                cambiarModeloFormulario('login');
-            }
-        }
-
-        async function ejecutarAcceso() {
-            const correo = document.getElementById('correoLogin').value.trim();
-            const password = document.getElementById('passLogin').value;
-
-            try {
-                const res = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ correo, password })
-                });
-                const data = await res.json();
-
-                if (res.ok) {
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('rol', data.rol || 'usuario');
-                    window.location.href = 'dashboard.html';
-                } else {
-                    localStorage.setItem('token', 'TOKEN_EMERGENCIA_VALIDO_HUERTO');
-                    localStorage.setItem('rol', 'admin');
-                    window.location.href = 'dashboard.html';
-                }
-            } catch (err) {
-                localStorage.setItem('token', 'TOKEN_EMERGENCIA_VALIDO_HUERTO');
-                localStorage.setItem('rol', 'admin');
-                window.location.href = 'dashboard.html';
-            }
+            document.getElementById(nombrePestana).className += " active";
+            evt.currentTarget.className += " active";
         }
     </script>
 </body>
