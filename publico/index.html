@@ -185,7 +185,7 @@
             line-height: 1.5;
         }
 
-        /* ⏳ LÍNEA DEL TIEMPO INTERACTIVA */
+        /* ⏳ LÍNEA DEL TIEMPO INTERACTIVA OPTIMIZADA */
         .timeline-container {
             position: relative;
             max-width: 100%;
@@ -205,7 +205,7 @@
         }
 
         .timeline-item {
-            padding: 10px 40px;
+            padding: 15px 40px;
             position: relative;
             background-color: transparent;
             width: 50%;
@@ -220,7 +220,7 @@
             right: -17px;
             background-color: var(--blanco);
             border: 3px solid var(--verde-huerto);
-            top: 15px;
+            top: 22px;
             border-radius: 50%;
             z-index: 1;
             display: flex;
@@ -235,7 +235,7 @@
         .right::after { left: -14px; }
 
         .timeline-content {
-            padding: 20px;
+            padding: 22px;
             background-color: #fafdf9;
             position: relative;
             border-radius: 16px;
@@ -246,24 +246,38 @@
         .timeline-content h3 {
             margin-top: 0;
             color: var(--verde-huerto);
-            font-size: 1.15rem;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
         }
 
+        /* Cambios clave para que las imágenes se aprecien completas y perfectas */
         .timeline-img {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-top: 12px;
-            border: 2px solid var(--blanco);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+            height: auto; /* Permite que la foto use su forma real sin cortarse */
+            max-height: 400px; /* Evita que fotos exageradamente altas rompan el diseño */
+            object-fit: contain; /* Muestra la imagen completa respetando sus proporciones */
+            border-radius: 12px;
+            margin-top: 14px;
+            border: 1px solid #e1ebe0;
+            background-color: #f4f9f3; /* Fondo suave por si la foto tiene transparencias */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        /* Efecto interactivo para ampliar visualmente la foto al pasar el mouse */
+        .timeline-img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 25px rgba(77, 105, 63, 0.2);
+            z-index: 10;
         }
 
         @media screen and (max-width: 768px) {
             .timeline-container::after { left: 31px; }
             .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
-            .timeline-item::after { left: 18px; right: auto; }
+            .timeline-item::after { left: 18px; right: auto; top: 22px; }
             .right { left: 0%; }
+            .timeline-img:hover { transform: scale(1.02); }
         }
 
         /* Tarjetas de Recetas */
@@ -500,7 +514,7 @@
                         <br>
                         <p>El objetivo de Musu es brindar una alternativa accesible y práctica para el cuidado personal, ayudando a mantener la piel suave e hidratada y los labios saludables. A través de la elaboración de estos productos, buscamos promover el uso de ingredientes naturales y demostrar que es posible crear productos de calidad de forma sencilla y económica.</p>
                         
-                        <!-- El link de Instagram integrado directamente aquí según image_fdeb9b.png -->
+                        <!-- El link de Instagram integrado directamente aquí según tus indicaciones -->
                         <div class="caja-balsamo-promocional">
                             Conoce la línea de <strong>Bálsamos Labiales Naturales MUSU</strong> de nuestro huerto.
                             <br>
@@ -584,10 +598,10 @@
                 </div>
             </div>
 
-            <!-- Cronología con imágenes del 1 al 10 -->
+            <!-- Cronología con imágenes del 1 al 10 optimizadas -->
             <div class="bloque-seccion">
                 <h2 class="verde-titulo">⏳ Línea del Tiempo: Proceso del Huerto</h2>
-                <p style="margin-bottom: 25px;">A continuación se detalla cronológicamente cada una de las fases realizadas en el huerto escolar urbano:</p>
+                <p style="margin-bottom: 25px;">A continuación se detalla cronológicamente cada una de las fases realizadas en el huerto escolar urbano (puedes pasar el cursor sobre las fotos para ampliarlas):</p>
                 
                 <div class="timeline-container">
                     <div class="timeline-item left">
