@@ -177,22 +177,6 @@
             font-size: 1rem;
         }
 
-        /* 📸 ESTILOS PARA LAS IMÁGENES DEL CRONOGRAMA */
-        .cronograma-imagenes {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin: 25px 0;
-        }
-
-        .cronograma-imagenes img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px solid #f0f0f0;
-        }
-
         .btn-drive {
             display: inline-flex;
             align-items: center;
@@ -385,7 +369,7 @@
         <p>Bitácora Interactiva y Seguimiento de Desarrollo de Cultivos</p>
     </header>
 
-    <nav class="tabs-container">
+    nav class="tabs-container">
         <button class="tab-button active" onclick="cambiarPestaña('presentacion')">📖 Presentación</button>
         <button class="tab-button" onclick="cambiarPestaña('cronograma')">📅 Cronograma</button>
         <button class="tab-button" onclick="cambiarPestaña('galeria')">🌿 Galería Pública</button>
@@ -426,11 +410,6 @@
                     <h3 class="timeline-title">Cosecha y Talleres Comunitarios</h3>
                     <p class="timeline-desc">Recolección de frutos y plantas maduras. Integración de los productos del huerto en actividades formativas y elaboración de subproductos naturales.</p>
                 </div>
-            </div>
-
-            <div class="cronograma-imagenes">
-                <img src="cronograma1.png" alt="Cronograma Parte 1">
-                <img src="cronograma2.png" alt="Cronograma Parte 2">
             </div>
 
             <p style="margin-top:25px; font-weight: 500;">📋 Para visualizar el documento detallado en PDF con la cuadrícula completa de fechas y firmas, accede al enlace oficial de nuestra planeación:</p>
